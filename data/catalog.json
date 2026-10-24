@@ -7,98 +7,112 @@
       "name": "Zelda 64: Recompiled",
       "platform": "N64",
       "description": "Recompilação estática de The Legend of Zelda: Majora's Mask, com suporte a mods, gráficos modernos e taxas de quadros altas.",
-      "notes": "Requer a sua própria ROM do jogo."
+      "notes": "Requer a sua própria ROM do jogo.",
+      "cover_title": "The Legend of Zelda: Majora's Mask"
     },
     {
       "repo": "BanjoRecomp/BanjoRecomp",
       "name": "Banjo: Recompiled",
       "platform": "N64",
       "description": "Recompilação de Banjo-Kazooie para PC nativo.",
-      "notes": "Requer a sua própria ROM do jogo."
+      "notes": "Requer a sua própria ROM do jogo.",
+      "cover_title": "Banjo-Kazooie"
     },
     {
       "repo": "sonicdcer/MarioKart64Recomp",
       "name": "Mario Kart 64: Recompiled",
       "platform": "N64",
       "description": "Recompilação de Mario Kart 64 para PC nativo.",
-      "notes": "Requer a sua própria ROM do jogo."
+      "notes": "Requer a sua própria ROM do jogo.",
+      "cover_title": "Mario Kart 64"
     },
     {
       "repo": "klorfmorf/Goemon64Recomp",
       "name": "Goemon 64: Recompiled",
       "platform": "N64",
       "description": "Recompilação de Mystical Ninja Starring Goemon.",
-      "notes": "Requer a sua própria ROM do jogo."
+      "notes": "Requer a sua própria ROM do jogo.",
+      "cover_title": "Mystical Ninja Starring Goemon"
     },
     {
       "repo": "Francessco121/dino-recomp",
       "name": "Dinosaur Planet: Recompiled",
       "platform": "N64",
       "description": "Recompilação de Dinosaur Planet, o jogo da Rare que nunca foi lançado.",
-      "notes": "Requer a sua própria cópia do jogo."
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Dinosaur Planet"
     },
     {
       "repo": "theboy181/drmario64_recomp_plus",
       "name": "Dr. Mario 64 Recomp Plus",
       "platform": "N64",
       "description": "Recompilação de Dr. Mario 64 para PC.",
-      "notes": "Requer a sua própria ROM do jogo."
+      "notes": "Requer a sua própria ROM do jogo.",
+      "cover_title": "Dr. Mario 64"
     },
     {
       "repo": "RevoSucks/BM64Recomp",
       "name": "Bomberman 64: Recompiled",
       "platform": "N64",
       "description": "Recompilação de Bomberman 64.",
-      "notes": "Requer a sua própria ROM do jogo."
+      "notes": "Requer a sua própria ROM do jogo.",
+      "cover_title": "Bomberman 64"
     },
     {
       "repo": "RevoSucks/BMHeroRecomp",
       "name": "Bomberman Hero: Recompiled",
       "platform": "N64",
       "description": "Recompilação de Bomberman Hero.",
-      "notes": "Requer a sua própria ROM do jogo."
+      "notes": "Requer a sua própria ROM do jogo.",
+      "cover_title": "Bomberman Hero"
     },
     {
       "repo": "MegaMan64Recomp/MegaMan64Recompiled",
       "name": "Mega Man 64: Recompiled",
       "platform": "N64",
       "description": "Recompilação de Mega Man 64.",
-      "notes": "Requer a sua própria ROM do jogo."
+      "notes": "Requer a sua própria ROM do jogo.",
+      "cover_title": "Mega Man 64"
     },
     {
       "repo": "Rainchus/Quest64-Recomp",
       "name": "Quest 64: Recompiled",
       "platform": "N64",
       "description": "Recompilação de Quest 64.",
-      "notes": "Requer a sua própria ROM do jogo."
+      "notes": "Requer a sua própria ROM do jogo.",
+      "cover_title": "Quest 64"
     },
     {
       "repo": "Cellenseres/SSSV_Recomp",
       "name": "Space Station Silicon Valley: Recompiled",
       "platform": "N64",
       "description": "Recompilação de Space Station Silicon Valley.",
-      "notes": "Requer a sua própria ROM do jogo."
+      "notes": "Requer a sua própria ROM do jogo.",
+      "cover_title": "Space Station Silicon Valley"
     },
     {
       "repo": "sonicdcer/DNZHRecomp",
       "name": "Duke Nukem: Zero Hour Recompiled",
       "platform": "N64",
       "description": "Recompilação de Duke Nukem: Zero Hour.",
-      "notes": "Requer a sua própria ROM do jogo."
+      "notes": "Requer a sua própria ROM do jogo.",
+      "cover_title": "Duke Nukem: Zero Hour"
     },
     {
       "repo": "Rainchus/ChameleonTwist1-JP-Recomp",
       "name": "Chameleon Twist: Recompiled (JP)",
       "platform": "N64",
       "description": "Recompilação da versão japonesa de Chameleon Twist.",
-      "notes": "Requer a sua própria ROM (versão JP)."
+      "notes": "Requer a sua própria ROM (versão JP).",
+      "cover_title": "Chameleon Twist"
     },
     {
       "repo": "hedge-dev/UnleashedRecomp",
       "name": "Unleashed Recompiled",
       "platform": "Xbox 360",
       "description": "Recompilação estática de Sonic Unleashed (Xbox 360) para PC.",
-      "notes": "Requer os arquivos do seu próprio jogo para Xbox 360."
+      "notes": "Requer os arquivos do seu próprio jogo para Xbox 360.",
+      "cover_title": "Sonic Unleashed"
     }
   ]
 }

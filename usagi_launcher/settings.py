@@ -14,6 +14,8 @@ DEFAULTS: dict[str, Any] = {
     "discover_topics": ["recomp", "recompiled", "recompilation", "static-recompilation"],
     "discover_min_stars": 10,
     "discover_hours": 24,
+    "covers_enabled": True,
+    "steamgriddb_key": "",
     "minimize_on_launch": False,
     "hidden": [],
     "favorites": [],

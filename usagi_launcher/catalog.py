@@ -49,6 +49,8 @@ class Entry:
     stars: int = 0
     pushed_at: str = ""
     homepage: str = ""
+    cover_title: str = ""  # nome do jogo original, usado para achar a capa
+    cover: str = ""  # link ou arquivo local de uma capa própria
 
     def __post_init__(self) -> None:
         if not self.name:

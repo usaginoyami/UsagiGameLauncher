@@ -17,7 +17,9 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install requests
-      - run: python tests/test_core.py
+      - run: |
+          python tests/test_core.py
+          python tests/test_covers.py
 
   build:
     needs: test

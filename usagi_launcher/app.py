@@ -41,7 +41,8 @@ def main(argv: list[str] | None = None) -> int:
     from .library import Library
     from .settings import Settings
     from .ui import theme
-    from .ui.main_window import MainWindow, http_avatar
+    from .covers import CoverFinder
+    from .ui.main_window import MainWindow
 
     app = QApplication(sys.argv[:1])
     app.setApplicationName(APP_NAME)
@@ -55,7 +56,7 @@ def main(argv: list[str] | None = None) -> int:
         client = GitHubClient(settings.get("github_token"),
                               cache_path=paths.data_dir() / "api_cache.json")
     win = MainWindow(client, settings, Library(),
-                     avatar_fetcher=None if args.offline else http_avatar,
+                     cover_finder=CoverFinder(enabled=False) if (args.offline or args.smoke_test) else None,
                      auto_refresh=not args.smoke_test)
     win.show()
 

@@ -89,8 +89,51 @@ lib.record_install("BanjoRecomp/BanjoRecomp", "Banjo: Recompiled", "v1.0.0",
                    str(tmp / "games/Banjo/v1.0.0"), str(tmp / "games/Banjo/v1.0.0/b.exe"), str(tmp / "games/Banjo"))
 settings.toggle("favorites", "mr-wiseguy/zelda64recomp")
 
+from PySide6.QtCore import QBuffer, QByteArray, QIODevice  # noqa: E402
+from PySide6.QtGui import QColor, QFont, QImage, QPainter  # noqa: E402
+
+
+def make_png(w, h, color, text):
+    img = QImage(w, h, QImage.Format.Format_RGB32)
+    img.fill(QColor(color))
+    p = QPainter(img)
+    p.setPen(QColor("white"))
+    f = QFont()
+    f.setPixelSize(max(h // 6, 10))
+    f.setBold(True)
+    p.setFont(f)
+    p.drawText(img.rect(), 0x84, text)  # centralizado
+    p.end()
+    ba = QByteArray()
+    buf = QBuffer(ba)
+    buf.open(QIODevice.OpenModeFlag.WriteOnly)
+    img.save(buf, "PNG")
+    return bytes(ba)
+
+
+class FakeFinder:
+    """Banjo e Zelda: caixa vertical; Mario Kart e Goemon: banner; Bomberman: sem capa."""
+    enabled = True
+
+    def __init__(self):
+        self.asked = []
+
+    def configure(self, key, enabled):
+        pass
+
+    def find(self, entry):
+        self.asked.append(entry.key)
+        n = entry.name.lower()
+        if "bomberman" in n:
+            return None, False
+        if "banjo" in n or "zelda" in n:
+            return make_png(300, 420, "#2e5eaa" if "banjo" in n else "#2a7a4a", entry.cover_title[:14]), False
+        return make_png(920, 430, "#a23b2a", entry.cover_title[:18]), False
+
+
 client = FakeClient()
-win = MainWindow(client, settings, lib, avatar_fetcher=None, auto_refresh=True)
+finder = FakeFinder()
+win = MainWindow(client, settings, lib, cover_finder=finder, auto_refresh=True)
 win.show()
 
 fails = []
@@ -115,7 +158,32 @@ check(win.rows["someone/coolgame-recomp"].entry.platform == "PS3", "plataforma P
 check(win.list.count() == len(win.rows), f"lista mostra {win.list.count()} cards")
 first_key = win.list.item(0).data(256)
 check(first_key == "banjorecomp/banjorecomp", "jogo com atualização aparece primeiro")
+pump(app, 2.0, until=lambda: not win.covers._busy)
+pump(app, 0.3)
+banjo = win.rows["banjorecomp/banjorecomp"].entry
+check(win.covers.pixmap(banjo) is not None, "capa vertical do Banjo carregada")
+check(win.covers.composed(banjo, 192, 108).size().width() == 192, "capa vertical encaixada no card")
+check(win.covers.pixmap(win.rows["sonicdcer/mariokart64recomp"].entry) is not None, "banner do Mario Kart carregado")
+bm = win.rows["revosucks/bm64recomp"].entry
+check(win.covers.pixmap(bm) is None and not win.covers.store.needs_fetch(bm.key),
+      "jogo sem capa: marcado para não repetir a busca")
+check(len(finder.asked) == len(set(finder.asked)), "cada jogo só foi buscado uma vez")
+n_asked = len(finder.asked)
+win.list.viewport().update()
+pump(app, 0.5)
+check(len(finder.asked) == n_asked, "repintar não dispara novas buscas")
+check(not win.d_cover.isHidden() and win.d_cover.entry.key == first_key, "capa grande no painel de detalhes")
 win.grab().save(str(OUT / "01_lista.png"))
+
+# capa própria e rebusca pelo menu
+custom = tmp / "minha.png"
+custom.write_bytes(make_png(400, 200, "#8a1ea2", "MINHA CAPA"))
+win.covers.store.set_custom(bm.key, custom)
+win._cover_changed(bm.key)
+check(win.covers.pixmap(bm) is not None, "capa definida manualmente aparece")
+win.refetch_cover(bm.key)
+pump(app, 1.0, until=lambda: not win.covers._busy)
+check(win.covers.store.cached(bm.key) is None, "rebuscar limpou a capa e a falha (Bomberman segue sem capa)")
 
 # favoritos / filtros
 win.sidebar.setCurrentRow(3)

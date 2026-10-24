@@ -17,16 +17,18 @@ from PySide6.QtWidgets import (QAbstractItemView, QCheckBox, QComboBox, QDialog,
                                QMessageBox, QProgressBar, QPushButton, QSpinBox, QStyle,
                                QStyledItemDelegate, QTextBrowser, QVBoxLayout, QWidget)
 
-from .. import APP_NAME, __version__, catalog, installer, launcher, paths
+from .. import APP_NAME, __version__, catalog, covers, installer, launcher, paths
 from ..catalog import Entry
 from ..errors import Cancelled, GitHubError, RateLimitError
 from ..github_api import GitHubClient, Release
 from ..library import Library
 from ..settings import Settings
 from . import theme
+from .covers_ui import CoverCache, CoverView, paint_cover
 from .tasks import Task, TaskRunner
 
-CARD_W, CARD_H = 300, 100
+CARD_W, CARD_H = 212, 196
+COVER_H = 108
 
 F_ALL, F_LIB, F_UPD, F_FAV, F_DISC = range(5)
 FILTERS = [("Todos", F_ALL), ("Biblioteca", F_LIB), ("Atualizações", F_UPD),
@@ -67,47 +69,6 @@ class Row:
                     and self.rec.get("version") not in ("manual", self.release.tag))
 
 
-# --------------------------------------------------------------------- avatares
-class AvatarCache(QObject):
-    updated = Signal(str)
-
-    def __init__(self, folder: Path, runner: TaskRunner, fetcher: Callable[[str], bytes | None] | None):
-        super().__init__()
-        self.folder, self.runner, self.fetcher = folder, runner, fetcher
-        self.folder.mkdir(parents=True, exist_ok=True)
-        self._mem: dict[str, QPixmap] = {}
-        self._asked: set[str] = set()
-
-    def get(self, owner: str) -> QPixmap | None:
-        if owner in self._mem:
-            return self._mem[owner]
-        f = self.folder / f"{owner}.png"
-        if f.exists():
-            pm = QPixmap(str(f))
-            if not pm.isNull():
-                self._mem[owner] = pm
-                return pm
-        if self.fetcher and owner not in self._asked:
-            self._asked.add(owner)
-
-            def work(task: Task):
-                data = self.fetcher(owner)
-                if data:
-                    f.write_bytes(data)
-                return data
-
-            self.runner.run(work, ok=lambda d, o=owner: self.updated.emit(o) if d else None)
-        return None
-
-
-def http_avatar(owner: str) -> bytes | None:
-    try:
-        r = requests.get(f"https://github.com/{owner}.png?size=112", timeout=15)
-        return r.content if r.ok and r.headers.get("Content-Type", "").startswith("image") else None
-    except requests.RequestException:
-        return None
-
-
 # ------------------------------------------------------------------- delegate
 class CardDelegate(QStyledItemDelegate):
     def __init__(self, window: "MainWindow"):
@@ -117,13 +78,16 @@ class CardDelegate(QStyledItemDelegate):
     def sizeHint(self, option, index) -> QSize:
         return QSize(CARD_W, CARD_H)
 
-    @staticmethod
-    def _chip(p: QPainter, x: float, y: float, text: str, bg: str, fg: str = "white") -> float:
+    _limit = 1e9  # borda direita: selos que não cabem no card são omitidos
+
+    def _chip(self, p: QPainter, x: float, y: float, text: str, bg: str, fg: str = "white") -> float:
         f = QFont(p.font())
         f.setPointSizeF(8)
         f.setBold(True)
         p.setFont(f)
         w = QFontMetrics(f).horizontalAdvance(text) + 14
+        if x + w > self._limit:
+            return 0
         rect = QRectF(x, y, w, 18)
         p.setPen(Qt.PenStyle.NoPen)
         p.setBrush(QColor(bg))
@@ -146,44 +110,28 @@ class CardDelegate(QStyledItemDelegate):
         p.setPen(QPen(QColor(theme.RED if selected else theme.BORDER), 1.6 if selected else 1))
         p.drawRoundedRect(r, 10, 10)
 
-        # avatar do autor do repositório
-        av = QRectF(r.left() + 12, r.top() + 14, 56, 56)
-        clip = QPainterPath()
-        clip.addRoundedRect(av, 10, 10)
-        pm = self.w.avatars.get(row.entry.owner)
-        if pm is not None:
-            p.setClipPath(clip)
-            p.drawPixmap(av.toRect(), pm)
-            p.setClipping(False)
-        else:
-            p.setPen(Qt.PenStyle.NoPen)
-            p.setBrush(QColor(theme.BG))
-            p.drawPath(clip)
-            f = QFont(p.font())
-            f.setPointSize(18)
-            f.setBold(True)
-            p.setFont(f)
-            p.setPen(QColor(theme.RED))
-            p.drawText(av, Qt.AlignmentFlag.AlignCenter, (row.entry.name[:1] or "?").upper())
+        cover = QRectF(r.left() + 6, r.top() + 6, r.width() - 12, COVER_H)
+        paint_cover(p, cover, self.w.covers, row.entry)
 
-        tx = av.right() + 12
-        tw = r.right() - tx - 24
+        tx = r.left() + 8
+        tw = r.width() - 16
         f = QFont(p.font())
-        f.setPointSizeF(10.5)
+        f.setPointSizeF(10)
         f.setBold(True)
         p.setFont(f)
         p.setPen(QColor(theme.TEXT))
         name = QFontMetrics(f).elidedText(row.entry.name, Qt.TextElideMode.ElideRight, int(tw))
-        p.drawText(QRectF(tx, r.top() + 10, tw, 22), Qt.AlignmentFlag.AlignVCenter, name)
+        p.drawText(QRectF(tx, cover.bottom() + 6, tw, 20), Qt.AlignmentFlag.AlignVCenter, name)
 
         f.setBold(False)
-        f.setPointSizeF(8.5)
+        f.setPointSizeF(8)
         p.setFont(f)
         p.setPen(QColor(theme.MUTED))
         sub = QFontMetrics(f).elidedText(row.entry.repo, Qt.TextElideMode.ElideRight, int(tw))
-        p.drawText(QRectF(tx, r.top() + 32, tw, 18), Qt.AlignmentFlag.AlignVCenter, sub)
+        p.drawText(QRectF(tx, cover.bottom() + 26, tw, 16), Qt.AlignmentFlag.AlignVCenter, sub)
 
-        x, y = tx, r.top() + 58
+        self._limit = r.right() - 8
+        x, y = tx, cover.bottom() + 46
         x += self._chip(p, x, y, row.entry.platform, "#33333f")
         if key in self.w.active:
             x += self._chip(p, x, y, "Instalando…", theme.BLUE)
@@ -199,10 +147,14 @@ class CardDelegate(QStyledItemDelegate):
             x += self._chip(p, x, y, "Pré-release", "#3a2a12", theme.AMBER)
 
         if self.w.settings.has("favorites", key):
-            f.setPointSizeF(12)
+            badge = QRectF(cover.right() - 26, cover.top() + 4, 22, 22)
+            p.setPen(Qt.PenStyle.NoPen)
+            p.setBrush(QColor(0, 0, 0, 170))
+            p.drawEllipse(badge)
+            f.setPointSizeF(11)
             p.setFont(f)
             p.setPen(QColor(theme.GOLD))
-            p.drawText(QRectF(r.right() - 26, r.top() + 6, 20, 22), Qt.AlignmentFlag.AlignCenter, "★")
+            p.drawText(badge, Qt.AlignmentFlag.AlignCenter, "★")
         p.restore()
 
 
@@ -245,6 +197,15 @@ class SettingsDialog(QDialog):
         self.stars.setValue(int(settings.get("discover_min_stars")))
         form.addRow("Mínimo de estrelas", self.stars)
 
+        self.covers_on = QCheckBox("Buscar capas dos jogos (envia só o nome do jogo à Wikipedia)")
+        self.covers_on.setChecked(bool(settings.get("covers_enabled")))
+        form.addRow("", self.covers_on)
+
+        self.sgdb = QLineEdit(settings.get("steamgriddb_key"))
+        self.sgdb.setEchoMode(QLineEdit.EchoMode.Password)
+        self.sgdb.setPlaceholderText("Opcional: capas melhores via steamgriddb.com")
+        form.addRow("Chave SteamGridDB", self.sgdb)
+
         self.minimize = QCheckBox("Minimizar o launcher ao abrir um jogo")
         self.minimize.setChecked(bool(settings.get("minimize_on_launch")))
         form.addRow("", self.minimize)
@@ -277,13 +238,15 @@ class SettingsDialog(QDialog):
             "discover_topics": topics or ["recomp"],
             "discover_min_stars": self.stars.value(),
             "minimize_on_launch": self.minimize.isChecked(),
+            "covers_enabled": self.covers_on.isChecked(),
+            "steamgriddb_key": self.sgdb.text().strip(),
         }
 
 
 # ------------------------------------------------------------------ janela
 class MainWindow(QMainWindow):
     def __init__(self, client: GitHubClient, settings: Settings, library: Library,
-                 runner: TaskRunner | None = None, avatar_fetcher=http_avatar,
+                 runner: TaskRunner | None = None, cover_finder=None,
                  auto_refresh: bool = True):
         super().__init__()
         self.client, self.settings, self.library = client, settings, library
@@ -295,8 +258,11 @@ class MainWindow(QMainWindow):
         self.pending = 0
         self.discovering = False
         self.current: str | None = None
-        self.avatars = AvatarCache(paths.sub_dir("avatars"), self.runner, avatar_fetcher)
-        self.avatars.updated.connect(lambda _o: self.list.viewport().update())
+        self.cover_finder = cover_finder or covers.CoverFinder(
+            sgdb_key=settings.get("steamgriddb_key"), enabled=bool(settings.get("covers_enabled")))
+        self.covers = CoverCache(covers.CoverStore(paths.sub_dir("covers"), self.cover_finder),
+                                 self.runner)
+        self.covers.updated.connect(lambda _k: (self.list.viewport().update(), self.d_cover.update()))
 
         self.setWindowTitle(f"{APP_NAME} {__version__}")
         self.setWindowIcon(theme.app_icon())
@@ -389,10 +355,11 @@ class MainWindow(QMainWindow):
         # detalhes
         self.detail = QFrame()
         self.detail.setObjectName("panel")
-        self.detail.setFixedWidth(400)
+        self.detail.setFixedWidth(380)
         dl = QVBoxLayout(self.detail)
         dl.setContentsMargins(18, 18, 18, 16)
         dl.setSpacing(8)
+        self.d_cover = CoverView(self.covers)
         self.d_title = QLabel("Selecione um jogo")
         self.d_title.setWordWrap(True)
         self.d_title.setStyleSheet("font-size: 16pt; font-weight: 700;")
@@ -412,6 +379,7 @@ class MainWindow(QMainWindow):
         self.d_notes = QTextBrowser()
         self.d_notes.setOpenExternalLinks(True)
         self.d_notes.setPlaceholderText("As notas da release aparecem aqui.")
+        dl.addWidget(self.d_cover)
         for wdg in (self.d_title, self.d_repo, self.d_chips, self.d_desc, self.d_note, self.d_info):
             dl.addWidget(wdg)
         dl.addWidget(self.d_notes, 1)
@@ -561,6 +529,7 @@ class MainWindow(QMainWindow):
     def select(self, key: str | None) -> None:
         self.current = key
         row = self.rows.get(key) if key else None
+        self.d_cover.setVisible(row is not None)
         for w in (self.b_main, self.b_update, self.b_folder, self.b_web, self.b_fav, self.b_exe,
                   self.b_clean, self.b_remove):
             w.setVisible(row is not None)
@@ -572,6 +541,7 @@ class MainWindow(QMainWindow):
             self.d_progress.hide()
             return
         e = row.entry
+        self.d_cover.set_entry(e)
         self.d_title.setText(e.name)
         stars = f" · ★ {e.stars:,}".replace(",", ".") if e.stars else ""
         self.d_repo.setText(f"<a style='color:{theme.RED}' href='{e.url}'>{e.repo}</a>{stars}")
@@ -960,6 +930,9 @@ class MainWindow(QMainWindow):
         menu.addAction("Remover dos favoritos" if fav else "Favoritar", lambda: self._fav(key))
         menu.addAction("Abrir no GitHub", lambda: QDesktopServices.openUrl(QUrl(row.entry.url)))
         menu.addAction("Copiar link", lambda: QGuiApplication.clipboard().setText(row.entry.url))
+        menu.addSeparator()
+        menu.addAction("Definir capa…", lambda: self.set_cover(key))
+        menu.addAction("Buscar capa de novo", lambda: self.refetch_cover(key))
         if row.entry.source == "discovered":
             menu.addSeparator()
             menu.addAction("Adicionar ao meu catálogo", lambda: self._adopt(row))
@@ -995,12 +968,41 @@ class MainWindow(QMainWindow):
         self.reload_entries()
         self.apply_filters()
 
+    def set_cover(self, key: str) -> None:
+        f, _ = QFileDialog.getOpenFileName(self, "Escolher capa", "",
+                                           "Imagens (*.png *.jpg *.jpeg *.webp *.gif)")
+        if not f:
+            return
+        try:
+            self.covers.store.set_custom(key, f)
+        except (ValueError, OSError) as e:
+            QMessageBox.warning(self, "Capa inválida", str(e))
+            return
+        self._cover_changed(key)
+
+    def refetch_cover(self, key: str) -> None:
+        self.covers.store.clear(key)
+        self._cover_changed(key)
+        self.statusBar().showMessage("Buscando a capa de novo…")
+
+    def _cover_changed(self, key: str) -> None:
+        self.covers.reset(key)
+        self.list.viewport().update()
+        self.d_cover.update()
+
     def open_settings(self) -> None:
+        old = (self.settings.get("steamgriddb_key"), bool(self.settings.get("covers_enabled")))
         dlg = SettingsDialog(self.settings, self)
         if dlg.exec() == QDialog.DialogCode.Accepted:
             self.settings.update(dlg.values())
             self.settings.save()
             self.client.set_token(self.settings.get("github_token"))
+            new = (self.settings.get("steamgriddb_key"), bool(self.settings.get("covers_enabled")))
+            self.cover_finder.configure(*new)
+            if new != old:  # nova chave ou capas ligadas: tenta de novo o que falhou antes
+                self.covers.store.clear_failures()
+                self.covers.reset_all()
+                self.list.viewport().update()
             self.statusBar().showMessage("Configurações salvas.")
 
     # -------------------------------------------------------------- saída
