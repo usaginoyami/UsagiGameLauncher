@@ -32,7 +32,7 @@ PAYLOAD = buf.getvalue()
 
 class FakeClient(GitHubClient):
     def __init__(self):
-        super().__init__("")
+        super().__init__("tok")
         self.searches = 0
 
     def latest_release(self, full_name, allow_prerelease=True):
@@ -87,7 +87,7 @@ settings.set("install_dir", str(tmp / "games"))
 lib = Library()
 lib.record_install("BanjoRecomp/BanjoRecomp", "Banjo: Recompiled", "v1.0.0",
                    str(tmp / "games/Banjo/v1.0.0"), str(tmp / "games/Banjo/v1.0.0/b.exe"), str(tmp / "games/Banjo"))
-settings.toggle("favorites", "mr-wiseguy/zelda64recomp")
+settings.toggle("favorites", "zelda64recomp/zelda64recomp")
 
 from PySide6.QtCore import QBuffer, QByteArray, QIODevice  # noqa: E402
 from PySide6.QtGui import QColor, QFont, QImage, QPainter  # noqa: E402
@@ -158,8 +158,16 @@ check(win.rows["someone/coolgame-recomp"].entry.platform == "PS3", "plataforma P
 check(win.list.count() == len(win.rows), f"lista mostra {win.list.count()} cards")
 first_key = win.list.item(0).data(256)
 check(first_key == "banjorecomp/banjorecomp", "jogo com atualização aparece primeiro")
-pump(app, 2.0, until=lambda: not win.covers._busy)
-pump(app, 0.3)
+def show(key):
+    for i in range(win.list.count()):
+        if win.list.item(i).data(256) == key:
+            win.list.scrollToItem(win.list.item(i))
+    pump(app, 1.5, until=lambda: not win.covers._busy)
+
+
+for k in ("sonicdcer/mariokart64recomp", "revosucks/bm64recomp", "banjorecomp/banjorecomp"):
+    show(k)
+pump(app, 0.5, until=lambda: not win.covers._busy)
 banjo = win.rows["banjorecomp/banjorecomp"].entry
 check(win.covers.pixmap(banjo) is not None, "capa vertical do Banjo carregada")
 check(win.covers.composed(banjo, 192, 108).size().width() == 192, "capa vertical encaixada no card")
@@ -191,12 +199,12 @@ check(win.list.count() == 1, "filtro Favoritos")
 win.sidebar.setCurrentRow(2)
 check(win.list.count() == 1, "filtro Atualizações")
 win.sidebar.setCurrentRow(0)
-win.search.setText("mario kart")
+win.search.setText("mario kart 64")
 check(win.list.count() == 1, "busca por texto")
 win.search.setText("")
 
 # instalar de ponta a ponta
-key = "mr-wiseguy/zelda64recomp"
+key = "zelda64recomp/zelda64recomp"
 for i in range(win.list.count()):
     if win.list.item(i).data(256) == key:
         win.list.setCurrentRow(i)
@@ -205,7 +213,7 @@ check(win.b_main.text() == "Instalar" and win.b_main.isEnabled(), "botão Instal
 win.start_install(key)
 check(key in win.active, "instalação iniciou")
 pump(app, 6, until=lambda: key not in win.active)
-rec = lib.get("Mr-Wiseguy/Zelda64Recomp")
+rec = lib.get("Zelda64Recomp/Zelda64Recomp")
 check(rec is not None and rec["version"] == "v1.0.0", "registro na biblioteca")
 check(rec and Path(rec["exe"]).is_file(), f"executável extraído: {rec and rec['exe']}")
 check(win.rows[key].installed and win.b_main.text() == "Jogar", "botão virou Jogar")

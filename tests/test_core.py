@@ -168,6 +168,20 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(catalog.guess_platform("Xbox 360 static recompilation"), "Xbox 360")
         self.assertEqual(catalog.guess_platform("Wii port"), "Wii")
         self.assertEqual(catalog.guess_platform("algo"), "Outros")
+        self.assertEqual(catalog.guess_platform("PS4 native port"), "PS4")
+        self.assertEqual(catalog.guess_platform("PSP static recomp"), "PSP")
+        self.assertEqual(catalog.guess_platform("Dreamcast port"), "Dreamcast")
+        self.assertEqual(catalog.guess_platform("SNES port"), "SNES")
+        self.assertEqual(catalog.guess_platform("NES recomp"), "NES")
+
+    def test_bundled_catalog_valid(self):
+        items = catalog.load_bundled()
+        self.assertGreater(len(items), 70)
+        keys = [e.key for e in items]
+        self.assertEqual(len(keys), len(set(keys)), "repos duplicados")
+        for e in items:
+            self.assertIn(e.platform, catalog.PLATFORMS, e.repo)
+            self.assertTrue(e.description, e.repo)
 
     def test_tool_filter(self):
         self.assertTrue(catalog.is_tool_repo("N64Recomp", "Tool to statically recompile N64 games"))

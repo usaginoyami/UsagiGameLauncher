@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "note": "Catálogo curado. Repositórios conferidos na lista awesome-unofficial-pc-ports. O launcher não inclui jogos: cada projeto exige a sua própria cópia legítima do jogo.",
+  "note": "Catálogo curado. Os 14 primeiros vieram da lista awesome-unofficial-pc-ports; o resto foi conferido um a um (o repositório existe e o README descreve o projeto). O launcher não inclui jogos: cada projeto exige a sua própria cópia legítima do jogo.",
   "games": [
     {
-      "repo": "Mr-Wiseguy/Zelda64Recomp",
+      "repo": "Zelda64Recomp/Zelda64Recomp",
       "name": "Zelda 64: Recompiled",
       "platform": "N64",
-      "description": "Recompilação estática de The Legend of Zelda: Majora's Mask, com suporte a mods, gráficos modernos e taxas de quadros altas.",
+      "description": "Recompilação estática de The Legend of Zelda: Majora's Mask (e, em breve, Ocarina of Time) para Windows, Linux e Mac, com mods, gráficos modernos e taxas altas.",
       "notes": "Requer a sua própria ROM do jogo.",
       "cover_title": "The Legend of Zelda: Majora's Mask"
     },
@@ -113,6 +113,526 @@
       "description": "Recompilação estática de Sonic Unleashed (Xbox 360) para PC.",
       "notes": "Requer os arquivos do seu próprio jogo para Xbox 360.",
       "cover_title": "Sonic Unleashed"
+    },
+    {
+      "repo": "sp00nznet/burnout3",
+      "name": "Burnout 3: Takedown",
+      "platform": "Xbox",
+      "description": "Recompilação estática da versão de Xbox original de Burnout 3: Takedown (2004) para o Windows 11.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Burnout 3: Takedown"
+    },
+    {
+      "repo": "GTTeancum/xmen-mutant-academy-2-pc",
+      "name": "X-Men: Mutant Academy 2",
+      "platform": "PS1",
+      "description": "Port para PC do jogo de PS1 via recompilação estática (RecompOne), com ferramentas para texturas em 4x.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "X-Men: Mutant Academy 2"
+    },
+    {
+      "repo": "mobius/psx-vagrantstory-recomp",
+      "name": "Vagrant Story",
+      "platform": "PS1",
+      "description": "Recompilação de Vagrant Story (PS1) para PC.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Vagrant Story"
+    },
+    {
+      "repo": "alexbeavs-ps1-ports/the-mummy-recomp",
+      "name": "The Mummy",
+      "platform": "PS1",
+      "description": "Recompilação de The Mummy (PS1) para PC, de uma coleção de ports de PS1 (Alexbeav's PS1 Recomps).",
+      "notes": "Requer a sua própria cópia do jogo. Este repositório hospeda só o instalador e o código; confira se há release. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "The Mummy"
+    },
+    {
+      "repo": "FluffyQuack/rexglue-SoulCaliburIV",
+      "name": "SoulCalibur IV",
+      "platform": "Xbox 360",
+      "description": "SoulCalibur IV recompilado estaticamente com o ReXGlue SDK.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Soulcalibur IV"
+    },
+    {
+      "repo": "danielgomesvieira2000/soulcalibur-recomp",
+      "name": "Soulcalibur",
+      "platform": "Dreamcast",
+      "description": "Port nativo para PC de Soulcalibur (Dreamcast), feito com dreamcomp. Sem dados do jogo.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Soulcalibur"
+    },
+    {
+      "repo": "ant0-blase/ResidentEvil-CodeVeronicaX-X360-ReXGlue",
+      "name": "Resident Evil Code: Veronica X HD",
+      "platform": "Xbox 360",
+      "description": "Resident Evil Code: Veronica X HD (Xbox 360), recompilação com ReXGlue.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Resident Evil Code: Veronica"
+    },
+    {
+      "repo": "alexbeavs-ps1-ports/resident-evil-3-recomp",
+      "name": "Resident Evil 3: Nemesis",
+      "platform": "PS1",
+      "description": "Resident Evil 3: Nemesis (PS1), instalador independente em fase de release candidate.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Resident Evil 3: Nemesis"
+    },
+    {
+      "repo": "Odrannnn/MetroidPrimePort",
+      "name": "Metroid Prime",
+      "platform": "GameCube",
+      "description": "Port nativo de Metroid Prime (GameCube) para Linux, Windows e Android, feito a partir da decompilação PrimeDecomp. Sem emulador.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Metroid Prime"
+    },
+    {
+      "repo": "mstan/MetroidNESRecomp",
+      "name": "Metroid (NES)",
+      "platform": "NES",
+      "description": "Metroid (NES) recompilado com nesrecomp, da comunidade R.A.I.D.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Metroid"
+    },
+    {
+      "repo": "Zaxaerith/MetroidFusionRecomp",
+      "name": "Metroid Fusion",
+      "platform": "GBA",
+      "description": "Recompilação de Metroid Fusion (GBA).",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Metroid Fusion"
+    },
+    {
+      "repo": "TGP482/BLACK-XBERecomp",
+      "name": "Black",
+      "platform": "Xbox",
+      "description": "Port não oficial para PC da versão de Xbox original de Black, com opções gráficas extras e suporte a teclado e mouse.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Black (video game)"
+    },
+    {
+      "repo": "antoxa2584x/burnout3-sw",
+      "name": "Burnout 3: Takedown (Switch)",
+      "platform": "Xbox",
+      "description": "Recompilação de Burnout 3: Takedown (Xbox) voltada ao Nintendo Switch. Fork de sp00nznet/burnout3.",
+      "notes": "Requer a sua própria cópia do jogo. Alvo: Nintendo Switch. Não é um pacote para PC.",
+      "cover_title": "Burnout 3: Takedown"
+    },
+    {
+      "repo": "BlackLabelHQ/SymphonyRecomp",
+      "name": "Castlevania: Symphony of the Night",
+      "platform": "PS1",
+      "description": "Projeto de recompilação de Castlevania: Symphony of the Night.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Castlevania: Symphony of the Night"
+    },
+    {
+      "repo": "SubhanHabib/OpenGTPS1",
+      "name": "Gran Turismo 2 (build macOS)",
+      "platform": "PS1",
+      "description": "Build experimental para macOS do port OpenGTPS1 (Gran Turismo 2 dos EUA, recompilação estática).",
+      "notes": "Requer a sua própria cópia do jogo. Build para macOS. Para Windows, veja GTTeancum/OpenGTPS1. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Gran Turismo 2"
+    },
+    {
+      "repo": "Kaezzey/gt4-staticrecomp",
+      "name": "Gran Turismo 4",
+      "platform": "PS2",
+      "description": "Recompilação estática de Gran Turismo 4 (PS2).",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Gran Turismo 4"
+    },
+    {
+      "repo": "sp00nznet/GT5P",
+      "name": "Gran Turismo 5 Prologue",
+      "platform": "PS3",
+      "description": "Recompilação estática de Gran Turismo 5 Prologue (PS3) para x86-64 nativo, feita com ps3recomp.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Gran Turismo 5 Prologue"
+    },
+    {
+      "repo": "sp00nznet/luigismansion",
+      "name": "Luigi's Mansion",
+      "platform": "GameCube",
+      "description": "Luigi's Mansion (GameCube): recompilação estática.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Luigi's Mansion"
+    },
+    {
+      "repo": "dougchansan/mk8-recomp",
+      "name": "Mario Kart 8 Deluxe",
+      "platform": "Switch",
+      "description": "Mario Kart 8 Deluxe recompilado estaticamente (CPU AArch64 para x86-64) sobre o recompilador AOT do suyu.",
+      "notes": "Requer a sua própria cópia do jogo. Experimental: o README descreve a Mushroom Cup jogável.",
+      "cover_title": "Mario Kart 8 Deluxe"
+    },
+    {
+      "repo": "FractalEngineer/Medal-Of-Honor-PSX-Recomp",
+      "name": "Medal of Honor",
+      "platform": "PS1",
+      "description": "Recompilação de Medal of Honor (PS1).",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Medal of Honor"
+    },
+    {
+      "repo": "alexbeavs-ps1-ports/metal-gear-solid-recomp",
+      "name": "Metal Gear Solid",
+      "platform": "PS1",
+      "description": "Recompilação de Metal Gear Solid (PS1), instalador independente em fase de release candidate.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Metal Gear Solid"
+    },
+    {
+      "repo": "LorenzoAlfaro/GTStaticRecomp",
+      "name": "Gran Turismo",
+      "platform": "PS1",
+      "description": "Recompilação estática de Gran Turismo (PS1, EUA) para Windows, com 4x, 16:9 e save states.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Gran Turismo"
+    },
+    {
+      "repo": "Simeony2007/VibeRecomp-for-GoW-CoO",
+      "name": "God of War: Chains of Olympus (ARM64)",
+      "platform": "PSP",
+      "description": "Recompilador estático de God of War: Chains of Olympus para dispositivos ARM64, com foco no R36S.",
+      "notes": "Requer a sua própria cópia do jogo. Alvo: consoles portáteis ARM64 (R36S). Não é um pacote para Windows. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "God of War: Chains of Olympus"
+    },
+    {
+      "repo": "andrebrumdev/gow2-recomp",
+      "name": "God of War II HD",
+      "platform": "PS3",
+      "description": "Recompilação estática de God of War II HD, com artefatos de trabalho (limites de lift, fontes SPU, scripts).",
+      "notes": "Requer a sua própria cópia do jogo. Repositório de trabalho: pode não ter versão jogável.",
+      "cover_title": "God of War II"
+    },
+    {
+      "repo": "alexbeavs-ps1-ports/ghost-in-the-shell-recomp",
+      "name": "Ghost in the Shell",
+      "platform": "PS1",
+      "description": "Configuração portátil do PSXRecomp para Ghost in the Shell (PS1). Exige disco e BIOS originais.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Ghost in the Shell"
+    },
+    {
+      "repo": "fabioap-cpu/Forza-Horizon-2-Recomp",
+      "name": "Forza Horizon 2",
+      "platform": "Xbox 360",
+      "description": "Recompilação estática experimental de Forza Horizon 2 (Xbox 360) com ReXGlue.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Forza Horizon 2"
+    },
+    {
+      "repo": "arcanite24/pinyon-shift",
+      "name": "Forza Horizon (Pinyon Shift)",
+      "platform": "Xbox 360",
+      "description": "Prévia jogável da recompilação estática de Forza Horizon.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Forza Horizon"
+    },
+    {
+      "repo": "NoRain211/doaxvb-re",
+      "name": "Dead or Alive Xtreme Beach Volleyball",
+      "platform": "Xbox",
+      "description": "Port nativo para Windows de Dead or Alive Xtreme Beach Volleyball (Xbox), feito por recompilação estática.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Dead or Alive Xtreme Beach Volleyball"
+    },
+    {
+      "repo": "danfromtico/goon-nx",
+      "name": "Dead or Alive Xtreme Beach Volleyball (Switch)",
+      "platform": "Xbox",
+      "description": "Game Of Ocean Nets (GOON): recompilação estática de Dead or Alive Xtreme Beach Volleyball (Xbox) para o Nintendo Switch.",
+      "notes": "Requer a sua própria cópia do jogo. Alvo: Nintendo Switch. Não é um pacote para PC. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Dead or Alive Xtreme Beach Volleyball"
+    },
+    {
+      "repo": "peiikai/LASRecomp",
+      "name": "Link's Awakening (Switch)",
+      "platform": "Switch",
+      "description": "Recompilação estática de Link's Awakening (Switch) para macOS, Windows e Linux.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "The Legend of Zelda: Link's Awakening (2019 video game)"
+    },
+    {
+      "repo": "Kyra422/skybreak",
+      "name": "Zelda: Skyward Sword",
+      "platform": "Wii",
+      "description": "Projeto experimental de port nativo para PC de Zelda: Skyward Sword (Wii). Sem arquivos do jogo.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "The Legend of Zelda: Skyward Sword"
+    },
+    {
+      "repo": "YeOldPress/alttp-dx",
+      "name": "Zelda: A Link to the Past",
+      "platform": "SNES",
+      "description": "Port para PC de The Legend of Zelda: A Link to the Past.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "The Legend of Zelda: A Link to the Past"
+    },
+    {
+      "repo": "samuelit0davila/fifa-street-pc-port",
+      "name": "FIFA Street (ReStreet)",
+      "platform": "Xbox 360",
+      "description": "ReStreet: FIFA Street (2012) recompilado para Windows, com jogo online e launcher com amigos, chat e salas.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "FIFA Street (2012 video game)"
+    },
+    {
+      "repo": "parkerallan/doa3-recomp",
+      "name": "Dead or Alive 3",
+      "platform": "Xbox",
+      "description": "Port para PC de Dead or Alive 3.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Dead or Alive 3"
+    },
+    {
+      "repo": "mxmstr/Burnout3Recomp",
+      "name": "Burnout 3: Takedown (mxmstr)",
+      "platform": "Xbox",
+      "description": "Port de PC de Burnout 3 baseado na versão de Xbox, ainda muito em desenvolvimento.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Burnout 3: Takedown"
+    },
+    {
+      "repo": "khasinski/rage-racer-pc",
+      "name": "Rage Racer",
+      "platform": "PS1",
+      "description": "Port nativo para PC de Rage Racer.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Rage Racer"
+    },
+    {
+      "repo": "TekRantGaming/king-kong-recompiled",
+      "name": "Peter Jackson's King Kong",
+      "platform": "Xbox 360",
+      "description": "Port nativo para PC de King Kong, de Peter Jackson (Xbox 360), via recompilação estática.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Peter Jackson's King Kong"
+    },
+    {
+      "repo": "z3xox/BT3-Recomp",
+      "name": "Dragon Ball Z: Budokai Tenkaichi 3",
+      "platform": "PS2",
+      "description": "Port para PC por recompilação estática (fork do PS2Recomp). Use a sua imagem de disco.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Dragon Ball Z: Budokai Tenkaichi 3"
+    },
+    {
+      "repo": "chasem-dev/sms-pc-port",
+      "name": "Super Mario Sunshine",
+      "platform": "GameCube",
+      "description": "Port nativo para PC de Super Mario Sunshine.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Super Mario Sunshine"
+    },
+    {
+      "repo": "LoreanXavier/pt-pc",
+      "name": "P.T.",
+      "platform": "PS4",
+      "description": "Port nativo para PC de P.T. (roda a partir dos seus próprios arquivos de PS4).",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "P.T. (video game)"
+    },
+    {
+      "repo": "sp00nznet/shadowofthecolossus",
+      "name": "Shadow of the Colossus (PS3)",
+      "platform": "PS3",
+      "description": "Recompilação estática de Shadow of the Colossus (PS3) em executável nativo, feita com ps3recomp.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Shadow of the Colossus"
+    },
+    {
+      "repo": "AjncSystem/ShadowOfTheColossus-PC",
+      "name": "Shadow of the Colossus (PS4)",
+      "platform": "PS4",
+      "description": "Port nativo para Windows de Shadow of the Colossus (PS4). Use o seu próprio dump do jogo.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Shadow of the Colossus"
+    },
+    {
+      "repo": "Oussama268/ShadowOfTheColossus-PC",
+      "name": "Shadow of the Colossus (PS4, fork)",
+      "platform": "PS4",
+      "description": "Fork do port nativo de Shadow of the Colossus (PS4) para Windows, de Oussama268 (fork de AjncSystem).",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Shadow of the Colossus"
+    },
+    {
+      "repo": "LightVelox/sotc-vibe-pc",
+      "name": "Shadow of the Colossus (PS2)",
+      "platform": "PS2",
+      "description": "Port nativo não oficial de Shadow of the Colossus (PS2, PAL) para Windows via PS2Recomp.",
+      "notes": "Requer a sua própria cópia do jogo. Segundo o README, foi escrito inteiramente com programação assistida por IA.",
+      "cover_title": "Shadow of the Colossus"
+    },
+    {
+      "repo": "volstants/recomp-ShadowOfTheColossus-pc",
+      "name": "Shadow of the Colossus (PS2, fork)",
+      "platform": "PS2",
+      "description": "Fork de LightVelox/sotc-vibe-pc.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Shadow of the Colossus"
+    },
+    {
+      "repo": "Supermedo/bloodborne_pc",
+      "name": "Bloodborne (Supermedo)",
+      "platform": "PS4",
+      "description": "Bloodborne rodando nativamente no Windows.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Bloodborne"
+    },
+    {
+      "repo": "deadinside28/bloodborne_pc",
+      "name": "Bloodborne (deadinside28)",
+      "platform": "PS4",
+      "description": "Port de Bloodborne para PC.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Bloodborne"
+    },
+    {
+      "repo": "FelipePrado0/SpartanPort",
+      "name": "God of War III Remastered (SpartanPort)",
+      "platform": "PS4",
+      "description": "Port não oficial de God of War III Remastered (PS4) para Windows e Linux (AppImage). O código x86-64 original roda direto.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "God of War III Remastered"
+    },
+    {
+      "repo": "K0NL/B2recomp",
+      "name": "Bayonetta 2",
+      "platform": "Switch",
+      "description": "Recompilação estática não oficial de Bayonetta 2 (Switch) para Windows. Monta o jogo no seu PC a partir da sua cópia.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Bayonetta 2"
+    },
+    {
+      "repo": "alexbeavs-ps1-ports/parasite-eve-recomp",
+      "name": "Parasite Eve",
+      "platform": "PS1",
+      "description": "Projeto de recompilação de Parasite Eve (PS1) a partir da sua própria imagem do jogo.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Parasite Eve"
+    },
+    {
+      "repo": "moesuito/gt4-staticrecomp",
+      "name": "Gran Turismo 4 (fork)",
+      "platform": "PS2",
+      "description": "Fork de Kaezzey/gt4-staticrecomp.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Gran Turismo 4"
+    },
+    {
+      "repo": "aikatore/recvx-enhanced-port",
+      "name": "Resident Evil Code: Veronica X (enhanced)",
+      "platform": "PS2",
+      "description": "Port melhorado de Resident Evil Code: Veronica X, com co-op online e opções extras de renderização.",
+      "notes": "Requer a sua própria cópia do jogo. Segundo o README, a maior parte do código foi escrita por IA e revisada pelo mantenedor.",
+      "cover_title": "Resident Evil Code: Veronica"
+    },
+    {
+      "repo": "arnaldolima1/gow-ghost-of-sparta-pc",
+      "name": "God of War: Ghost of Sparta",
+      "platform": "PSP",
+      "description": "Port nativo de God of War: Ghost of Sparta (PSP) por recompilação estática sobre o PortableKit. Vulkan, macOS primeiro.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "God of War: Ghost of Sparta"
+    },
+    {
+      "repo": "2ship2harkinian/2ship2harkinian",
+      "name": "2 Ship 2 Harkinian (Majora's Mask)",
+      "platform": "N64",
+      "description": "Port nativo de The Legend of Zelda: Majora's Mask.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "The Legend of Zelda: Majora's Mask"
+    },
+    {
+      "repo": "Waffle565/God-Of-War-Native-Port",
+      "name": "God of War (Waffle565)",
+      "platform": "PS2",
+      "description": "Port nativo para PC de God of War (PS2, NTSC-U SCUS-97399): código recompilado para C++ e hardware do PS2 reimplementado.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "God of War (2005 video game)"
+    },
+    {
+      "repo": "hibikifukui22/Dead-or-Alive-Xtreme-2-Recompilation",
+      "name": "Dead or Alive Xtreme 2",
+      "platform": "Xbox 360",
+      "description": "Recompilação de Dead or Alive Xtreme 2 (Xbox 360) com ReXGlue.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Dead or Alive Xtreme 2"
+    },
+    {
+      "repo": "NoRain211/doa3-re",
+      "name": "Dead or Alive 3 (NoRain211)",
+      "platform": "Xbox",
+      "description": "Port nativo para Windows de Dead or Alive 3 (Xbox), por recompilação estática com runtime escrito à mão.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Dead or Alive 3"
+    },
+    {
+      "repo": "dubrovskiy-yevhen-stakelogic/gt-2-pc",
+      "name": "Gran Turismo 2 (PC, VR e navegador)",
+      "platform": "PS1",
+      "description": "Port nativo em C++ de Gran Turismo 2 para PC, VR e navegador (WebAssembly).",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Gran Turismo 2"
+    },
+    {
+      "repo": "HayatoG/tlg_pc",
+      "name": "The Last Guardian",
+      "platform": "PS4",
+      "description": "Port nativo (Linux/Windows) de The Last Guardian (PS4), roda do seu próprio dump.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "The Last Guardian"
+    },
+    {
+      "repo": "YYOzcan/Tobiichi-Port",
+      "name": "God of War (Tobiichi)",
+      "platform": "PS2",
+      "description": "Port de God of War (PS2) para PC por recompilação estática.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "God of War (2005 video game)"
+    },
+    {
+      "repo": "Revivedx/SavageWindRecomp",
+      "name": "Zelda: Breath of the Wild (SavageWind)",
+      "platform": "Switch",
+      "description": "Recompilação estática em andamento de Zelda: Breath of the Wild (Switch, v1.8.2) para Windows e Linux.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "The Legend of Zelda: Breath of the Wild"
+    },
+    {
+      "repo": "SunJaycy/GoldenEye-Recomp",
+      "name": "GoldenEye (Xbox 360)",
+      "platform": "Xbox 360",
+      "description": "Recompilação de GoldenEye para PC (segundo o README, a versão de Xbox 360).",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "GoldenEye 007 (2007 video game)"
+    },
+    {
+      "repo": "kholdfuzion/GoldenRecomp",
+      "name": "GoldenEye 007 (N64)",
+      "platform": "N64",
+      "description": "Recompilação em andamento de GoldenEye 007 (N64).",
+      "notes": "Requer a sua própria cópia do jogo. Em desenvolvimento.",
+      "cover_title": "GoldenEye 007 (1997 video game)"
+    },
+    {
+      "repo": "GTTeancum/OpenGTPS1",
+      "name": "Gran Turismo 2 (OpenGTPS1)",
+      "platform": "PS1",
+      "description": "Port de Gran Turismo 2 (EUA, discos Simulation e Arcade) para Windows x64 por recompilação estática.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "cover_title": "Gran Turismo 2"
+    },
+    {
+      "repo": "3dge7161/Jiggle-or-Physics",
+      "name": "Dead or Alive (PS1)",
+      "platform": "PS1",
+      "description": "Recompilação estática não oficial de Dead or Alive (PS1, EUA) para Windows x64. Experimental.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "cover_title": "Dead or Alive (video game)"
     }
   ]
 }

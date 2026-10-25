@@ -12,7 +12,7 @@ Inspirado em [teasergames/ports-pc](https://github.com/teasergames/ports-pc) (bi
 
 ## O que ele faz
 
-- **Catálogo curado** (`data/catalog.json`) com os recomps de N64 e Xbox 360 conferidos na lista awesome-unofficial-pc-ports.
+- **Catálogo curado** (`data/catalog.json`) com ~80 recomps e ports (N64, Xbox, Xbox 360, PS1–PS4, PSP, GameCube, Wii, Switch, Dreamcast, SNES, NES, GBA), cada repositório conferido antes de entrar. Sem token do GitHub, o launcher só consulta releases dos jogos instalados, favoritos e do que você abrir (limite de 60 req/h); com token, atualiza tudo.
 - **Descoberta automática**: busca no GitHub pelos tópicos `recomp`, `recompiled`, `recompilation` e `static-recompilation`. Ferramentas (N64Recomp, XenonRecomp etc.), forks e repositórios arquivados são filtrados. Os achados aparecem em **Descobertos**; clique com o botão direito para adicionar ao seu catálogo ou ocultar.
 - **Adicionar repositório**: cole `dono/repo` ou o link do GitHub.
 - **Instalar / Atualizar**: escolhe sozinho o pacote Windows da release (ignora Linux, macOS, ARM e source), confere o SHA-256 quando o GitHub publica, extrai com proteção contra zip-slip e detecta o executável. Cada versão vai para `Jogo\vX.Y.Z`, então um update nunca sobrescreve a anterior. **Limpar versões antigas** apaga só quando você confirmar.
@@ -44,7 +44,7 @@ Adicione jogos em `%LOCALAPPDATA%\UsagiGameLauncher\catalog.user.json` (ou pelo 
 ## Testes
 
 ```
-python tests/test_core.py        # 31 testes de lógica
+python tests/test_core.py        # 32 testes de lógica
 python tests/test_covers.py      # 18 testes das fontes e do cache de capas
 python tests/smoke_ui.py pasta   # interface sem tela + instalação ponta a ponta + capturas
 ```

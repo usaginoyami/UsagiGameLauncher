@@ -548,8 +548,8 @@ class MainWindow(QMainWindow):
         self.d_desc.setText(e.description or "Sem descrição.")
         self.d_note.setText(e.notes)
         self.d_note.setVisible(bool(e.notes))
-        if key not in self.fetching and not row.loaded and e.source != "catalog":
-            self.fetch_release(key)  # descobertos carregam sob demanda
+        if key not in self.fetching and not row.loaded:
+            self.fetch_release(key)  # sob demanda
         self.render_detail()
 
     def render_detail(self) -> None:
@@ -626,8 +626,12 @@ class MainWindow(QMainWindow):
             self.start_discover()
 
     def refresh_releases(self, force: bool = False) -> None:
+        # Sem token o limite é 60 req/h: com um catálogo grande, só busca o que importa
+        # (instalados, favoritos, o selecionado). O resto carrega ao clicar.
+        has_token = "Authorization" in self.client.session.headers
+        favs = {str(f).lower() for f in (self.settings.get("favorites") or [])}
         for key, row in self.rows.items():
-            if row.entry.source != "discovered" or row.installed or key == self.current:
+            if force or has_token or row.installed or key in favs or key == self.current:
                 self.fetch_release(key, force)
 
     def fetch_release(self, key: str, force: bool = False) -> None:

@@ -10,14 +10,19 @@ from .errors import RateLimitError
 from .jsonio import load_json, save_json
 
 PLATFORMS = [
-    "N64", "Xbox 360", "Xbox", "PS3", "PS2", "PS1", "GameCube", "Wii",
-    "Switch", "Game Boy", "GBA", "DS", "Outros",
+    "N64", "Xbox 360", "Xbox", "PS4", "PS3", "PS2", "PS1", "PSP", "GameCube", "Wii",
+    "Switch", "Dreamcast", "SNES", "NES", "Game Boy", "GBA", "DS", "Outros",
 ]
 
 _PLATFORM_PATTERNS: list[tuple[str, str]] = [
     ("N64", r"\bn64\b|nintendo ?64"),
     ("Xbox 360", r"xbox ?360|\bx360\b|xenon"),
+    ("PS4", r"\bps4\b|playstation ?4"),
     ("PS3", r"\bps3\b|playstation ?3"),
+    ("PSP", r"\bpsp\b|playstation portable"),
+    ("Dreamcast", r"dreamcast|\bdc\b"),
+    ("SNES", r"\bsnes\b|super nintendo|super famicom"),
+    ("NES", r"\bnes\b|famicom"),
     ("PS2", r"\bps2\b|playstation ?2"),
     ("PS1", r"\bps1\b|\bpsx\b|playstation ?1|\bpsone\b"),
     ("GameCube", r"game ?cube|\bgcn\b"),
