@@ -206,6 +206,14 @@ class SettingsDialog(QDialog):
         self.sgdb.setPlaceholderText("Opcional: capas melhores via steamgriddb.com")
         form.addRow("Chave SteamGridDB", self.sgdb)
 
+        self.igdb_id = QLineEdit(settings.get("igdb_client_id"))
+        self.igdb_id.setPlaceholderText("Opcional: Client ID da Twitch (capas via IGDB)")
+        form.addRow("IGDB Client ID", self.igdb_id)
+        self.igdb_secret = QLineEdit(settings.get("igdb_client_secret"))
+        self.igdb_secret.setEchoMode(QLineEdit.EchoMode.Password)
+        self.igdb_secret.setPlaceholderText("Client Secret (dev.twitch.tv/console, grátis)")
+        form.addRow("IGDB Client Secret", self.igdb_secret)
+
         self.minimize = QCheckBox("Minimizar o launcher ao abrir um jogo")
         self.minimize.setChecked(bool(settings.get("minimize_on_launch")))
         form.addRow("", self.minimize)
@@ -240,6 +248,8 @@ class SettingsDialog(QDialog):
             "minimize_on_launch": self.minimize.isChecked(),
             "covers_enabled": self.covers_on.isChecked(),
             "steamgriddb_key": self.sgdb.text().strip(),
+            "igdb_client_id": self.igdb_id.text().strip(),
+            "igdb_client_secret": self.igdb_secret.text().strip(),
         }
 
 
@@ -259,7 +269,8 @@ class MainWindow(QMainWindow):
         self.discovering = False
         self.current: str | None = None
         self.cover_finder = cover_finder or covers.CoverFinder(
-            sgdb_key=settings.get("steamgriddb_key"), enabled=bool(settings.get("covers_enabled")))
+            sgdb_key=settings.get("steamgriddb_key"), enabled=bool(settings.get("covers_enabled")),
+            igdb_id=settings.get("igdb_client_id"), igdb_secret=settings.get("igdb_client_secret"))
         self.covers = CoverCache(covers.CoverStore(paths.sub_dir("covers"), self.cover_finder),
                                  self.runner)
         self.covers.updated.connect(lambda _k: (self.list.viewport().update(), self.d_cover.update()))
@@ -995,13 +1006,17 @@ class MainWindow(QMainWindow):
         self.d_cover.update()
 
     def open_settings(self) -> None:
-        old = (self.settings.get("steamgriddb_key"), bool(self.settings.get("covers_enabled")))
+        def cover_cfg():
+            return (self.settings.get("steamgriddb_key"), bool(self.settings.get("covers_enabled")),
+                    self.settings.get("igdb_client_id"), self.settings.get("igdb_client_secret"))
+
+        old = cover_cfg()
         dlg = SettingsDialog(self.settings, self)
         if dlg.exec() == QDialog.DialogCode.Accepted:
             self.settings.update(dlg.values())
             self.settings.save()
             self.client.set_token(self.settings.get("github_token"))
-            new = (self.settings.get("steamgriddb_key"), bool(self.settings.get("covers_enabled")))
+            new = cover_cfg()
             self.cover_finder.configure(*new)
             if new != old:  # nova chave ou capas ligadas: tenta de novo o que falhou antes
                 self.covers.store.clear_failures()

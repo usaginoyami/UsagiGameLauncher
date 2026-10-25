@@ -3,11 +3,13 @@
 Ordem das fontes:
   1. capa definida no catálogo (campo "cover": link ou arquivo local)
   2. SteamGridDB (só se houver chave de API nas Configurações)
-  3. Wikipedia (imagem da página do jogo, sem chave)
-  4. primeira imagem do README do repositório
+  3. IGDB (só se houver Client ID e Secret da Twitch nas Configurações)
+  4. Wikipedia (imagem da página do jogo, sem chave)
+  5. primeira imagem do README do repositório
 
 A busca envia apenas o nome do jogo (ou o repositório, para ler o README).
-A chave do SteamGridDB só vai para a API do SteamGridDB, nunca para os servidores de imagens.
+As chaves só vão para a API do próprio serviço (SteamGridDB; Twitch/IGDB), nunca para os
+servidores de imagens.
 """
 from __future__ import annotations
 
@@ -23,6 +25,9 @@ import requests
 UA = "UsagiGameLauncher/1.0 (+https://github.com/usaginoyami/UsagiGameLauncher)"
 WIKI_API = "https://en.wikipedia.org/w/api.php"
 SGDB_API = "https://www.steamgriddb.com/api/v2"
+TWITCH_TOKEN = "https://id.twitch.tv/oauth2/token"
+IGDB_API = "https://api.igdb.com/v4/games"
+IGDB_IMG = "https://images.igdb.com/igdb/image/upload/t_cover_big/{}.jpg"
 MAX_BYTES = 8 * 1024 * 1024
 RETRY_AFTER = 7 * 24 * 3600  # depois de uma busca sem resultado, espera 7 dias
 MIN_SIMILARITY = 0.6
@@ -123,6 +128,49 @@ def find_steamgriddb(session, key: str, title: str) -> str | None:
     return items[0].get("url") if items else None
 
 
+class IGDB:
+    """IGDB (Twitch): token de app com Client ID + Secret, válido por semanas, guardado em memória."""
+
+    def __init__(self, session, client_id: str, secret: str):
+        self.session, self.client_id, self.secret = session, client_id, secret
+        self._token, self._expires = "", 0.0
+
+    def _auth(self) -> str:
+        if self._token and time.time() < self._expires - 60:
+            return self._token
+        r = self.session.post(TWITCH_TOKEN, headers={"User-Agent": UA}, timeout=15, params={
+            "client_id": self.client_id, "client_secret": self.secret,
+            "grant_type": "client_credentials"})
+        if not r.ok:
+            return ""
+        data = r.json() or {}
+        self._token = data.get("access_token", "")
+        self._expires = time.time() + float(data.get("expires_in", 0))
+        return self._token
+
+    def find(self, title: str) -> str | None:
+        token = self._auth()
+        if not token:
+            return None
+        safe = title.replace("\\", " ").replace('"', " ")
+        r = self.session.post(
+            IGDB_API, timeout=15, data=f'search "{safe}"; fields name,cover.image_id; limit 8;',
+            headers={"Client-ID": self.client_id, "Authorization": f"Bearer {token}",
+                     "User-Agent": UA})
+        if r.status_code == 401:  # token revogado: pede outro na próxima vez
+            self._token = ""
+            return None
+        if not r.ok:
+            return None
+        best, best_score = None, -1.0
+        for g in (r.json() or []):
+            image_id = (g.get("cover") or {}).get("image_id")
+            score = similarity(title, g.get("name", ""))
+            if image_id and score >= MIN_SIMILARITY and score > best_score:
+                best, best_score = image_id, score
+        return IGDB_IMG.format(best) if best else None
+
+
 def readme_image_url(readme: str, repo: str) -> str | None:
     found = [(m.start(), m.group(1)) for m in _MD_IMG.finditer(readme)]
     found += [(m.start(), m.group(1)) for m in _HTML_IMG.finditer(readme)]
@@ -150,14 +198,19 @@ def find_readme_image(session, repo: str) -> str | None:
 
 # ------------------------------------------------------------------ buscador
 class CoverFinder:
-    def __init__(self, session=None, sgdb_key: str = "", enabled: bool = True):
+    def __init__(self, session=None, sgdb_key: str = "", enabled: bool = True,
+                 igdb_id: str = "", igdb_secret: str = ""):
         self.session = session or requests.Session()
-        self.sgdb_key = (sgdb_key or "").strip()
         self.enabled = enabled
+        self.sgdb_key = ""
+        self.igdb: IGDB | None = None
+        self.configure(sgdb_key, enabled, igdb_id, igdb_secret)
 
-    def configure(self, sgdb_key: str, enabled: bool) -> None:
+    def configure(self, sgdb_key: str, enabled: bool, igdb_id: str = "", igdb_secret: str = "") -> None:
         self.sgdb_key = (sgdb_key or "").strip()
         self.enabled = bool(enabled)
+        igdb_id, igdb_secret = (igdb_id or "").strip(), (igdb_secret or "").strip()
+        self.igdb = IGDB(self.session, igdb_id, igdb_secret) if igdb_id and igdb_secret else None
 
     def find(self, entry) -> tuple[bytes | None, bool]:
         """Devolve (imagem, houve_erro_de_rede). Erro de rede não vira 'sem capa'."""
@@ -184,6 +237,8 @@ class CoverFinder:
         sources: list[Callable[[], str | None]] = []
         if self.sgdb_key:
             sources.append(lambda: find_steamgriddb(self.session, self.sgdb_key, title))
+        if self.igdb:
+            sources.append(lambda: self.igdb.find(title))
         sources.append(lambda: find_wikipedia(self.session, title))
         sources.append(lambda: find_readme_image(self.session, entry.repo))
         for source in sources:

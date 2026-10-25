@@ -16,6 +16,8 @@ DEFAULTS: dict[str, Any] = {
     "discover_hours": 24,
     "covers_enabled": True,
     "steamgriddb_key": "",
+    "igdb_client_id": "",
+    "igdb_client_secret": "",
     "minimize_on_launch": False,
     "hidden": [],
     "favorites": [],

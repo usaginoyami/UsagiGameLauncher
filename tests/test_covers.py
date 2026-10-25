@@ -48,6 +48,17 @@ class Net:
         return Resp(404)
 
 
+def _post(self, url, params=None, headers=None, timeout=None, data=None):
+    self.calls.append((url, dict(headers or {}), params, data))
+    for part, resp in self.routes:
+        if part in url:
+            return resp
+    return Resp(404)
+
+
+Net.post = _post
+
+
 def wiki(pages):
     return Resp(data={"query": {"pages": pages}})
 
@@ -117,6 +128,42 @@ class Finder(unittest.TestCase):
                 self.assertNotIn("Authorization", headers)
                 self.assertNotIn("SEGREDO", url)
         self.assertFalse(any("wikipedia" in u for u, _ in net.calls))  # parou na primeira fonte
+
+    def test_igdb_cover_and_secret_stays_in_twitch(self):
+        net = Net([
+            ("id.twitch.tv", Resp(data={"access_token": "TOK", "expires_in": 5000000})),
+            ("api.igdb.com", Resp(data=[{"name": "Other", "cover": {"image_id": "zz"}},
+                                         {"name": "Gran Turismo 4", "cover": {"image_id": "co1abc"}}])),
+            ("t_cover_big/co1abc.jpg", Resp(body=PNG)),
+        ])
+        finder = covers.CoverFinder(net, igdb_id="CID", igdb_secret="SEGREDO")
+        data, err = finder.find(Entry("a/b", cover_title="Gran Turismo 4"))
+        self.assertEqual((data, err), (PNG, False))
+        for call in net.calls:
+            url, headers = call[0], call[1]
+            blob = url + str(headers) + str(call[2:] if len(call) > 2 else "")
+            if "id.twitch.tv" not in url:
+                self.assertNotIn("SEGREDO", blob)
+        self.assertFalse(any("wikipedia" in c[0] for c in net.calls))
+        finder.find(Entry("a/b", cover_title="Gran Turismo 4"))  # reutiliza o token
+        self.assertEqual(sum("id.twitch.tv" in c[0] for c in net.calls), 1)
+
+    def test_igdb_needs_both_keys_and_falls_through(self):
+        net = Net([("wikipedia.org", wiki({"1": {"title": "Quest 64", "index": 1,
+                                                   "thumbnail": {"source": "https://x/p.png"}}})),
+                   ("x/p.png", Resp(body=PNG))])
+        finder = covers.CoverFinder(net, igdb_id="CID")
+        self.assertIsNone(finder.igdb)
+        self.assertEqual(finder.find(Entry("a/b", cover_title="Quest 64"))[0], PNG)
+
+    def test_igdb_no_match_falls_to_wikipedia(self):
+        net = Net([("id.twitch.tv", Resp(data={"access_token": "T", "expires_in": 9999})),
+                   ("api.igdb.com", Resp(data=[{"name": "Totally Different", "cover": {"image_id": "q"}}])),
+                   ("wikipedia.org", wiki({"1": {"title": "Quest 64", "index": 1,
+                                                   "thumbnail": {"source": "https://x/p.png"}}})),
+                   ("x/p.png", Resp(body=PNG))])
+        finder = covers.CoverFinder(net, igdb_id="C", igdb_secret="S")
+        self.assertEqual(finder.find(Entry("a/b", cover_title="Quest 64"))[0], PNG)
 
     def test_html_is_not_an_image(self):
         net = Net([("wikipedia.org", wiki({"1": {"title": "Quest 64", "index": 1,

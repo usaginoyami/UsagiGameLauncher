@@ -118,7 +118,7 @@ class FakeFinder:
     def __init__(self):
         self.asked = []
 
-    def configure(self, key, enabled):
+    def configure(self, key, enabled, *extra):
         pass
 
     def find(self, entry):
