@@ -31,6 +31,9 @@ IGDB_IMG = "https://images.igdb.com/igdb/image/upload/t_cover_big/{}.jpg"
 MAX_BYTES = 8 * 1024 * 1024
 RETRY_AFTER = 7 * 24 * 3600  # depois de uma busca sem resultado, espera 7 dias
 MIN_SIMILARITY = 0.6
+MIN_MATCH = 0.8  # busca estrita: capa errada é pior que capa nenhuma
+CACHE_VERSION = 2
+_ROMAN = {"ii": "2", "iii": "3", "iv": "4", "v": "5", "vi": "6", "vii": "7", "viii": "8", "ix": "9"}
 _STOP = {"the", "of", "a", "an", "and"}
 
 _MD_IMG = re.compile(r"!\[[^\]]*\]\(\s*<?([^)\s>]+)>?(?:\s+\"[^\"]*\")?\s*\)")
@@ -71,6 +74,22 @@ def similarity(query: str, title: str) -> float:
     return len(q & _tokens(title)) / len(q)
 
 
+def _match_tokens(text: str) -> set[str]:
+    text = re.sub(r"\([^)]*\)", " ", text.lower())
+    return {_ROMAN.get(t, t) for t in re.findall(r"[a-z0-9]+", text)} - _STOP
+
+
+def match_score(query: str, title: str) -> float:
+    """Parecença nos dois sentidos (Jaccard). Números de sequência precisam bater:
+    'Gran Turismo 4' não casa com 'Gran Turismo 3' nem com 'Gran Turismo 4 Prologue'."""
+    q, t = _match_tokens(query), _match_tokens(title)
+    if not q or not t:
+        return 0.0
+    if {x for x in q if x.isdigit()} != {x for x in t if x.isdigit()}:
+        return 0.0
+    return len(q & t) / len(q | t)
+
+
 # ------------------------------------------------------------------ fontes
 def download_image(session, url: str) -> bytes | None:
     r = session.get(url, stream=True, timeout=20, headers={"User-Agent": UA})
@@ -102,7 +121,7 @@ def find_wikipedia(session, title: str) -> str | None:
     pages = ((r.json() or {}).get("query") or {}).get("pages") or {}
     for page in sorted(pages.values(), key=lambda p: p.get("index", 99)):
         thumb = (page.get("thumbnail") or {}).get("source")
-        if thumb and similarity(title, page.get("title", "")) >= MIN_SIMILARITY:
+        if thumb and match_score(title, page.get("title", "")) >= MIN_MATCH:
             return thumb
     return None
 
@@ -113,11 +132,11 @@ def find_steamgriddb(session, key: str, title: str) -> str | None:
                     headers=headers, timeout=15)
     if not r.ok:
         return None
-    game_id = None
+    game_id, best = None, 0.0
     for g in ((r.json() or {}).get("data") or [])[:5]:
-        if similarity(title, g.get("name", "")) >= MIN_SIMILARITY:
-            game_id = g.get("id")
-            break
+        score = match_score(title, g.get("name", ""))
+        if score >= MIN_MATCH and score > best:
+            game_id, best = g.get("id"), score
     if game_id is None:
         return None
     r = session.get(f"{SGDB_API}/grids/game/{game_id}", headers=headers, timeout=15,
@@ -152,9 +171,9 @@ class IGDB:
         token = self._auth()
         if not token:
             return None
-        safe = title.replace("\\", " ").replace('"', " ")
+        safe = re.sub(r"\([^)]*\)", " ", title).replace("\\", " ").replace('"', " ").strip()
         r = self.session.post(
-            IGDB_API, timeout=15, data=f'search "{safe}"; fields name,cover.image_id; limit 8;',
+            IGDB_API, timeout=15, data=f'search "{safe}"; fields name,cover.image_id; where version_parent = null; limit 10;',
             headers={"Client-ID": self.client_id, "Authorization": f"Bearer {token}",
                      "User-Agent": UA})
         if r.status_code == 401:  # token revogado: pede outro na próxima vez
@@ -165,8 +184,8 @@ class IGDB:
         best, best_score = None, -1.0
         for g in (r.json() or []):
             image_id = (g.get("cover") or {}).get("image_id")
-            score = similarity(title, g.get("name", ""))
-            if image_id and score >= MIN_SIMILARITY and score > best_score:
+            score = match_score(title, g.get("name", ""))
+            if image_id and score >= MIN_MATCH and score > best_score:
                 best, best_score = image_id, score
         return IGDB_IMG.format(best) if best else None
 
@@ -264,6 +283,26 @@ class CoverStore:
         self.folder = Path(folder)
         self.folder.mkdir(parents=True, exist_ok=True)
         self.finder = finder
+        self._migrate()
+
+    def _migrate(self) -> None:
+        """Busca antiga aceitava capas de jogos parecidos: descarta as automáticas (mantém as suas)."""
+        marker = self.folder / ".version"
+        try:
+            current = int(marker.read_text().strip())
+        except (OSError, ValueError):
+            current = 1
+        if current >= CACHE_VERSION:
+            return
+        for img in self.folder.glob("*.img"):
+            if not img.with_suffix(".custom").exists():
+                self._remove(img)
+        for none in self.folder.glob("*.none"):
+            self._remove(none)
+        try:
+            marker.write_text(str(CACHE_VERSION))
+        except OSError:
+            pass
 
     @property
     def enabled(self) -> bool:
@@ -293,6 +332,7 @@ class CoverStore:
 
     def _write(self, key: str, data: bytes) -> Path:
         dest = self._img(key)
+        self._remove(self._base(key).with_suffix(".custom"))
         tmp = dest.with_suffix(".tmp")
         tmp.write_bytes(data)
         os.replace(tmp, dest)
@@ -320,10 +360,13 @@ class CoverStore:
             raise ValueError("O arquivo escolhido não é uma imagem PNG, JPG, WEBP ou GIF.")
         if len(data) > MAX_BYTES:
             raise ValueError("Imagem grande demais (limite de 8 MB).")
-        return self._write(key, data)
+        path = self._write(key, data)
+        path.with_suffix(".custom").touch()
+        return path
 
     def clear(self, key: str) -> None:
         self._remove(self._img(key))
+        self._remove(self._base(key).with_suffix(".custom"))
         self._remove(self._none(key))
 
     def clear_failures(self) -> None:

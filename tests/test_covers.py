@@ -76,6 +76,24 @@ class Helpers(unittest.TestCase):
         self.assertEqual(covers.clean_title("CoolGame Recomp"), "CoolGame")
         self.assertEqual(covers.clean_title("Recomp"), "Recomp")
 
+    def test_match_score_strict(self):
+        ms = covers.match_score
+        self.assertEqual(ms("Gran Turismo 4", "Gran Turismo 4"), 1.0)
+        self.assertEqual(ms("Gran Turismo 4", "Gran Turismo 3: A-Spec"), 0.0)
+        self.assertLess(ms("Gran Turismo 4", "Gran Turismo 4 Prologue"), covers.MIN_MATCH)
+        self.assertEqual(ms("God of War II", "God of War 2"), 1.0)
+        self.assertLess(ms("Black", "Call of Duty: Black Ops"), covers.MIN_MATCH)
+        self.assertEqual(ms("Black (video game)", "Black"), 1.0)
+        self.assertGreaterEqual(ms("Resident Evil Code: Veronica", "Resident Evil Code: Veronica X"), covers.MIN_MATCH)
+        self.assertLess(ms("Burnout 3: Takedown", "Burnout Revenge"), covers.MIN_MATCH)
+
+    def test_igdb_rejects_wrong_game(self):
+        net = Net([("id.twitch.tv", Resp(data={"access_token": "T", "expires_in": 9999})),
+                   ("api.igdb.com", Resp(data=[{"name": "Gran Turismo 4 Prologue", "cover": {"image_id": "a"}},
+                                                {"name": "Gran Turismo 3: A-Spec", "cover": {"image_id": "b"}}]))])
+        self.assertEqual(covers.CoverFinder(net, igdb_id="C", igdb_secret="S")
+                         .find(Entry("a/b", cover_title="Gran Turismo 4")), (None, False))
+
     def test_similarity(self):
         self.assertEqual(covers.similarity("Banjo-Kazooie", "Banjo-Kazooie"), 1.0)
         self.assertGreaterEqual(covers.similarity("Zelda: Majora's Mask",
@@ -236,6 +254,21 @@ class Store(unittest.TestCase):
             s.set_custom("a/b", bad)
         s.clear("a/b")
         self.assertIsNone(s.cached("a/b"))
+
+    def test_migration_drops_auto_covers_keeps_custom(self):
+        folder = self.tmp / "m"
+        folder.mkdir()
+        (folder / "a_b.img").write_bytes(PNG)
+        (folder / "c_d.img").write_bytes(PNG)
+        (folder / "c_d.custom").touch()
+        (folder / "e_f.none").touch()
+        covers.CoverStore(folder, covers.CoverFinder(Net([])))
+        self.assertFalse((folder / "a_b.img").exists())
+        self.assertTrue((folder / "c_d.img").exists())
+        self.assertFalse((folder / "e_f.none").exists())
+        (folder / "a_b.img").write_bytes(PNG)
+        covers.CoverStore(folder, covers.CoverFinder(Net([])))  # já migrado: não repete
+        self.assertTrue((folder / "a_b.img").exists())
 
     def test_clear_failures(self):
         s = self.store([])

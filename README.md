@@ -45,7 +45,7 @@ Adicione jogos em `%LOCALAPPDATA%\UsagiGameLauncher\catalog.user.json` (ou pelo 
 
 ```
 python tests/test_core.py        # 32 testes de lógica
-python tests/test_covers.py      # 21 testes das fontes e do cache de capas
+python tests/test_covers.py      # 24 testes das fontes e do cache de capas
 python tests/smoke_ui.py pasta   # interface sem tela + instalação ponta a ponta + capturas
 ```
 
