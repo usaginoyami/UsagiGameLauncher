@@ -4,7 +4,7 @@
   "games": [
     {
       "repo": "Zelda64Recomp/Zelda64Recomp",
-      "name": "Zelda 64: Recompiled",
+      "name": "Zelda: Majora's Mask (Zelda 64: Recompiled)",
       "platform": "N64",
       "description": "Recompilação estática de The Legend of Zelda: Majora's Mask (e, em breve, Ocarina of Time) para Windows, Linux e Mac, com mods, gráficos modernos e taxas altas.",
       "notes": "Requer a sua própria ROM do jogo.",
@@ -12,7 +12,7 @@
     },
     {
       "repo": "BanjoRecomp/BanjoRecomp",
-      "name": "Banjo: Recompiled",
+      "name": "Banjo-Kazooie (Banjo: Recompiled)",
       "platform": "N64",
       "description": "Recompilação de Banjo-Kazooie para PC nativo.",
       "notes": "Requer a sua própria ROM do jogo.",
@@ -20,7 +20,7 @@
     },
     {
       "repo": "sonicdcer/MarioKart64Recomp",
-      "name": "Mario Kart 64: Recompiled",
+      "name": "Mario Kart 64",
       "platform": "N64",
       "description": "Recompilação de Mario Kart 64 para PC nativo.",
       "notes": "Requer a sua própria ROM do jogo.",
@@ -28,7 +28,7 @@
     },
     {
       "repo": "klorfmorf/Goemon64Recomp",
-      "name": "Goemon 64: Recompiled",
+      "name": "Mystical Ninja Starring Goemon (Goemon 64)",
       "platform": "N64",
       "description": "Recompilação de Mystical Ninja Starring Goemon.",
       "notes": "Requer a sua própria ROM do jogo.",
@@ -36,7 +36,7 @@
     },
     {
       "repo": "Francessco121/dino-recomp",
-      "name": "Dinosaur Planet: Recompiled",
+      "name": "Star Fox Adventures / Dinosaur Planet",
       "platform": "N64",
       "description": "Recompilação de Dinosaur Planet, o jogo da Rare que nunca foi lançado.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -44,7 +44,7 @@
     },
     {
       "repo": "theboy181/drmario64_recomp_plus",
-      "name": "Dr. Mario 64 Recomp Plus",
+      "name": "Dr. Mario 64",
       "platform": "N64",
       "description": "Recompilação de Dr. Mario 64 para PC.",
       "notes": "Requer a sua própria ROM do jogo.",
@@ -52,7 +52,7 @@
     },
     {
       "repo": "RevoSucks/BM64Recomp",
-      "name": "Bomberman 64: Recompiled",
+      "name": "Bomberman 64",
       "platform": "N64",
       "description": "Recompilação de Bomberman 64.",
       "notes": "Requer a sua própria ROM do jogo.",
@@ -60,7 +60,7 @@
     },
     {
       "repo": "RevoSucks/BMHeroRecomp",
-      "name": "Bomberman Hero: Recompiled",
+      "name": "Bomberman Hero",
       "platform": "N64",
       "description": "Recompilação de Bomberman Hero.",
       "notes": "Requer a sua própria ROM do jogo.",
@@ -68,7 +68,7 @@
     },
     {
       "repo": "MegaMan64Recomp/MegaMan64Recompiled",
-      "name": "Mega Man 64: Recompiled",
+      "name": "Mega Man 64",
       "platform": "N64",
       "description": "Recompilação de Mega Man 64.",
       "notes": "Requer a sua própria ROM do jogo.",
@@ -76,7 +76,7 @@
     },
     {
       "repo": "Rainchus/Quest64-Recomp",
-      "name": "Quest 64: Recompiled",
+      "name": "Quest 64",
       "platform": "N64",
       "description": "Recompilação de Quest 64.",
       "notes": "Requer a sua própria ROM do jogo.",
@@ -84,7 +84,7 @@
     },
     {
       "repo": "Cellenseres/SSSV_Recomp",
-      "name": "Space Station Silicon Valley: Recompiled",
+      "name": "Space Station Silicon Valley",
       "platform": "N64",
       "description": "Recompilação de Space Station Silicon Valley.",
       "notes": "Requer a sua própria ROM do jogo.",
@@ -92,7 +92,7 @@
     },
     {
       "repo": "sonicdcer/DNZHRecomp",
-      "name": "Duke Nukem: Zero Hour Recompiled",
+      "name": "Duke Nukem: Zero Hour",
       "platform": "N64",
       "description": "Recompilação de Duke Nukem: Zero Hour.",
       "notes": "Requer a sua própria ROM do jogo.",
@@ -100,7 +100,7 @@
     },
     {
       "repo": "Rainchus/ChameleonTwist1-JP-Recomp",
-      "name": "Chameleon Twist: Recompiled (JP)",
+      "name": "Chameleon Twist (JP)",
       "platform": "N64",
       "description": "Recompilação da versão japonesa de Chameleon Twist.",
       "notes": "Requer a sua própria ROM (versão JP).",
@@ -108,7 +108,7 @@
     },
     {
       "repo": "hedge-dev/UnleashedRecomp",
-      "name": "Unleashed Recompiled",
+      "name": "Sonic Unleashed (Xbox 360)",
       "platform": "Xbox 360",
       "description": "Recompilação estática de Sonic Unleashed (Xbox 360) para PC.",
       "notes": "Requer os arquivos do seu próprio jogo para Xbox 360.",
@@ -204,7 +204,7 @@
     },
     {
       "repo": "TGP482/BLACK-XBERecomp",
-      "name": "Black",
+      "name": "Black (Xbox)",
       "platform": "Xbox",
       "description": "Port não oficial para PC da versão de Xbox original de Black, com opções gráficas extras e suporte a teclado e mouse.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -212,7 +212,7 @@
     },
     {
       "repo": "antoxa2584x/burnout3-sw",
-      "name": "Burnout 3: Takedown (Switch)",
+      "name": "Burnout 3: Takedown (alvo Switch)",
       "platform": "Xbox",
       "description": "Recompilação de Burnout 3: Takedown (Xbox) voltada ao Nintendo Switch. Fork de sp00nznet/burnout3.",
       "notes": "Requer a sua própria cópia do jogo. Alvo: Nintendo Switch. Não é um pacote para PC.",
@@ -228,7 +228,7 @@
     },
     {
       "repo": "SubhanHabib/OpenGTPS1",
-      "name": "Gran Turismo 2 (build macOS)",
+      "name": "Gran Turismo 2 (PS1, build macOS)",
       "platform": "PS1",
       "description": "Build experimental para macOS do port OpenGTPS1 (Gran Turismo 2 dos EUA, recompilação estática).",
       "notes": "Requer a sua própria cópia do jogo. Build para macOS. Para Windows, veja GTTeancum/OpenGTPS1. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
@@ -236,7 +236,7 @@
     },
     {
       "repo": "Kaezzey/gt4-staticrecomp",
-      "name": "Gran Turismo 4",
+      "name": "Gran Turismo 4 (PS2)",
       "platform": "PS2",
       "description": "Recompilação estática de Gran Turismo 4 (PS2).",
       "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
@@ -284,7 +284,7 @@
     },
     {
       "repo": "LorenzoAlfaro/GTStaticRecomp",
-      "name": "Gran Turismo",
+      "name": "Gran Turismo (PS1)",
       "platform": "PS1",
       "description": "Recompilação estática de Gran Turismo (PS1, EUA) para Windows, com 4x, 16:9 e save states.",
       "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
@@ -300,7 +300,7 @@
     },
     {
       "repo": "andrebrumdev/gow2-recomp",
-      "name": "God of War II HD",
+      "name": "God of War II HD (PS3)",
       "platform": "PS3",
       "description": "Recompilação estática de God of War II HD, com artefatos de trabalho (limites de lift, fontes SPU, scripts).",
       "notes": "Requer a sua própria cópia do jogo. Repositório de trabalho: pode não ter versão jogável.",
@@ -324,7 +324,7 @@
     },
     {
       "repo": "arcanite24/pinyon-shift",
-      "name": "Forza Horizon (Pinyon Shift)",
+      "name": "Forza Horizon (Xbox 360)",
       "platform": "Xbox 360",
       "description": "Prévia jogável da recompilação estática de Forza Horizon.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -340,7 +340,7 @@
     },
     {
       "repo": "danfromtico/goon-nx",
-      "name": "Dead or Alive Xtreme Beach Volleyball (Switch)",
+      "name": "Dead or Alive Xtreme Beach Volleyball (alvo Switch)",
       "platform": "Xbox",
       "description": "Game Of Ocean Nets (GOON): recompilação estática de Dead or Alive Xtreme Beach Volleyball (Xbox) para o Nintendo Switch.",
       "notes": "Requer a sua própria cópia do jogo. Alvo: Nintendo Switch. Não é um pacote para PC. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
@@ -348,7 +348,7 @@
     },
     {
       "repo": "peiikai/LASRecomp",
-      "name": "Link's Awakening (Switch)",
+      "name": "Zelda: Link's Awakening (Switch)",
       "platform": "Switch",
       "description": "Recompilação estática de Link's Awakening (Switch) para macOS, Windows e Linux.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -372,7 +372,7 @@
     },
     {
       "repo": "samuelit0davila/fifa-street-pc-port",
-      "name": "FIFA Street (ReStreet)",
+      "name": "FIFA Street (2012)",
       "platform": "Xbox 360",
       "description": "ReStreet: FIFA Street (2012) recompilado para Windows, com jogo online e launcher com amigos, chat e salas.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -388,7 +388,7 @@
     },
     {
       "repo": "mxmstr/Burnout3Recomp",
-      "name": "Burnout 3: Takedown (mxmstr)",
+      "name": "Burnout 3: Takedown (Xbox, em desenvolvimento)",
       "platform": "Xbox",
       "description": "Port de PC de Burnout 3 baseado na versão de Xbox, ainda muito em desenvolvimento.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -476,7 +476,7 @@
     },
     {
       "repo": "Supermedo/bloodborne_pc",
-      "name": "Bloodborne (Supermedo)",
+      "name": "Bloodborne",
       "platform": "PS4",
       "description": "Bloodborne rodando nativamente no Windows.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -484,7 +484,7 @@
     },
     {
       "repo": "deadinside28/bloodborne_pc",
-      "name": "Bloodborne (deadinside28)",
+      "name": "Bloodborne (outro port)",
       "platform": "PS4",
       "description": "Port de Bloodborne para PC.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -492,7 +492,7 @@
     },
     {
       "repo": "FelipePrado0/SpartanPort",
-      "name": "God of War III Remastered (SpartanPort)",
+      "name": "God of War III Remastered",
       "platform": "PS4",
       "description": "Port não oficial de God of War III Remastered (PS4) para Windows e Linux (AppImage). O código x86-64 original roda direto.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -516,7 +516,7 @@
     },
     {
       "repo": "moesuito/gt4-staticrecomp",
-      "name": "Gran Turismo 4 (fork)",
+      "name": "Gran Turismo 4 (PS2, fork)",
       "platform": "PS2",
       "description": "Fork de Kaezzey/gt4-staticrecomp.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -524,7 +524,7 @@
     },
     {
       "repo": "aikatore/recvx-enhanced-port",
-      "name": "Resident Evil Code: Veronica X (enhanced)",
+      "name": "Resident Evil Code: Veronica X (PS2, melhorado)",
       "platform": "PS2",
       "description": "Port melhorado de Resident Evil Code: Veronica X, com co-op online e opções extras de renderização.",
       "notes": "Requer a sua própria cópia do jogo. Segundo o README, a maior parte do código foi escrita por IA e revisada pelo mantenedor.",
@@ -540,7 +540,7 @@
     },
     {
       "repo": "2ship2harkinian/2ship2harkinian",
-      "name": "2 Ship 2 Harkinian (Majora's Mask)",
+      "name": "Zelda: Majora's Mask (2 Ship 2 Harkinian)",
       "platform": "N64",
       "description": "Port nativo de The Legend of Zelda: Majora's Mask.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -548,7 +548,7 @@
     },
     {
       "repo": "Waffle565/God-Of-War-Native-Port",
-      "name": "God of War (Waffle565)",
+      "name": "God of War (PS2)",
       "platform": "PS2",
       "description": "Port nativo para PC de God of War (PS2, NTSC-U SCUS-97399): código recompilado para C++ e hardware do PS2 reimplementado.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -564,7 +564,7 @@
     },
     {
       "repo": "NoRain211/doa3-re",
-      "name": "Dead or Alive 3 (NoRain211)",
+      "name": "Dead or Alive 3 (outro port)",
       "platform": "Xbox",
       "description": "Port nativo para Windows de Dead or Alive 3 (Xbox), por recompilação estática com runtime escrito à mão.",
       "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
@@ -588,7 +588,7 @@
     },
     {
       "repo": "YYOzcan/Tobiichi-Port",
-      "name": "God of War (Tobiichi)",
+      "name": "God of War (PS2, outro port)",
       "platform": "PS2",
       "description": "Port de God of War (PS2) para PC por recompilação estática.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -596,7 +596,7 @@
     },
     {
       "repo": "Revivedx/SavageWindRecomp",
-      "name": "Zelda: Breath of the Wild (SavageWind)",
+      "name": "Zelda: Breath of the Wild (Switch)",
       "platform": "Switch",
       "description": "Recompilação estática em andamento de Zelda: Breath of the Wild (Switch, v1.8.2) para Windows e Linux.",
       "notes": "Requer a sua própria cópia do jogo.",
@@ -620,7 +620,7 @@
     },
     {
       "repo": "GTTeancum/OpenGTPS1",
-      "name": "Gran Turismo 2 (OpenGTPS1)",
+      "name": "Gran Turismo 2 (PS1, Windows)",
       "platform": "PS1",
       "description": "Port de Gran Turismo 2 (EUA, discos Simulation e Arcade) para Windows x64 por recompilação estática.",
       "notes": "Requer a sua própria cópia do jogo.",
