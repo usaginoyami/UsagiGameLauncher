@@ -11,13 +11,14 @@ import requests
 from PySide6.QtCore import QPointF, QRectF, QSize, Qt, QTimer, QUrl, Signal, QObject
 from PySide6.QtGui import (QColor, QDesktopServices, QFont, QFontMetrics, QGuiApplication,
                            QPainter, QPainterPath, QPen, QPixmap)
-from PySide6.QtWidgets import (QAbstractItemView, QCheckBox, QComboBox, QDialog, QFileDialog,
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComboBox, QDialog, QFileDialog,
                                QFormLayout, QFrame, QHBoxLayout, QInputDialog, QLabel, QLineEdit,
                                QListView, QListWidget, QListWidgetItem, QMainWindow, QMenu,
                                QMessageBox, QProgressBar, QPushButton, QSpinBox, QStyle,
                                QStyledItemDelegate, QTextBrowser, QVBoxLayout, QWidget)
 
-from .. import APP_NAME, __version__, catalog, covers, installer, launcher, paths
+from .. import (APP_NAME, __version__, backup, catalog, covers, installer, launcher, paths,
+                safety, selfupdate)
 from ..catalog import Entry
 from ..errors import Cancelled, GitHubError, RateLimitError
 from ..github_api import GitHubClient, Release
@@ -214,6 +215,22 @@ class SettingsDialog(QDialog):
         self.igdb_secret.setPlaceholderText("Client Secret (dev.twitch.tv/console, grátis)")
         form.addRow("IGDB Client Secret", self.igdb_secret)
 
+        self.show_adult = QCheckBox("Mostrar jogos adultos ou sugestivos (escondidos por padrão)")
+        self.show_adult.setChecked(bool(settings.get("show_adult")))
+        form.addRow("", self.show_adult)
+
+        self.safety = QCheckBox("Pedir confirmação antes de baixar projetos suspeitos ou desconhecidos")
+        self.safety.setChecked(bool(settings.get("safety_confirm")))
+        form.addRow("", self.safety)
+
+        self.backup = QCheckBox("Fazer backup dos saves e levá-los para a versão nova ao atualizar")
+        self.backup.setChecked(bool(settings.get("backup_saves")))
+        form.addRow("", self.backup)
+
+        self.self_update = QCheckBox("Avisar quando houver versão nova do launcher")
+        self.self_update.setChecked(bool(settings.get("check_self_update")))
+        form.addRow("", self.self_update)
+
         self.minimize = QCheckBox("Minimizar o launcher ao abrir um jogo")
         self.minimize.setChecked(bool(settings.get("minimize_on_launch")))
         form.addRow("", self.minimize)
@@ -246,6 +263,10 @@ class SettingsDialog(QDialog):
             "discover_topics": topics or ["recomp"],
             "discover_min_stars": self.stars.value(),
             "minimize_on_launch": self.minimize.isChecked(),
+            "show_adult": self.show_adult.isChecked(),
+            "safety_confirm": self.safety.isChecked(),
+            "backup_saves": self.backup.isChecked(),
+            "check_self_update": self.self_update.isChecked(),
             "covers_enabled": self.covers_on.isChecked(),
             "steamgriddb_key": self.sgdb.text().strip(),
             "igdb_client_id": self.igdb_id.text().strip(),
@@ -282,8 +303,15 @@ class MainWindow(QMainWindow):
         self._build_ui()
         self.reload_entries()
         self.apply_filters()
+        self.b_self = QPushButton("")
+        self.b_self.setObjectName("primary")
+        self.b_self.hide()
+        self.b_self.clicked.connect(self.apply_self_update)
+        self.statusBar().addPermanentWidget(self.b_self)
+        self._self_update: tuple | None = None
         if auto_refresh:
             QTimer.singleShot(150, self.startup_refresh)
+            QTimer.singleShot(1500, self.check_self_update)
 
     # -------------------------------------------------------------- layout
     def _build_ui(self) -> None:
@@ -453,7 +481,9 @@ class MainWindow(QMainWindow):
     def reload_entries(self) -> None:
         discovered, _ts = catalog.load_discovered()
         entries = catalog.merge(catalog.load_user(), catalog.load_bundled(), discovered,
-                                set(self.settings.get("hidden")))
+                                set(self.settings.get("hidden")),
+                                show_adult=bool(self.settings.get("show_adult")),
+                                keep={r["repo"].lower() for r in self.library.all()})
         old = self.rows
         self.rows = {}
         for e in entries:
@@ -754,12 +784,26 @@ class MainWindow(QMainWindow):
                                     "Abra a página de releases para baixar manualmente.")
             return
         rel, name, repo = row.release, row.entry.name, row.entry.repo
+        if not self._confirm_safety(row, rel, asset):
+            return
         root = self.settings.install_dir()
         downloads = paths.sub_dir("downloads")
+        prev = dict(row.rec) if row.rec else None
+        do_backup = bool(self.settings.get("backup_saves"))
 
         def work(task: Task):
-            return installer.install(self.client, rel, asset, name, root, downloads,
-                                     progress=task.report, cancel=task.cancel_event)
+            res = installer.install(self.client, rel, asset, name, root, downloads,
+                                    progress=task.report, cancel=task.cancel_event)
+            old = Path(prev["folder"]) if prev and prev.get("folder") else None
+            if do_backup and old and old.is_dir() and old.resolve() != res.folder.resolve():
+                try:
+                    task.report("Salvando backup", 0, 0)
+                    res.backup = backup.make_backup(old, res.root / backup.BACKUP_DIR,
+                                                    prev.get("version") or "anterior")
+                    res.carried = backup.carry_forward(old, res.folder)
+                except OSError:  # backup nunca pode impedir a atualização
+                    pass
+            return res
 
         def on_progress(phase: str, done: int, total: int) -> None:
             self.progress[key] = (phase, done, total)
@@ -775,7 +819,12 @@ class MainWindow(QMainWindow):
             self.library.record_install(repo, name, rel.tag, str(res.folder),
                                         str(res.exe) if res.exe else None, str(res.root))
             row.rec = self.library.get(repo)
-            self.statusBar().showMessage(f"{name} {rel.tag} instalado em {res.folder}")
+            extra = ""
+            if res.carried:
+                extra = f" · {res.carried} arquivo(s) de save levados para a versão nova"
+            if res.backup:
+                extra += f" · backup em {res.backup.name}"
+            self.statusBar().showMessage(f"{name} {rel.tag} instalado em {res.folder}{extra}")
             self.reload_entries()
             self.apply_filters()
             if res.exe is None:
@@ -797,6 +846,98 @@ class MainWindow(QMainWindow):
         self.active[key] = self.runner.run(work, ok, err, on_progress)
         self.statusBar().showMessage(f"Instalando {name}…")
         self._row_changed(key)
+
+    # ------------------------------------------------- atualização do launcher
+    def check_self_update(self, force: bool = False) -> None:
+        if not force and not self.settings.get("check_self_update"):
+            return
+        last = float(self.settings.get("self_update_checked") or 0)
+        if not force and time.time() - last < selfupdate.CHECK_EVERY and self._self_update is None:
+            return
+
+        def ok(found) -> None:
+            self.settings.set("self_update_checked", time.time())
+            self.settings.save()
+            self._self_update = found
+            if found:
+                self.b_self.setText(f"Atualizar o launcher para {found[0].tag}")
+                self.b_self.show()
+            else:
+                self.b_self.hide()
+
+        self.runner.run(lambda task: selfupdate.find_update(self.client), ok, lambda e: None)
+
+    def apply_self_update(self) -> None:
+        if not self._self_update:
+            return
+        rel, asset = self._self_update
+        if asset is None or not selfupdate.can_self_replace():
+            QDesktopServices.openUrl(QUrl(rel.url))  # fonte ou pasta sem permissão: baixa à mão
+            return
+        if QMessageBox.question(
+                self, "Atualizar o launcher",
+                f"Baixar {rel.tag} e reiniciar o launcher agora?\n\nSeus jogos, saves e "
+                "configurações não são alterados.") != QMessageBox.StandardButton.Yes:
+            return
+        work = paths.sub_dir("update")
+        self.b_self.setEnabled(False)
+
+        def work_fn(task: Task):
+            return selfupdate.download_update(self.client, asset, work,
+                                              lambda ph, d, t: task.report(ph, d, t), task.cancel_event)
+
+        def on_progress(phase: str, done: int, total: int) -> None:
+            pct = f" {done * 100 // total}%" if total else ""
+            self.b_self.setText(f"{phase}{pct}")
+
+        def ok(new_dir: Path) -> None:
+            try:
+                selfupdate.start_updater(new_dir, work)
+            except OSError as e:
+                self.b_self.setEnabled(True)
+                QMessageBox.warning(self, "Falha ao atualizar", str(e))
+                return
+            QApplication.quit()
+
+        def err(e: Exception) -> None:
+            self.b_self.setEnabled(True)
+            self.b_self.setText(f"Atualizar o launcher para {rel.tag}")
+            QMessageBox.warning(self, "Falha ao atualizar", f"{e}\n\nNada foi alterado.")
+
+        self.runner.run(work_fn, ok, err, on_progress)
+
+    def _confirm_safety(self, row: "Row", rel: Release, asset) -> bool:
+        """Pergunta antes de baixar quando há sinais de risco; 'Sim, confiar' lembra a escolha."""
+        if not self.settings.get("safety_confirm"):
+            return True
+        key = row.entry.key
+        if self.settings.has("trusted", key) or row.installed:
+            return True
+        findings = safety.assess(row.entry, rel, asset)
+        if not safety.needs_confirmation(findings):
+            return True
+        box = QMessageBox(self)
+        box.setIcon(QMessageBox.Icon.Warning)
+        box.setWindowTitle("Confirmar antes de baixar")
+        box.setText(f"“{row.entry.name}” tem sinais que merecem atenção:")
+        box.setInformativeText(
+            safety.summary(findings)
+            + f"\n\nO launcher vai baixar e abrir programas de {row.entry.repo}. Só continue se você "
+              "conferiu o repositório e confia no autor.")
+        go = box.addButton("Baixar mesmo assim", QMessageBox.ButtonRole.AcceptRole)
+        repo_btn = box.addButton("Ver repositório", QMessageBox.ButtonRole.HelpRole)
+        cancel = box.addButton("Cancelar", QMessageBox.ButtonRole.RejectRole)
+        box.setDefaultButton(cancel)
+        box.exec()
+        clicked = box.clickedButton()
+        if clicked is repo_btn:
+            QDesktopServices.openUrl(QUrl(row.entry.url))
+            return False
+        if clicked is go:
+            self.settings.add_to("trusted", key)
+            self.settings.save()
+            return True
+        return False
 
     def cancel_install(self) -> None:
         task = self.active.get(self.current or "")
@@ -946,6 +1087,8 @@ class MainWindow(QMainWindow):
         menu.addAction("Abrir no GitHub", lambda: QDesktopServices.openUrl(QUrl(row.entry.url)))
         menu.addAction("Copiar link", lambda: QGuiApplication.clipboard().setText(row.entry.url))
         menu.addSeparator()
+        if row.installed:
+            menu.addAction("Backups dos saves…", lambda: self.backups_dialog(key))
         menu.addAction("Definir capa…", lambda: self.set_cover(key))
         menu.addAction("Buscar capa de novo", lambda: self.refetch_cover(key))
         if row.entry.source == "discovered":
@@ -956,6 +1099,39 @@ class MainWindow(QMainWindow):
             menu.addSeparator()
             menu.addAction("Remover do meu catálogo", lambda: self._drop_user(row))
         menu.exec(self.list.viewport().mapToGlobal(pos))
+
+    def backups_dialog(self, key: str) -> None:
+        row = self.rows[key]
+        rec = row.rec
+        if rec is None:
+            return
+        bdir = Path(rec.get("root", "")) / backup.BACKUP_DIR
+        zips = backup.list_backups(bdir) if bdir.is_dir() else []
+        if not zips:
+            QMessageBox.information(
+                self, "Backups dos saves",
+                "Ainda não há backups deste jogo. Eles são criados sozinhos a cada atualização "
+                "(se a opção estiver ligada nas Configurações).")
+            return
+        box = QMessageBox(self)
+        box.setWindowTitle("Backups dos saves")
+        box.setText(f"{len(zips)} backup(s) de {row.entry.name}. O mais recente: {zips[0].name}")
+        box.setInformativeText("Restaurar copia os arquivos do backup para a versão instalada agora, "
+                               "substituindo os atuais.")
+        restore = box.addButton("Restaurar o mais recente", QMessageBox.ButtonRole.AcceptRole)
+        open_dir = box.addButton("Abrir pasta", QMessageBox.ButtonRole.HelpRole)
+        box.addButton("Fechar", QMessageBox.ButtonRole.RejectRole)
+        box.exec()
+        clicked = box.clickedButton()
+        if clicked is open_dir:
+            QDesktopServices.openUrl(QUrl.fromLocalFile(str(bdir)))
+        elif clicked is restore:
+            try:
+                n = backup.restore(zips[0], Path(rec["folder"]))
+            except (OSError, ValueError) as e:
+                QMessageBox.warning(self, "Falha ao restaurar", str(e))
+                return
+            self.statusBar().showMessage(f"{n} arquivo(s) restaurado(s) de {zips[0].name}.")
 
     def _fav(self, key: str) -> None:
         self.settings.toggle("favorites", key)
@@ -1011,6 +1187,7 @@ class MainWindow(QMainWindow):
                     self.settings.get("igdb_client_id"), self.settings.get("igdb_client_secret"))
 
         old = cover_cfg()
+        old_adult = bool(self.settings.get("show_adult"))
         dlg = SettingsDialog(self.settings, self)
         if dlg.exec() == QDialog.DialogCode.Accepted:
             self.settings.update(dlg.values())
@@ -1022,6 +1199,9 @@ class MainWindow(QMainWindow):
                 self.covers.store.clear_failures()
                 self.covers.reset_all()
                 self.list.viewport().update()
+            if bool(self.settings.get("show_adult")) != old_adult:
+                self.reload_entries()
+                self.apply_filters()
             self.statusBar().showMessage("Configurações salvas.")
 
     # -------------------------------------------------------------- saída

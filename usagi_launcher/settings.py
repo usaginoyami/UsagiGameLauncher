@@ -19,6 +19,12 @@ DEFAULTS: dict[str, Any] = {
     "igdb_client_id": "",
     "igdb_client_secret": "",
     "minimize_on_launch": False,
+    "show_adult": False,
+    "safety_confirm": True,
+    "trusted": [],
+    "backup_saves": True,
+    "check_self_update": True,
+    "self_update_checked": 0,
     "hidden": [],
     "favorites": [],
 }

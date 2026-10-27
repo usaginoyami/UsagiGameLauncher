@@ -179,6 +179,8 @@ class InstallResult:
     exe: Path | None
     candidates: list[Path] = field(default_factory=list)
     asset_name: str = ""
+    backup: Path | None = None  # zip com os saves da versão anterior
+    carried: int = 0  # saves copiados para a pasta nova
 
 
 def install(client: GitHubClient, release: Release, asset: Asset, game_name: str,

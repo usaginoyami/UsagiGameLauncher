@@ -56,6 +56,8 @@ class Entry:
     homepage: str = ""
     cover_title: str = ""  # nome do jogo original, usado para achar a capa
     cover: str = ""  # link ou arquivo local de uma capa própria
+    created_at: str = ""  # só nos descobertos (usado na avaliação de risco)
+    adult: bool = False  # conteúdo adulto/sugestivo: escondido, a menos que o usuário ligue
 
     def __post_init__(self) -> None:
         if not self.name:
@@ -126,6 +128,18 @@ def is_tool_repo(name: str, description: str = "") -> bool:
     return bool(_TOOL_RE.search(f"{name} {description}"))
 
 
+_ADULT_RE = re.compile(
+    r"(\bnsfw\b|\bhentai\b|\bporn\w*|\berotic\w*|\blewd\b|\becchi\b|\bsex(?:ual|y)?\b|\bnude\b|"
+    r"\bnaked\b|\bxxx\b|\b18\+|\badult\b|\bwaifu\b|\bpeeping\b|\bstrip(?:per|tease)?\b|\bjiggle\b)",
+    re.I,
+)
+
+
+def is_adult_repo(name: str, description: str = "", topics: list[str] | None = None) -> bool:
+    text = " ".join([name.replace("-", " ").replace("_", " "), description, " ".join(topics or [])])
+    return bool(_ADULT_RE.search(text))
+
+
 # ----------------------------------------------------------------- fontes
 def load_bundled() -> list[Entry]:
     data = load_json(paths.resource_path("data/catalog.json"), {})
@@ -169,15 +183,22 @@ def _entries(raw: list, source: str) -> list[Entry]:
 
 
 def merge(user: list[Entry], bundled: list[Entry], discovered: list[Entry],
-          hidden: set[str] | None = None) -> list[Entry]:
-    """Usuário sobrepõe o catálogo, que sobrepõe os descobertos. Sem duplicatas."""
+          hidden: set[str] | None = None, show_adult: bool = True,
+          keep: set[str] | None = None) -> list[Entry]:
+    """Usuário sobrepõe o catálogo, que sobrepõe os descobertos. Sem duplicatas.
+
+    Conteúdo adulto some do catálogo e dos descobertos quando show_adult é falso; o que o
+    próprio usuário adicionou e o que está em `keep` (instalados) nunca é escondido."""
     hidden = hidden or set()
+    keep = keep or set()
     out: dict[str, Entry] = {}
     for group in (user, bundled, discovered):
         for e in group:
             if e.key in out:
                 continue
             if e.source == "discovered" and e.key in hidden:
+                continue
+            if e.adult and not show_adult and e.source != "user" and e.key not in keep:
                 continue
             out[e.key] = e
     return list(out.values())
@@ -220,5 +241,7 @@ def discover(client, topics: list[str], min_stars: int = 10) -> tuple[list[Entry
                 stars=int(it.get("stargazers_count") or 0),
                 pushed_at=it.get("pushed_at") or "",
                 homepage=it.get("homepage") or "",
+                created_at=it.get("created_at") or "",
+                adult=is_adult_repo(name, desc, it.get("topics") or []),
             )
     return sorted(found.values(), key=lambda e: -e.stars), error
