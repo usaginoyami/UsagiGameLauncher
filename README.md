@@ -16,6 +16,8 @@ Inspirado em [teasergames/ports-pc](https://github.com/teasergames/ports-pc) (bi
 - **Descoberta automática**: busca no GitHub pelos tópicos `recomp`, `recompiled`, `recompilation` e `static-recompilation`. Ferramentas (N64Recomp, XenonRecomp etc.), forks e repositórios arquivados são filtrados. Os achados aparecem em **Descobertos**; clique com o botão direito para adicionar ao seu catálogo ou ocultar.
 - **Adicionar repositório**: cole `dono/repo` ou o link do GitHub.
 - **Instalar / Atualizar**: escolhe sozinho o pacote Windows da release (ignora Linux, macOS, ARM e source), confere o SHA-256 quando o GitHub publica, extrai com proteção contra zip-slip e detecta o executável. Cada versão vai para `Jogo\vX.Y.Z`, então um update nunca sobrescreve a anterior. **Limpar versões antigas** apaga só quando você confirmar.
+- **Renomear**: clique direito no jogo → **Renomear…** (ou F2). O nome é só de exibição, fica salvo nas suas configurações e não muda o repositório, o catálogo nem a pasta do jogo. **Restaurar nome original** desfaz.
+- **Estrelas do GitHub**: cada card mostra a contagem (ex.: ★ 1,2 mil) e o painel mostra o número exato. Ficam em cache por 24 h. Sem token, o launcher só consulta as estrelas dos jogos instalados, favoritos e do que você abrir; com token, atualiza todos.
 - **Filtros**: Todos, Biblioteca, Atualizações, Favoritos, Descobertos, mais plataforma e busca por texto.
 - **Jogar**: abre o executável na pasta do jogo; se o Windows pedir administrador, o pedido é repassado. O executável pode ser trocado em **Escolher executável**.
 - **Capas**: cada card e o painel de detalhes mostram a capa do jogo, buscada sozinha só dos jogos que aparecem na tela. Ordem das fontes: capa definida no catálogo → IGDB (só com Client ID e Secret da Twitch; filtra pela plataforma do jogo) → SteamGridDB (só com chave) → Wikipedia → primeira imagem do README do repositório. Banner horizontal preenche o card; caixa vertical ganha fundo desfocado. Clique direito no card → **Escolher capa online…** (mostra várias opções da IGDB, SteamGridDB e Wikipedia, com busca por outro nome), **Definir capa de um arquivo…** ou **Buscar capa de novo**. Capa escolhida por você nunca é apagada pela limpeza automática. Quem não tem capa fica com uma letra e só tenta de novo depois de 7 dias; sem internet não conta como falha.
@@ -50,7 +52,7 @@ Adicione jogos em `%LOCALAPPDATA%\UsagiGameLauncher\catalog.user.json` (ou pelo 
 ```
 python tests/test_core.py        # 32 testes de lógica
 python tests/test_covers.py      # 31 testes das fontes e do cache de capas
-python tests/test_extras.py      # 25 testes de segurança, filtro adulto, backup e autoatualização
+python tests/test_extras.py      # 28 testes de segurança, filtro adulto, backup, autoatualização e estrelas
 python tests/smoke_ui.py pasta   # interface sem tela + instalação ponta a ponta + capturas
 ```
 

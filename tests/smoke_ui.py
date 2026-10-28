@@ -49,6 +49,9 @@ class FakeClient(GitHubClient):
                        f"https://github.com/{full_name}/releases/tag/{tag}",
                        "## Novidades\n\n- Suporte a 120 FPS\n- Correções de áudio\n", [l, a])
 
+    def repo_info(self, full_name):
+        return {"stargazers_count": 1234 if full_name.lower() == "banjorecomp/banjorecomp" else 56}
+
     def search_repos(self, topic, min_stars=10, per_page=50):
         self.searches += 1
         return [{"full_name": "someone/CoolGame-Recomp", "name": "CoolGame-Recomp",
@@ -200,6 +203,26 @@ check(win.covers.pixmap(bm) is not None, "capa definida manualmente aparece")
 win.refetch_cover(bm.key)
 pump(app, 1.0, until=lambda: not win.covers._busy)
 check(win.covers.store.cached(bm.key) is None, "rebuscar limpou a capa e a falha (Bomberman segue sem capa)")
+
+# estrelas no GitHub e renomear
+pump(app, 1.0)
+check(win.rows["banjorecomp/banjorecomp"].entry.stars == 1234, "estrelas do GitHub carregadas no catálogo")
+check(win.stars.get("banjorecomp/banjorecomp") == 1234, "estrelas guardadas em cache no disco")
+win.list.viewport().update()
+win.grab().save(str(OUT / "05_estrelas.png"))
+import usagi_launcher.ui.main_window as mw  # noqa: E402
+mw.QInputDialog.getText = staticmethod(lambda *a, **k: ("Banjo-Kazooie Recomp", True))
+win.rename_game(bkey0 := "banjorecomp/banjorecomp")
+check(win.rows[bkey0].entry.name == "Banjo-Kazooie Recomp", "renomear muda o nome exibido")
+check(win.settings.get("custom_names").get(bkey0) == "Banjo-Kazooie Recomp", "nome salvo nas configurações")
+win.reload_entries()
+check(win.rows[bkey0].entry.name == "Banjo-Kazooie Recomp", "nome continua após recarregar o catálogo")
+win.search.setText("kazooie recomp")
+check(win.list.count() >= 1, "busca acha pelo nome novo")
+win.search.setText("")
+win.rename_game(bkey0, reset=True)
+check(win.rows[bkey0].entry.name == "Banjo-Kazooie (Banjo: Recompiled)", "restaurar volta ao nome original")
+check(not win.settings.get("custom_names"), "nome removido das configurações")
 
 # favoritos / filtros
 win.sidebar.setCurrentRow(3)

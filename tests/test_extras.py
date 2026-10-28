@@ -9,7 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from usagi_launcher import backup, catalog, safety, selfupdate  # noqa: E402
+from usagi_launcher import backup, catalog, safety, selfupdate, stars  # noqa: E402
 from usagi_launcher.catalog import Entry  # noqa: E402
 from usagi_launcher.errors import InstallError  # noqa: E402
 from usagi_launcher.github_api import Asset, Release  # noqa: E402
@@ -235,6 +235,35 @@ class SelfUpdate(unittest.TestCase):
         self.assertIn("UsagiGameLauncher.exe", bat)
         self.assertIn("\r\n", bat)
         self.assertNotIn("del /s", bat.lower())  # nunca apaga a pasta do programa
+
+
+class Stars(unittest.TestCase):
+    def test_format(self):
+        self.assertEqual(stars.format_stars(0), "0")
+        self.assertEqual(stars.format_stars(56), "56")
+        self.assertEqual(stars.format_stars(999), "999")
+        self.assertEqual(stars.format_stars(1000), "1 mil")
+        self.assertEqual(stars.format_stars(1234), "1,2 mil")
+        self.assertEqual(stars.format_stars(15600), "15,6 mil")
+        self.assertEqual(stars.format_stars(1_500_000), "1,5 mi")
+
+    def test_cache_roundtrip_and_stale(self):
+        path = Path(tempfile.mkdtemp()) / "stars.json"
+        c = stars.StarCache(path)
+        self.assertIsNone(c.get("A/B"))
+        self.assertTrue(c.is_stale("A/B"))
+        c.set("A/B", 42)
+        c.save()
+        c2 = stars.StarCache(path)
+        self.assertEqual(c2.get("a/b"), 42)
+        self.assertFalse(c2.is_stale("a/b"))
+        c2._d["a/b"]["ts"] = 0
+        self.assertTrue(c2.is_stale("a/b"))
+
+    def test_corrupt_file_ignored(self):
+        path = Path(tempfile.mkdtemp()) / "stars.json"
+        path.write_text("{ nao e json")
+        self.assertIsNone(stars.StarCache(path).get("a/b"))
 
 
 if __name__ == "__main__":

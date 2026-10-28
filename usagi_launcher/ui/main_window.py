@@ -9,7 +9,7 @@ from typing import Callable
 
 import requests
 from PySide6.QtCore import QPointF, QRectF, QSize, Qt, QTimer, QUrl, Signal, QObject
-from PySide6.QtGui import (QColor, QDesktopServices, QFont, QFontMetrics, QGuiApplication,
+from PySide6.QtGui import (QKeySequence, QShortcut, QColor, QDesktopServices, QFont, QFontMetrics, QGuiApplication,
                            QPainter, QPainterPath, QPen, QPixmap)
 from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComboBox, QDialog, QFileDialog,
                                QFormLayout, QFrame, QHBoxLayout, QInputDialog, QLabel, QLineEdit,
@@ -18,7 +18,7 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComb
                                QStyledItemDelegate, QTextBrowser, QVBoxLayout, QWidget)
 
 from .. import (APP_NAME, __version__, backup, catalog, covers, installer, launcher, paths,
-                safety, selfupdate)
+                safety, selfupdate, stars)
 from ..catalog import Entry
 from ..errors import Cancelled, GitHubError, RateLimitError
 from ..github_api import GitHubClient, Release
@@ -60,6 +60,7 @@ class Row:
     loaded: bool = False
     error: str = ""
     rec: dict | None = None
+    orig_name: str = ""  # nome do catálogo, antes de qualquer renomeação do usuário
 
     @property
     def installed(self) -> bool:
@@ -134,6 +135,17 @@ class CardDelegate(QStyledItemDelegate):
 
         self._limit = r.right() - 8
         x, y = tx, cover.bottom() + 46
+        if row.entry.stars:
+            label = "★ " + stars.format_stars(row.entry.stars)
+            f.setPointSizeF(8)
+            f.setBold(True)
+            p.setFont(f)
+            sw = QFontMetrics(f).horizontalAdvance(label)
+            p.setPen(QColor(theme.GOLD))
+            p.drawText(QRectF(r.right() - 8 - sw, y, sw, 20), Qt.AlignmentFlag.AlignVCenter, label)
+            self._limit = r.right() - 14 - sw
+            f.setBold(False)
+            p.setFont(f)
         x += self._chip(p, x, y, row.entry.platform, "#33333f")
         if key in self.w.active:
             x += self._chip(p, x, y, "Instalando…", theme.BLUE)
@@ -287,6 +299,8 @@ class MainWindow(QMainWindow):
         self.active: dict[str, Task] = {}
         self.progress: dict[str, tuple[str, int, int]] = {}
         self.fetching: set[str] = set()
+        self.fetching_stars: set[str] = set()
+        self.stars = stars.StarCache(paths.data_dir() / "stars.json")
         self.pending = 0
         self.discovering = False
         self.current: str | None = None
@@ -310,6 +324,8 @@ class MainWindow(QMainWindow):
         self.b_self.clicked.connect(self.apply_self_update)
         self.statusBar().addPermanentWidget(self.b_self)
         self._self_update: tuple | None = None
+        self._f2 = QShortcut(QKeySequence("F2"), self.list)
+        self._f2.activated.connect(lambda: self.rename_game(self.current))
         if auto_refresh:
             QTimer.singleShot(150, self.startup_refresh)
             QTimer.singleShot(1500, self.check_self_update)
@@ -495,8 +511,14 @@ class MainWindow(QMainWindow):
             k = rec["repo"].lower()
             if k not in self.rows:
                 self.rows[k] = Row(Entry(repo=rec["repo"], name=rec.get("name", ""), source="user"))
-        for r in self.rows.values():
+        names = self.settings.get("custom_names") or {}
+        for k, r in self.rows.items():
             r.rec = self.library.get(r.entry.repo)
+            r.orig_name = r.entry.name
+            if names.get(k):
+                r.entry.name = str(names[k])
+            if not r.entry.stars:
+                r.entry.stars = self.stars.get(k) or 0
         plats = sorted({r.entry.platform for r in self.rows.values()},
                        key=lambda p: catalog.PLATFORMS.index(p) if p in catalog.PLATFORMS else 99)
         current = self.platform.currentText()
@@ -585,13 +607,14 @@ class MainWindow(QMainWindow):
         e = row.entry
         self.d_cover.set_entry(e)
         self.d_title.setText(e.name)
-        stars = f" · ★ {e.stars:,}".replace(",", ".") if e.stars else ""
-        self.d_repo.setText(f"<a style='color:{theme.RED}' href='{e.url}'>{e.repo}</a>{stars}")
+        star_txt = f" · ★ {e.stars:,} no GitHub".replace(",", ".") if e.stars else ""
+        self.d_repo.setText(f"<a style='color:{theme.RED}' href='{e.url}'>{e.repo}</a>{star_txt}")
         self.d_desc.setText(e.description or "Sem descrição.")
         self.d_note.setText(e.notes)
         self.d_note.setVisible(bool(e.notes))
         if key not in self.fetching and not row.loaded:
             self.fetch_release(key)  # sob demanda
+        self.fetch_stars(key)
         self.render_detail()
 
     def render_detail(self) -> None:
@@ -675,6 +698,29 @@ class MainWindow(QMainWindow):
         for key, row in self.rows.items():
             if force or has_token or row.installed or key in favs or key == self.current:
                 self.fetch_release(key, force)
+                self.fetch_stars(key, force)
+
+    def fetch_stars(self, key: str, force: bool = False) -> None:
+        row = self.rows.get(key)
+        if row is None or key in self.fetching_stars:
+            return
+        if not force and row.entry.stars and not self.stars.is_stale(key):
+            return
+        self.fetching_stars.add(key)
+        repo = row.entry.repo
+
+        def ok(info) -> None:
+            self.fetching_stars.discard(key)
+            n = int((info or {}).get("stargazers_count") or 0) if isinstance(info, dict) else 0
+            if n or isinstance(info, dict):
+                self.stars.set(key, n)
+                row.entry.stars = n
+                self._row_changed(key)
+
+        def err(_e: Exception) -> None:
+            self.fetching_stars.discard(key)
+
+        self.runner.run(lambda task: self.client.repo_info(repo), ok, err)
 
     def fetch_release(self, key: str, force: bool = False) -> None:
         row = self.rows.get(key)
@@ -735,7 +781,7 @@ class MainWindow(QMainWindow):
         self.discovering = True
         self.btn_discover.setEnabled(False)
         topics = list(self.settings.get("discover_topics"))
-        stars = int(self.settings.get("discover_min_stars"))
+        min_stars = int(self.settings.get("discover_min_stars"))
         self.statusBar().showMessage("Procurando projetos recomp no GitHub…")
 
         def finish() -> None:
@@ -762,7 +808,7 @@ class MainWindow(QMainWindow):
             finish()
             self.statusBar().showMessage(f"Falha na busca: {e}")
 
-        self.runner.run(lambda task: catalog.discover(self.client, topics, stars), ok, err)
+        self.runner.run(lambda task: catalog.discover(self.client, topics, min_stars), ok, err)
 
     # ------------------------------------------------------------- ações
     def primary_action(self, key: str | None) -> None:
@@ -792,8 +838,11 @@ class MainWindow(QMainWindow):
         prev = dict(row.rec) if row.rec else None
         do_backup = bool(self.settings.get("backup_saves"))
 
+        folder_name = (Path(prev["root"]).name if prev and prev.get("root")
+                       else (row.orig_name or name))  # renomear não muda a pasta do jogo
+
         def work(task: Task):
-            res = installer.install(self.client, rel, asset, name, root, downloads,
+            res = installer.install(self.client, rel, asset, folder_name, root, downloads,
                                     progress=task.report, cancel=task.cancel_event)
             old = Path(prev["folder"]) if prev and prev.get("folder") else None
             if do_backup and old and old.is_dir() and old.resolve() != res.folder.resolve():
@@ -1090,6 +1139,9 @@ class MainWindow(QMainWindow):
         menu.addSeparator()
         if row.installed:
             menu.addAction("Backups dos saves…", lambda: self.backups_dialog(key))
+        menu.addAction("Renomear…  (F2)", lambda: self.rename_game(key))
+        if key in (self.settings.get("custom_names") or {}):
+            menu.addAction("Restaurar nome original", lambda: self.rename_game(key, reset=True))
         menu.addAction("Escolher capa online…", lambda: self.pick_cover(key))
         menu.addAction("Definir capa de um arquivo…", lambda: self.set_cover(key))
         menu.addAction("Buscar capa de novo", lambda: self.refetch_cover(key))
@@ -1172,6 +1224,36 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, "Capa inválida", str(e))
             return
         self._cover_changed(key)
+
+    def rename_game(self, key: str | None, reset: bool = False) -> None:
+        """Nome de exibição só seu: não muda o repositório, o catálogo nem os jogos instalados."""
+        row = self.rows.get(key) if key else None
+        if row is None:
+            return
+        names = dict(self.settings.get("custom_names") or {})
+        if reset:
+            new = ""
+        else:
+            new, ok = QInputDialog.getText(self, "Renomear jogo", "Nome do jogo (vazio = nome original):",
+                                           text=row.entry.name)
+            if not ok:
+                return
+            new = " ".join(new.split())[:80]
+            if new == row.orig_name:
+                new = ""
+        if new:
+            names[key] = new
+        else:
+            names.pop(key, None)
+        self.settings.set("custom_names", names)
+        self.settings.save()
+        row.entry.name = new or row.orig_name
+        self.list.viewport().update()
+        self.apply_filters_keep_selection()
+        if key == self.current:
+            self.render_detail()
+            self.d_title.setText(row.entry.name)
+        self.statusBar().showMessage(f"Nome: {row.entry.name}")
 
     def pick_cover(self, key: str) -> None:
         row = self.rows.get(key)
