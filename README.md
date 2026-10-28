@@ -21,6 +21,8 @@ Inspirado em [teasergames/ports-pc](https://github.com/teasergames/ports-pc) (bi
 - **Plataformas**: **Editar plataformas…** define de qual console o jogo foi recompilado e para onde o port foi feito (Windows, Linux, Switch, Android, portátil ARM64…, ou outro texto). Portes que não são para Windows ganham o selo “→ destino” e pedem confirmação antes de baixar. As edições ficam nas suas configurações e podem ser desfeitas voltando ao valor original.
 - **Remover da lista**: clique direito → **Remover da lista** (ou Delete). Não apaga nada do disco; jogo instalado precisa ser desinstalado antes. Para trazer de volta: Configurações → **Restaurar jogos removidos**.
 - **Estrelas do GitHub**: cada card mostra a contagem (ex.: ★ 1,2 mil) e o painel mostra o número exato. Ficam em cache por 24 h. Sem token, o launcher só consulta as estrelas dos jogos instalados, favoritos e do que você abrir; com token, atualiza todos.
+- **Avisos de atualização**: quando um jogo instalado tem versão nova, aparece uma faixa no topo da lista (“Ver” abre o filtro Atualizações, “Atualizar todos” instala todas) e, com o launcher em segundo plano, um aviso do sistema. Cada versão é avisada uma vez. Enquanto o launcher fica aberto, ele reconfere os jogos instalados a cada 6 horas (mude em Configurações; usa só o cache de ETag, que não gasta o limite da API quando nada mudou).
+- **Localizar jogos já instalados**: o botão **Localizar instalados** procura jogos numa pasta que você escolher (até 3 níveis), sugere de qual jogo da lista é cada pasta e deixa você conferir antes de importar. Reconhece o formato `Jogo\vX.Y.Z` do launcher (recupera a versão) e pastas soltas pelo nome. Para um jogo só, use **Já tenho este jogo instalado…** no menu ou no painel. Nada é copiado nem apagado. Jogos importados sem versão conhecida não avisam atualização, mas permitem **Instalar a última release** numa pasta nova.
 - **Ordenar**: o seletor “Ordem” ao lado das plataformas organiza por nome (A→Z ou Z→A), estrelas (mais ou menos primeiro), plataforma, release mais recente, jogados recentemente e instalados recentemente, além do padrão (atualizações, instalados e favoritos primeiro). A escolha fica salva. Jogos sem estrelas ou sem release carregados vão para o fim.
 - **Filtros**: Todos, Biblioteca, Atualizações, Favoritos, Descobertos, mais plataforma e busca por texto.
 - **Jogar**: abre o executável na pasta do jogo; se o Windows pedir administrador, o pedido é repassado. O executável pode ser trocado em **Escolher executável**.
@@ -56,7 +58,7 @@ Adicione jogos em `%LOCALAPPDATA%\UsagiGameLauncher\catalog.user.json` (ou pelo 
 ```
 python tests/test_core.py        # 32 testes de lógica
 python tests/test_covers.py      # 33 testes das fontes e do cache de capas
-python tests/test_extras.py      # 37 testes de segurança, filtro adulto, backup, autoatualização, estrelas, remoção e ordenação
+python tests/test_extras.py      # 46 testes de segurança, filtro adulto, backup, autoatualização, estrelas, remoção, ordenação e busca de instalados
 python tests/smoke_ui.py pasta   # interface sem tela + instalação ponta a ponta + capturas
 ```
 

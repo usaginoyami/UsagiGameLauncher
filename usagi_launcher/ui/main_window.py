@@ -11,14 +11,14 @@ import requests
 from PySide6.QtCore import QPointF, QRectF, QSize, Qt, QTimer, QUrl, Signal, QObject
 from PySide6.QtGui import (QKeySequence, QShortcut, QColor, QDesktopServices, QFont, QFontMetrics, QGuiApplication,
                            QPainter, QPainterPath, QPen, QPixmap)
-from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComboBox, QDialog, QFileDialog,
+from PySide6.QtWidgets import (QAbstractItemView, QApplication, QSystemTrayIcon, QCheckBox, QComboBox, QDialog, QFileDialog,
                                QFormLayout, QFrame, QHBoxLayout, QInputDialog, QLabel, QLineEdit,
                                QListView, QListWidget, QListWidgetItem, QMainWindow, QMenu,
                                QMessageBox, QProgressBar, QPushButton, QSpinBox, QStyle,
                                QStyledItemDelegate, QTextBrowser, QVBoxLayout, QWidget)
 
 from .. import (APP_NAME, __version__, backup, catalog, covers, installer, launcher, paths,
-                safety, selfupdate, sorting, stars)
+                safety, scanner, selfupdate, sorting, stars)
 from ..catalog import Entry
 from ..errors import Cancelled, GitHubError, RateLimitError
 from ..github_api import GitHubClient, Release
@@ -26,7 +26,7 @@ from ..library import Library
 from ..settings import Settings
 from . import theme
 from .cover_picker import CoverPickerDialog
-from .edit_dialogs import NamePickerDialog, PlatformDialog
+from .edit_dialogs import NamePickerDialog, PlatformDialog, ScanDialog
 from .covers_ui import CoverCache, CoverView, paint_cover
 from .tasks import Task, TaskRunner
 
@@ -257,6 +257,15 @@ class SettingsDialog(QDialog):
         self.backup.setChecked(bool(settings.get("backup_saves")))
         form.addRow("", self.backup)
 
+        self.notify = QCheckBox("Avisar quando um jogo instalado tiver atualização (faixa e aviso do sistema)")
+        self.notify.setChecked(bool(settings.get("notify_updates")))
+        form.addRow("", self.notify)
+        self.check_hours = QSpinBox()
+        self.check_hours.setRange(1, 72)
+        self.check_hours.setSuffix(" h")
+        self.check_hours.setValue(int(settings.get("update_check_hours") or 6))
+        form.addRow("Verificar atualizações a cada", self.check_hours)
+
         self.self_update = QCheckBox("Avisar quando houver versão nova do launcher")
         self.self_update.setChecked(bool(settings.get("check_self_update")))
         form.addRow("", self.self_update)
@@ -297,6 +306,8 @@ class SettingsDialog(QDialog):
             **({"hidden": []} if self._restore else {}),
             "safety_confirm": self.safety.isChecked(),
             "backup_saves": self.backup.isChecked(),
+            "notify_updates": self.notify.isChecked(),
+            "update_check_hours": self.check_hours.value(),
             "check_self_update": self.self_update.isChecked(),
             "covers_enabled": self.covers_on.isChecked(),
             "steamgriddb_key": self.sgdb.text().strip(),
@@ -346,7 +357,11 @@ class MainWindow(QMainWindow):
         self._f2.activated.connect(lambda: self.rename_game(self.current))
         self._del = QShortcut(QKeySequence("Delete"), self.list)
         self._del.activated.connect(lambda: self.remove_game(self.current))
+        self._update_timer = QTimer(self)
+        self._update_timer.timeout.connect(self.check_installed_updates)
         if auto_refresh:
+            hours = max(float(self.settings.get("update_check_hours") or 6), 0.5)
+            self._update_timer.start(int(hours * 3600 * 1000))
             QTimer.singleShot(150, self.startup_refresh)
             QTimer.singleShot(1500, self.check_self_update)
 
@@ -382,12 +397,14 @@ class MainWindow(QMainWindow):
         self.btn_refresh = QPushButton("Atualizar releases")
         self.btn_discover = QPushButton("Descobrir no GitHub")
         self.btn_add = QPushButton("Adicionar repositório")
+        self.btn_locate = QPushButton("Localizar instalados")
         self.btn_settings = QPushButton("Configurações")
+        self.btn_locate.clicked.connect(self.locate_installed)
         self.btn_refresh.clicked.connect(lambda: self.refresh_releases(force=True))
         self.btn_discover.clicked.connect(lambda: self.start_discover(manual=True))
         self.btn_add.clicked.connect(self.add_repo)
         self.btn_settings.clicked.connect(self.open_settings)
-        for b in (self.btn_refresh, self.btn_discover, self.btn_add, self.btn_settings):
+        for b in (self.btn_refresh, self.btn_discover, self.btn_add, self.btn_locate, self.btn_settings):
             sl.addWidget(b)
         lay.addWidget(side)
 
@@ -416,6 +433,28 @@ class MainWindow(QMainWindow):
         self._resort_timer.setInterval(500)
         self._resort_timer.timeout.connect(lambda: self.apply_filters(keep_scroll=True))
         center.addLayout(top)
+
+        self.banner = QFrame()
+        self.banner.setObjectName("panel")
+        bl = QHBoxLayout(self.banner)
+        bl.setContentsMargins(14, 8, 10, 8)
+        self.banner_text = QLabel("")
+        self.banner_text.setWordWrap(True)
+        self.banner_text.setTextFormat(Qt.TextFormat.RichText)
+        self.banner_see = QPushButton("Ver")
+        self.banner_all = QPushButton("Atualizar todos")
+        self.banner_all.setObjectName("primary")
+        self.banner_close = QPushButton("✕")
+        self.banner_close.setFixedWidth(34)
+        self.banner_see.clicked.connect(lambda: (self.sidebar.setCurrentRow(F_UPD), self.banner.hide()))
+        self.banner_all.clicked.connect(self.update_all)
+        self.banner_close.clicked.connect(self.banner.hide)
+        bl.addWidget(self.banner_text, 1)
+        bl.addWidget(self.banner_see)
+        bl.addWidget(self.banner_all)
+        bl.addWidget(self.banner_close)
+        self.banner.hide()
+        center.addWidget(self.banner)
 
         self.list = QListWidget()
         self.list.setViewMode(QListView.ViewMode.IconMode)
@@ -515,12 +554,15 @@ class MainWindow(QMainWindow):
         r2.addWidget(self.b_folder)
         r2.addWidget(self.b_web)
         r2.addWidget(self.b_fav)
+        self.b_have = QPushButton("Já tenho este jogo instalado…")
+        self.b_have.clicked.connect(lambda: self.have_installed(self.current))
         r3 = QHBoxLayout()
         r3.addWidget(self.b_exe, 2)
         r3.addWidget(self.b_remove, 1)
         for r in (r1, r2, r3):
             dl.addLayout(r)
         dl.addWidget(self.b_clean)
+        dl.addWidget(self.b_have)
         lay.addWidget(self.detail)
 
         self.statusBar().showMessage("Pronto.")
@@ -633,7 +675,7 @@ class MainWindow(QMainWindow):
         row = self.rows.get(key) if key else None
         self.d_cover.setVisible(row is not None)
         for w in (self.b_main, self.b_update, self.b_folder, self.b_web, self.b_fav, self.b_exe,
-                  self.b_clean, self.b_remove):
+                  self.b_clean, self.b_remove, self.b_have):
             w.setVisible(row is not None)
         if row is None:
             self.d_title.setText("Selecione um jogo")
@@ -688,6 +730,10 @@ class MainWindow(QMainWindow):
         if row.installed:
             n = len(row.rec.get("versions", []))
             lines.append(f"<b>Pasta:</b> {row.rec.get('folder', '')}")
+            if row.rec.get("version") == "manual":
+                lines.append(f"<span style='color:{theme.MUTED}'>Instalado por você: a versão é desconhecida, "
+                             "então não há aviso de atualização. “Instalar a última release” baixa numa pasta nova, "
+                             "sem mexer nesta.</span>")
             if n > 1:
                 lines.append(f"{n} versões mantidas no disco.")
             if row.rec.get("last_played"):
@@ -698,10 +744,13 @@ class MainWindow(QMainWindow):
         busy = key in self.active
         self.b_main.setText("Jogar" if row.installed else "Instalar")
         self.b_main.setEnabled(not busy and (row.installed or asset is not None))
-        self.b_update.setVisible(row.has_update)
+        manual = bool(row.installed and row.rec.get("version") == "manual" and rel is not None)
+        self.b_update.setText("Instalar a última release" if manual and not row.has_update else "Atualizar")
+        self.b_update.setVisible(row.has_update or manual)
         self.b_update.setEnabled(not busy and asset is not None)
         self.b_web.setEnabled(True)
         self.b_folder.setVisible(row.installed)
+        self.b_have.setVisible(not row.installed)
         self.b_exe.setVisible(row.installed)
         self.b_remove.setVisible(row.installed)
         self.b_clean.setVisible(bool(row.installed and len(row.rec.get("versions", [])) > 1))
@@ -817,6 +866,7 @@ class MainWindow(QMainWindow):
             msg += f"  Limite da API quase no fim ({self.client.rate_remaining})."
         self.statusBar().showMessage(msg)
         self.apply_filters_keep_selection()
+        self.notify_updates()
 
     def apply_filters_keep_selection(self) -> None:
         if self.sidebar.currentRow() in (F_UPD,):
@@ -890,12 +940,13 @@ class MainWindow(QMainWindow):
                 return
         if not self._confirm_safety(row, rel, asset):
             return
-        root = self.settings.install_dir()
         downloads = paths.sub_dir("downloads")
         prev = dict(row.rec) if row.rec else None
+        grouped = bool(prev and prev.get("version") != "manual" and prev.get("root"))
+        root = Path(prev["root"]).parent if grouped else self.settings.install_dir()
         do_backup = bool(self.settings.get("backup_saves"))
 
-        folder_name = (Path(prev["root"]).name if prev and prev.get("root")
+        folder_name = (Path(prev["root"]).name if grouped
                        else (row.orig_name or name))  # renomear não muda a pasta do jogo
 
         def work(task: Task):
@@ -1196,6 +1247,8 @@ class MainWindow(QMainWindow):
         menu.addSeparator()
         if row.installed:
             menu.addAction("Backups dos saves…", lambda: self.backups_dialog(key))
+        else:
+            menu.addAction("Já tenho este jogo instalado…", lambda: self.have_installed(key))
         menu.addAction("Renomear…  (F2)", lambda: self.rename_game(key))
         menu.addAction("Procurar nome automático…", lambda: self.find_name(key))
         menu.addAction("Editar plataformas…", lambda: self.edit_platforms(key))
@@ -1293,6 +1346,141 @@ class MainWindow(QMainWindow):
                                        text=row.entry.name)
         if ok:
             self._set_name(key, new)
+
+    # ------------------------------------------------- jogos já instalados
+    def _register(self, row: "Row", found: "scanner.Found") -> None:
+        e = row.entry
+        self.library.record_install(e.repo, e.name, found.version, str(found.folder),
+                                    str(found.exe) if found.exe else None, str(found.root))
+        row.rec = self.library.get(e.repo)
+
+    def have_installed(self, key: str | None) -> None:
+        """Liga um jogo da lista a uma pasta que já existe no disco."""
+        row = self.rows.get(key) if key else None
+        if row is None or row.installed:
+            return
+        start = str(self.settings.install_dir())
+        folder = QFileDialog.getExistingDirectory(
+            self, f"Pasta onde “{row.entry.name}” já está instalado", start)
+        if not folder:
+            return
+        folder = Path(folder)
+        if not scanner._has_game_exe(folder):
+            inner = scanner.find_game_folders([folder])
+            if inner:  # escolheu a pasta que agrupa as versões: usa a mais nova
+                inner.sort(key=lambda p: scanner._vkey(p.name))
+                folder = inner[-1]
+        root, version, label = scanner.describe(folder)
+        exes = installer.find_executables(folder, row.entry.name) if folder.is_dir() else []
+        exe = exes[0] if exes else None
+        if exe is None:
+            f, _ = QFileDialog.getOpenFileName(self, "Escolher o executável do jogo", str(folder),
+                                               "Executáveis (*.exe *.bat *.lnk);;Todos (*)")
+            exe = Path(f) if f else None
+        self._register(row, scanner.Found(folder, root, version, exe, label, row.entry.key, 1.0))
+        self.reload_entries()
+        self.apply_filters_keep_selection()
+        self.render_detail()
+        self.statusBar().showMessage(f"{row.entry.name} localizado em {folder}")
+
+    def locate_installed(self) -> None:
+        """Procura jogos no disco e deixa o usuário conferir antes de importar."""
+        start = str(self.settings.install_dir()) if self.settings.install_dir().is_dir() \
+            else str(Path.home())
+        base = QFileDialog.getExistingDirectory(
+            self, "Pasta onde estão seus jogos (procuro dentro dela, até 3 níveis)", start)
+        if not base:
+            return
+        entries = [r.entry for r in self.rows.values() if not r.installed]
+        known = {rec.get("folder", "") for rec in self.library.all()}
+        orig = {k: r.orig_name for k, r in self.rows.items()}
+        self.btn_locate.setEnabled(False)
+        self.statusBar().showMessage("Procurando jogos no disco…")
+
+        def ok(found: list) -> None:
+            self.btn_locate.setEnabled(True)
+            if not found:
+                self.statusBar().showMessage("Nenhum jogo novo encontrado nessa pasta.")
+                QMessageBox.information(self, "Localizar instalados",
+                                        "Não achei pastas de jogo novas aí. Dica: escolha a pasta que contém as "
+                                        "pastas dos jogos, ou use “Já tenho este jogo instalado…” no jogo.")
+                return
+            choices = sorted(((r.entry.key, r.entry.name) for r in self.rows.values() if not r.installed),
+                             key=lambda t: t[1].casefold())
+            dlg = ScanDialog(found, choices, self)
+            if dlg.exec() != QDialog.DialogCode.Accepted:
+                return
+            n = 0
+            for f, key in dlg.selected():
+                row = self.rows.get(key)
+                if row is not None and not row.installed:
+                    self._register(row, f)
+                    n += 1
+            self.reload_entries()
+            self.apply_filters_keep_selection()
+            self.render_detail()
+            self.statusBar().showMessage(f"{n} jogo(s) importado(s) do disco.")
+
+        def err(e: Exception) -> None:
+            self.btn_locate.setEnabled(True)
+            QMessageBox.warning(self, "Falha ao procurar", str(e))
+
+        self.runner.run(lambda task: scanner.scan([Path(base)], entries, known, orig), ok, err)
+
+    # ------------------------------------------- aviso de atualizações
+    def _tray(self):
+        if getattr(self, "_tray_icon", None) is None and QSystemTrayIcon.isSystemTrayAvailable():
+            self._tray_icon = QSystemTrayIcon(theme.app_icon(), self)
+            self._tray_icon.activated.connect(lambda _r: (self.showNormal(), self.activateWindow()))
+            self._tray_icon.show()
+        return getattr(self, "_tray_icon", None)
+
+    def notify_updates(self) -> None:
+        """Avisa uma vez por versão nova: faixa na janela e, se ela não está em foco, aviso do sistema."""
+        if not self.settings.get("notify_updates"):
+            return
+        seen = dict(self.settings.get("notified_updates") or {})
+        ups = [r for r in self.rows.values() if r.has_update]
+        fresh = [r for r in ups if seen.get(r.entry.key) != r.release.tag]
+        if not fresh:
+            if not ups:
+                self.banner.hide()
+            return
+        for r in fresh:
+            seen[r.entry.key] = r.release.tag
+        self.settings.set("notified_updates", seen)
+        self.settings.save()
+        names = ", ".join(f"<b>{r.entry.name}</b> ({r.rec.get('version', '?')} → {r.release.tag})"
+                          for r in fresh[:3])
+        more = f" e mais {len(fresh) - 3}" if len(fresh) > 3 else ""
+        self.banner_text.setText(f"🔔 {len(ups)} jogo(s) com atualização: {names}{more}")
+        self.banner.show()
+        if not self.isActiveWindow():
+            tray = self._tray()
+            if tray is not None:
+                tray.showMessage(f"{APP_NAME}: atualizações",
+                                 "\n".join(f"{r.entry.name} → {r.release.tag}" for r in fresh[:5]),
+                                 QSystemTrayIcon.MessageIcon.Information, 8000)
+
+    def update_all(self) -> None:
+        todo = [r.entry.key for r in self.rows.values() if r.has_update and r.entry.key not in self.active]
+        if not todo:
+            return
+        if QMessageBox.question(self, "Atualizar todos",
+                                f"Baixar e instalar {len(todo)} atualização(ões)?\n\n"
+                                "Cada versão nova vai para uma pasta própria e os saves são copiados "
+                                "(se o backup estiver ligado)."
+                                ) != QMessageBox.StandardButton.Yes:
+            return
+        self.banner.hide()
+        for key in todo:
+            self.start_install(key)
+
+    def check_installed_updates(self) -> None:
+        """Verificação periódica enquanto o launcher fica aberto: só os jogos instalados."""
+        for key, row in self.rows.items():
+            if row.installed:
+                self.fetch_release(key, force=True)
 
     def find_name(self, key: str) -> None:
         row = self.rows.get(key)

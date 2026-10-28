@@ -257,6 +257,47 @@ win.settings.set("hidden", [])
 win.reload_entries()
 check("revosucks/bm64recomp" in win.rows, "restaurar removidos traz o jogo de volta")
 
+# aviso de atualizações
+check(not win.banner.isHidden() and "Banjo" in win.banner_text.text(), "faixa avisa da atualização do Banjo")
+check(win.settings.get("notified_updates").get("banjorecomp/banjorecomp") == "v2.0.0", "aviso registrado para não repetir")
+win.grab().save(str(OUT / "06_faixa.png"))
+win.banner.hide()
+win.notify_updates()
+check(win.banner.isHidden(), "a mesma atualização não é avisada de novo")
+
+# localizar jogo já instalado
+mw.QFileDialog.getExistingDirectory = staticmethod(lambda *a, **k: str(tmp / "existente" / "v1.5.0"))
+(tmp / "existente" / "v1.5.0").mkdir(parents=True)
+(tmp / "existente" / "v1.5.0" / "Mario Kart 64.exe").write_bytes(b"MZ" + b"0" * 64)
+mk_key = "sonicdcer/mariokart64recomp"
+check(not win.rows[mk_key].installed, "Mario Kart 64 ainda não instalado")
+win.have_installed(mk_key)
+rec_mk = lib.get("sonicdcer/MarioKart64Recomp")
+check(win.rows[mk_key].installed and rec_mk["version"] == "v1.5.0", "jogo existente localizado com a versão da pasta")
+check(Path(rec_mk["exe"]).name == "Mario Kart 64.exe" and rec_mk["root"].endswith("existente"), "executável e pasta-raiz registrados")
+check(win.rows[mk_key].has_update, "versão antiga localizada gera aviso de atualização")
+
+scan_base = tmp / "meus_jogos"
+(scan_base / "Goemon64Recompiled").mkdir(parents=True)
+(scan_base / "Goemon64Recompiled" / "Goemon64Recompiled.exe").write_bytes(b"MZ" + b"0" * 64)
+(scan_base / "Sem Nome Conhecido").mkdir()
+(scan_base / "Sem Nome Conhecido" / "x.exe").write_bytes(b"MZ" + b"0" * 64)
+mw.QFileDialog.getExistingDirectory = staticmethod(lambda *a, **k: str(scan_base))
+class _Scan:
+    last = None
+    def __init__(self, found, choices, parent=None):
+        _Scan.last = (found, choices)
+        self.found = found
+    def exec(self): return 1
+    def selected(self): return [(f, f.match) for f in self.found if f.match]
+mw.ScanDialog = _Scan
+win.locate_installed()
+pump(app, 3, until=lambda: _Scan.last is not None)
+check(_Scan.last is not None and len(_Scan.last[0]) == 2, "busca no disco achou as duas pastas")
+pump(app, 0.5)
+check(win.rows["klorfmorf/goemon64recomp"].installed, "Goemon importado pela busca automática")
+check(not any(r.installed for k, r in win.rows.items() if "sem nome" in k), "pasta sem correspondência não é importada")
+
 # ordenação
 def order():
     return [win.list.item(i).data(256) for i in range(win.list.count())]
@@ -280,7 +321,7 @@ check(win.list.item(0).data(256) == "banjorecomp/banjorecomp", "ordem padrão ma
 win.sidebar.setCurrentRow(3)
 check(win.list.count() == 1, "filtro Favoritos")
 win.sidebar.setCurrentRow(2)
-check(win.list.count() == 1, "filtro Atualizações")
+check(win.list.count() == 2, "filtro Atualizações (Banjo e o Mario Kart localizado em versão antiga)")
 win.sidebar.setCurrentRow(0)
 win.search.setText("mario kart 64")
 check(win.list.count() == 1, "busca por texto")

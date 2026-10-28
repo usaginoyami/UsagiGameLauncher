@@ -9,7 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from usagi_launcher import backup, catalog, safety, selfupdate, sorting, stars  # noqa: E402
+from usagi_launcher import backup, catalog, safety, scanner, selfupdate, sorting, stars  # noqa: E402
 from usagi_launcher.catalog import Entry  # noqa: E402
 from usagi_launcher.errors import InstallError  # noqa: E402
 from usagi_launcher.github_api import Asset, Release  # noqa: E402
@@ -337,6 +337,85 @@ class Sorting(unittest.TestCase):
         self.assertEqual(len(sorting.MODE_KEYS), len(set(sorting.MODE_KEYS)))
         for m in sorting.MODE_KEYS:
             self.assertEqual(len(sorting.sort_rows(self.rows, m, lambda k: False)), 4)
+
+
+def mkgame(base, rel, exe="Game.exe"):
+    d = Path(base) / rel
+    d.mkdir(parents=True, exist_ok=True)
+    (d / exe).write_bytes(b"MZ" + b"0" * 64)
+    return d
+
+
+class Scanner(unittest.TestCase):
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+        self.entries = [Entry("Zelda64Recomp/Zelda64Recomp", name="Zelda 64: Recompiled"),
+                        Entry("BanjoRecomp/BanjoRecomp", name="Banjo: Recompiled"),
+                        Entry("a/GT4", name="Gran Turismo 4", cover_title="Gran Turismo 4")]
+
+    def test_describe(self):
+        self.assertEqual(scanner.describe(Path("/g/Zelda/v1.2.0"))[1:], ("v1.2.0", "Zelda"))
+        self.assertEqual(scanner.describe(Path("/g/Zelda64Recompiled"))[1:], ("manual", "Zelda64Recompiled"))
+        self.assertEqual(scanner.describe(Path("/g/Game/1.0"))[1], "1.0")
+
+    def test_name_score(self):
+        self.assertEqual(scanner.name_score("Zelda64Recompiled", "Zelda64Recomp"), 1.0)
+        self.assertEqual(scanner.name_score("Banjo-Recomp", "BanjoRecomp"), 1.0)
+        self.assertEqual(scanner.name_score("Space", "PC"), 0.0)  # ruído só conta como palavra inteira
+        self.assertEqual(scanner.name_score("Capcom", "Cap"), 0.0)
+
+    def test_manual_folder_matches_by_repo_name(self):
+        mkgame(self.tmp, "Zelda64Recompiled", "Zelda64Recompiled.exe")
+        found = scanner.scan([self.tmp], self.entries)
+        self.assertEqual(len(found), 1)
+        self.assertEqual(found[0].match, "zelda64recomp/zelda64recomp")
+        self.assertEqual(found[0].version, "manual")
+        self.assertEqual(found[0].exe.name, "Zelda64Recompiled.exe")
+
+    def test_versioned_layout_keeps_newest(self):
+        mkgame(self.tmp, "Banjo/v1.0.0")
+        mkgame(self.tmp, "Banjo/v1.10.0")
+        mkgame(self.tmp, "Banjo/v1.2.0")
+        found = scanner.scan([self.tmp], self.entries)
+        self.assertEqual(len(found), 1)
+        self.assertEqual(found[0].version, "v1.10.0")
+        self.assertEqual(found[0].root.name, "Banjo")
+        self.assertEqual(found[0].match, "banjorecomp/banjorecomp")
+
+    def test_ambiguous_match_is_left_for_the_user(self):
+        entries = self.entries + [Entry("fork/GT4-fork", name="Gran Turismo 4", cover_title="Gran Turismo 4")]
+        mkgame(self.tmp, "Gran Turismo 4")
+        f = scanner.scan([self.tmp], entries)[0]
+        self.assertIsNone(f.match)
+        self.assertEqual(len(f.alternatives), 2)
+
+    def test_unknown_folder_has_no_match_and_installers_are_ignored(self):
+        mkgame(self.tmp, "Outro Jogo Qualquer")
+        mkgame(self.tmp, "SoInstalador", "setup.exe")
+        found = scanner.scan([self.tmp], self.entries)
+        self.assertEqual([f.label for f in found], ["Outro Jogo Qualquer"])
+        self.assertIsNone(found[0].match)
+
+    def test_known_folders_and_depth_limit(self):
+        g = mkgame(self.tmp, "Zelda64Recompiled")
+        self.assertEqual(scanner.scan([self.tmp], self.entries, {str(g)}), [])
+        mkgame(self.tmp, "a/b/c/d/Deep")
+        self.assertEqual([f.label for f in scanner.scan([self.tmp], self.entries, {str(g)})], [])
+
+    def test_does_not_follow_symlinks(self):
+        outside = Path(tempfile.mkdtemp())
+        mkgame(outside, "Escondido")
+        try:
+            (self.tmp / "link").symlink_to(outside, target_is_directory=True)
+        except (OSError, NotImplementedError):
+            self.skipTest("sem symlink")
+        self.assertEqual(scanner.scan([self.tmp], self.entries), [])
+
+    def test_uses_original_catalog_name_not_the_renamed_one(self):
+        e = Entry("x/y", name="Meu apelido")
+        mkgame(self.tmp, "Nome Original")
+        f = scanner.scan([self.tmp], [e], orig_names={"x/y": "Nome Original"})[0]
+        self.assertEqual(f.match, "x/y")
 
 
 if __name__ == "__main__":

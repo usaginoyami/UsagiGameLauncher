@@ -127,3 +127,79 @@ class NamePickerDialog(QDialog):
         if items:
             self.chosen = items[0].data(Qt.ItemDataRole.UserRole)
             self.accept()
+
+
+class ScanDialog(QDialog):
+    """Resultado da busca de jogos já instalados: o usuário confere e marca o que importar."""
+
+    def __init__(self, found: list, choices: list[tuple[str, str]], parent=None):
+        super().__init__(parent)
+        from PySide6.QtWidgets import QAbstractItemView, QHeaderView, QTableWidget, QTableWidgetItem
+
+        self.found = found
+        self.setWindowTitle("Jogos encontrados no disco")
+        self.resize(900, 460)
+        self.table = QTableWidget(len(found), 4)
+        self.table.setHorizontalHeaderLabels(["Importar", "Pasta no disco", "Versão", "É o jogo…"])
+        self.table.verticalHeader().setVisible(False)
+        self.table.setSelectionMode(QAbstractItemView.SelectionMode.NoSelection)
+        hh = self.table.horizontalHeader()
+        hh.setSectionResizeMode(1, QHeaderView.ResizeMode.Stretch)
+        hh.setSectionResizeMode(3, QHeaderView.ResizeMode.Stretch)
+        self.combos: list[QComboBox] = []
+        self.checks: list[QTableWidgetItem] = []
+        for i, f in enumerate(found):
+            chk = QTableWidgetItem()
+            chk.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+            chk.setCheckState(Qt.CheckState.Checked if f.match else Qt.CheckState.Unchecked)
+            self.table.setItem(i, 0, chk)
+            self.checks.append(chk)
+            path = QTableWidgetItem(str(f.folder))
+            path.setToolTip(str(f.folder))
+            path.setFlags(Qt.ItemFlag.ItemIsEnabled)
+            self.table.setItem(i, 1, path)
+            ver = QTableWidgetItem(f.version if f.version != "manual" else "desconhecida")
+            ver.setFlags(Qt.ItemFlag.ItemIsEnabled)
+            self.table.setItem(i, 2, ver)
+            combo = QComboBox()
+            combo.addItem("— ignorar —", "")
+            for key, label in choices:
+                combo.addItem(label, key)
+            if f.match:
+                combo.setCurrentIndex(max(combo.findData(f.match), 0))
+            elif f.alternatives:  # ambíguo: começa em "ignorar", o usuário escolhe
+                combo.setToolTip("Mais de um jogo combina com esta pasta. Escolha o certo.")
+            combo.currentIndexChanged.connect(lambda _i, n=i: self._combo_changed(n))
+            self.table.setCellWidget(i, 3, combo)
+            self.combos.append(combo)
+
+        hint = QLabel(f"{len(found)} pasta(s) com jogo. Confira o nome sugerido, desmarque o que não quiser e "
+                      "importe. Nada é copiado nem apagado: o launcher só passa a conhecer essas pastas. "
+                      "Importados sem versão conhecida não avisam atualizações.")
+        hint.setWordWrap(True)
+        ok, cancel = QPushButton("Importar marcados"), QPushButton("Cancelar")
+        ok.setObjectName("primary")
+        ok.clicked.connect(self.accept)
+        cancel.clicked.connect(self.reject)
+        row = QHBoxLayout()
+        row.addStretch(1)
+        row.addWidget(cancel)
+        row.addWidget(ok)
+        lay = QVBoxLayout(self)
+        lay.addWidget(hint)
+        lay.addWidget(self.table, 1)
+        lay.addLayout(row)
+
+    def _combo_changed(self, n: int) -> None:
+        picked = bool(self.combos[n].currentData())
+        self.checks[n].setCheckState(Qt.CheckState.Checked if picked else Qt.CheckState.Unchecked)
+
+    def selected(self) -> list[tuple]:
+        """[(Found, chave_do_jogo)] marcados, sem repetir o mesmo jogo duas vezes."""
+        out, used = [], set()
+        for i, f in enumerate(self.found):
+            key = self.combos[i].currentData()
+            if key and self.checks[i].checkState() == Qt.CheckState.Checked and key not in used:
+                used.add(key)
+                out.append((f, key))
+        return out
