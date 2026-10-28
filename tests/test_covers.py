@@ -166,6 +166,76 @@ class Finder(unittest.TestCase):
         finder.find(Entry("a/b", cover_title="Gran Turismo 4"))  # reutiliza o token
         self.assertEqual(sum("id.twitch.tv" in c[0] for c in net.calls), 1)
 
+    def _igdb_net(self, games, seen):
+        class N(Net):
+            def post(self_, url, params=None, headers=None, timeout=None, data=None):
+                if "api.igdb.com" in url:
+                    seen.append(data)
+                return super().post(url, params=params, headers=headers, timeout=timeout, data=data)
+        return N([("id.twitch.tv", Resp(data={"access_token": "T", "expires_in": 9999})),
+                  ("api.igdb.com", Resp(data=games)),
+                  ("t_cover_big/ok.jpg", Resp(body=PNG))])
+
+    def test_igdb_filters_by_platform(self):
+        seen = []
+        net = self._igdb_net([{"name": "Black", "cover": {"image_id": "ok"}}], seen)
+        finder = covers.CoverFinder(net, igdb_id="C", igdb_secret="S")
+        data, _ = finder.find(Entry("a/b", platform="Xbox", cover_title="Black (video game)"))
+        self.assertEqual(data, PNG)
+        self.assertIn("platforms = (11)", seen[0])
+        self.assertNotIn("(video game)", seen[0])
+
+    def test_igdb_unknown_platform_has_no_filter(self):
+        seen = []
+        net = self._igdb_net([{"name": "Black", "cover": {"image_id": "ok"}}], seen)
+        covers.CoverFinder(net, igdb_id="C", igdb_secret="S").find(Entry("a/b", platform="Outros", cover_title="Black"))
+        self.assertNotIn("platforms", seen[0])
+
+    def test_igdb_no_unfiltered_fallback_when_platform_known(self):
+        seen = []
+        net = self._igdb_net([], seen)  # a plataforma certa não tem o jogo
+        covers.CoverFinder(net, igdb_id="C", igdb_secret="S").find(Entry("a/b", platform="PS2", cover_title="God of War"))
+        self.assertEqual(len(seen), 1)
+        self.assertIn("platforms = (8)", seen[0])
+
+    def test_igdb_goes_before_steamgriddb(self):
+        net = Net([("id.twitch.tv", Resp(data={"access_token": "T", "expires_in": 9999})),
+                   ("api.igdb.com", Resp(data=[{"name": "Quest 64", "cover": {"image_id": "ok"}}])),
+                   ("t_cover_big/ok.jpg", Resp(body=PNG))])
+        finder = covers.CoverFinder(net, sgdb_key="K", igdb_id="C", igdb_secret="S")
+        self.assertEqual(finder.find(Entry("a/b", platform="N64", cover_title="Quest 64"))[0], PNG)
+        self.assertFalse(any("steamgriddb" in c[0] for c in net.calls))
+
+    def test_candidates_platform_first_then_rest_deduped(self):
+        class N(Net):
+            n = 0
+            def post(self_, url, params=None, headers=None, timeout=None, data=None):
+                if "api.igdb.com" in url:
+                    N.n += 1
+                    if "platforms =" in data:
+                        return Resp(data=[{"name": "God of War", "first_release_date": 1112313600,
+                                           "platforms": [{"abbreviation": "PS2"}],
+                                           "cover": {"image_id": "ps2"}}])
+                    return Resp(data=[{"name": "God of War", "first_release_date": 1112313600,
+                                       "cover": {"image_id": "ps2"}},
+                                      {"name": "God of War", "first_release_date": 1524182400,
+                                       "platforms": [{"abbreviation": "PS4"}], "cover": {"image_id": "ps4"}}])
+                return Resp(data={"access_token": "T", "expires_in": 9999})
+        finder = covers.CoverFinder(N([("wikipedia.org", wiki({}))]), igdb_id="C", igdb_secret="S")
+        cands, err = finder.candidates("God of War", "PS2")
+        self.assertFalse(err)
+        self.assertEqual([c.full.split("/")[-1] for c in cands], ["ps2.jpg", "ps4.jpg"])
+        self.assertIn("(2005)", cands[0].label)
+        self.assertIn("PS2", cands[0].label)
+
+    def test_candidates_without_keys_use_wikipedia_and_report_network_error(self):
+        net = Net([("wikipedia.org", wiki({"1": {"title": "Black (video game)", "index": 1,
+                                                   "thumbnail": {"source": "https://x/b.png"}}}))])
+        cands, err = covers.CoverFinder(net).candidates("Black", "Xbox")
+        self.assertEqual([c.source for c in cands], ["Wikipedia"])
+        cands, err = covers.CoverFinder(Net([("", requests.ConnectionError("x"))])).candidates("Black")
+        self.assertEqual((cands, err), ([], True))
+
     def test_igdb_needs_both_keys_and_falls_through(self):
         net = Net([("wikipedia.org", wiki({"1": {"title": "Quest 64", "index": 1,
                                                    "thumbnail": {"source": "https://x/p.png"}}})),
@@ -269,6 +339,18 @@ class Store(unittest.TestCase):
         (folder / "a_b.img").write_bytes(PNG)
         covers.CoverStore(folder, covers.CoverFinder(Net([])))  # já migrado: não repete
         self.assertTrue((folder / "a_b.img").exists())
+
+    def test_set_custom_bytes_survives_migration_and_rejects_html(self):
+        store = self.store([])
+        store.set_custom_bytes("a/b", PNG)
+        self.assertTrue(store.cached("a/b"))
+        with self.assertRaises(ValueError):
+            store.set_custom_bytes("a/b", b"<html>")
+        covers.CoverStore(store.folder, store.finder)  # reabre: já migrado, nada some
+        self.assertTrue(store.cached("a/b"))
+        (store.folder / ".version").write_text("1")  # simula pasta antiga
+        covers.CoverStore(store.folder, store.finder)
+        self.assertTrue(store.cached("a/b"), "capa escolhida pelo usuário não é apagada")
 
     def test_clear_failures(self):
         s = self.store([])

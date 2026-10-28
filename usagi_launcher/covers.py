@@ -2,8 +2,8 @@
 
 Ordem das fontes:
   1. capa definida no catálogo (campo "cover": link ou arquivo local)
-  2. SteamGridDB (só se houver chave de API nas Configurações)
-  3. IGDB (só se houver Client ID e Secret da Twitch nas Configurações)
+  2. IGDB (só com Client ID e Secret da Twitch), filtrando pela plataforma do jogo
+  3. SteamGridDB (só se houver chave de API nas Configurações)
   4. Wikipedia (imagem da página do jogo, sem chave)
   5. primeira imagem do README do repositório
 
@@ -16,6 +16,7 @@ from __future__ import annotations
 import os
 import re
 import time
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 from urllib.parse import quote
@@ -28,6 +29,16 @@ SGDB_API = "https://www.steamgriddb.com/api/v2"
 TWITCH_TOKEN = "https://id.twitch.tv/oauth2/token"
 IGDB_API = "https://api.igdb.com/v4/games"
 IGDB_IMG = "https://images.igdb.com/igdb/image/upload/t_cover_big/{}.jpg"
+IGDB_THUMB = "https://images.igdb.com/igdb/image/upload/t_cover_small/{}.jpg"
+# ids de plataforma da IGDB: a busca filtra por eles para não trazer o mesmo título de outro console
+IGDB_PLATFORMS = {"N64": 4, "PS1": 7, "PS2": 8, "PS3": 9, "PS4": 48, "PSP": 38, "Xbox": 11,
+                  "Xbox 360": 12, "Wii": 5, "GameCube": 21, "Switch": 130, "Dreamcast": 23,
+                  "SNES": 19, "NES": 18, "Game Boy": 33, "GBA": 24, "DS": 20}
+WIKI_PLATFORM = {"N64": "Nintendo 64", "PS1": "PlayStation", "PS2": "PlayStation 2",
+                 "PS3": "PlayStation 3", "PS4": "PlayStation 4", "PSP": "PlayStation Portable",
+                 "Xbox": "Xbox", "Xbox 360": "Xbox 360", "Wii": "Wii", "GameCube": "GameCube",
+                 "Switch": "Nintendo Switch", "Dreamcast": "Dreamcast", "SNES": "Super Nintendo",
+                 "NES": "Nintendo Entertainment System", "GBA": "Game Boy Advance"}
 MAX_BYTES = 8 * 1024 * 1024
 RETRY_AFTER = 7 * 24 * 3600  # depois de uma busca sem resultado, espera 7 dias
 MIN_SIMILARITY = 0.6
@@ -110,10 +121,11 @@ def download_image(session, url: str) -> bytes | None:
     return data if sniff(data) else None
 
 
-def find_wikipedia(session, title: str) -> str | None:
+def find_wikipedia(session, title: str, platform: str = "") -> str | None:
+    hint = WIKI_PLATFORM.get(platform, "")
     r = session.get(WIKI_API, headers={"User-Agent": UA}, timeout=15, params={
         "action": "query", "format": "json", "generator": "search",
-        "gsrsearch": f"{title} video game", "gsrlimit": 3,
+        "gsrsearch": f"{title} video game {hint}".strip(), "gsrlimit": 3,
         "prop": "pageimages", "piprop": "thumbnail", "pithumbsize": 600, "pilimit": 3,
     })
     if not r.ok:
@@ -147,6 +159,15 @@ def find_steamgriddb(session, key: str, title: str) -> str | None:
     return items[0].get("url") if items else None
 
 
+@dataclass
+class Candidate:
+    """Uma opção de capa para o usuário escolher."""
+    label: str
+    thumb: str
+    full: str
+    source: str
+
+
 class IGDB:
     """IGDB (Twitch): token de app com Client ID + Secret, válido por semanas, guardado em memória."""
 
@@ -167,13 +188,16 @@ class IGDB:
         self._expires = time.time() + float(data.get("expires_in", 0))
         return self._token
 
-    def find(self, title: str) -> str | None:
+    def _query(self, title: str, platform_id: int | None, limit: int, fields: str) -> list[dict] | None:
         token = self._auth()
         if not token:
             return None
         safe = re.sub(r"\([^)]*\)", " ", title).replace("\\", " ").replace('"', " ").strip()
+        where = "version_parent = null"
+        if platform_id:
+            where += f" & platforms = ({int(platform_id)})"
         r = self.session.post(
-            IGDB_API, timeout=15, data=f'search "{safe}"; fields name,cover.image_id; where version_parent = null; limit 10;',
+            IGDB_API, timeout=15, data=f'search "{safe}"; fields {fields}; where {where}; limit {limit};',
             headers={"Client-ID": self.client_id, "Authorization": f"Bearer {token}",
                      "User-Agent": UA})
         if r.status_code == 401:  # token revogado: pede outro na próxima vez
@@ -181,13 +205,40 @@ class IGDB:
             return None
         if not r.ok:
             return None
+        data = r.json()
+        return data if isinstance(data, list) else None
+
+    def find(self, title: str, platform: str = "") -> str | None:
+        """Melhor capa para o título. Com plataforma conhecida, só aceita jogos dela."""
+        pid = IGDB_PLATFORMS.get(platform)
         best, best_score = None, -1.0
-        for g in (r.json() or []):
+        for g in (self._query(title, pid, 10, "name,cover.image_id") or []):
             image_id = (g.get("cover") or {}).get("image_id")
             score = match_score(title, g.get("name", ""))
             if image_id and score >= MIN_MATCH and score > best_score:
                 best, best_score = image_id, score
         return IGDB_IMG.format(best) if best else None
+
+    def search_many(self, title: str, platform: str = "", limit: int = 12) -> list[Candidate]:
+        """Opções para o usuário: primeiro jogos da plataforma, depois os demais."""
+        pid = IGDB_PLATFORMS.get(platform)
+        fields = "name,first_release_date,platforms.abbreviation,cover.image_id"
+        seen: set[str] = set()
+        out: list[Candidate] = []
+        for plat_id in ([pid, None] if pid else [None]):
+            for g in (self._query(title, plat_id, limit, fields) or []):
+                image_id = (g.get("cover") or {}).get("image_id")
+                if not image_id or image_id in seen:
+                    continue
+                seen.add(image_id)
+                year = ""
+                if g.get("first_release_date"):
+                    year = f" ({time.gmtime(g['first_release_date']).tm_year})"
+                plats = ", ".join(p.get("abbreviation", "") for p in (g.get("platforms") or [])[:4]
+                                  if p.get("abbreviation"))
+                label = f"{g.get('name', '?')}{year}" + (f"\n{plats}" if plats else "")
+                out.append(Candidate(label, IGDB_THUMB.format(image_id), IGDB_IMG.format(image_id), "IGDB"))
+        return out[:limit]
 
 
 def readme_image_url(readme: str, repo: str) -> str | None:
@@ -253,12 +304,13 @@ class CoverFinder:
             if data:
                 return data, False
 
+        platform = getattr(entry, "platform", "")
         sources: list[Callable[[], str | None]] = []
+        if self.igdb:  # sabe a plataforma, então erra menos que as outras
+            sources.append(lambda: self.igdb.find(title, platform))
         if self.sgdb_key:
             sources.append(lambda: find_steamgriddb(self.session, self.sgdb_key, title))
-        if self.igdb:
-            sources.append(lambda: self.igdb.find(title))
-        sources.append(lambda: find_wikipedia(self.session, title))
+        sources.append(lambda: find_wikipedia(self.session, title, platform))
         sources.append(lambda: find_readme_image(self.session, entry.repo))
         for source in sources:
             url = attempt(source)
@@ -267,6 +319,64 @@ class CoverFinder:
                 if data:
                     return data, False
         return None, net_error
+
+    def candidates(self, query: str, platform: str = "", limit: int = 12) -> tuple[list[Candidate], bool]:
+        """Opções de capa para o usuário escolher. Devolve (opções, houve_erro_de_rede)."""
+        out: list[Candidate] = []
+        net_error = False
+
+        def attempt(fn):
+            nonlocal net_error
+            try:
+                return fn() or []
+            except requests.RequestException:
+                net_error = True
+            except (ValueError, KeyError, TypeError, AttributeError, OSError):
+                pass
+            return []
+
+        if self.igdb:
+            out += attempt(lambda: self.igdb.search_many(query, platform, limit))
+        if self.sgdb_key:
+            out += attempt(lambda: self._sgdb_candidates(query))
+        out += attempt(lambda: self._wiki_candidates(query, platform))
+        return out, net_error
+
+    def _sgdb_candidates(self, query: str) -> list[Candidate]:
+        headers = {"Authorization": f"Bearer {self.sgdb_key}", "User-Agent": UA}
+        r = self.session.get(f"{SGDB_API}/search/autocomplete/{quote(query, safe='')}",
+                             headers=headers, timeout=15)
+        if not r.ok:
+            return []
+        games = ((r.json() or {}).get("data") or [])[:1]
+        if not games:
+            return []
+        r = self.session.get(f"{SGDB_API}/grids/game/{games[0].get('id')}", headers=headers, timeout=15,
+                             params={"dimensions": "460x215,920x430,600x900", "types": "static", "nsfw": "false"})
+        if not r.ok:
+            return []
+        items = ((r.json() or {}).get("data") or [])[:4]
+        return [Candidate(f"{games[0].get('name', query)}\nSteamGridDB", it.get("thumb") or it.get("url"),
+                          it.get("url"), "SteamGridDB") for it in items if it.get("url")]
+
+    def _wiki_candidates(self, query: str, platform: str) -> list[Candidate]:
+        hint = WIKI_PLATFORM.get(platform, "")
+        r = self.session.get(WIKI_API, headers={"User-Agent": UA}, timeout=15, params={
+            "action": "query", "format": "json", "generator": "search",
+            "gsrsearch": f"{query} video game {hint}".strip(), "gsrlimit": 4,
+            "prop": "pageimages", "piprop": "thumbnail", "pithumbsize": 600, "pilimit": 4})
+        if not r.ok:
+            return []
+        pages = ((r.json() or {}).get("query") or {}).get("pages") or {}
+        out = []
+        for page in sorted(pages.values(), key=lambda p: p.get("index", 99)):
+            thumb = (page.get("thumbnail") or {}).get("source")
+            if thumb:
+                out.append(Candidate(f"{page.get('title', query)}\nWikipedia", thumb, thumb, "Wikipedia"))
+        return out
+
+    def download(self, url: str) -> bytes | None:
+        return download_image(self.session, url)
 
     def _custom(self, value: str) -> bytes | None:
         if value.lower().startswith("http"):
@@ -353,6 +463,16 @@ class CoverStore:
         if not net_error:  # sem rede não deve bloquear novas tentativas
             self._none(entry.key).touch()
         return None
+
+    def set_custom_bytes(self, key: str, data: bytes) -> Path:
+        """Capa escolhida pelo usuário: fica protegida da limpeza das capas automáticas."""
+        if not sniff(data):
+            raise ValueError("Isso não é uma imagem PNG, JPG, WEBP ou GIF.")
+        if len(data) > MAX_BYTES:
+            raise ValueError("Imagem grande demais (limite de 8 MB).")
+        path = self._write(key, data)
+        path.with_suffix(".custom").touch()
+        return path
 
     def set_custom(self, key: str, source: str | os.PathLike) -> Path:
         data = Path(source).read_bytes()

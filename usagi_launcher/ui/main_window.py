@@ -25,6 +25,7 @@ from ..github_api import GitHubClient, Release
 from ..library import Library
 from ..settings import Settings
 from . import theme
+from .cover_picker import CoverPickerDialog
 from .covers_ui import CoverCache, CoverView, paint_cover
 from .tasks import Task, TaskRunner
 
@@ -1089,7 +1090,8 @@ class MainWindow(QMainWindow):
         menu.addSeparator()
         if row.installed:
             menu.addAction("Backups dos saves…", lambda: self.backups_dialog(key))
-        menu.addAction("Definir capa…", lambda: self.set_cover(key))
+        menu.addAction("Escolher capa online…", lambda: self.pick_cover(key))
+        menu.addAction("Definir capa de um arquivo…", lambda: self.set_cover(key))
         menu.addAction("Buscar capa de novo", lambda: self.refetch_cover(key))
         if row.entry.source == "discovered":
             menu.addSeparator()
@@ -1170,6 +1172,20 @@ class MainWindow(QMainWindow):
             QMessageBox.warning(self, "Capa inválida", str(e))
             return
         self._cover_changed(key)
+
+    def pick_cover(self, key: str) -> None:
+        row = self.rows.get(key)
+        if row is None:
+            return
+        dlg = CoverPickerDialog(row.entry, self.cover_finder, self.runner, self)
+        if dlg.exec() == QDialog.DialogCode.Accepted and dlg.chosen:
+            try:
+                self.covers.store.set_custom_bytes(key, dlg.chosen)
+            except (ValueError, OSError) as e:
+                QMessageBox.warning(self, "Capa inválida", str(e))
+                return
+            self._cover_changed(key)
+            self.statusBar().showMessage(f"Capa de {row.entry.name} atualizada.")
 
     def refetch_cover(self, key: str) -> None:
         self.covers.store.clear(key)
