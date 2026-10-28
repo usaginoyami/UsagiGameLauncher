@@ -257,6 +257,25 @@ win.settings.set("hidden", [])
 win.reload_entries()
 check("revosucks/bm64recomp" in win.rows, "restaurar removidos traz o jogo de volta")
 
+# ordenação
+def order():
+    return [win.list.item(i).data(256) for i in range(win.list.count())]
+
+win.sort.setCurrentIndex(win.sort.findData("name_az"))
+names_az = [win.rows[k].entry.name.casefold() for k in order()]
+check(names_az == sorted(names_az), "ordenar por nome A-Z")
+check(win.settings.get("sort_mode") == "name_az", "ordem escolhida fica salva")
+win.sort.setCurrentIndex(win.sort.findData("stars_desc"))
+st = [win.rows[k].entry.stars for k in order()]
+known = [x for x in st if x > 0]
+check(known == sorted(known, reverse=True) and st[:len(known)] == known, "ordenar por estrelas (desconhecidas no fim)")
+win.sort.setCurrentIndex(win.sort.findData("platform"))
+plats = [win.rows[k].entry.platform for k in order()]
+idx = [catalog.PLATFORMS.index(p_) if p_ in catalog.PLATFORMS else 99 for p_ in plats]
+check(idx == sorted(idx), "ordenar por plataforma")
+win.sort.setCurrentIndex(win.sort.findData("default"))
+check(win.list.item(0).data(256) == "banjorecomp/banjorecomp", "ordem padrão mantém atualização no topo")
+
 # favoritos / filtros
 win.sidebar.setCurrentRow(3)
 check(win.list.count() == 1, "filtro Favoritos")

@@ -9,7 +9,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from usagi_launcher import backup, catalog, safety, selfupdate, stars  # noqa: E402
+from usagi_launcher import backup, catalog, safety, selfupdate, sorting, stars  # noqa: E402
 from usagi_launcher.catalog import Entry  # noqa: E402
 from usagi_launcher.errors import InstallError  # noqa: E402
 from usagi_launcher.github_api import Asset, Release  # noqa: E402
@@ -278,6 +278,65 @@ class Stars(unittest.TestCase):
         path = Path(tempfile.mkdtemp()) / "stars.json"
         path.write_text("{ nao e json")
         self.assertIsNone(stars.StarCache(path).get("a/b"))
+
+
+class R:
+    """Linha mínima com a mesma forma que a janela usa."""
+    def __init__(self, name, stars=0, platform="N64", published="", played="", installed="",
+                 update=False, source="catalog", key=None):
+        self.entry = Entry(key or name.lower(), name=name, platform=platform, source=source, stars=stars)
+        self.release = Release("v1", "v1", published, False, "", "", []) if published else None
+        self.rec = {"last_played": played, "installed_at": installed} if (played or installed) else None
+        if self.rec is not None:
+            self.rec = {k: v for k, v in self.rec.items() if v}
+        self.has_update = update
+
+    @property
+    def installed(self):
+        return self.rec is not None
+
+
+def names(rows, mode, favs=()):
+    return [r.entry.name for r in sorting.sort_rows(rows, mode, lambda k: k in favs)]
+
+
+class Sorting(unittest.TestCase):
+    def setUp(self):
+        self.rows = [
+            R("beta", stars=50, platform="PS2", published="2026-03-01T00:00:00Z", played="2026-10-02"),
+            R("Alpha", stars=900, platform="N64", published="2026-09-01T00:00:00Z", installed="2026-05-01"),
+            R("gamma", stars=0, platform="Xbox"),
+            R("Delta", stars=12, platform="N64", published="2025-01-01T00:00:00Z", played="2026-10-20",
+              installed="2026-08-01", update=True),
+        ]
+
+    def test_name(self):
+        self.assertEqual(names(self.rows, "name_az"), ["Alpha", "beta", "Delta", "gamma"])
+        self.assertEqual(names(self.rows, "name_za"), ["gamma", "Delta", "beta", "Alpha"])
+
+    def test_stars_unknown_last_in_both_directions(self):
+        self.assertEqual(names(self.rows, "stars_desc"), ["Alpha", "beta", "Delta", "gamma"])
+        self.assertEqual(names(self.rows, "stars_asc"), ["Delta", "beta", "Alpha", "gamma"])
+
+    def test_platform_follows_catalog_order(self):
+        self.assertEqual(names(self.rows, "platform"), ["Alpha", "Delta", "gamma", "beta"])  # N64, Xbox, PS2
+
+    def test_release_and_played_and_installed(self):
+        self.assertEqual(names(self.rows, "release_new"), ["Alpha", "beta", "Delta", "gamma"])
+        self.assertEqual(names(self.rows, "played"), ["Delta", "beta", "Alpha", "gamma"])
+        self.assertEqual(names(self.rows, "installed_new"), ["Delta", "Alpha", "beta", "gamma"])
+
+    def test_default_puts_updates_installed_favorites_first(self):
+        rows = self.rows + [R("Zed", key="zed")]
+        self.assertEqual(names(rows, "default", favs={"zed"})[:4], ["Delta", "Alpha", "beta", "Zed"])
+
+    def test_unknown_mode_falls_back_to_default(self):
+        self.assertEqual(names(self.rows, "nao-existe"), names(self.rows, "default"))
+
+    def test_all_modes_listed_once(self):
+        self.assertEqual(len(sorting.MODE_KEYS), len(set(sorting.MODE_KEYS)))
+        for m in sorting.MODE_KEYS:
+            self.assertEqual(len(sorting.sort_rows(self.rows, m, lambda k: False)), 4)
 
 
 if __name__ == "__main__":

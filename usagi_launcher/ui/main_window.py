@@ -18,7 +18,7 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QCheckBox, QComb
                                QStyledItemDelegate, QTextBrowser, QVBoxLayout, QWidget)
 
 from .. import (APP_NAME, __version__, backup, catalog, covers, installer, launcher, paths,
-                safety, selfupdate, stars)
+                safety, selfupdate, sorting, stars)
 from ..catalog import Entry
 from ..errors import Cancelled, GitHubError, RateLimitError
 from ..github_api import GitHubClient, Release
@@ -403,6 +403,18 @@ class MainWindow(QMainWindow):
         self.platform.currentIndexChanged.connect(lambda _i: self.apply_filters())
         top.addWidget(self.search, 1)
         top.addWidget(self.platform)
+        self.sort = QComboBox()
+        self.sort.setMinimumWidth(190)
+        for mode, label in sorting.MODES:
+            self.sort.addItem("Ordem: " + label.split(" (")[0] if mode == "default" else "Ordem: " + label, mode)
+        saved = self.settings.get("sort_mode")
+        self.sort.setCurrentIndex(max(self.sort.findData(saved), 0))
+        self.sort.currentIndexChanged.connect(self._sort_changed)
+        top.addWidget(self.sort)
+        self._resort_timer = QTimer(self)
+        self._resort_timer.setSingleShot(True)
+        self._resort_timer.setInterval(500)
+        self._resort_timer.timeout.connect(lambda: self.apply_filters(keep_scroll=True))
         center.addLayout(top)
 
         self.list = QListWidget()
@@ -561,7 +573,8 @@ class MainWindow(QMainWindow):
                 or (flt == F_FAV and self.settings.has("favorites", key))
                 or (flt == F_DISC and row.entry.source == "discovered"))
 
-    def apply_filters(self) -> None:
+    def apply_filters(self, keep_scroll: bool = False) -> None:
+        scroll = self.list.verticalScrollBar().value() if keep_scroll else 0
         flt = FILTERS[max(self.sidebar.currentRow(), 0)][1]
         plat = self.platform.currentText()
         text = self.search.text().strip().lower()
@@ -575,9 +588,8 @@ class MainWindow(QMainWindow):
             if text and text not in f"{e.name} {e.repo} {e.platform} {e.description}".lower():
                 continue
             shown.append(row)
-        shown.sort(key=lambda r: (not r.has_update, not r.installed,
-                                  not self.settings.has("favorites", r.entry.key),
-                                  r.entry.source == "discovered", r.entry.name.casefold()))
+        shown = sorting.sort_rows(shown, self.sort.currentData() or "default",
+                                  lambda k: self.settings.has("favorites", k))
         keep = self.current
         self.list.blockSignals(True)
         self.list.clear()
@@ -597,6 +609,8 @@ class MainWindow(QMainWindow):
             self.list.setCurrentRow(0)
         else:
             self.select(None)
+        if keep_scroll:
+            self.list.verticalScrollBar().setValue(scroll)
         self.empty.setText("" if shown else self._empty_text(flt))
         self.empty.setVisible(not shown)
         self._update_counts()
@@ -779,7 +793,18 @@ class MainWindow(QMainWindow):
         self.runner.run(lambda task: self.client.latest_release(repo, allow), ok, err)
         self.statusBar().showMessage("Consultando releases no GitHub…")
 
+    def _sort_changed(self, _i: int) -> None:
+        self.settings.set("sort_mode", self.sort.currentData() or "default")
+        self.settings.save()
+        self.apply_filters()
+
+    def _resort_later(self) -> None:
+        """Estrelas e releases chegam aos poucos: reordena uma vez, sem a lista pular a cada resposta."""
+        if (self.sort.currentData() or "default") in sorting.LIVE_MODES and not self._resort_timer.isActive():
+            self._resort_timer.start()
+
     def _row_changed(self, key: str) -> None:
+        self._resort_later()
         self.list.viewport().update()
         if key == self.current:
             self.render_detail()

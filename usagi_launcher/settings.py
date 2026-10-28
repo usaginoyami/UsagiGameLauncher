@@ -26,6 +26,7 @@ DEFAULTS: dict[str, Any] = {
     "check_self_update": True,
     "self_update_checked": 0,
     "hidden": [],
+    "sort_mode": "default",
     "custom_names": {},
     "custom_platforms": {},
     "favorites": [],
