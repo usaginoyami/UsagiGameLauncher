@@ -26,6 +26,7 @@ from ..library import Library
 from ..settings import Settings
 from . import theme
 from .cover_picker import CoverPickerDialog
+from .edit_dialogs import NamePickerDialog, PlatformDialog
 from .covers_ui import CoverCache, CoverView, paint_cover
 from .tasks import Task, TaskRunner
 
@@ -61,6 +62,8 @@ class Row:
     error: str = ""
     rec: dict | None = None
     orig_name: str = ""  # nome do catálogo, antes de qualquer renomeação do usuário
+    orig_platform: str = ""
+    orig_target: str = ""
 
     @property
     def installed(self) -> bool:
@@ -147,6 +150,8 @@ class CardDelegate(QStyledItemDelegate):
             f.setBold(False)
             p.setFont(f)
         x += self._chip(p, x, y, row.entry.platform, "#33333f")
+        if row.entry.target and row.entry.target.lower() != "windows":
+            x += self._chip(p, x, y, "→ " + row.entry.target, "#2a3a55", "#a9c1ff")
         if key in self.w.active:
             x += self._chip(p, x, y, "Instalando…", theme.BLUE)
         elif row.has_update:
@@ -174,6 +179,11 @@ class CardDelegate(QStyledItemDelegate):
 
 # ----------------------------------------------------------------- configurações
 class SettingsDialog(QDialog):
+    def _mark_restore(self) -> None:
+        self._restore = True
+        self.restore_btn.setEnabled(False)
+        self.restore_btn.setText("Serão restaurados ao salvar")
+
     def __init__(self, settings: Settings, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Configurações")
@@ -228,6 +238,13 @@ class SettingsDialog(QDialog):
         self.igdb_secret.setPlaceholderText("Client Secret (dev.twitch.tv/console, grátis)")
         form.addRow("IGDB Client Secret", self.igdb_secret)
 
+        self._restore = False
+        n_hidden = len(settings.get("hidden") or [])
+        self.restore_btn = QPushButton(f"Restaurar jogos removidos ({n_hidden})")
+        self.restore_btn.setEnabled(n_hidden > 0)
+        self.restore_btn.clicked.connect(self._mark_restore)
+        form.addRow("Lista", self.restore_btn)
+
         self.show_adult = QCheckBox("Mostrar jogos adultos ou sugestivos (escondidos por padrão)")
         self.show_adult.setChecked(bool(settings.get("show_adult")))
         form.addRow("", self.show_adult)
@@ -277,6 +294,7 @@ class SettingsDialog(QDialog):
             "discover_min_stars": self.stars.value(),
             "minimize_on_launch": self.minimize.isChecked(),
             "show_adult": self.show_adult.isChecked(),
+            **({"hidden": []} if self._restore else {}),
             "safety_confirm": self.safety.isChecked(),
             "backup_saves": self.backup.isChecked(),
             "check_self_update": self.self_update.isChecked(),
@@ -326,6 +344,8 @@ class MainWindow(QMainWindow):
         self._self_update: tuple | None = None
         self._f2 = QShortcut(QKeySequence("F2"), self.list)
         self._f2.activated.connect(lambda: self.rename_game(self.current))
+        self._del = QShortcut(QKeySequence("Delete"), self.list)
+        self._del.activated.connect(lambda: self.remove_game(self.current))
         if auto_refresh:
             QTimer.singleShot(150, self.startup_refresh)
             QTimer.singleShot(1500, self.check_self_update)
@@ -514,9 +534,13 @@ class MainWindow(QMainWindow):
         names = self.settings.get("custom_names") or {}
         for k, r in self.rows.items():
             r.rec = self.library.get(r.entry.repo)
-            r.orig_name = r.entry.name
+            r.orig_name, r.orig_platform, r.orig_target = r.entry.name, r.entry.platform, r.entry.target
             if names.get(k):
                 r.entry.name = str(names[k])
+            ov = (self.settings.get("custom_platforms") or {}).get(k)
+            if isinstance(ov, dict):
+                r.entry.platform = ov.get("platform") or r.entry.platform
+                r.entry.target = ov.get("target", r.entry.target)
             if not r.entry.stars:
                 r.entry.stars = self.stars.get(k) or 0
         plats = sorted({r.entry.platform for r in self.rows.values()},
@@ -622,7 +646,8 @@ class MainWindow(QMainWindow):
         if row is None:
             return
         key, e, rel = row.entry.key, row.entry, row.release
-        chips = [f"<span style='color:{theme.MUTED}'>{e.platform}</span>"]
+        route = e.platform if not e.target else f"{e.platform} → {e.target}"
+        chips = [f"<span style='color:{theme.MUTED}'>{route}</span>"]
         if row.installed:
             chips.append(f"<span style='color:{theme.GREEN}'>Instalado {row.rec.get('version', '')}</span>")
         if row.has_update:
@@ -831,6 +856,13 @@ class MainWindow(QMainWindow):
                                     "Abra a página de releases para baixar manualmente.")
             return
         rel, name, repo = row.release, row.entry.name, row.entry.repo
+        target = (row.entry.target or "").strip()
+        if target and target.lower() not in ("windows", "pc", "windows/linux") and not row.installed:
+            if QMessageBox.question(
+                    self, "Alvo diferente de Windows",
+                    f"“{name}” foi portado para {target}, não para Windows. O pacote pode não rodar neste "
+                    "computador.\n\nBaixar mesmo assim?") != QMessageBox.StandardButton.Yes:
+                return
         if not self._confirm_safety(row, rel, asset):
             return
         root = self.settings.install_dir()
@@ -1140,18 +1172,17 @@ class MainWindow(QMainWindow):
         if row.installed:
             menu.addAction("Backups dos saves…", lambda: self.backups_dialog(key))
         menu.addAction("Renomear…  (F2)", lambda: self.rename_game(key))
+        menu.addAction("Procurar nome automático…", lambda: self.find_name(key))
+        menu.addAction("Editar plataformas…", lambda: self.edit_platforms(key))
         if key in (self.settings.get("custom_names") or {}):
             menu.addAction("Restaurar nome original", lambda: self.rename_game(key, reset=True))
         menu.addAction("Escolher capa online…", lambda: self.pick_cover(key))
         menu.addAction("Definir capa de um arquivo…", lambda: self.set_cover(key))
         menu.addAction("Buscar capa de novo", lambda: self.refetch_cover(key))
+        menu.addSeparator()
         if row.entry.source == "discovered":
-            menu.addSeparator()
             menu.addAction("Adicionar ao meu catálogo", lambda: self._adopt(row))
-            menu.addAction("Ocultar", lambda: self._hide(row))
-        elif row.entry.source == "user" and not row.installed:
-            menu.addSeparator()
-            menu.addAction("Remover do meu catálogo", lambda: self._drop_user(row))
+        menu.addAction("Remover da lista  (Del)", lambda: self.remove_game(key))
         menu.exec(self.list.viewport().mapToGlobal(pos))
 
     def backups_dialog(self, key: str) -> None:
@@ -1230,24 +1261,77 @@ class MainWindow(QMainWindow):
         row = self.rows.get(key) if key else None
         if row is None:
             return
-        names = dict(self.settings.get("custom_names") or {})
         if reset:
-            new = ""
+            self._set_name(key, "")
+            return
+        new, ok = QInputDialog.getText(self, "Renomear jogo", "Nome do jogo (vazio = nome original):",
+                                       text=row.entry.name)
+        if ok:
+            self._set_name(key, new)
+
+    def find_name(self, key: str) -> None:
+        row = self.rows.get(key)
+        if row is None:
+            return
+        dlg = NamePickerDialog(row.entry, self.cover_finder, self.runner, self)
+        if dlg.exec() == QDialog.DialogCode.Accepted and dlg.chosen:
+            self._set_name(key, dlg.chosen)
+
+    def edit_platforms(self, key: str | None) -> None:
+        row = self.rows.get(key) if key else None
+        if row is None:
+            return
+        dlg = PlatformDialog(row.entry.platform, row.entry.target, self)
+        if dlg.exec() != QDialog.DialogCode.Accepted:
+            return
+        platform, target = dlg.values()
+        if target.lower() == "windows":
+            target = ""
+        over = dict(self.settings.get("custom_platforms") or {})
+        if platform == row.orig_platform and target == row.orig_target:
+            over.pop(key, None)  # igual ao original: não guarda nada
         else:
-            new, ok = QInputDialog.getText(self, "Renomear jogo", "Nome do jogo (vazio = nome original):",
-                                           text=row.entry.name)
-            if not ok:
-                return
-            new = " ".join(new.split())[:80]
-            if new == row.orig_name:
-                new = ""
-        if new:
+            over[key] = {"platform": platform, "target": target}
+        self.settings.set("custom_platforms", over)
+        self.settings.save()
+        row.entry.platform, row.entry.target = platform, target
+        self.reload_entries()
+        self.apply_filters_keep_selection()
+        if key == self.current:
+            self.render_detail()
+        self.statusBar().showMessage(f"{row.entry.name}: {platform} → {target or 'Windows'}")
+
+    def remove_game(self, key: str | None) -> None:
+        """Tira da lista. O que está instalado precisa ser desinstalado antes."""
+        row = self.rows.get(key) if key else None
+        if row is None:
+            return
+        if row.installed:
+            QMessageBox.information(self, "Jogo instalado",
+                                    f"“{row.entry.name}” está instalado. Use “Desinstalar” antes de removê-lo da lista.")
+            return
+        if QMessageBox.question(
+                self, "Remover da lista",
+                f"Remover “{row.entry.name}” da lista?\n\nNada é apagado do disco. Para trazer de volta, "
+                "use “Restaurar jogos removidos” nas Configurações.") != QMessageBox.StandardButton.Yes:
+            return
+        if row.entry.source == "user":
+            self._drop_user(row)
+        else:
+            self._hide(row)
+        self.statusBar().showMessage(f"{row.entry.name} removido da lista.")
+
+    def _set_name(self, key: str, new: str) -> None:
+        row = self.rows[key]
+        names = dict(self.settings.get("custom_names") or {})
+        new = " ".join(new.split())[:80]
+        if new and new != row.orig_name:
             names[key] = new
         else:
             names.pop(key, None)
         self.settings.set("custom_names", names)
         self.settings.save()
-        row.entry.name = new or row.orig_name
+        row.entry.name = names.get(key) or row.orig_name
         self.list.viewport().update()
         self.apply_filters_keep_selection()
         if key == self.current:
@@ -1286,6 +1370,7 @@ class MainWindow(QMainWindow):
 
         old = cover_cfg()
         old_adult = bool(self.settings.get("show_adult"))
+        old_hidden = list(self.settings.get("hidden") or [])
         dlg = SettingsDialog(self.settings, self)
         if dlg.exec() == QDialog.DialogCode.Accepted:
             self.settings.update(dlg.values())
@@ -1297,7 +1382,7 @@ class MainWindow(QMainWindow):
                 self.covers.store.clear_failures()
                 self.covers.reset_all()
                 self.list.viewport().update()
-            if bool(self.settings.get("show_adult")) != old_adult:
+            if bool(self.settings.get("show_adult")) != old_adult or old_hidden != list(self.settings.get("hidden") or []):
                 self.reload_entries()
                 self.apply_filters()
             self.statusBar().showMessage("Configurações salvas.")

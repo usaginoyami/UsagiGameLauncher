@@ -236,6 +236,35 @@ class Finder(unittest.TestCase):
         cands, err = covers.CoverFinder(Net([("", requests.ConnectionError("x"))])).candidates("Black")
         self.assertEqual((cands, err), ([], True))
 
+    def test_suggest_names_platform_first_with_wikipedia_fallback(self):
+        class N(Net):
+            def post(self_, url, params=None, headers=None, timeout=None, data=None):
+                if "api.igdb.com" in url:
+                    if "platforms =" in data:
+                        return Resp(data=[{"name": "God of War", "first_release_date": 1112313600,
+                                           "platforms": [{"abbreviation": "PS2"}]}])
+                    return Resp(data=[{"name": "God of War", "first_release_date": 1112313600},
+                                      {"name": "God of War", "first_release_date": 1524182400,
+                                       "platforms": [{"abbreviation": "PS4"}]}])
+                return Resp(data={"access_token": "T", "expires_in": 9999})
+        wk = Resp(data={"query": {"search": [{"title": "God of War (2005 video game)"},
+                                              {"title": "God of War Ragnarök"},
+                                              {"title": "God of War III"}]}})
+        finder = covers.CoverFinder(N([("wikipedia.org", wk)]), igdb_id="C", igdb_secret="S")
+        names, err = finder.suggest_names("god of war", "PS2")
+        self.assertFalse(err)
+        self.assertEqual(names[0], ("God of War", "2005 · PS2"))
+        self.assertEqual(names[1], ("God of War", "2018 · PS4"))
+        self.assertEqual(names[2], ("God of War Ragnarök", "Wikipedia"))
+        self.assertEqual(len(names), 3)  # "God of War III" some: o número de sequência não bate; a de 2005 já estava
+
+    def test_suggest_names_without_igdb_uses_wikipedia(self):
+        wk = Resp(data={"query": {"search": [{"title": "Black (video game)"}, {"title": "Totally Else"}]}})
+        names, err = covers.CoverFinder(Net([("wikipedia.org", wk)])).suggest_names("Black", "Xbox")
+        self.assertEqual(names, [("Black", "Wikipedia")])
+        names, err = covers.CoverFinder(Net([("", requests.ConnectionError("x"))])).suggest_names("Black")
+        self.assertEqual((names, err), ([], True))
+
     def test_igdb_needs_both_keys_and_falls_through(self):
         net = Net([("wikipedia.org", wiki({"1": {"title": "Quest 64", "index": 1,
                                                    "thumbnail": {"source": "https://x/p.png"}}})),

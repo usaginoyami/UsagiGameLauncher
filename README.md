@@ -17,6 +17,9 @@ Inspirado em [teasergames/ports-pc](https://github.com/teasergames/ports-pc) (bi
 - **Adicionar repositório**: cole `dono/repo` ou o link do GitHub.
 - **Instalar / Atualizar**: escolhe sozinho o pacote Windows da release (ignora Linux, macOS, ARM e source), confere o SHA-256 quando o GitHub publica, extrai com proteção contra zip-slip e detecta o executável. Cada versão vai para `Jogo\vX.Y.Z`, então um update nunca sobrescreve a anterior. **Limpar versões antigas** apaga só quando você confirmar.
 - **Renomear**: clique direito no jogo → **Renomear…** (ou F2). O nome é só de exibição, fica salvo nas suas configurações e não muda o repositório, o catálogo nem a pasta do jogo. **Restaurar nome original** desfaz.
+- **Nome automático**: clique direito → **Procurar nome automático…** busca o título oficial na IGDB (com a chave) e na Wikipedia, com ano e plataformas, e você escolhe. Os jogos da plataforma do card aparecem primeiro, o que separa, por exemplo, o God of War de PS2 do de PS4.
+- **Plataformas**: **Editar plataformas…** define de qual console o jogo foi recompilado e para onde o port foi feito (Windows, Linux, Switch, Android, portátil ARM64…, ou outro texto). Portes que não são para Windows ganham o selo “→ destino” e pedem confirmação antes de baixar. As edições ficam nas suas configurações e podem ser desfeitas voltando ao valor original.
+- **Remover da lista**: clique direito → **Remover da lista** (ou Delete). Não apaga nada do disco; jogo instalado precisa ser desinstalado antes. Para trazer de volta: Configurações → **Restaurar jogos removidos**.
 - **Estrelas do GitHub**: cada card mostra a contagem (ex.: ★ 1,2 mil) e o painel mostra o número exato. Ficam em cache por 24 h. Sem token, o launcher só consulta as estrelas dos jogos instalados, favoritos e do que você abrir; com token, atualiza todos.
 - **Filtros**: Todos, Biblioteca, Atualizações, Favoritos, Descobertos, mais plataforma e busca por texto.
 - **Jogar**: abre o executável na pasta do jogo; se o Windows pedir administrador, o pedido é repassado. O executável pode ser trocado em **Escolher executável**.
@@ -51,8 +54,8 @@ Adicione jogos em `%LOCALAPPDATA%\UsagiGameLauncher\catalog.user.json` (ou pelo 
 
 ```
 python tests/test_core.py        # 32 testes de lógica
-python tests/test_covers.py      # 31 testes das fontes e do cache de capas
-python tests/test_extras.py      # 28 testes de segurança, filtro adulto, backup, autoatualização e estrelas
+python tests/test_covers.py      # 33 testes das fontes e do cache de capas
+python tests/test_extras.py      # 30 testes de segurança, filtro adulto, backup, autoatualização, estrelas e remoção
 python tests/smoke_ui.py pasta   # interface sem tela + instalação ponta a ponta + capturas
 ```
 

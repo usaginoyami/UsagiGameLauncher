@@ -219,6 +219,23 @@ class IGDB:
                 best, best_score = image_id, score
         return IGDB_IMG.format(best) if best else None
 
+    def search_names(self, title: str, platform: str = "", limit: int = 10) -> list[tuple[str, str]]:
+        """(nome oficial, detalhe) dos jogos que combinam; os da plataforma vêm primeiro."""
+        pid = IGDB_PLATFORMS.get(platform)
+        out: list[tuple[str, str]] = []
+        seen: set[tuple[str, str]] = set()
+        for plat_id in ([pid, None] if pid else [None]):
+            for g in (self._query(title, plat_id, limit, "name,first_release_date,platforms.abbreviation") or []):
+                name = (g.get("name") or "").strip()
+                year = str(time.gmtime(g["first_release_date"]).tm_year) if g.get("first_release_date") else ""
+                if not name or (name, year) in seen:
+                    continue
+                seen.add((name, year))
+                plats = ", ".join(p.get("abbreviation", "") for p in (g.get("platforms") or [])[:4]
+                                  if p.get("abbreviation"))
+                out.append((name, " · ".join(x for x in (year, plats) if x)))
+        return out[:limit]
+
     def search_many(self, title: str, platform: str = "", limit: int = 12) -> list[Candidate]:
         """Opções para o usuário: primeiro jogos da plataforma, depois os demais."""
         pid = IGDB_PLATFORMS.get(platform)
@@ -374,6 +391,35 @@ class CoverFinder:
             if thumb:
                 out.append(Candidate(f"{page.get('title', query)}\nWikipedia", thumb, thumb, "Wikipedia"))
         return out
+
+    def suggest_names(self, query: str, platform: str = "", limit: int = 10) -> tuple[list[tuple[str, str]], bool]:
+        """Nomes oficiais possíveis para o jogo. Devolve (lista de (nome, detalhe), erro_de_rede)."""
+        out: list[tuple[str, str]] = []
+        net_error = False
+        try:
+            if self.igdb:
+                out += self.igdb.search_names(query, platform, limit)
+        except requests.RequestException:
+            net_error = True
+        except (ValueError, KeyError, TypeError, AttributeError):
+            pass
+        try:
+            hint = WIKI_PLATFORM.get(platform, "")
+            r = self.session.get(WIKI_API, headers={"User-Agent": UA}, timeout=15, params={
+                "action": "query", "format": "json", "list": "search",
+                "srsearch": f"{query} video game {hint}".strip(), "srlimit": 5})
+            if r.ok:
+                known = {n.lower() for n, _ in out}
+                for hit in (((r.json() or {}).get("query") or {}).get("search") or []):
+                    name = re.sub(r"\s*\([^)]*\)\s*$", "", hit.get("title", "")).strip()
+                    if name and name.lower() not in known and match_score(query, name) >= 0.5:
+                        known.add(name.lower())
+                        out.append((name, "Wikipedia"))
+        except requests.RequestException:
+            net_error = True
+        except (ValueError, KeyError, TypeError, AttributeError):
+            pass
+        return out[:limit], net_error
 
     def download(self, url: str) -> bytes | None:
         return download_image(self.session, url)

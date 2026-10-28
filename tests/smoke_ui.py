@@ -224,6 +224,39 @@ win.rename_game(bkey0, reset=True)
 check(win.rows[bkey0].entry.name == "Banjo-Kazooie (Banjo: Recompiled)", "restaurar volta ao nome original")
 check(not win.settings.get("custom_names"), "nome removido das configurações")
 
+# editar plataformas, procurar nome, remover
+mw.PlatformDialog.exec = lambda self: 1
+mw.PlatformDialog.values = lambda self: ("PS2", "Switch")
+win.edit_platforms("sonicdcer/mariokart64recomp")
+mk = win.rows["sonicdcer/mariokart64recomp"].entry
+check((mk.platform, mk.target) == ("PS2", "Switch"), "plataformas de origem e destino editadas")
+win.reload_entries()
+check(win.rows["sonicdcer/mariokart64recomp"].entry.target == "Switch", "edição de plataforma persiste após recarregar")
+mw.PlatformDialog.values = lambda self: ("N64", "Windows")
+win.edit_platforms("sonicdcer/mariokart64recomp")
+check(not win.settings.get("custom_platforms"), "voltar ao original não deixa edição guardada")
+
+class _Dlg:
+    chosen = "Mario Kart 64 (original)"
+    def __init__(self, *a): pass
+    def exec(self): return 1
+mw.NamePickerDialog = _Dlg
+mw.QDialog.DialogCode = mw.QDialog.DialogCode
+win.find_name("sonicdcer/mariokart64recomp")
+check(win.rows["sonicdcer/mariokart64recomp"].entry.name == "Mario Kart 64 (original)", "nome automático aplicado")
+win.rename_game("sonicdcer/mariokart64recomp", reset=True)
+
+mw.QMessageBox.question = staticmethod(lambda *a, **k: mw.QMessageBox.StandardButton.Yes)
+mw.QMessageBox.information = staticmethod(lambda *a, **k: 0)
+before = len(win.rows)
+win.remove_game("revosucks/bm64recomp")
+check("revosucks/bm64recomp" not in win.rows and len(win.rows) == before - 1, "jogo do catálogo removido da lista")
+win.remove_game("banjorecomp/banjorecomp")
+check("banjorecomp/banjorecomp" in win.rows, "jogo instalado não pode ser removido sem desinstalar")
+win.settings.set("hidden", [])
+win.reload_entries()
+check("revosucks/bm64recomp" in win.rows, "restaurar removidos traz o jogo de volta")
+
 # favoritos / filtros
 win.sidebar.setCurrentRow(3)
 check(win.list.count() == 1, "filtro Favoritos")

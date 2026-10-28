@@ -14,6 +14,9 @@ PLATFORMS = [
     "Switch", "Dreamcast", "SNES", "NES", "Game Boy", "GBA", "DS", "Outros",
 ]
 
+DEFAULT_TARGET = "Windows"
+TARGETS = ["Windows", "Linux", "macOS", "Android", "Switch", "Portátil ARM64", "Navegador"]
+
 _PLATFORM_PATTERNS: list[tuple[str, str]] = [
     ("N64", r"\bn64\b|nintendo ?64"),
     ("Xbox 360", r"xbox ?360|\bx360\b|xenon"),
@@ -56,6 +59,7 @@ class Entry:
     homepage: str = ""
     cover_title: str = ""  # nome do jogo original, usado para achar a capa
     cover: str = ""  # link ou arquivo local de uma capa própria
+    target: str = ""  # para onde o jogo foi portado; vazio = Windows (PC)
     created_at: str = ""  # só nos descobertos (usado na avaliação de risco)
     adult: bool = False  # conteúdo adulto/sugestivo: escondido, a menos que o usuário ligue
 
@@ -196,7 +200,7 @@ def merge(user: list[Entry], bundled: list[Entry], discovered: list[Entry],
         for e in group:
             if e.key in out:
                 continue
-            if e.source == "discovered" and e.key in hidden:
+            if e.source != "user" and e.key in hidden:
                 continue
             if e.adult and not show_adult and e.source != "user" and e.key not in keep:
                 continue

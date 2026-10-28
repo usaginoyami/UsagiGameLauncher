@@ -80,6 +80,20 @@ class Adult(unittest.TestCase):
         every = {e.key for e in catalog.merge([u], [a, inst, ok], [d], show_adult=True)}
         self.assertEqual(len(every), 5)
 
+    def test_hidden_removes_catalog_but_not_user_entries(self):
+        c = Entry("a/cat", source="catalog")
+        d = Entry("b/disc", source="discovered")
+        u = Entry("c/mine", source="user")
+        shown = {e.key for e in catalog.merge([u], [c], [d], hidden={"a/cat", "b/disc", "c/mine"})}
+        self.assertEqual(shown, {"c/mine"})
+
+    def test_target_defaults_and_bundled_targets(self):
+        self.assertEqual(Entry("a/b").target, "")
+        self.assertIn("Windows", catalog.TARGETS)
+        t = {e.repo: e.target for e in catalog.load_bundled() if e.target}
+        self.assertEqual(t.get("antoxa2584x/burnout3-sw"), "Switch")
+        self.assertEqual(t.get("Simeony2007/VibeRecomp-for-GoW-CoO"), "Portátil ARM64")
+
     def test_bundled_catalog_flags(self):
         flagged = {e.repo for e in catalog.load_bundled() if e.adult}
         self.assertIn("NoRain211/doaxvb-re", flagged)

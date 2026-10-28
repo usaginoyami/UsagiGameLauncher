@@ -216,7 +216,8 @@
       "platform": "Xbox",
       "description": "Recompilação de Burnout 3: Takedown (Xbox) voltada ao Nintendo Switch. Fork de sp00nznet/burnout3.",
       "notes": "Requer a sua própria cópia do jogo. Alvo: Nintendo Switch. Não é um pacote para PC.",
-      "cover_title": "Burnout 3: Takedown"
+      "cover_title": "Burnout 3: Takedown",
+      "target": "Switch"
     },
     {
       "repo": "BlackLabelHQ/SymphonyRecomp",
@@ -296,7 +297,8 @@
       "platform": "PSP",
       "description": "Recompilador estático de God of War: Chains of Olympus para dispositivos ARM64, com foco no R36S.",
       "notes": "Requer a sua própria cópia do jogo. Alvo: consoles portáteis ARM64 (R36S). Não é um pacote para Windows. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
-      "cover_title": "God of War: Chains of Olympus"
+      "cover_title": "God of War: Chains of Olympus",
+      "target": "Portátil ARM64"
     },
     {
       "repo": "andrebrumdev/gow2-recomp",
@@ -346,7 +348,8 @@
       "description": "Game Of Ocean Nets (GOON): recompilação estática de Dead or Alive Xtreme Beach Volleyball (Xbox) para o Nintendo Switch.",
       "notes": "Requer a sua própria cópia do jogo. Alvo: Nintendo Switch. Não é um pacote para PC. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
       "cover_title": "Dead or Alive Xtreme Beach Volleyball",
-      "adult": true
+      "adult": true,
+      "target": "Switch"
     },
     {
       "repo": "peiikai/LASRecomp",
