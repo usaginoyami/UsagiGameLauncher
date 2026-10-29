@@ -219,3 +219,46 @@ def install(client: GitHubClient, release: Release, asset: Asset, game_name: str
     return InstallResult(folder=folder, root=game_root,
                          exe=candidates[0] if candidates else None,
                          candidates=candidates, asset_name=asset.name)
+
+
+def repair(client: GitHubClient, release: Release, asset: Asset, folder: Path, downloads_dir: Path,
+           progress: Progress | None = None, cancel: threading.Event | None = None) -> int:
+    """Baixa o pacote de novo e recoloca os arquivos por cima da pasta instalada.
+
+    Saves existentes nunca são sobrescritos. Extrai numa pasta temporária primeiro, então um
+    download ou pacote ruim não estraga a instalação. Devolve quantos arquivos foram regravados."""
+    from . import backup
+
+    folder = Path(folder)
+
+    def rep(phase: str) -> Callable[[int, int], None]:
+        return lambda d, t: progress(phase, d, t) if progress else None
+
+    archive = Path(downloads_dir) / safe_name(asset.name)
+    tmp = folder.with_name(folder.name + ".reparo")
+    client.download(asset.url, archive, rep("Baixando"), cancel, asset.size)
+    try:
+        expected = parse_digest(asset.digest)
+        if expected and sha256_file(archive, cancel) != expected:
+            raise InstallError("O SHA-256 do arquivo baixado não confere. Nada foi alterado.")
+        shutil.rmtree(tmp, ignore_errors=True)
+        tmp.mkdir(parents=True)
+        extract(archive, tmp, rep("Extraindo"), cancel)
+        if progress:
+            progress("Recolocando arquivos", 0, 0)
+        n = 0
+        for src in sorted(p for p in tmp.rglob("*") if p.is_file() and not p.is_symlink()):
+            rel = src.relative_to(tmp)
+            dest = folder / rel
+            if dest.exists() and backup.classify(rel) == "save":
+                continue
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dest)
+            n += 1
+        return n
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+        try:
+            archive.unlink()
+        except OSError:
+            pass

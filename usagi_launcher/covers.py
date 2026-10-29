@@ -510,6 +510,16 @@ class CoverStore:
             self._none(entry.key).touch()
         return None
 
+    def image_for(self, key: str) -> tuple[bytes | None, bool]:
+        """Bytes da capa em cache e se foi escolhida por você (True) ou achada sozinha (False)."""
+        img = self.cached(key)
+        if img is None:
+            return None, False
+        try:
+            return img.read_bytes(), self._base(key).with_suffix(".custom").exists()
+        except OSError:
+            return None, False
+
     def set_custom_bytes(self, key: str, data: bytes) -> Path:
         """Capa escolhida pelo usuário: fica protegida da limpeza das capas automáticas."""
         if not sniff(data):

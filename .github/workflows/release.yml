@@ -21,6 +21,7 @@ jobs:
           python tests/test_core.py
           python tests/test_covers.py
           python tests/test_extras.py
+          python tests/test_edition.py
 
   build:
     needs: test
@@ -32,20 +33,36 @@ jobs:
           python-version: "3.12"
       - name: Dependências
         run: pip install -r requirements.txt pyinstaller
-      - name: Gerar o .exe
+      - name: Gerar o .exe do curador
         run: >
           pyinstaller --noconfirm --clean --windowed
           --name UsagiGameLauncher --add-data "data;data" main.py
+      - name: Gerar o .exe do cliente
+        shell: pwsh
+        run: |
+          Remove-Item -Recurse -Force build -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory -Force -Path client-data/data | Out-Null
+          Copy-Item data/catalog.json client-data/data/catalog.json
+          Set-Content -Path client-data/data/edition.txt -Value "client" -NoNewline
+          pyinstaller --noconfirm --clean --windowed --name UsagiGameClient `
+            --distpath dist-client --workpath build-client `
+            --add-data "client-data/data;data" main.py
       - name: Compactar
         shell: pwsh
-        run: Compress-Archive -Path dist/UsagiGameLauncher -DestinationPath UsagiGameLauncher-Windows-x64.zip
+        run: |
+          Compress-Archive -Path dist/UsagiGameLauncher -DestinationPath UsagiGameLauncher-Windows-x64.zip
+          Compress-Archive -Path dist-client/UsagiGameClient -DestinationPath UsagiGameLauncher-Client-Windows-x64.zip
       - uses: actions/upload-artifact@v4
         with:
           name: UsagiGameLauncher-Windows-x64
-          path: UsagiGameLauncher-Windows-x64.zip
+          path: |
+            UsagiGameLauncher-Windows-x64.zip
+            UsagiGameLauncher-Client-Windows-x64.zip
       - name: Publicar Release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         with:
-          files: UsagiGameLauncher-Windows-x64.zip
+          files: |
+            UsagiGameLauncher-Windows-x64.zip
+            UsagiGameLauncher-Client-Windows-x64.zip
           generate_release_notes: true

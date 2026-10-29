@@ -33,6 +33,26 @@ Inspirado em [teasergames/ports-pc](https://github.com/teasergames/ports-pc) (bi
 - **Backup manual**: botão **Backup…** no painel do jogo (ou clique direito → **Fazer backup…**). Você escolhe **só saves e configs** (arquivo pequeno) ou **o jogo inteiro** (toda a pasta da versão instalada, mostra o tamanho antes) e depois onde salvar o `.zip`, por exemplo um HD externo. O arquivo só aparece no destino quando termina (cancelar ou falhar não deixa zip pela metade), o launcher confere o espaço livre e não deixa salvar dentro da pasta do próprio jogo. Em **Backups e restauração…** dá para restaurar o mais recente automático ou escolher um `.zip` qualquer.
 - **Atualização do launcher**: avisa na barra de baixo quando há versão nova nas Releases. No `.exe`, baixa, confere o SHA-256, fecha, troca os arquivos e reabre; rodando pelo código, abre a página da release.
 - Cache por ETag: atualizar a lista não gasta o limite da API quando nada mudou.
+- **Versões e reparo**: botão **Versões, reparo e atalhos ▾** → **Versões instaladas…** deixa voltar a uma versão antiga que ainda está no disco (o “Jogar” passa a abrir ela). **Reparar instalação** baixa de novo o pacote da versão em uso, confere o SHA-256, faz backup de saves e configurações e recoloca os arquivos por cima; saves existentes nunca são sobrescritos, configurações do pacote voltam ao padrão. Nada muda se o download ou o pacote vierem ruins.
+- **Atalhos** (Windows): **Criar atalho no desktop** gera um `.lnk` do jogo. **Adicionar à Steam** inclui o jogo como “jogo fora da Steam” em cada conta da Steam do PC; exige a Steam fechada (ela regrava o arquivo ao sair), guarda uma cópia `shortcuts.vdf.usagi-*.bak` do arquivo anterior e não duplica. Jogos abertos por atalho ou pela Steam não contam tempo de jogo aqui.
+- **Tempo de jogo, status e nota**: o launcher conta o tempo em que o jogo fica aberto (sessões de menos de 10 s não contam; jogos que o Windows abre com pedido de administrador não são acompanhados). No painel de detalhes: **status** (Quero jogar, Jogando, Terminado, Abandonado; abrir o jogo marca “Jogando” sozinho) e uma **nota** só sua. Há filtros Jogando, Quero jogar e Terminados na barra lateral e as ordens “Tempo de jogo” e “Status”.
+- **Segredos no Windows**: o token do GitHub, o Secret da IGDB e a chave do SteamGridDB ficam no Gerenciador de Credenciais do Windows, não no `settings.json`. Quem já tinha o token no arquivo é migrado ao salvar as Configurações. Se o cofre não estiver disponível, volta a guardar no arquivo (as Configurações dizem qual dos dois está valendo).
+
+## Duas edições: curador e cliente
+
+O mesmo código gera dois programas:
+
+- **Curador** (`UsagiGameLauncher.exe`, o seu): descobre projetos, adiciona repositórios, renomeia, edita plataformas e capas, remove da lista. Tudo isso forma o catálogo.
+- **Cliente** (`UsagiGameClient.exe`, para quem baixa): não descobre nem adiciona nada. Mostra só o catálogo que você publicou, e instala, joga, atualiza e faz backup como o seu. Tem pasta de dados própria (`%LOCALAPPDATA%\UsagiGameClient`), então os dois convivem no mesmo PC. Se ainda não houve download do catálogo (ou sem internet), usa o catálogo que veio dentro do programa.
+
+**Publicar**: no curador, botão **Publicar catálogo…**. Ele reúne o catálogo do programa mais os seus jogos, sem os removidos e com os seus nomes, plataformas, notas e a marcação de conteúdo adulto (o cliente esconde esses por padrão). Pergunta se inclui as capas que já estão carregadas (as que você escolheu à mão sempre vão). Então:
+
+- **Publicar no GitHub** grava `catalog/catalog.json` e `catalog/covers/` em `usaginoyami/UsagiGameLauncher` (precisa de token com permissão de escrita em *Contents*, nas Configurações; só envia o que mudou).
+- **Salvar numa pasta…** só gera os arquivos para você copiar para o repositório e fazer o commit.
+
+O cliente baixa `catalog/catalog.json` pelo `raw.githubusercontent.com` (com ETag, então não gasta nada quando nada mudou), valida o arquivo (formato, `dono/repo`, limites de tamanho, capas só por https) e guarda cópia local. **Atualizar catálogo e releases** força a checagem. Os jogos continuam sendo baixados das releases dos próprios projetos, nunca de você.
+
+**Gerar os dois .exe**: o workflow do GitHub Actions faz os dois e publica na Release `UsagiGameLauncher-Windows-x64.zip` (curador) e `UsagiGameLauncher-Client-Windows-x64.zip` (cliente). Cada edição se atualiza sozinha com o zip da própria edição. Na sua máquina: `build.bat` (curador) e `build-client.bat` (cliente). Para testar o cliente pelo código: `python main.py --client` (use `--data-dir` para não misturar dados).
 
 ## Configurações
 
@@ -60,9 +80,11 @@ Adicione jogos em `%LOCALAPPDATA%\UsagiGameLauncher\catalog.user.json` (ou pelo 
 python tests/test_core.py        # 32 testes de lógica
 python tests/test_covers.py      # 33 testes das fontes e do cache de capas
 python tests/test_extras.py      # 55 testes de segurança, filtro adulto, backups, autoatualização, estrelas, remoção, ordenação e busca de instalados
+python tests/test_edition.py     # 37 testes de edições, catálogo publicado, segredos, tempo de jogo, atalhos/Steam, versões e reparo
 python tests/smoke_ui.py pasta   # interface sem tela + instalação ponta a ponta + capturas
+python tests/smoke_edition.py    # interface sem tela das duas edições (cliente travado, publicar, status, tempo, versões)
 ```
 
 ## Aviso
 
-O launcher **não inclui jogos, ROMs, BIOS nem arquivos de console**. Cada projeto recomp exige a sua própria cópia legítima do jogo, e as instruções de preparo vêm do repositório de cada projeto. O token do GitHub fica salvo em texto no `settings.json` do seu usuário.
+O launcher **não inclui jogos, ROMs, BIOS nem arquivos de console**. Cada projeto recomp exige a sua própria cópia legítima do jogo, e as instruções de preparo vêm do repositório de cada projeto. No Windows, token e chaves de API ficam no Gerenciador de Credenciais (veja “Segredos no Windows”).

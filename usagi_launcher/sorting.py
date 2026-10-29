@@ -15,6 +15,8 @@ MODES: list[tuple[str, str]] = [
     ("release_new", "Release mais recente"),
     ("played", "Jogados recentemente"),
     ("installed_new", "Instalados recentemente"),
+    ("playtime", "Tempo de jogo (mais primeiro)"),
+    ("status", "Status (jogando, quero jogar…)"),
 ]
 MODE_KEYS = [k for k, _ in MODES]
 # modos cujo resultado muda quando estrelas ou releases chegam do GitHub
@@ -49,6 +51,12 @@ def sort_key(row, mode: str, is_fav: Callable[[str], bool]) -> tuple:
     if mode == "played":
         played = (row.rec or {}).get("last_played", "") if row.rec else ""
         return (_desc_text(played), _name(row))
+    if mode == "playtime":
+        t = int((row.rec or {}).get("playtime", 0)) if row.rec else 0
+        return (t <= 0, -t, _name(row))
+    if mode == "status":
+        order = {"playing": 0, "want": 1, "done": 2, "dropped": 3}
+        return (order.get(getattr(row, "status", ""), 4), _name(row))
     if mode == "installed_new":
         inst = (row.rec or {}).get("installed_at", "") if row.rec else ""
         return (_desc_text(inst), _name(row))

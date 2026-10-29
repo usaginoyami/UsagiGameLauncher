@@ -173,6 +173,13 @@ class GitHubClient:
         data = self.get_json(f"/repos/{full_name}/releases", {"per_page": 10})
         return pick_release(data, allow_prerelease)
 
+    def release_by_tag(self, full_name: str, tag: str) -> Release | None:
+        from urllib.parse import quote
+        try:
+            return parse_release(self.get_json(f"/repos/{full_name}/releases/tags/{quote(tag, safe='')}"))
+        except NotFoundError:
+            return None
+
     def search_repos(self, topic: str, min_stars: int = 10, per_page: int = 50) -> list[dict]:
         q = f"topic:{topic} stars:>={int(min_stars)} archived:false"
         data = self.get_json(

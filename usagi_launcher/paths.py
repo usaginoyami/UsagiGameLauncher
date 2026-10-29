@@ -25,7 +25,8 @@ def data_dir() -> Path:
             or os.environ.get("XDG_DATA_HOME")
             or str(Path.home() / ".local" / "share")
         )
-        base = Path(root) / APP_DIR_NAME
+        from . import edition
+        base = Path(root) / edition.data_folder()
     base.mkdir(parents=True, exist_ok=True)
     return base
 

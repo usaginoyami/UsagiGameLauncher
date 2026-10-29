@@ -64,6 +64,24 @@ class Library:
             rec["last_played"] = datetime.now().isoformat(timespec="seconds")
             self.save()
 
+    def add_playtime(self, repo: str, seconds: float) -> None:
+        rec = self.get(repo)
+        if rec is not None and seconds > 0:
+            rec["playtime"] = int(rec.get("playtime", 0)) + int(seconds)
+            self.save()
+
+    def use_version(self, repo: str, version: str) -> bool:
+        """Passa a usar uma versão já instalada (ex.: voltar à anterior). False se não existir."""
+        rec = self.get(repo)
+        if rec is None:
+            return False
+        for v in rec.get("versions", []):
+            if v.get("version") == version:
+                rec.update(version=version, folder=v["folder"], exe=v.get("exe", ""))
+                self.save()
+                return True
+        return False
+
     def drop_old_versions(self, repo: str) -> list[str]:
         """Remove do registro as versões antigas e devolve as pastas a apagar."""
         rec = self.get(repo)

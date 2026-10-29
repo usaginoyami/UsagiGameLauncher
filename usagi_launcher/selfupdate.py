@@ -15,12 +15,11 @@ import threading
 from pathlib import Path
 from typing import Callable
 
-from . import __version__, installer
+from . import __version__, edition, installer
 from .errors import InstallError
 from .github_api import Asset, GitHubClient, Release
 
 REPO = "usaginoyami/UsagiGameLauncher"
-EXE_NAME = "UsagiGameLauncher.exe"
 CHECK_EVERY = 12 * 3600
 
 
@@ -40,7 +39,8 @@ def find_update(client: GitHubClient) -> tuple[Release, Asset | None] | None:
     rel = client.latest_release(REPO, allow_prerelease=False)
     if rel is None or not is_newer(rel.tag):
         return None
-    return rel, installer.pick_asset(rel.assets, "windows|win")
+    mine = [a for a in rel.assets if edition.asset_matches(a.name)]
+    return rel, installer.pick_asset(mine, "windows|win")
 
 
 def can_self_replace() -> bool:
@@ -73,15 +73,15 @@ def download_update(client: GitHubClient, asset: Asset, work_dir: Path,
     out.mkdir()
     installer.extract(archive, out, (lambda d, t: progress("Extraindo", d, t)) if progress else None, cancel)
     archive.unlink(missing_ok=True)
-    for exe in out.rglob(EXE_NAME):
+    for exe in out.rglob(edition.exe_name()):
         return exe.parent
-    raise InstallError(f"A atualização não contém {EXE_NAME}. Nada foi alterado.")
+    raise InstallError(f"A atualização não contém {edition.exe_name()}. Nada foi alterado.")
 
 
 def build_updater_script(new_dir: Path, app_dir: Path, pid: int) -> str:
     """Script .bat: espera o launcher fechar, copia por cima, reabre e limpa."""
     new_dir, app_dir = Path(new_dir), Path(app_dir)
-    exe = app_dir / EXE_NAME
+    exe = app_dir / edition.exe_name()
     return "\r\n".join([
         "@echo off",
         "chcp 65001 >nul",

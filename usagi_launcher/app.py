@@ -4,7 +4,7 @@ import argparse
 import logging
 import sys
 
-from . import APP_NAME, paths
+from . import APP_NAME, edition, paths
 
 
 class OfflineClient:
@@ -19,16 +19,19 @@ class OfflineClient:
         from .errors import GitHubError
         raise GitHubError("Modo offline.")
 
-    repo_info = search_repos = latest_release
+    repo_info = search_repos = release_by_tag = latest_release
 
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=APP_NAME)
     ap.add_argument("--data-dir", help="usa uma pasta de dados separada (outro perfil)")
     ap.add_argument("--offline", action="store_true", help="não consulta o GitHub")
+    ap.add_argument("--client", action="store_true", help="abre a edição cliente (só recebe o catálogo publicado)")
     ap.add_argument("--smoke-test", metavar="PNG", help="renderiza a janela, salva o PNG e sai")
     args = ap.parse_args(argv)
 
+    if args.client:
+        edition.set_edition(edition.CLIENT)
     if args.data_dir:
         paths.set_data_dir(args.data_dir)
     logging.basicConfig(filename=str(paths.data_dir() / "launcher.log"), level=logging.INFO,
@@ -45,7 +48,7 @@ def main(argv: list[str] | None = None) -> int:
     from .ui.main_window import MainWindow
 
     app = QApplication(sys.argv[:1])
-    app.setApplicationName(APP_NAME)
+    app.setApplicationName(edition.app_name())
     app.setStyleSheet(theme.QSS)
     app.setWindowIcon(theme.app_icon())
 

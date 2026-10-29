@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import shutil
 import time
 import zipfile
@@ -18,8 +19,8 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QSystemTrayIcon,
                                QMessageBox, QProgressBar, QPushButton, QSpinBox, QStyle,
                                QStyledItemDelegate, QTextBrowser, QVBoxLayout, QWidget)
 
-from .. import (APP_NAME, __version__, backup, catalog, covers, installer, launcher, paths,
-                safety, scanner, selfupdate, sorting, stars)
+from .. import (APP_NAME, __version__, backup, catalog, covers, edition, installer, launcher, paths,
+                published, safety, scanner, selfupdate, shortcuts, sorting, stars, tracking)
 from ..catalog import Entry
 from ..errors import Cancelled, GitHubError, RateLimitError
 from ..github_api import GitHubClient, Release
@@ -34,9 +35,12 @@ from .tasks import Task, TaskRunner
 CARD_W, CARD_H = 212, 196
 COVER_H = 108
 
-F_ALL, F_LIB, F_UPD, F_FAV, F_DISC = range(5)
+F_ALL, F_LIB, F_UPD, F_FAV, F_DISC, F_PLAYING, F_WANT, F_DONE = range(8)
 FILTERS = [("Todos", F_ALL), ("Biblioteca", F_LIB), ("Atualizações", F_UPD),
-           ("Favoritos", F_FAV), ("Descobertos", F_DISC)]
+           ("Favoritos", F_FAV), ("Descobertos", F_DISC), ("Jogando", F_PLAYING),
+           ("Quero jogar", F_WANT), ("Terminados", F_DONE)]
+STATUS_FILTER = {F_PLAYING: "playing", F_WANT: "want", F_DONE: "done"}
+STATUS_COLOR = {"playing": "#2d6cdf", "want": "#6b4fbb", "done": "#2f8f5b", "dropped": "#7a3b3b"}
 
 
 def fmt_size(n: int) -> str:
@@ -65,6 +69,7 @@ class Row:
     orig_name: str = ""  # nome do catálogo, antes de qualquer renomeação do usuário
     orig_platform: str = ""
     orig_target: str = ""
+    status: str = ""  # Quero jogar / Jogando / Terminado / Abandonado
 
     @property
     def installed(self) -> bool:
@@ -169,6 +174,8 @@ class CardDelegate(QStyledItemDelegate):
             x += self._chip(p, x, y, "Descoberto", "#27324f", "#a9c1ff")
         if row.release is not None and row.release.prerelease and not row.installed:
             x += self._chip(p, x, y, "Pré-release", "#3a2a12", theme.AMBER)
+        if row.status:
+            x += self._chip(p, x, y, tracking.STATUS_LABEL[row.status], STATUS_COLOR.get(row.status, "#33333f"))
 
         if self.w.settings.has("favorites", key):
             badge = QRectF(cover.right() - 26, cover.top() + 4, 22, 22)
@@ -216,15 +223,14 @@ class SettingsDialog(QDialog):
 
         self.auto = QCheckBox("Descobrir novos projetos recomp no GitHub automaticamente")
         self.auto.setChecked(bool(settings.get("auto_discover")))
-        form.addRow("", self.auto)
-
         self.topics = QLineEdit(", ".join(settings.get("discover_topics")))
-        form.addRow("Tópicos da busca", self.topics)
-
         self.stars = QSpinBox()
         self.stars.setRange(0, 5000)
         self.stars.setValue(int(settings.get("discover_min_stars")))
-        form.addRow("Mínimo de estrelas", self.stars)
+        if not edition.is_client():  # o cliente só recebe o catálogo do curador
+            form.addRow("", self.auto)
+            form.addRow("Tópicos da busca", self.topics)
+            form.addRow("Mínimo de estrelas", self.stars)
 
         self.covers_on = QCheckBox("Buscar capas dos jogos (envia só o nome do jogo à Wikipedia)")
         self.covers_on.setChecked(bool(settings.get("covers_enabled")))
@@ -242,6 +248,13 @@ class SettingsDialog(QDialog):
         self.igdb_secret.setEchoMode(QLineEdit.EchoMode.Password)
         self.igdb_secret.setPlaceholderText("Client Secret (dev.twitch.tv/console, grátis)")
         form.addRow("IGDB Client Secret", self.igdb_secret)
+
+        guard = QLabel("🔒 Token e chaves ficam no Gerenciador de Credenciais do Windows, não no arquivo."
+                       if settings.secrets_protected() else
+                       "Token e chaves ficam no arquivo de configurações deste usuário.")
+        guard.setWordWrap(True)
+        guard.setStyleSheet(f"color:{theme.MUTED}; font-size: 8.5pt;")
+        form.addRow("", guard)
 
         self._restore = False
         n_hidden = len(settings.get("hidden") or [])
@@ -323,6 +336,8 @@ class SettingsDialog(QDialog):
 
 # ------------------------------------------------------------------ janela
 class MainWindow(QMainWindow):
+    played = Signal(str, float)  # (repo, segundos): vem da thread que acompanha o jogo
+
     def __init__(self, client: GitHubClient, settings: Settings, library: Library,
                  runner: TaskRunner | None = None, cover_finder=None,
                  auto_refresh: bool = True):
@@ -337,6 +352,11 @@ class MainWindow(QMainWindow):
         self.stars = stars.StarCache(paths.data_dir() / "stars.json")
         self.pending = 0
         self.discovering = False
+        self.client_mode = edition.is_client()
+        self.remote = published.RemoteCatalog(paths.data_dir() / "remote_catalog.json") \
+            if self.client_mode else None
+        self.tracker = tracking.PlayTracker(lambda repo, secs: self.played.emit(repo, secs))
+        self.played.connect(self._credit_play)
         self.current: str | None = None
         self.cover_finder = cover_finder or covers.CoverFinder(
             sgdb_key=settings.get("steamgriddb_key"), enabled=bool(settings.get("covers_enabled")),
@@ -345,7 +365,7 @@ class MainWindow(QMainWindow):
                                  self.runner)
         self.covers.updated.connect(lambda _k: (self.list.viewport().update(), self.d_cover.update()))
 
-        self.setWindowTitle(f"{APP_NAME} {__version__}")
+        self.setWindowTitle(f"{edition.app_name()} {__version__}")
         self.setWindowIcon(theme.app_icon())
         self.resize(1320, 820)
         self.setMinimumSize(1020, 640)
@@ -388,13 +408,14 @@ class MainWindow(QMainWindow):
         logo.setTextFormat(Qt.TextFormat.RichText)
         logo.setStyleSheet("font-size: 14pt; font-weight: 800;")
         sl.addWidget(logo)
-        sub = QLabel("Jogos recomp do GitHub")
+        sub = QLabel("Jogos recomp do GitHub" + (" · edição cliente" if edition.is_client() else ""))
         sub.setStyleSheet(f"color:{theme.MUTED}; font-size: 8.5pt;")
         sl.addWidget(sub)
         sl.addSpacing(10)
         self.sidebar = QListWidget()
         self.sidebar.setObjectName("sidebar")
-        for label, _ in FILTERS:
+        self.filters = [f for f in FILTERS if not (self.client_mode and f[1] == F_DISC)]
+        for label, _ in self.filters:
             self.sidebar.addItem(label)
         self.sidebar.setCurrentRow(0)
         self.sidebar.currentRowChanged.connect(lambda _r: self.apply_filters())
@@ -404,13 +425,23 @@ class MainWindow(QMainWindow):
         self.btn_add = QPushButton("Adicionar repositório")
         self.btn_locate = QPushButton("Localizar instalados")
         self.btn_settings = QPushButton("Configurações")
+        self.btn_publish = QPushButton("Publicar catálogo…")
+        self.btn_publish.clicked.connect(self.publish_catalog)
         self.btn_locate.clicked.connect(self.locate_installed)
-        self.btn_refresh.clicked.connect(lambda: self.refresh_releases(force=True))
+        self.btn_refresh.clicked.connect(self._refresh_clicked)
         self.btn_discover.clicked.connect(lambda: self.start_discover(manual=True))
         self.btn_add.clicked.connect(self.add_repo)
         self.btn_settings.clicked.connect(self.open_settings)
-        for b in (self.btn_refresh, self.btn_discover, self.btn_add, self.btn_locate, self.btn_settings):
+        if self.client_mode:
+            self.btn_refresh.setText("Atualizar catálogo e releases")
+            buttons = (self.btn_refresh, self.btn_locate, self.btn_settings)
+        else:
+            buttons = (self.btn_refresh, self.btn_discover, self.btn_add, self.btn_locate,
+                       self.btn_publish, self.btn_settings)
+        for b in buttons:
             sl.addWidget(b)
+        for b in (self.btn_discover, self.btn_add, self.btn_publish):
+            b.setVisible(not self.client_mode)
         lay.addWidget(side)
 
         # centro
@@ -508,11 +539,20 @@ class MainWindow(QMainWindow):
         self.d_info = QLabel()
         self.d_info.setWordWrap(True)
         self.d_info.setTextFormat(Qt.TextFormat.RichText)
+        self.d_status = QComboBox()
+        for code, label in tracking.STATUSES:
+            self.d_status.addItem(label, code)
+        self.d_status.activated.connect(lambda _i: self.set_status(self.current, self.d_status.currentData()))
+        self.d_mynote = QLineEdit()
+        self.d_mynote.setPlaceholderText("Sua nota sobre o jogo (só neste computador)…")
+        self.d_mynote.setMaxLength(tracking.MAX_NOTE)
+        self.d_mynote.editingFinished.connect(self._save_note)
         self.d_notes = QTextBrowser()
         self.d_notes.setOpenExternalLinks(True)
         self.d_notes.setPlaceholderText("As notas da release aparecem aqui.")
         dl.addWidget(self.d_cover)
-        for wdg in (self.d_title, self.d_repo, self.d_chips, self.d_desc, self.d_note, self.d_info):
+        for wdg in (self.d_title, self.d_repo, self.d_chips, self.d_desc, self.d_note, self.d_info,
+                    self.d_status, self.d_mynote):
             dl.addWidget(wdg)
         dl.addWidget(self.d_notes, 1)
 
@@ -568,7 +608,12 @@ class MainWindow(QMainWindow):
         r3.addWidget(self.b_remove, 1)
         for r in (r1, r2, r3):
             dl.addLayout(r)
-        dl.addWidget(self.b_backup)
+        self.b_more = QPushButton("Versões, reparo e atalhos ▾")
+        self.b_more.clicked.connect(self._more_menu)
+        r4 = QHBoxLayout()
+        r4.addWidget(self.b_backup, 1)
+        r4.addWidget(self.b_more, 2)
+        dl.addLayout(r4)
         dl.addWidget(self.b_clean)
         dl.addWidget(self.b_have)
         lay.addWidget(self.detail)
@@ -578,11 +623,17 @@ class MainWindow(QMainWindow):
 
     # ------------------------------------------------------------- dados
     def reload_entries(self) -> None:
-        discovered, _ts = catalog.load_discovered()
-        entries = catalog.merge(catalog.load_user(), catalog.load_bundled(), discovered,
-                                set(self.settings.get("hidden")),
-                                show_adult=bool(self.settings.get("show_adult")),
-                                keep={r["repo"].lower() for r in self.library.all()})
+        keep = {r["repo"].lower() for r in self.library.all()}
+        if self.client_mode:  # só o que o curador publicou (ou o catálogo que veio no programa)
+            base, _updated = self.remote.cached()
+            entries = catalog.merge([], base or catalog.load_bundled(), [],
+                                    set(self.settings.get("hidden")),
+                                    show_adult=bool(self.settings.get("show_adult")), keep=keep)
+        else:
+            discovered, _ts = catalog.load_discovered()
+            entries = catalog.merge(catalog.load_user(), catalog.load_bundled(), discovered,
+                                    set(self.settings.get("hidden")),
+                                    show_adult=bool(self.settings.get("show_adult")), keep=keep)
         old = self.rows
         self.rows = {}
         for e in entries:
@@ -596,6 +647,7 @@ class MainWindow(QMainWindow):
         names = self.settings.get("custom_names") or {}
         for k, r in self.rows.items():
             r.rec = self.library.get(r.entry.repo)
+            r.status = tracking.status_of(self.settings, k)
             r.orig_name, r.orig_platform, r.orig_target = r.entry.name, r.entry.platform, r.entry.target
             if names.get(k):
                 r.entry.name = str(names[k])
@@ -621,11 +673,12 @@ class MainWindow(QMainWindow):
         return (flt == F_ALL or (flt == F_LIB and row.installed)
                 or (flt == F_UPD and row.has_update)
                 or (flt == F_FAV and self.settings.has("favorites", key))
-                or (flt == F_DISC and row.entry.source == "discovered"))
+                or (flt == F_DISC and row.entry.source == "discovered")
+                or (flt in STATUS_FILTER and row.status == STATUS_FILTER[flt]))
 
     def apply_filters(self, keep_scroll: bool = False) -> None:
         scroll = self.list.verticalScrollBar().value() if keep_scroll else 0
-        flt = FILTERS[max(self.sidebar.currentRow(), 0)][1]
+        flt = self.filters[max(self.sidebar.currentRow(), 0)][1]
         plat = self.platform.currentText()
         text = self.search.text().strip().lower()
         shown = []
@@ -669,11 +722,14 @@ class MainWindow(QMainWindow):
         return {F_LIB: "Nenhum jogo instalado ainda. Escolha um jogo e clique em Instalar.",
                 F_UPD: "Tudo em dia.",
                 F_FAV: "Marque jogos com ★ Favorito para vê-los aqui.",
-                F_DISC: "Nada descoberto ainda. Use “Descobrir no GitHub”."}.get(
+                F_DISC: "Nada descoberto ainda. Use “Descobrir no GitHub”.",
+                F_PLAYING: "Nenhum jogo marcado como Jogando. Abrir um jogo marca sozinho.",
+                F_WANT: "Marque jogos como “Quero jogar” no painel de detalhes.",
+                F_DONE: "Nenhum jogo terminado ainda."}.get(
             flt, "Nenhum jogo encontrado com esses filtros.")
 
     def _update_counts(self) -> None:
-        for i, (label, flt) in enumerate(FILTERS):
+        for i, (label, flt) in enumerate(self.filters):
             n = sum(1 for r in self.rows.values() if self._passes(r, flt))
             self.sidebar.item(i).setText(f"{label}   {n}")
 
@@ -683,7 +739,8 @@ class MainWindow(QMainWindow):
         row = self.rows.get(key) if key else None
         self.d_cover.setVisible(row is not None)
         for w in (self.b_main, self.b_update, self.b_folder, self.b_web, self.b_fav, self.b_exe,
-                  self.b_clean, self.b_remove, self.b_have, self.b_backup):
+                  self.b_clean, self.b_remove, self.b_have, self.b_backup, self.b_more,
+                  self.d_status, self.d_mynote):
             w.setVisible(row is not None)
         if row is None:
             self.d_title.setText("Selecione um jogo")
@@ -746,6 +803,8 @@ class MainWindow(QMainWindow):
                 lines.append(f"{n} versões mantidas no disco.")
             if row.rec.get("last_played"):
                 lines.append(f"<b>Último jogo:</b> {fmt_date(row.rec['last_played'])}")
+            if row.rec.get("playtime"):
+                lines.append(f"<b>Tempo de jogo:</b> {tracking.fmt_playtime(row.rec['playtime'])}")
         self.d_info.setText("<br>".join(lines))
         self.d_notes.setMarkdown(rel.body if rel and rel.body else "")
 
@@ -763,6 +822,10 @@ class MainWindow(QMainWindow):
         self.b_exe.setVisible(row.installed)
         self.b_remove.setVisible(row.installed)
         self.b_clean.setVisible(bool(row.installed and len(row.rec.get("versions", [])) > 1))
+        self.b_more.setVisible(row.installed)
+        self.d_status.setCurrentIndex(max(self.d_status.findData(row.status), 0))
+        if not self.d_mynote.hasFocus():
+            self.d_mynote.setText(tracking.note_of(self.settings, key))
         fav = self.settings.has("favorites", key)
         self.b_fav.setText("★ Favorito" if fav else "☆ Favoritar")
         self.d_progress.setVisible(busy)
@@ -781,7 +844,10 @@ class MainWindow(QMainWindow):
 
     # ------------------------------------------------------------ releases
     def startup_refresh(self) -> None:
+        self.update_catalog()
         self.refresh_releases()
+        if self.client_mode:
+            return
         hours = float(self.settings.get("discover_hours") or 24)
         _items, ts = catalog.load_discovered()
         if self.settings.get("auto_discover") and time.time() - ts > hours * 3600:
@@ -885,6 +951,8 @@ class MainWindow(QMainWindow):
 
     # ----------------------------------------------------------- descoberta
     def start_discover(self, manual: bool = False) -> None:
+        if self.client_mode:
+            return
         if self.discovering:
             return
         self.discovering = True
@@ -1128,15 +1196,312 @@ class MainWindow(QMainWindow):
             exe = found[0]
             self.library.set_exe(rec["repo"], str(exe))
         try:
-            launcher.launch(exe, rec.get("args", ""))
+            proc = launcher.launch(exe, rec.get("args", ""))
         except OSError as e:
             QMessageBox.critical(self, "Não foi possível abrir o jogo", str(e))
             return
         self.library.mark_played(rec["repo"])
+        self.tracker.track(rec["repo"], proc)
+        if row.status in ("", "want"):
+            self.set_status(key, "playing", quiet=True)
         self.statusBar().showMessage(f"Abrindo {row.entry.name}…")
         if self.settings.get("minimize_on_launch"):
             self.showMinimized()
         self.render_detail()
+
+    # ----------------------------------------- versões, reparo e atalhos
+    def _more_menu(self) -> None:
+        menu = QMenu(self)
+        self._fill_game_menu(menu, self.current)
+        menu.exec(self.b_more.mapToGlobal(self.b_more.rect().bottomLeft()))
+
+    def _fill_game_menu(self, menu: QMenu, key: str | None) -> None:
+        menu.addAction("Versões instaladas…", lambda: self.choose_version(key))
+        menu.addAction("Reparar instalação (baixar de novo)", lambda: self.repair_game(key))
+        menu.addSeparator()
+        menu.addAction("Criar atalho no desktop", lambda: self.desktop_shortcut(key))
+        menu.addAction("Adicionar à Steam", lambda: self.steam_shortcut(key))
+
+    def _installed_row(self, key: str | None) -> "Row | None":
+        row = self.rows.get(key) if key else None
+        return row if row is not None and row.rec is not None else None
+
+    def choose_version(self, key: str | None) -> None:
+        row = self._installed_row(key)
+        if row is None:
+            return
+        versions = [v for v in row.rec.get("versions", []) if Path(v.get("folder", "")).is_dir()]
+        if len(versions) < 2:
+            QMessageBox.information(self, "Versões instaladas",
+                                    "Só há uma versão no disco. Ao atualizar, as versões antigas ficam "
+                                    "guardadas e aparecem aqui para você voltar a elas.")
+            return
+        current = row.rec.get("version")
+        labels = [f"{v['version']}" + ("  (em uso)" if v["version"] == current else "") for v in versions]
+        pick, ok = QInputDialog.getItem(self, "Versões instaladas",
+                                        "Escolha a versão que o “Jogar” vai abrir:", labels,
+                                        max(next((i for i, v in enumerate(versions)
+                                                  if v["version"] == current), 0), 0), False)
+        if not ok:
+            return
+        version = versions[labels.index(pick)]["version"]
+        if version == current:
+            return
+        if self.library.use_version(row.entry.repo, version):
+            row.rec = self.library.get(row.entry.repo)
+            self.statusBar().showMessage(f"{row.entry.name}: agora usando {version}.")
+            self.reload_entries()
+            self.apply_filters()
+            self.render_detail()
+
+    def repair_game(self, key: str | None) -> None:
+        row = self._installed_row(key)
+        if row is None or key in self.active:
+            return
+        rec = row.rec
+        tag, folder = rec.get("version", ""), Path(rec.get("folder", ""))
+        if tag == "manual" or not tag:
+            QMessageBox.information(self, "Reparar",
+                                    "Este jogo foi instalado por você e a versão é desconhecida, então não sei "
+                                    "qual pacote baixar. Use “Instalar a última release”.")
+            return
+        if QMessageBox.question(
+                self, "Reparar instalação",
+                f"Baixar de novo a versão {tag} de “{row.entry.name}” e recolocar os arquivos do jogo?\n\n"
+                "Seus saves não são sobrescritos e um backup de saves e configurações é feito antes. "
+                "Arquivos de configuração do pacote podem voltar ao padrão.") != QMessageBox.StandardButton.Yes:
+            return
+        repo, name, hint = row.entry.repo, row.entry.name, row.entry.asset_hint
+        downloads = paths.sub_dir("downloads")
+        backups = Path(rec.get("root") or folder.parent) / backup.BACKUP_DIR
+
+        def work(task: Task):
+            rel = self.client.release_by_tag(repo, tag)
+            if rel is None:
+                raise GitHubError(f"A release {tag} não existe mais no GitHub. Use “Atualizar”.")
+            asset = installer.pick_asset(rel.assets, hint)
+            if asset is None:
+                raise GitHubError("A release não tem mais um pacote Windows reconhecido.")
+            if folder.is_dir():
+                task.report("Salvando backup", 0, 0)
+                try:
+                    backup.make_backup(folder, backups, f"{tag}-antes-do-reparo")
+                except OSError:
+                    pass
+            n = installer.repair(self.client, rel, asset, folder, downloads,
+                                 progress=task.report, cancel=task.cancel_event)
+            exe = Path(rec.get("exe") or "")
+            if not exe.is_file():
+                found = installer.find_executables(folder, name)
+                if found:
+                    self.library.set_exe(repo, str(found[0]))
+            return n
+
+        def on_progress(phase: str, done: int, total: int) -> None:
+            self.progress[key] = (phase, done, total)
+            if key == self.current:
+                self._show_progress(key)
+
+        def finish() -> None:
+            self.active.pop(key, None)
+            self.progress.pop(key, None)
+            row.rec = self.library.get(repo)
+            self._row_changed(key)
+
+        def ok(n: int) -> None:
+            finish()
+            self.statusBar().showMessage(f"{name}: {n} arquivo(s) recolocados.")
+
+        def err(e: Exception) -> None:
+            finish()
+            if isinstance(e, Cancelled):
+                self.statusBar().showMessage("Reparo cancelado.")
+            else:
+                QMessageBox.warning(self, "Não consegui reparar", str(e))
+
+        self.progress[key] = ("Preparando", 0, 0)
+        self.active[key] = self.runner.run(work, ok, err, on_progress)
+        self.statusBar().showMessage(f"Reparando {name}…")
+        self._row_changed(key)
+
+    def _game_exe(self, row: "Row") -> Path | None:
+        exe = Path(row.rec.get("exe") or "")
+        if exe.is_file():
+            return exe
+        QMessageBox.warning(self, "Executável não encontrado",
+                            "Use “Escolher executável” para indicar o arquivo do jogo primeiro.")
+        return None
+
+    def desktop_shortcut(self, key: str | None) -> None:
+        row = self._installed_row(key)
+        exe = self._game_exe(row) if row else None
+        if exe is None:
+            return
+        try:
+            lnk = shortcuts.create_desktop_shortcut(row.entry.name, exe, row.rec.get("args", ""))
+        except shortcuts.ShortcutError as e:
+            QMessageBox.warning(self, "Atalho", str(e))
+            return
+        self.statusBar().showMessage(f"Atalho criado: {lnk}")
+
+    def steam_shortcut(self, key: str | None) -> None:
+        row = self._installed_row(key)
+        exe = self._game_exe(row) if row else None
+        if exe is None:
+            return
+        try:
+            changed = shortcuts.add_to_steam(row.entry.name, exe, row.rec.get("args", ""))
+        except shortcuts.ShortcutError as e:
+            QMessageBox.warning(self, "Steam", str(e))
+            return
+        if not changed:
+            QMessageBox.information(self, "Steam", "Este jogo já está na sua Steam.")
+            return
+        QMessageBox.information(
+            self, "Steam",
+            f"“{row.entry.name}” foi adicionado em {len(changed)} conta(s) da Steam, na biblioteca como jogo "
+            "fora da Steam. Abra a Steam para vê-lo. Uma cópia do arquivo anterior ficou ao lado dele.\n\n"
+            "Abrir pela Steam não conta o tempo de jogo aqui no launcher.")
+
+    # ---------------------------------------------------- catálogo curado
+    def _refresh_clicked(self) -> None:
+        self.update_catalog(manual=True)
+        self.refresh_releases(force=True)
+
+    def update_catalog(self, manual: bool = False) -> None:
+        """Edição cliente: baixa o catálogo que o curador publicou."""
+        if not self.client_mode or self.remote is None:
+            return
+
+        def ok(res) -> None:
+            entries, msg = res
+            if entries is not None:
+                self.reload_entries()
+                self.apply_filters()
+                self.refresh_releases()
+            if manual or entries is not None:
+                self.statusBar().showMessage(msg)
+
+        self.runner.run(lambda task: self.remote.refresh(), ok, lambda e: None)
+
+    def _curated_entries(self) -> list[Entry]:
+        """O que você curou: catálogo do programa + os seus, sem os removidos, com seus nomes e plataformas."""
+        entries = catalog.merge(catalog.load_user(), catalog.load_bundled(), [],
+                                set(self.settings.get("hidden")), show_adult=True)
+        names = self.settings.get("custom_names") or {}
+        over = self.settings.get("custom_platforms") or {}
+        for e in entries:
+            if names.get(e.key):
+                e.name = str(names[e.key])
+            ov = over.get(e.key)
+            if isinstance(ov, dict):
+                e.platform = ov.get("platform") or e.platform
+                e.target = ov.get("target", e.target)
+        return entries
+
+    def publish_catalog(self) -> None:
+        if self.client_mode:
+            return
+        entries = self._curated_entries()
+        auto = QMessageBox.question(
+            self, "Publicar catálogo",
+            f"Publicar {len(entries)} jogos para quem usa a edição cliente (nomes, plataformas, descrições, "
+            "avisos e marcação de conteúdo adulto).\n\nIncluir também as capas que já estão carregadas aqui? "
+            "Confira se estão certas antes; as que você escolheu à mão sempre vão.",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Cancel,
+            QMessageBox.StandardButton.Yes)
+        if auto == QMessageBox.StandardButton.Cancel:
+            return
+        include_auto = auto == QMessageBox.StandardButton.Yes
+        covers_map: dict[str, str] = {}
+        cover_bytes: dict[str, bytes] = {}
+        for e in entries:
+            data, custom = self.covers.store.image_for(e.key)
+            if data and (custom or include_auto):
+                ext = covers.sniff(data) or "jpg"
+                rel = published.cover_file_name(e.key, ext)
+                covers_map[e.key] = rel
+                cover_bytes[rel] = data
+        doc = published.build(entries, covers_map)
+        token = (self.settings.get("github_token") or "").strip()
+
+        box = QMessageBox(self)
+        box.setWindowTitle("Onde publicar?")
+        box.setText(f"{len(entries)} jogos e {len(cover_bytes)} capas prontos.")
+        box.setInformativeText("“Publicar no GitHub” grava em catalog/ no repositório "
+                               f"{published.REPO} (precisa de token com permissão de escrita nas "
+                               "Configurações). “Salvar numa pasta” só gera os arquivos.")
+        b_gh = box.addButton("Publicar no GitHub", QMessageBox.ButtonRole.AcceptRole)
+        b_dir = box.addButton("Salvar numa pasta…", QMessageBox.ButtonRole.ActionRole)
+        box.addButton("Cancelar", QMessageBox.ButtonRole.RejectRole)
+        box.exec()
+        chosen = box.clickedButton()
+        if chosen is b_dir:
+            d = QFileDialog.getExistingDirectory(self, "Pasta de destino", self.settings.get("last_backup_dir") or "")
+            if not d:
+                return
+            try:
+                out = published.write_folder(Path(d) / "catalog", doc, cover_bytes)
+            except OSError as e:
+                QMessageBox.warning(self, "Não consegui salvar", str(e))
+                return
+            self.statusBar().showMessage(f"Catálogo salvo em {out.parent}. Copie a pasta para o repositório.")
+        elif chosen is b_gh:
+            if not token:
+                QMessageBox.information(self, "Token necessário",
+                                        "Cole nas Configurações um token do GitHub com permissão de escrita "
+                                        f"em Contents do repositório {published.REPO}.")
+                return
+            files = {f"{published.DIR}/catalog.json": json.dumps(doc, ensure_ascii=False, indent=2).encode("utf-8")}
+            files.update({f"{published.DIR}/{rel}": blob for rel, blob in cover_bytes.items()})
+            self.btn_publish.setEnabled(False)
+            self.statusBar().showMessage("Publicando catálogo…")
+
+            def done() -> None:
+                self.btn_publish.setEnabled(True)
+
+            def ok(n: int) -> None:
+                done()
+                self.statusBar().showMessage(f"Catálogo publicado ({n} arquivo(s) alterados).")
+
+            def err(e: Exception) -> None:
+                done()
+                self.statusBar().showMessage("Falha ao publicar.")
+                QMessageBox.warning(self, "Não consegui publicar", str(e))
+
+            self.runner.run(lambda task: published.publish_to_github(
+                token, files, f"Catálogo: {len(entries)} jogos"), ok, err)
+
+    # ------------------------------------------- tempo de jogo, status e notas
+    def _credit_play(self, repo: str, seconds: float) -> None:
+        self.library.add_playtime(repo, seconds)
+        row = self.rows.get(repo.lower())
+        if row is not None:
+            row.rec = self.library.get(repo)
+            if row.entry.key == self.current:
+                self.render_detail()
+            if self.sort.currentData() == "playtime":
+                self._resort_later()
+
+    def set_status(self, key: str | None, status: str, quiet: bool = False) -> None:
+        row = self.rows.get(key) if key else None
+        if row is None:
+            return
+        tracking.set_meta(self.settings, key, status=status)
+        self.settings.save()
+        row.status = status
+        self.list.viewport().update()
+        self._update_counts()
+        if not quiet:
+            self.render_detail()
+            if self.sidebar.currentRow() >= 0 and self.filters[self.sidebar.currentRow()][1] in STATUS_FILTER:
+                self.apply_filters(keep_scroll=True)
+
+    def _save_note(self) -> None:
+        if not self.current:
+            return
+        tracking.set_meta(self.settings, self.current, note=self.d_mynote.text())
+        self.settings.save()
 
     def open_folder(self) -> None:
         row = self.rows.get(self.current or "")
@@ -1207,6 +1572,8 @@ class MainWindow(QMainWindow):
 
     # --------------------------------------------------- catálogo do usuário
     def add_repo(self) -> None:
+        if self.client_mode:
+            return
         text, ok = QInputDialog.getText(self, "Adicionar repositório",
                                         "Cole o link do GitHub ou escreva dono/repositório:")
         if not ok or not text.strip():
@@ -1260,16 +1627,22 @@ class MainWindow(QMainWindow):
             menu.addAction("Backups e restauração…", lambda: self.backups_dialog(key))
         else:
             menu.addAction("Já tenho este jogo instalado…", lambda: self.have_installed(key))
-        menu.addAction("Renomear…  (F2)", lambda: self.rename_game(key))
-        menu.addAction("Procurar nome automático…", lambda: self.find_name(key))
-        menu.addAction("Editar plataformas…", lambda: self.edit_platforms(key))
-        if key in (self.settings.get("custom_names") or {}):
-            menu.addAction("Restaurar nome original", lambda: self.rename_game(key, reset=True))
-        menu.addAction("Escolher capa online…", lambda: self.pick_cover(key))
-        menu.addAction("Definir capa de um arquivo…", lambda: self.set_cover(key))
+        if row.installed:
+            self._fill_game_menu(menu.addMenu("Versões, reparo e atalhos"), key)
+        status_menu = menu.addMenu("Status")
+        for code, label in tracking.STATUSES:
+            status_menu.addAction(label, lambda c=code: self.set_status(key, c))
+        if not self.client_mode:  # curadoria: só na edição do curador
+            menu.addAction("Renomear…  (F2)", lambda: self.rename_game(key))
+            menu.addAction("Procurar nome automático…", lambda: self.find_name(key))
+            menu.addAction("Editar plataformas…", lambda: self.edit_platforms(key))
+            if key in (self.settings.get("custom_names") or {}):
+                menu.addAction("Restaurar nome original", lambda: self.rename_game(key, reset=True))
+            menu.addAction("Escolher capa online…", lambda: self.pick_cover(key))
+            menu.addAction("Definir capa de um arquivo…", lambda: self.set_cover(key))
         menu.addAction("Buscar capa de novo", lambda: self.refetch_cover(key))
         menu.addSeparator()
-        if row.entry.source == "discovered":
+        if row.entry.source == "discovered" and not self.client_mode:
             menu.addAction("Adicionar ao meu catálogo", lambda: self._adopt(row))
         menu.addAction("Remover da lista  (Del)", lambda: self.remove_game(key))
         menu.exec(self.list.viewport().mapToGlobal(pos))
@@ -1393,6 +1766,8 @@ class MainWindow(QMainWindow):
             self.render_detail()
 
     def _adopt(self, row: Row) -> None:
+        if self.client_mode:
+            return
         row.entry.source = "user"
         user = [u for u in catalog.load_user() if u.key != row.entry.key] + [row.entry]
         catalog.save_user(user)
@@ -1411,6 +1786,8 @@ class MainWindow(QMainWindow):
         self.apply_filters()
 
     def set_cover(self, key: str) -> None:
+        if self.client_mode:
+            return
         f, _ = QFileDialog.getOpenFileName(self, "Escolher capa", "",
                                            "Imagens (*.png *.jpg *.jpeg *.webp *.gif)")
         if not f:
@@ -1424,6 +1801,8 @@ class MainWindow(QMainWindow):
 
     def rename_game(self, key: str | None, reset: bool = False) -> None:
         """Nome de exibição só seu: não muda o repositório, o catálogo nem os jogos instalados."""
+        if self.client_mode:
+            return
         row = self.rows.get(key) if key else None
         if row is None:
             return
@@ -1571,6 +1950,8 @@ class MainWindow(QMainWindow):
                 self.fetch_release(key, force=True)
 
     def find_name(self, key: str) -> None:
+        if self.client_mode:
+            return
         row = self.rows.get(key)
         if row is None:
             return
@@ -1579,6 +1960,8 @@ class MainWindow(QMainWindow):
             self._set_name(key, dlg.chosen)
 
     def edit_platforms(self, key: str | None) -> None:
+        if self.client_mode:
+            return
         row = self.rows.get(key) if key else None
         if row is None:
             return
@@ -1641,6 +2024,8 @@ class MainWindow(QMainWindow):
         self.statusBar().showMessage(f"Nome: {row.entry.name}")
 
     def pick_cover(self, key: str) -> None:
+        if self.client_mode:
+            return
         row = self.rows.get(key)
         if row is None:
             return
@@ -1690,6 +2075,8 @@ class MainWindow(QMainWindow):
 
     # -------------------------------------------------------------- saída
     def closeEvent(self, event) -> None:
+        for repo, secs in self.tracker.stop_all().items():
+            self.library.add_playtime(repo, secs)
         for task in self.active.values():
             task.cancel_event.set()
         self.client.flush()
