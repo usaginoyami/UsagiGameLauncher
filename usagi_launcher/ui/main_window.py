@@ -1431,13 +1431,51 @@ class MainWindow(QMainWindow):
         auto = QMessageBox.question(
             self, "Publicar catálogo",
             f"Publicar {len(entries)} jogos para quem usa a edição cliente (nomes, plataformas, descrições, "
-            "avisos e marcação de conteúdo adulto).\n\nIncluir também as capas que já estão carregadas aqui? "
-            "Confira se estão certas antes; as que você escolheu à mão sempre vão.",
+            "avisos e marcação de conteúdo adulto).\n\nIncluir também as capas automáticas? As que ainda não foram "
+            "buscadas serão buscadas agora (pode levar um minuto). Confira se estão certas; as que você "
+            "escolheu à mão sempre vão.",
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No | QMessageBox.StandardButton.Cancel,
             QMessageBox.StandardButton.Yes)
         if auto == QMessageBox.StandardButton.Cancel:
             return
         include_auto = auto == QMessageBox.StandardButton.Yes
+        missing = [e for e in entries if include_auto and self.covers.store.cached(e.key) is None
+                   and self.covers.store.needs_fetch(e.key)]
+        if not missing:
+            self._publish_finish(entries, include_auto)
+            return
+        # o launcher só busca capa dos cards que aparecem na tela: completa as que faltam antes de publicar
+        self.btn_publish.setEnabled(False)
+        store = self.covers.store
+
+        def work(task: Task):
+            for i, e in enumerate(missing):
+                if task.cancel_event.is_set():
+                    break
+                task.report("Buscando capas", i, len(missing))
+                try:
+                    store.fetch(e)
+                except Exception:
+                    pass
+            return len(missing)
+
+        def on_progress(phase: str, done: int, total: int) -> None:
+            self.statusBar().showMessage(f"{phase}: {done}/{total}…")
+
+        def done_cb(_n) -> None:
+            self.btn_publish.setEnabled(True)
+            self.covers.reset_all()
+            self.list.viewport().update()
+            self._publish_finish(entries, include_auto)
+
+        def err(e: Exception) -> None:
+            self.btn_publish.setEnabled(True)
+            QMessageBox.warning(self, "Capas", str(e))
+
+        self.runner.run(work, done_cb, err, on_progress)
+        self.statusBar().showMessage(f"Buscando {len(missing)} capas que faltam…")
+
+    def _publish_finish(self, entries: list[Entry], include_auto: bool) -> None:
         covers_map: dict[str, str] = {}
         cover_bytes: dict[str, bytes] = {}
         for e in entries:
@@ -1447,12 +1485,14 @@ class MainWindow(QMainWindow):
                 rel = published.cover_file_name(e.key, ext)
                 covers_map[e.key] = rel
                 cover_bytes[rel] = data
+        no_cover = sum(1 for e in entries if e.key not in covers_map)
         doc = published.build(entries, covers_map)
         token = (self.settings.get("github_token") or "").strip()
 
         box = QMessageBox(self)
         box.setWindowTitle("Onde publicar?")
-        box.setText(f"{len(entries)} jogos e {len(cover_bytes)} capas prontos.")
+        box.setText(f"{len(entries)} jogos e {len(cover_bytes)} capas prontos"
+                    + (f" ({no_cover} jogos continuam sem capa: escolha uma à mão ou cole um print)." if no_cover else "."))
         box.setInformativeText("“Publicar no GitHub” grava em catalog/ no repositório "
                                f"{published.REPO} (precisa de token com permissão de escrita nas "
                                "Configurações). “Salvar numa pasta” só gera os arquivos.")

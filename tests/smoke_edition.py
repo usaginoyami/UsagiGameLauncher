@@ -260,7 +260,13 @@ mw.QMessageBox.question = staticmethod(lambda *a, **k: next(answers))
 out2 = tmp / "out2"
 out2.mkdir()
 QFileDialog.getExistingDirectory = staticmethod(lambda *a, **k: str(out2))
+asked = []
+orig_fetch = win.covers.store.fetch
+win.covers.store.fetch = lambda e: (asked.append(e.key), orig_fetch(e))[1]
 win.publish_catalog()
+pump(app, 20, until=lambda: (out2 / "catalog" / "catalog.json").exists())
+check("zelda64recomp/zelda64recomp" in asked and len(asked) > 70,
+      "publicação tentou buscar as capas que faltavam (mesmo dos cards fora da tela)")
 doc2 = json.loads((out2 / "catalog" / "catalog.json").read_text(encoding="utf-8"))
 g = {x["repo"]: x for x in doc2["games"]}["ext/azimuth"]
 check(g["link"].startswith("https://") and g["cover"].startswith("covers/"), "publicação leva o link e o print do jogo de fora")
