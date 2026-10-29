@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-29T21:04:46+00:00",
+  "updated": "2026-10-29T21:07:20+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -2337,7 +2337,7 @@
       "cover_title": "",
       "link": "",
       "adult": false,
-      "cover": "covers/zeldawwhdrecomp_zeldawwhdrecomp.jpg"
+      "cover": "covers/zeldawwhdrecomp_zeldawwhdrecomp.png"
     }
   ]
 }
