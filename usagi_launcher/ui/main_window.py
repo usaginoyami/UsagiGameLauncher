@@ -1373,8 +1373,17 @@ class MainWindow(QMainWindow):
         if not self.client_mode or self.remote is None:
             return
 
+        def work(task):
+            before = {e.key: e.cover for e in self.remote.cached()[0]}
+            entries, msg = self.remote.refresh()
+            changed = [e.key for e in entries or [] if e.key in before and before[e.key] != e.cover]
+            return entries, msg, changed
+
         def ok(res) -> None:
-            entries, msg = res
+            entries, msg, changed = res
+            for key in changed:  # o curador trocou a capa: descarta a antiga do cache
+                self.covers.store.clear(key)
+                self.covers.reset(key)
             if entries is not None:
                 self.reload_entries()
                 self.apply_filters()
@@ -1382,7 +1391,7 @@ class MainWindow(QMainWindow):
             if manual or entries is not None:
                 self.statusBar().showMessage(msg)
 
-        self.runner.run(lambda task: self.remote.refresh(), ok, lambda e: None)
+        self.runner.run(work, ok, lambda e: None)
 
     def _curated_entries(self) -> list[Entry]:
         """O que você curou: catálogo do programa + os seus, sem os removidos, com seus nomes e plataformas."""
