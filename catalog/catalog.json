@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-29T20:30:28+00:00",
+  "updated": "2026-10-29T20:50:11+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -12,6 +12,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/wndwsqrrl_3on3nhl-recomp.jpg"
     },
@@ -25,6 +26,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/harold0777_eagle_five_recomp.jpg"
     },
@@ -38,6 +40,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/caiuscodes_aegis-wing-xbla-pc-recomp.jpg"
     },
@@ -51,6 +54,7 @@
       "asset_hint": "",
       "homepage": "https://petarov.github.io/alleycat.exe",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/petarov_alleycat.exe.jpg"
     },
@@ -64,6 +68,7 @@
       "asset_hint": "",
       "homepage": "https://spacefarergames.com/aitdremaster/",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/spacefarergames_aloneinthedarkrehaunted.jpg"
     },
@@ -77,6 +82,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/openportroid_armyoftworecompilation.jpg"
     },
@@ -90,6 +96,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/nikolaygorb_armyoftworecomp.jpg"
     },
@@ -103,6 +110,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/pauloubirajara_asuras-wrath-recomp.jpg"
     },
@@ -116,6 +124,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Banjo-Kazooie",
+      "link": "",
       "adult": false,
       "cover": "covers/banjorecomp_banjorecomp.jpg"
     },
@@ -129,6 +138,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/some-scurvy-dog_banjo-tooie-scurvy-dog-port.jpg"
     },
@@ -142,6 +152,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Bayonetta 2",
+      "link": "",
       "adult": false,
       "cover": "covers/k0nl_b2recomp.jpg"
     },
@@ -155,6 +166,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/andrebrumdev_ben10-omniverse-recomp.jpg"
     },
@@ -168,6 +180,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Black (video game)",
+      "link": "",
       "adult": false,
       "cover": "covers/tgp482_black-xberecomp.jpg"
     },
@@ -181,6 +194,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Bloodborne",
+      "link": "",
       "adult": false,
       "cover": "covers/supermedo_bloodborne_pc.jpg"
     },
@@ -194,6 +208,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/novapowers0_bloodyroar2recomp.jpg"
     },
@@ -207,6 +222,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Bomberman 64",
+      "link": "",
       "adult": false,
       "cover": "covers/revosucks_bm64recomp.jpg"
     },
@@ -220,6 +236,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Bomberman Hero",
+      "link": "",
       "adult": false,
       "cover": "covers/revosucks_bmherorecomp.jpg"
     },
@@ -233,6 +250,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Burnout 3: Takedown",
+      "link": "",
       "adult": false,
       "cover": "covers/sp00nznet_burnout3.jpg"
     },
@@ -246,6 +264,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Burnout 3: Takedown",
+      "link": "",
       "adult": false,
       "cover": "covers/mxmstr_burnout3recomp.jpg"
     },
@@ -259,6 +278,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/paulcombal_mw2-recompiled.jpg"
     },
@@ -272,6 +292,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Castlevania: Symphony of the Night",
+      "link": "",
       "adult": false,
       "cover": "covers/blacklabelhq_symphonyrecomp.jpg"
     },
@@ -285,6 +306,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Chameleon Twist",
+      "link": "",
       "adult": false,
       "cover": "covers/rainchus_chameleontwist1-jp-recomp.jpg"
     },
@@ -298,6 +320,7 @@
       "asset_hint": "",
       "homepage": "https://cmr2decomp.github.io/CMR2Decomp/",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/cmr2decomp_cmr2decomp.jpg"
     },
@@ -311,6 +334,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/sp00nznet_redalert2-recomp.jpg"
     },
@@ -324,6 +348,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/psxrestore_condemned2recomp.jpg"
     },
@@ -337,6 +362,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/dahsidiabdallah_conkerbfdreloaded.jpg"
     },
@@ -350,6 +376,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/OpenRAC/daxter-psp-decomp",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/llesieur99_daxter-psp-decomp.jpg"
     },
@@ -363,6 +390,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Dead or Alive (video game)",
+      "link": "",
       "adult": true,
       "cover": "covers/3dge7161_jiggle-or-physics.jpg"
     },
@@ -376,6 +404,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/parkerallan_doa2u-recomp.png"
     },
@@ -389,6 +418,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Dead or Alive 3",
+      "link": "",
       "adult": false,
       "cover": "covers/parkerallan_doa3-recomp.jpg"
     },
@@ -402,6 +432,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Dead or Alive 3",
+      "link": "",
       "adult": false,
       "cover": "covers/norain211_doa3-re.jpg"
     },
@@ -415,6 +446,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Dead or Alive Xtreme 2",
+      "link": "",
       "adult": true,
       "cover": "covers/hibikifukui22_dead-or-alive-xtreme-2-recompilation.jpg"
     },
@@ -428,6 +460,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/negroiso_doax3-fortune-pc.jpg"
     },
@@ -441,6 +474,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/negroiso_doax3-scarlet-pc.jpg"
     },
@@ -454,6 +488,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Dead or Alive Xtreme Beach Volleyball",
+      "link": "",
       "adult": true,
       "cover": "covers/norain211_doaxvb-re.jpg"
     },
@@ -467,6 +502,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/wivi514/Dead_Rising_2_Case_West_Xenon_Recomp/releases/latest",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/wivi514_dead_rising_2_case_west_xenon_recomp.jpg"
     },
@@ -480,6 +516,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/wivi514/Dead_Rising_2_Case_Zero_Xenon_Recomp/releases/latest",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/wivi514_dead_rising_2_case_zero_xenon_recomp.jpg"
     },
@@ -493,6 +530,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/LittleBitUA/DPRecomp/releases/latest",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/littlebitua_dprecomp.jpg"
     },
@@ -506,6 +544,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/vyanhursky_defjamffny-recomp.jpg"
     },
@@ -519,6 +558,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/datfooldive_defjam-xberecomp-linux.jpg"
     },
@@ -532,6 +572,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/armducks_digimonworld3-recomp.jpg"
     },
@@ -545,6 +586,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Dinosaur Planet",
+      "link": "",
       "adult": false,
       "cover": "covers/francessco121_dino-recomp.jpg"
     },
@@ -558,6 +600,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Dr. Mario 64",
+      "link": "",
       "adult": false,
       "cover": "covers/theboy181_drmario64_recomp_plus.jpg"
     },
@@ -571,6 +614,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Dragon Ball Z: Budokai Tenkaichi 3",
+      "link": "",
       "adult": false,
       "cover": "covers/z3xox_bt3-recomp.jpg"
     },
@@ -584,6 +628,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/iexplosiverage_dbz-burst-limit-recompiled.png"
     },
@@ -597,6 +642,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Duke Nukem: Zero Hour",
+      "link": "",
       "adult": false,
       "cover": "covers/sonicdcer_dnzhrecomp.jpg"
     },
@@ -610,6 +656,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "FIFA Street (2012 video game)",
+      "link": "",
       "adult": false,
       "cover": "covers/samuelit0davila_fifa-street-pc-port.jpg"
     },
@@ -623,6 +670,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/jorge262007_fftarecomp.jpg"
     },
@@ -636,6 +684,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Forza Horizon",
+      "link": "",
       "adult": false,
       "cover": "covers/arcanite24_pinyon-shift.jpg"
     },
@@ -649,6 +698,7 @@
       "asset_hint": "",
       "homepage": "https://forza.dyotson.dev/",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/fh1-reimagined_forzahorizon1-reimagined.jpg"
     },
@@ -662,6 +712,7 @@
       "asset_hint": "",
       "homepage": "http://forza.dyotson.dev/",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/dyotson_forzahorizon1-reimagined.jpg"
     },
@@ -675,8 +726,23 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Forza Horizon 2",
+      "link": "",
       "adult": false,
       "cover": "covers/fabioap-cpu_forza-horizon-2-recomp.jpg"
+    },
+    {
+      "repo": "ext/forza-horizon-2",
+      "name": "Forza Horizon 2 (Xone)",
+      "platform": "Xbox One",
+      "target": "Windows",
+      "description": "Azimuth roda as versões Xbox One de cinco jogos Forza no Windows 10 e 11, e no Linux através do Proton. Ele traduz as chamadas WinRT do Xbox para Win32 e Xbox DirectX 11.X para o DirectX 12 para desktop e permite que cada jogo rode acima do que o console poderia: resoluções mais altas de até 8K, taxas de quadros mais altas, telas mais largas, gráficos mais nítidos.\n\nJogos suportados\nForza Horizon 2: 1.0.0.64, com expansão Storm Island: 1.0.0.36\nForza Horizon 2 apresenta Velozes e Furiosos: 1.0.0.6\nForza Horizonte 3: 1.0.125.0\nForza Motorsport 5: 1.0.0.20\nForza Motorsport 6: 1.0.0.44",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "https://almost-there-games.itch.io/azimuth",
+      "adult": false,
+      "cover": "covers/ext_forza-horizon-2.jpg"
     },
     {
       "repo": "Alexbeav/fm4-recomp",
@@ -688,6 +754,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/alexbeav_fm4-recomp.png"
     },
@@ -701,6 +768,7 @@
       "asset_hint": "",
       "homepage": "https://santiquiroz.github.io/gears-of-war-2-pc-port/",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/santiquiroz_gears-of-war-2-pc-port.jpg"
     },
@@ -714,6 +782,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/flippage_gears-of-war-3-recomp.jpg"
     },
@@ -727,6 +796,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Ghost in the Shell",
+      "link": "",
       "adult": false,
       "cover": "covers/alexbeavs-ps1-ports_ghost-in-the-shell-recomp.jpg"
     },
@@ -740,6 +810,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/kiexster_god-of-war-recomp.jpg"
     },
@@ -753,6 +824,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "God of War (2005 video game)",
+      "link": "",
       "adult": false,
       "cover": "covers/waffle565_god-of-war-native-port.jpg"
     },
@@ -766,6 +838,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "God of War (2005 video game)",
+      "link": "",
       "adult": false,
       "cover": "covers/yyozcan_tobiichi-port.jpg"
     },
@@ -779,6 +852,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "God of War II",
+      "link": "",
       "adult": false,
       "cover": "covers/andrebrumdev_gow2-recomp.jpg"
     },
@@ -792,6 +866,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "God of War III Remastered",
+      "link": "",
       "adult": false,
       "cover": "covers/felipeprado0_spartanport.jpg"
     },
@@ -805,6 +880,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "God of War: Chains of Olympus",
+      "link": "",
       "adult": false,
       "cover": "covers/simeony2007_viberecomp-for-gow-coo.jpg"
     },
@@ -818,6 +894,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "God of War: Ghost of Sparta",
+      "link": "",
       "adult": false,
       "cover": "covers/arnaldolima1_gow-ghost-of-sparta-pc.jpg"
     },
@@ -831,6 +908,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/caiuscodes_goldeneye-007-xbla-pc-recomp.jpg"
     },
@@ -844,6 +922,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "GoldenEye 007 (2007 video game)",
+      "link": "",
       "adult": false,
       "cover": "covers/sunjaycy_goldeneye-recomp.jpg"
     },
@@ -857,6 +936,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "GoldenEye 007 (1997 video game)",
+      "link": "",
       "adult": false,
       "cover": "covers/kholdfuzion_goldenrecomp.jpg"
     },
@@ -870,6 +950,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/DrummingBird1/gow-psp-recomp/releases/latest",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/drummingbird1_gow-psp-recomp.png"
     },
@@ -883,6 +964,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Gran Turismo",
+      "link": "",
       "adult": false,
       "cover": "covers/lorenzoalfaro_gtstaticrecomp.jpg"
     },
@@ -896,6 +978,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Gran Turismo 2",
+      "link": "",
       "adult": false,
       "cover": "covers/dubrovskiy-yevhen-stakelogic_gt-2-pc.jpg"
     },
@@ -909,6 +992,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Gran Turismo 2",
+      "link": "",
       "adult": false,
       "cover": "covers/subhanhabib_opengtps1.jpg"
     },
@@ -922,6 +1006,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Gran Turismo 2",
+      "link": "",
       "adult": false,
       "cover": "covers/gtteancum_opengtps1.jpg"
     },
@@ -935,6 +1020,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Gran Turismo 4",
+      "link": "",
       "adult": false,
       "cover": "covers/kaezzey_gt4-staticrecomp.jpg"
     },
@@ -948,6 +1034,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Gran Turismo 4",
+      "link": "",
       "adult": false,
       "cover": "covers/moesuito_gt4-staticrecomp.jpg"
     },
@@ -961,6 +1048,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Gran Turismo 5 Prologue",
+      "link": "",
       "adult": false,
       "cover": "covers/sp00nznet_gt5p.jpg"
     },
@@ -974,6 +1062,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/hayatog_gr2_pc.jpg"
     },
@@ -987,6 +1076,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/jillsandwich1998_regh2.jpg"
     },
@@ -1000,6 +1090,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/chrissotraidis_projectreach.jpg"
     },
@@ -1013,6 +1104,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/hunkstalker_hybrid-heaven-recomp.jpg"
     },
@@ -1026,6 +1118,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/hayatog_iss_pc.jpg"
     },
@@ -1039,6 +1132,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/distilledorion-sketch/Initial-D-Arcade-Stage-3-Native-SH-4-Recompilation-WIP-/releases/tag/v2415-host-safety",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/distilledorion-sketch_initial-d-arcade-stage-3-native-sh-4-recompilati.jpg"
     },
@@ -1052,6 +1146,7 @@
       "asset_hint": "",
       "homepage": "discord.gg/8dAn4ZSsap",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/tgp482_007frwl-xberecomp.jpg"
     },
@@ -1065,6 +1160,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/goodshepherd23_jetmoto2-recomp.jpg"
     },
@@ -1078,6 +1174,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/drakolordx7_killzonerecomp.jpg"
     },
@@ -1091,6 +1188,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Luigi's Mansion",
+      "link": "",
       "adult": false,
       "cover": "covers/sp00nznet_luigismansion.jpg"
     },
@@ -1104,6 +1202,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Mario Kart 64",
+      "link": "",
       "adult": false,
       "cover": "covers/sonicdcer_mariokart64recomp.jpg"
     },
@@ -1117,6 +1216,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Mario Kart 8 Deluxe",
+      "link": "",
       "adult": false,
       "cover": "covers/dougchansan_mk8-recomp.jpg"
     },
@@ -1130,6 +1230,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Medal of Honor",
+      "link": "",
       "adult": false,
       "cover": "covers/fractalengineer_medal-of-honor-psx-recomp.jpg"
     },
@@ -1143,6 +1244,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/blacklabelhq_medievilrecomp.jpg"
     },
@@ -1156,6 +1258,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/leproide_medievilrecomp-esp.jpg"
     },
@@ -1169,6 +1272,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Mega Man 64",
+      "link": "",
       "adult": false,
       "cover": "covers/megaman64recomp_megaman64recompiled.jpg"
     },
@@ -1182,6 +1286,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Metal Gear Solid",
+      "link": "",
       "adult": false,
       "cover": "covers/alexbeavs-ps1-ports_metal-gear-solid-recomp.jpg"
     },
@@ -1195,6 +1300,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Metroid",
+      "link": "",
       "adult": false,
       "cover": "covers/mstan_metroidnesrecomp.jpg"
     },
@@ -1208,6 +1314,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Metroid Fusion",
+      "link": "",
       "adult": false,
       "cover": "covers/zaxaerith_metroidfusionrecomp.jpg"
     },
@@ -1221,6 +1328,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Metroid Prime",
+      "link": "",
       "adult": false,
       "cover": "covers/odrannnn_metroidprimeport.jpg"
     },
@@ -1234,6 +1342,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Mystical Ninja Starring Goemon",
+      "link": "",
       "adult": false,
       "cover": "covers/klorfmorf_goemon64recomp.jpg"
     },
@@ -1247,6 +1356,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/masterllgod_naruto-storm-generations-port-nativo.jpg"
     },
@@ -1260,6 +1370,7 @@
       "asset_hint": "",
       "homepage": "https://projectugarte.com/speedbreaker/",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/speedbreakerproject_speedbreaker.jpg"
     },
@@ -1273,6 +1384,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/daniiichan_need-for-speed-underground-2-macos.jpg"
     },
@@ -1286,6 +1398,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/gamboozino_ngbrecomp.jpg"
     },
@@ -1299,6 +1412,7 @@
       "asset_hint": "",
       "homepage": "https://opentricky.com",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/gizcesi_opentricky.jpg"
     },
@@ -1312,6 +1426,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "P.T. (video game)",
+      "link": "",
       "adult": false,
       "cover": "covers/loreanxavier_pt-pc.jpg"
     },
@@ -1325,6 +1440,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Parasite Eve",
+      "link": "",
       "adult": false,
       "cover": "covers/alexbeavs-ps1-ports_parasite-eve-recomp.jpg"
     },
@@ -1338,6 +1454,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/caiuscodes_perfect-dark-xbla-pc-recomp.jpg"
     },
@@ -1351,6 +1468,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/poopoocacacacaca_p3fes-recompiled.jpg"
     },
@@ -1364,6 +1482,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Peter Jackson's King Kong",
+      "link": "",
       "adult": false,
       "cover": "covers/tekrantgaming_king-kong-recompiled.jpg"
     },
@@ -1377,6 +1496,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/JackandBeans/Snap64Recomp/releases/latest",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/jackandbeans_snap64recomp.jpg"
     },
@@ -1390,6 +1510,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/raulzrrs_letsgo-recomp.jpg"
     },
@@ -1403,6 +1524,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Quest 64",
+      "link": "",
       "adult": false,
       "cover": "covers/rainchus_quest64-recomp.jpg"
     },
@@ -1416,6 +1538,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Rage Racer",
+      "link": "",
       "adult": false,
       "cover": "covers/khasinski_rage-racer-pc.jpg"
     },
@@ -1429,6 +1552,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Resident Evil 3: Nemesis",
+      "link": "",
       "adult": false,
       "cover": "covers/alexbeavs-ps1-ports_resident-evil-3-recomp.jpg"
     },
@@ -1442,6 +1566,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Resident Evil Code: Veronica",
+      "link": "",
       "adult": false,
       "cover": "covers/aikatore_recvx-enhanced-port.jpg"
     },
@@ -1455,6 +1580,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/camybiohazard_project-veronicax.jpg"
     },
@@ -1468,6 +1594,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Resident Evil Code: Veronica",
+      "link": "",
       "adult": false,
       "cover": "covers/ant0-blase_residentevil-codeveronicax-x360-rexglue.jpg"
     },
@@ -1481,6 +1608,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/noulz-one_ring-of-judgment---shadow-hearts-recomp.png"
     },
@@ -1494,6 +1622,7 @@
       "asset_hint": "",
       "homepage": "https://petarov.github.io/saboteur2/",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/petarov_saboteur2.jpg"
     },
@@ -1507,6 +1636,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/lordingard_sacredstonesrecomp.jpg"
     },
@@ -1520,6 +1650,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Shadow of the Colossus",
+      "link": "",
       "adult": false,
       "cover": "covers/lightvelox_sotc-vibe-pc.jpg"
     },
@@ -1533,6 +1664,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Shadow of the Colossus",
+      "link": "",
       "adult": false,
       "cover": "covers/volstants_recomp-shadowofthecolossus-pc.jpg"
     },
@@ -1546,6 +1678,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Shadow of the Colossus",
+      "link": "",
       "adult": false,
       "cover": "covers/sp00nznet_shadowofthecolossus.jpg"
     },
@@ -1559,6 +1692,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Shadow of the Colossus",
+      "link": "",
       "adult": false,
       "cover": "covers/ajncsystem_shadowofthecolossus-pc.jpg"
     },
@@ -1572,6 +1706,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/cookingwithsimon_skate1recompiled.jpg"
     },
@@ -1585,6 +1720,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/christianortel/skate2-recompile-pc/releases/latest",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/christianortel_skate2-recompile-pc.jpg"
     },
@@ -1598,6 +1734,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/cookingwithsimon_skate2recompiled.jpg"
     },
@@ -1611,6 +1748,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/cdlewis_snowboardkids2-recomp.jpg"
     },
@@ -1624,6 +1762,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/sonicfreak1337_sarecomp.jpg"
     },
@@ -1637,6 +1776,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/yuutatsubasa_free-riders-recompiled.jpg"
     },
@@ -1650,6 +1790,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Sonic Unleashed",
+      "link": "",
       "adult": false,
       "cover": "covers/hedge-dev_unleashedrecomp.jpg"
     },
@@ -1663,6 +1804,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/arzaroth_soulcaliburiii_recomp.jpg"
     },
@@ -1676,6 +1818,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Soulcalibur",
+      "link": "",
       "adult": false,
       "cover": "covers/danielgomesvieira2000_soulcalibur-recomp.jpg"
     },
@@ -1689,6 +1832,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Soulcalibur IV",
+      "link": "",
       "adult": false,
       "cover": "covers/fluffyquack_rexglue-soulcaliburiv.jpg"
     },
@@ -1702,6 +1846,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Space Station Silicon Valley",
+      "link": "",
       "adult": false,
       "cover": "covers/cellenseres_sssv_recomp.jpg"
     },
@@ -1715,6 +1860,7 @@
       "asset_hint": "",
       "homepage": "https://t.me/teamgenrythefox",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/genrythefox0_project-2099.jpg"
     },
@@ -1728,6 +1874,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/omegakatana92_street-fighter-alpha-recomp-.jpg"
     },
@@ -1741,6 +1888,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Super Mario Sunshine",
+      "link": "",
       "adult": false,
       "cover": "covers/chasem-dev_sms-pc-port.jpg"
     },
@@ -1754,6 +1902,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/fishb0nes98_tekken3recompiled.jpg"
     },
@@ -1767,6 +1916,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/invinceble55-wq_estacado-the-darkness-recomp.jpg"
     },
@@ -1780,6 +1930,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "The Last Guardian",
+      "link": "",
       "adult": false,
       "cover": "covers/hayatog_tlg_pc.jpg"
     },
@@ -1793,6 +1944,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/ryderclanky_botw-native.jpg"
     },
@@ -1806,6 +1958,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/nycolazs_lasrecomp-android-plus.jpg"
     },
@@ -1819,6 +1972,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/kuraeow/ultratears/releases",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/kuraeow_ultratears.jpg"
     },
@@ -1832,6 +1986,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "The Mummy",
+      "link": "",
       "adult": false,
       "cover": "covers/alexbeavs-ps1-ports_the-mummy-recomp.jpg"
     },
@@ -1845,6 +2000,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/shagg88_athelas.png"
     },
@@ -1858,6 +2014,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/neilseligmann_tsfp-recomp.jpg"
     },
@@ -1871,6 +2028,7 @@
       "asset_hint": "",
       "homepage": "https://discord.gg/8dAn4ZSsap",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/tgp482_scda-xberecomp.jpg"
     },
@@ -1884,6 +2042,7 @@
       "asset_hint": "",
       "homepage": "https://project8.maxleiter.com/",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/maxleiter_project-8-plus.jpg"
     },
@@ -1897,6 +2056,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/theokyr/Project8Recomp/releases/latest",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/theokyr_project8recomp.jpg"
     },
@@ -1910,6 +2070,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false
     },
     {
@@ -1922,6 +2083,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "Vagrant Story",
+      "link": "",
       "adult": false,
       "cover": "covers/mobius_psx-vagrantstory-recomp.jpg"
     },
@@ -1935,6 +2097,7 @@
       "asset_hint": "",
       "homepage": "https://vf1-recomp.pages.dev",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/mr-finster_vf1-recomp.jpg"
     },
@@ -1948,6 +2111,7 @@
       "asset_hint": "",
       "homepage": "https://vf2-recomp.pages.dev",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/mr-finster_vf2-recomp.jpg"
     },
@@ -1961,6 +2125,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/yanm1103_war_of_the_monsters_recomp.jpg"
     },
@@ -1974,6 +2139,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/mikeflare007/wwe2k14-recomp/releases",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/mikeflare007_wwe2k14-recomp.jpg"
     },
@@ -1987,6 +2153,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/kaikoclanworth1_wwe-svr2011-pc.jpg"
     },
@@ -2000,6 +2167,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "X-Men: Mutant Academy 2",
+      "link": "",
       "adult": false,
       "cover": "covers/gtteancum_xmen-mutant-academy-2-pc.jpg"
     },
@@ -2013,6 +2181,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/filippgl_xena-psx-decomp.jpg"
     },
@@ -2026,6 +2195,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/Unchiga/YuGiOhForbiddenMemoriesRecomp/releases/latest",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/unchiga_yugiohforbiddenmemoriesrecomp.jpg"
     },
@@ -2039,6 +2209,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "The Legend of Zelda: A Link to the Past",
+      "link": "",
       "adult": false,
       "cover": "covers/yeoldpress_alttp-dx.jpg"
     },
@@ -2052,6 +2223,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "The Legend of Zelda: Breath of the Wild",
+      "link": "",
       "adult": false,
       "cover": "covers/revivedx_savagewindrecomp.jpg"
     },
@@ -2065,6 +2237,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "The Legend of Zelda: Link's Awakening (2019 video game)",
+      "link": "",
       "adult": false,
       "cover": "covers/peiikai_lasrecomp.jpg"
     },
@@ -2078,6 +2251,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "The Legend of Zelda: Majora's Mask",
+      "link": "",
       "adult": false,
       "cover": "covers/2ship2harkinian_2ship2harkinian.jpg"
     },
@@ -2091,6 +2265,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "The Legend of Zelda: Majora's Mask",
+      "link": "",
       "adult": false,
       "cover": "covers/zelda64recomp_zelda64recomp.jpg"
     },
@@ -2104,6 +2279,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/harbourmasters_shipwright.jpg"
     },
@@ -2117,6 +2293,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "The Legend of Zelda: Skyward Sword",
+      "link": "",
       "adult": false,
       "cover": "covers/kyra422_skybreak.jpg"
     },
@@ -2130,6 +2307,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/twilitrealm_dusklight.jpg"
     },
@@ -2143,6 +2321,7 @@
       "asset_hint": "",
       "homepage": "https://github.com/centollOS/SwitchWakerHD/releases",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/centollos_switchwakerhd.jpg"
     },
@@ -2156,6 +2335,7 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
+      "link": "",
       "adult": false,
       "cover": "covers/zeldawwhdrecomp_zeldawwhdrecomp.jpg"
     }
