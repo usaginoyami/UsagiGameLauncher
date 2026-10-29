@@ -148,3 +148,90 @@ def restore(backup_zip: Path, target: Path) -> int:
 
 def list_backups(backups_dir: Path) -> list[Path]:
     return sorted(Path(backups_dir).glob("*.zip"), key=lambda p: p.name, reverse=True)
+
+
+# ------------------------------------------------------------ backup manual
+class BackupError(Exception):
+    pass
+
+
+def folder_size(folder: Path, skip_backups: bool = True) -> int:
+    total = 0
+    for p in _walk(Path(folder)):
+        if skip_backups and BACKUP_DIR in p.relative_to(folder).parts[:-1]:
+            continue
+        try:
+            total += p.stat().st_size
+        except OSError:
+            pass
+    return total
+
+
+def _check_dest(folder: Path, dest: Path, needed: int) -> None:
+    folder, dest = Path(folder).resolve(), Path(dest).resolve()
+    try:
+        dest.relative_to(folder)
+    except ValueError:
+        pass
+    else:
+        raise BackupError("O backup não pode ser salvo dentro da pasta do próprio jogo.")
+    if dest.suffix.lower() != ".zip":
+        raise BackupError("O arquivo de backup precisa terminar em .zip.")
+    try:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        free = shutil.disk_usage(dest.parent).free
+    except OSError as e:
+        raise BackupError(f"Não consegui usar essa pasta: {e}") from e
+    if needed and free < needed:
+        raise BackupError(f"Pouco espaço no destino: o backup pode precisar de até {needed // 2**20} MB "
+                          f"e há {free // 2**20} MB livres.")
+
+
+def make_manual_backup(folder: Path, dest: Path, full: bool, progress=None, cancel=None) -> tuple[Path, int]:
+    """Backup sob demanda: só saves/configs ou a pasta inteira. Devolve (zip, nº de arquivos).
+
+    Grava num .part e só renomeia no fim, então um cancelamento ou erro nunca deixa um zip pela metade.
+    """
+    folder, dest = Path(folder), Path(dest)
+    if not folder.is_dir():
+        raise BackupError("A pasta do jogo não existe mais.")
+    if full:
+        rels = [p.relative_to(folder) for p in _walk(folder)
+                if BACKUP_DIR not in p.relative_to(folder).parts[:-1]]
+    else:
+        c = collect(folder)
+        rels = c["save"] + c["config"]
+    if not rels:
+        raise BackupError("Não encontrei saves nem configurações nesta pasta. "
+                          "Use “O jogo inteiro” se quiser guardar tudo.")
+    sizes = {}
+    for rel in rels:
+        try:
+            sizes[rel] = (folder / rel).stat().st_size
+        except OSError:
+            sizes[rel] = 0
+    total = sum(sizes.values())
+    _check_dest(folder, dest, total)
+    tmp = dest.with_name(dest.name + ".part")
+    done = n = 0
+    try:
+        with zipfile.ZipFile(tmp, "w", zipfile.ZIP_DEFLATED, compresslevel=3) as z:
+            for rel in rels:
+                if cancel is not None and cancel.is_set():
+                    raise BackupError("Backup cancelado.")
+                try:
+                    z.write(folder / rel, rel.as_posix())
+                except OSError:
+                    continue  # arquivo sumiu ou está em uso: segue com o resto
+                n += 1
+                done += sizes[rel]
+                if progress:
+                    progress("Compactando", done, total)
+        os.replace(tmp, dest)
+    except BaseException:
+        try:
+            tmp.unlink()
+        except OSError:
+            pass
+        raise
+    return dest, n

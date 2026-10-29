@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 import time
+import zipfile
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -76,6 +77,10 @@ class Row:
 
 
 # ------------------------------------------------------------------- delegate
+def safety_name(text: str) -> str:
+    return "".join(c if c.isalnum() or c in "._-" else "_" for c in text).strip("_")[:60] or "backup"
+
+
 class CardDelegate(QStyledItemDelegate):
     def __init__(self, window: "MainWindow"):
         super().__init__(window.list)
@@ -554,6 +559,8 @@ class MainWindow(QMainWindow):
         r2.addWidget(self.b_folder)
         r2.addWidget(self.b_web)
         r2.addWidget(self.b_fav)
+        self.b_backup = QPushButton("Backup…")
+        self.b_backup.clicked.connect(lambda: self.backups_dialog(self.current))
         self.b_have = QPushButton("Já tenho este jogo instalado…")
         self.b_have.clicked.connect(lambda: self.have_installed(self.current))
         r3 = QHBoxLayout()
@@ -561,6 +568,7 @@ class MainWindow(QMainWindow):
         r3.addWidget(self.b_remove, 1)
         for r in (r1, r2, r3):
             dl.addLayout(r)
+        dl.addWidget(self.b_backup)
         dl.addWidget(self.b_clean)
         dl.addWidget(self.b_have)
         lay.addWidget(self.detail)
@@ -675,7 +683,7 @@ class MainWindow(QMainWindow):
         row = self.rows.get(key) if key else None
         self.d_cover.setVisible(row is not None)
         for w in (self.b_main, self.b_update, self.b_folder, self.b_web, self.b_fav, self.b_exe,
-                  self.b_clean, self.b_remove, self.b_have):
+                  self.b_clean, self.b_remove, self.b_have, self.b_backup):
             w.setVisible(row is not None)
         if row is None:
             self.d_title.setText("Selecione um jogo")
@@ -751,6 +759,7 @@ class MainWindow(QMainWindow):
         self.b_web.setEnabled(True)
         self.b_folder.setVisible(row.installed)
         self.b_have.setVisible(not row.installed)
+        self.b_backup.setVisible(row.installed)
         self.b_exe.setVisible(row.installed)
         self.b_remove.setVisible(row.installed)
         self.b_clean.setVisible(bool(row.installed and len(row.rec.get("versions", [])) > 1))
@@ -946,12 +955,13 @@ class MainWindow(QMainWindow):
         root = Path(prev["root"]).parent if grouped else self.settings.install_dir()
         do_backup = bool(self.settings.get("backup_saves"))
 
-        folder_name = (Path(prev["root"]).name if grouped
-                       else (row.orig_name or name))  # renomear não muda a pasta do jogo
+        # pasta curta e estável (nome do repositório): renomear ou mudar o título não muda onde instala
+        folder_name = Path(prev["root"]).name if grouped else row.entry.repo.split("/")[-1]
 
         def work(task: Task):
-            res = installer.install(self.client, rel, asset, folder_name, root, downloads,
-                                    progress=task.report, cancel=task.cancel_event)
+            res = installer.install(self.client, rel, asset, name, root, downloads,
+                                    progress=task.report, cancel=task.cancel_event,
+                                    folder_name=folder_name)
             old = Path(prev["folder"]) if prev and prev.get("folder") else None
             if do_backup and old and old.is_dir() and old.resolve() != res.folder.resolve():
                 try:
@@ -1246,7 +1256,8 @@ class MainWindow(QMainWindow):
         menu.addAction("Copiar link", lambda: QGuiApplication.clipboard().setText(row.entry.url))
         menu.addSeparator()
         if row.installed:
-            menu.addAction("Backups dos saves…", lambda: self.backups_dialog(key))
+            menu.addAction("Fazer backup…", lambda: self.backup_now(key))
+            menu.addAction("Backups e restauração…", lambda: self.backups_dialog(key))
         else:
             menu.addAction("Já tenho este jogo instalado…", lambda: self.have_installed(key))
         menu.addAction("Renomear…  (F2)", lambda: self.rename_game(key))
@@ -1263,38 +1274,115 @@ class MainWindow(QMainWindow):
         menu.addAction("Remover da lista  (Del)", lambda: self.remove_game(key))
         menu.exec(self.list.viewport().mapToGlobal(pos))
 
-    def backups_dialog(self, key: str) -> None:
-        row = self.rows[key]
-        rec = row.rec
+    def backups_dialog(self, key: str | None) -> None:
+        row = self.rows.get(key) if key else None
+        rec = row.rec if row else None
         if rec is None:
             return
         bdir = Path(rec.get("root", "")) / backup.BACKUP_DIR
         zips = backup.list_backups(bdir) if bdir.is_dir() else []
-        if not zips:
-            QMessageBox.information(
-                self, "Backups dos saves",
-                "Ainda não há backups deste jogo. Eles são criados sozinhos a cada atualização "
-                "(se a opção estiver ligada nas Configurações).")
-            return
         box = QMessageBox(self)
-        box.setWindowTitle("Backups dos saves")
-        box.setText(f"{len(zips)} backup(s) de {row.entry.name}. O mais recente: {zips[0].name}")
-        box.setInformativeText("Restaurar copia os arquivos do backup para a versão instalada agora, "
-                               "substituindo os atuais.")
-        restore = box.addButton("Restaurar o mais recente", QMessageBox.ButtonRole.AcceptRole)
+        box.setWindowTitle("Backups")
+        if zips:
+            box.setText(f"{len(zips)} backup(s) automático(s) de {row.entry.name}. O mais recente: {zips[0].name}")
+        else:
+            box.setText(f"Ainda não há backups automáticos de {row.entry.name}. Eles são criados sozinhos a "
+                        "cada atualização (se a opção estiver ligada nas Configurações).")
+        box.setInformativeText("Fazer backup agora salva em um .zip no lugar que você escolher. Restaurar "
+                               "copia os arquivos do .zip para a versão instalada, substituindo os atuais.")
+        now = box.addButton("Fazer backup agora…", QMessageBox.ButtonRole.AcceptRole)
+        restore = box.addButton("Restaurar o mais recente", QMessageBox.ButtonRole.ActionRole)
+        restore.setEnabled(bool(zips))
+        from_file = box.addButton("Restaurar de um arquivo…", QMessageBox.ButtonRole.ActionRole)
         open_dir = box.addButton("Abrir pasta", QMessageBox.ButtonRole.HelpRole)
+        open_dir.setEnabled(bdir.is_dir())
         box.addButton("Fechar", QMessageBox.ButtonRole.RejectRole)
         box.exec()
         clicked = box.clickedButton()
-        if clicked is open_dir:
+        if clicked is now:
+            self.backup_now(key)
+        elif clicked is open_dir:
             QDesktopServices.openUrl(QUrl.fromLocalFile(str(bdir)))
         elif clicked is restore:
-            try:
-                n = backup.restore(zips[0], Path(rec["folder"]))
-            except (OSError, ValueError) as e:
-                QMessageBox.warning(self, "Falha ao restaurar", str(e))
-                return
-            self.statusBar().showMessage(f"{n} arquivo(s) restaurado(s) de {zips[0].name}.")
+            self._restore_zip(row, zips[0])
+        elif clicked is from_file:
+            f, _ = QFileDialog.getOpenFileName(self, "Restaurar backup", self.settings.get("last_backup_dir") or "",
+                                               "Backups (*.zip)")
+            if f:
+                self._restore_zip(row, Path(f))
+
+    def _restore_zip(self, row: "Row", zip_path: Path) -> None:
+        if QMessageBox.question(
+                self, "Restaurar backup",
+                f"Restaurar {zip_path.name} em {row.entry.name}?\n\nOs arquivos do backup substituem os "
+                "atuais na pasta instalada.") != QMessageBox.StandardButton.Yes:
+            return
+        try:
+            n = backup.restore(zip_path, Path(row.rec["folder"]))
+        except (OSError, ValueError, zipfile.BadZipFile) as e:
+            QMessageBox.warning(self, "Falha ao restaurar", str(e))
+            return
+        self.statusBar().showMessage(f"{n} arquivo(s) restaurado(s) de {zip_path.name}.")
+
+    def backup_now(self, key: str | None) -> None:
+        """Backup sob demanda: só saves e configurações, ou o jogo inteiro, no destino escolhido."""
+        row = self.rows.get(key) if key else None
+        rec = row.rec if row else None
+        if rec is None:
+            return
+        folder = Path(rec.get("folder", ""))
+        if not folder.is_dir():
+            QMessageBox.warning(self, "Backup", "A pasta do jogo não foi encontrada.")
+            return
+        size = backup.folder_size(folder)
+        box = QMessageBox(self)
+        box.setWindowTitle("Fazer backup")
+        box.setText(f"O que guardar de {row.entry.name}?")
+        box.setInformativeText(f"Só saves e configs: arquivo pequeno e rápido.\n"
+                               f"O jogo inteiro: toda a pasta da versão instalada (cerca de {fmt_size(size)} "
+                               "antes de compactar).")
+        saves = box.addButton("Só saves e configs", QMessageBox.ButtonRole.AcceptRole)
+        full_btn = box.addButton("O jogo inteiro", QMessageBox.ButtonRole.ActionRole)
+        box.addButton("Cancelar", QMessageBox.ButtonRole.RejectRole)
+        box.exec()
+        clicked = box.clickedButton()
+        if clicked not in (saves, full_btn):
+            return
+        full = clicked is full_btn
+        stamp = datetime.now().strftime("%Y%m%d-%H%M")
+        tag = safety_name(f"{row.entry.name}_{rec.get('version', '')}_{'completo' if full else 'saves'}")
+        start = str(Path(self.settings.get("last_backup_dir") or Path.home()) / f"{tag}_{stamp}.zip")
+        dest, _ = QFileDialog.getSaveFileName(self, "Salvar backup como", start, "Backup (*.zip)")
+        if not dest:
+            return
+        dest = Path(dest if dest.lower().endswith(".zip") else dest + ".zip")
+        self.settings.set("last_backup_dir", str(dest.parent))
+        self.settings.save()
+        name = row.entry.name
+
+        def work(task: Task):
+            return backup.make_manual_backup(folder, dest, full, task.report, task.cancel_event)
+
+        def prog(phase: str, done: int, total: int) -> None:
+            pct = f" {done * 100 // total}%" if total else ""
+            self.statusBar().showMessage(f"Backup de {name}: {phase}{pct}")
+
+        def ok(res) -> None:
+            self._backup_task = None
+            path, n = res
+            self.statusBar().showMessage(f"Backup de {name} salvo: {path} ({n} arquivos, {fmt_size(path.stat().st_size)})")
+            if QMessageBox.question(self, "Backup pronto",
+                                    f"{n} arquivo(s) salvos em:\n{path}\n\nAbrir a pasta?"
+                                    ) == QMessageBox.StandardButton.Yes:
+                QDesktopServices.openUrl(QUrl.fromLocalFile(str(path.parent)))
+
+        def err(e: Exception) -> None:
+            self._backup_task = None
+            self.statusBar().showMessage(f"Backup não concluído: {e}")
+            QMessageBox.warning(self, "Backup não concluído", str(e))
+
+        self._backup_task = self.runner.run(work, ok, err, prog)
+        self.statusBar().showMessage(f"Fazendo backup de {name}…")
 
     def _fav(self, key: str) -> None:
         self.settings.toggle("favorites", key)

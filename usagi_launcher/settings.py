@@ -27,6 +27,7 @@ DEFAULTS: dict[str, Any] = {
     "self_update_checked": 0,
     "hidden": [],
     "sort_mode": "default",
+    "last_backup_dir": "",
     "notify_updates": True,
     "update_check_hours": 6,
     "notified_updates": {},

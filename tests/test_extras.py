@@ -180,6 +180,76 @@ class Backup(unittest.TestCase):
         self.assertFalse(any("secret" in r for r in rels))
 
 
+class ManualBackup(unittest.TestCase):
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp())
+        self.game = self.tmp / "Game" / "v1"
+        for rel, data in {"saves/s1.sav": b"S", "Game.exe": b"MZ", "data/a.pak": b"P" * 1000,
+                          "config.toml": b"c", "_backups/old.zip": b"zzz"}.items():
+            p = self.game / rel
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_bytes(data)
+
+    def test_full_backup_has_everything_but_backups_dir(self):
+        dest, n = backup.make_manual_backup(self.game, self.tmp / "out" / "full.zip", full=True)
+        names = set(zipfile.ZipFile(dest).namelist())
+        self.assertEqual(names, {"saves/s1.sav", "Game.exe", "data/a.pak", "config.toml"})
+        self.assertEqual(n, 4)
+        self.assertFalse(list((self.tmp / "out").glob("*.part")))
+
+    def test_saves_only_backup(self):
+        dest, n = backup.make_manual_backup(self.game, self.tmp / "s.zip", full=False)
+        self.assertEqual(set(zipfile.ZipFile(dest).namelist()), {"saves/s1.sav", "config.toml"})
+
+    def test_roundtrip_restore(self):
+        dest, _ = backup.make_manual_backup(self.game, self.tmp / "f.zip", full=True)
+        target = self.tmp / "novo"
+        self.assertEqual(backup.restore(dest, target), 4)
+        self.assertEqual((target / "data" / "a.pak").read_bytes(), b"P" * 1000)
+
+    def test_refuses_destination_inside_the_game_folder(self):
+        with self.assertRaises(backup.BackupError):
+            backup.make_manual_backup(self.game, self.game / "saves" / "b.zip", full=True)
+
+    def test_refuses_non_zip_name_and_empty_saves(self):
+        with self.assertRaises(backup.BackupError):
+            backup.make_manual_backup(self.game, self.tmp / "b.txt", full=True)
+        empty = self.tmp / "E"
+        (empty / "x").mkdir(parents=True)
+        (empty / "x" / "Game.exe").write_bytes(b"MZ")
+        with self.assertRaises(backup.BackupError):
+            backup.make_manual_backup(empty, self.tmp / "e.zip", full=False)
+        self.assertFalse((self.tmp / "e.zip").exists())
+
+    def test_cancel_leaves_no_partial_file(self):
+        import threading
+        ev = threading.Event()
+        ev.set()
+        with self.assertRaises(backup.BackupError):
+            backup.make_manual_backup(self.game, self.tmp / "c.zip", full=True, cancel=ev)
+        self.assertEqual(list(self.tmp.glob("c.zip*")), [])
+
+    def test_not_enough_space(self):
+        real = backup.shutil.disk_usage
+        backup.shutil.disk_usage = lambda p: type("U", (), {"free": 10})()
+        try:
+            with self.assertRaises(backup.BackupError) as cm:
+                backup.make_manual_backup(self.game, self.tmp / "d.zip", full=True)
+            self.assertIn("espaço", str(cm.exception))
+        finally:
+            backup.shutil.disk_usage = real
+        self.assertEqual(list(self.tmp.glob("d.zip*")), [])
+
+    def test_progress_reaches_total(self):
+        seen = []
+        backup.make_manual_backup(self.game, self.tmp / "p.zip", full=True, progress=lambda ph, d, t: seen.append((d, t)))
+        self.assertEqual(seen[-1][0], seen[-1][1])
+        self.assertGreater(seen[-1][1], 0)
+
+    def test_folder_size_skips_backups(self):
+        self.assertEqual(backup.folder_size(self.game), 1 + 2 + 1000 + 1)
+
+
 class FakeClient:
     def __init__(self, rel, payload=b""):
         self.rel, self.payload = rel, payload

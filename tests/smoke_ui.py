@@ -277,6 +277,29 @@ check(win.rows[mk_key].installed and rec_mk["version"] == "v1.5.0", "jogo existe
 check(Path(rec_mk["exe"]).name == "Mario Kart 64.exe" and rec_mk["root"].endswith("existente"), "executável e pasta-raiz registrados")
 check(win.rows[mk_key].has_update, "versão antiga localizada gera aviso de atualização")
 
+# backup manual
+mw.QDesktopServices.openUrl = staticmethod(lambda u: True)
+mw.QMessageBox.warning = staticmethod(lambda *a, **k: 0)
+_real_exec, _real_clicked = mw.QMessageBox.exec, mw.QMessageBox.clickedButton
+choice = {"text": "O jogo inteiro"}
+mw.QMessageBox.exec = lambda self: 0
+mw.QMessageBox.clickedButton = lambda self: next((b for b in self.buttons() if b.text() == choice["text"]), None)
+bk = tmp / "backups_manuais" / "mk_full.zip"
+mw.QFileDialog.getSaveFileName = staticmethod(lambda *a, **k: (str(bk), ""))
+win.backup_now(mk_key)
+pump(app, 3, until=lambda: bk.exists())
+pump(app, 0.3)
+import zipfile as _zf  # noqa: E402
+check(bk.exists() and "Mario Kart 64.exe" in _zf.ZipFile(bk).namelist(), "backup do jogo inteiro criado no destino escolhido")
+check(win.settings.get("last_backup_dir") == str(bk.parent), "pasta do último backup lembrada")
+bk2 = tmp / "backups_manuais" / "mk_saves.zip"
+mw.QFileDialog.getSaveFileName = staticmethod(lambda *a, **k: (str(bk2), ""))
+choice["text"] = "Só saves e configs"
+win.backup_now(mk_key)
+pump(app, 1.5)
+check(not bk2.exists() and not list(bk2.parent.glob("*.part")), "sem saves: erro claro e nenhum arquivo pela metade")
+mw.QMessageBox.exec, mw.QMessageBox.clickedButton = _real_exec, _real_clicked
+
 scan_base = tmp / "meus_jogos"
 (scan_base / "Goemon64Recompiled").mkdir(parents=True)
 (scan_base / "Goemon64Recompiled" / "Goemon64Recompiled.exe").write_bytes(b"MZ" + b"0" * 64)

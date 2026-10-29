@@ -185,13 +185,13 @@ class InstallResult:
 
 def install(client: GitHubClient, release: Release, asset: Asset, game_name: str,
             install_root: Path, downloads_dir: Path, progress: Progress | None = None,
-            cancel: threading.Event | None = None) -> InstallResult:
+            cancel: threading.Event | None = None, folder_name: str = "") -> InstallResult:
     """Baixa, verifica (SHA-256 quando publicado) e extrai em pasta própria da versão."""
 
     def rep(phase: str) -> Callable[[int, int], None]:
         return lambda d, t: progress(phase, d, t) if progress else None
 
-    game_root = Path(install_root) / safe_name(game_name)
+    game_root = Path(install_root) / safe_name(folder_name or game_name)
     folder = unique_dir(game_root / safe_name(release.tag or "versao"))
     archive = Path(downloads_dir) / safe_name(asset.name)
 

@@ -15,7 +15,7 @@ Inspirado em [teasergames/ports-pc](https://github.com/teasergames/ports-pc) (bi
 - **Catálogo curado** (`data/catalog.json`) com ~80 recomps e ports (N64, Xbox, Xbox 360, PS1–PS4, PSP, GameCube, Wii, Switch, Dreamcast, SNES, NES, GBA), cada repositório conferido antes de entrar. Sem token do GitHub, o launcher só consulta releases dos jogos instalados, favoritos e do que você abrir (limite de 60 req/h); com token, atualiza tudo.
 - **Descoberta automática**: busca no GitHub pelos tópicos `recomp`, `recompiled`, `recompilation` e `static-recompilation`. Ferramentas (N64Recomp, XenonRecomp etc.), forks e repositórios arquivados são filtrados. Os achados aparecem em **Descobertos**; clique com o botão direito para adicionar ao seu catálogo ou ocultar.
 - **Adicionar repositório**: cole `dono/repo` ou o link do GitHub.
-- **Instalar / Atualizar**: escolhe sozinho o pacote Windows da release (ignora Linux, macOS, ARM e source), confere o SHA-256 quando o GitHub publica, extrai com proteção contra zip-slip e detecta o executável. Cada versão vai para `Jogo\vX.Y.Z`, então um update nunca sobrescreve a anterior. **Limpar versões antigas** apaga só quando você confirmar.
+- **Instalar / Atualizar**: escolhe sozinho o pacote Windows da release (ignora Linux, macOS, ARM e source), confere o SHA-256 quando o GitHub publica, extrai com proteção contra zip-slip e detecta o executável. Cada versão vai para `NomeDoRepositório\vX.Y.Z`, então um update nunca sobrescreve a anterior. **Limpar versões antigas** apaga só quando você confirmar.
 - **Renomear**: clique direito no jogo → **Renomear…** (ou F2). O nome é só de exibição, fica salvo nas suas configurações e não muda o repositório, o catálogo nem a pasta do jogo. **Restaurar nome original** desfaz.
 - **Nome automático**: clique direito → **Procurar nome automático…** busca o título oficial na IGDB (com a chave) e na Wikipedia, com ano e plataformas, e você escolhe. Os jogos da plataforma do card aparecem primeiro, o que separa, por exemplo, o God of War de PS2 do de PS4.
 - **Plataformas**: **Editar plataformas…** define de qual console o jogo foi recompilado e para onde o port foi feito (Windows, Linux, Switch, Android, portátil ARM64…, ou outro texto). Portes que não são para Windows ganham o selo “→ destino” e pedem confirmação antes de baixar. As edições ficam nas suas configurações e podem ser desfeitas voltando ao valor original.
@@ -30,6 +30,7 @@ Inspirado em [teasergames/ports-pc](https://github.com/teasergames/ports-pc) (bi
 - **Segurança**: antes de baixar um projeto suspeito (achado pela busca automática com poucas estrelas ou criado há pouco, conta com nome gerado, pacote `.exe` solto, extensão dupla, nome de crack/cheat), o launcher mostra os motivos e pede confirmação. “Baixar mesmo assim” lembra a escolha para aquele jogo. Os sinais não provam que algo é seguro: leia o repositório antes de confiar. Dá para desligar nas Configurações.
 - **Filtro adulto**: jogos adultos ou sugestivos ficam escondidos do catálogo e da busca automática (o que você adicionou ou instalou nunca some). Ligue em Configurações → “Mostrar jogos adultos”.
 - **Backup dos saves**: ao atualizar um jogo, o launcher compacta saves e configurações da versão antiga em `Jogo\_backups` (guarda os 5 últimos) e copia os saves para a pasta da versão nova sem sobrescrever nada. Clique direito no jogo → **Backups dos saves…** para restaurar. Saves que o jogo grava fora da pasta (como `%APPDATA%`) não são mexidos por atualizações.
+- **Backup manual**: botão **Backup…** no painel do jogo (ou clique direito → **Fazer backup…**). Você escolhe **só saves e configs** (arquivo pequeno) ou **o jogo inteiro** (toda a pasta da versão instalada, mostra o tamanho antes) e depois onde salvar o `.zip`, por exemplo um HD externo. O arquivo só aparece no destino quando termina (cancelar ou falhar não deixa zip pela metade), o launcher confere o espaço livre e não deixa salvar dentro da pasta do próprio jogo. Em **Backups e restauração…** dá para restaurar o mais recente automático ou escolher um `.zip` qualquer.
 - **Atualização do launcher**: avisa na barra de baixo quando há versão nova nas Releases. No `.exe`, baixa, confere o SHA-256, fecha, troca os arquivos e reabre; rodando pelo código, abre a página da release.
 - Cache por ETag: atualizar a lista não gasta o limite da API quando nada mudou.
 
@@ -58,7 +59,7 @@ Adicione jogos em `%LOCALAPPDATA%\UsagiGameLauncher\catalog.user.json` (ou pelo 
 ```
 python tests/test_core.py        # 32 testes de lógica
 python tests/test_covers.py      # 33 testes das fontes e do cache de capas
-python tests/test_extras.py      # 46 testes de segurança, filtro adulto, backup, autoatualização, estrelas, remoção, ordenação e busca de instalados
+python tests/test_extras.py      # 55 testes de segurança, filtro adulto, backups, autoatualização, estrelas, remoção, ordenação e busca de instalados
 python tests/smoke_ui.py pasta   # interface sem tela + instalação ponta a ponta + capturas
 ```
 
