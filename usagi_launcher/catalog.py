@@ -10,10 +10,11 @@ from .errors import RateLimitError
 from .jsonio import load_json, save_json
 
 PLATFORMS = [
-    "N64", "Xbox 360", "Xbox", "PS4", "PS3", "PS2", "PS1", "PSP", "GameCube", "Wii",
+    "N64", "Xbox 360", "Xbox One", "Xbox", "PS4", "PS3", "PS2", "PS1", "PSP", "GameCube", "Wii",
     "Switch", "Dreamcast", "SNES", "NES", "Game Boy", "GBA", "DS", "Outros",
 ]
 
+EXTERNAL_PREFIX = "ext/"
 DEFAULT_TARGET = "Windows"
 TARGETS = ["Windows", "Linux", "macOS", "Android", "Switch", "Portátil ARM64", "Navegador"]
 
@@ -62,6 +63,7 @@ class Entry:
     target: str = ""  # para onde o jogo foi portado; vazio = Windows (PC)
     created_at: str = ""  # só nos descobertos (usado na avaliação de risco)
     adult: bool = False  # conteúdo adulto/sugestivo: escondido, a menos que o usuário ligue
+    link: str = ""  # jogos fora do GitHub: página onde baixar (ex.: itch.io)
 
     def __post_init__(self) -> None:
         if not self.name:
@@ -76,7 +78,14 @@ class Entry:
         return self.repo.split("/")[0]
 
     @property
+    def external(self) -> bool:
+        """Jogo que não está no GitHub: sem releases; o download é feito por você na página."""
+        return self.repo.lower().startswith(EXTERNAL_PREFIX)
+
+    @property
     def url(self) -> str:
+        if self.external and self.link:
+            return self.link
         return f"https://github.com/{self.repo}"
 
     def to_dict(self) -> dict:
@@ -88,6 +97,16 @@ class Entry:
             return None
         names = {f.name for f in fields(cls)}
         return cls(**{k: v for k, v in d.items() if k in names})
+
+
+def external_repo(name: str, taken: set[str]) -> str:
+    """Identificador interno (ext/nome) para um jogo fora do GitHub, sem repetir os existentes."""
+    slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")[:40] or "jogo"
+    repo, i = EXTERNAL_PREFIX + slug, 2
+    while repo in taken:
+        repo = f"{EXTERNAL_PREFIX}{slug}-{i}"
+        i += 1
+    return repo
 
 
 def pretty_name(raw: str) -> str:

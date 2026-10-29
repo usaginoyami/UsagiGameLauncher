@@ -221,6 +221,51 @@ roundtrip = published.parse(doc)
 check(len(roundtrip) == len(doc["games"]), "o cliente consegue ler o que o curador publicou")
 QMessageBox.exec = orig_box_exec
 
+# jogo de fora do GitHub (itch.io) com print colado
+from usagi_launcher.ui import edit_dialogs as ed  # noqa: E402
+
+
+class FakeDlg:
+    cover = png("#3355aa")
+
+    def __init__(self, parent=None):
+        pass
+
+    def exec(self):
+        return mw.QDialog.DialogCode.Accepted
+
+    def values(self):
+        return {"name": "Azimuth", "link": "https://almost-there-games.itch.io/azimuth",
+                "platform": "Xbox One", "target": "Windows", "description": "teste"}
+
+
+mw.ExternalGameDialog = FakeDlg
+win.add_external()
+ext = win.rows.get("ext/azimuth")
+check(ext is not None and ext.entry.external, "jogo de fora adicionado ao catálogo do curador")
+check(any(u.key == "ext/azimuth" for u in catalog.load_user()), "jogo de fora gravado no catálogo do usuário")
+check(win.covers.store.image_for("ext/azimuth")[1], "print ficou como capa escolhida")
+win.select("ext/azimuth")
+check(win.b_main.text() == "Abrir página do jogo" and win.b_main.isEnabled(), "botão principal abre a página")
+check("itch.io" in win.d_repo.text(), "painel mostra o link no lugar do repositório")
+check(ext.loaded and ext.release is None, "sem consulta de releases para jogo de fora")
+opened = []
+mw.QDesktopServices.openUrl = staticmethod(lambda u: opened.append(u.toString()))
+win.primary_action("ext/azimuth")
+check(opened == ["https://almost-there-games.itch.io/azimuth"], "abre a página no navegador")
+QMessageBox.exec = pick_folder_button
+QMessageBox.clickedButton = lambda self: getattr(self, "_chosen", None)
+answers = iter([QMessageBox.StandardButton.Yes])
+mw.QMessageBox.question = staticmethod(lambda *a, **k: next(answers))
+out2 = tmp / "out2"
+out2.mkdir()
+QFileDialog.getExistingDirectory = staticmethod(lambda *a, **k: str(out2))
+win.publish_catalog()
+doc2 = json.loads((out2 / "catalog" / "catalog.json").read_text(encoding="utf-8"))
+g = {x["repo"]: x for x in doc2["games"]}["ext/azimuth"]
+check(g["link"].startswith("https://") and g["cover"].startswith("covers/"), "publicação leva o link e o print do jogo de fora")
+QMessageBox.exec = orig_box_exec
+
 win.close()
 edition.set_edition(None)
 print()

@@ -27,7 +27,7 @@ CATALOG_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/{DIR}/catalog.
 MAX_BYTES = 5 * 1024 * 1024
 MAX_GAMES = 3000
 _FIELDS = ("repo", "name", "platform", "target", "description", "notes", "asset_hint",
-           "homepage", "cover_title")
+           "homepage", "cover_title", "link")
 _SAFE_COVER = re.compile(r"^covers/[A-Za-z0-9._-]{1,80}\.(?:jpg|png|webp|gif)$")
 
 
@@ -107,6 +107,7 @@ def parse(raw: object, base_url: str = CATALOG_URL) -> list[catalog.Entry]:
             asset_hint=hint,
             homepage=str(g.get("homepage", ""))[:200] if str(g.get("homepage", "")).startswith("https://") else "",
             cover_title=str(g.get("cover_title", ""))[:80],
+            link=str(g.get("link", ""))[:300] if str(g.get("link", "")).startswith("https://") else "",
             cover=_clean_cover(g.get("cover"), base_url),
             adult=bool(g.get("adult")),
             source="catalog",

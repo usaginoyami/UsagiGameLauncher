@@ -92,6 +92,35 @@ class Edition(unittest.TestCase):
         self.assertNotIn("Client", selfupdate.find_update(C())[1].name)
 
 
+# ------------------------------------------------------------- jogos de fora
+class External(unittest.TestCase):
+    def test_repo_id_is_unique_and_safe(self):
+        from usagi_launcher import catalog
+        a = catalog.external_repo("Azimuth!", set())
+        self.assertEqual(a, "ext/azimuth")
+        self.assertEqual(catalog.external_repo("Azimuth", {a}), "ext/azimuth-2")
+        self.assertEqual(catalog.external_repo("???", set()), "ext/jogo")
+        self.assertTrue(catalog.parse_repo(a))
+
+    def test_entry_external_url_and_roundtrip(self):
+        from usagi_launcher import catalog
+        e = Entry("ext/azimuth", name="Azimuth", platform="Xbox One", link="https://x.itch.io/azimuth", source="user")
+        self.assertTrue(e.external)
+        self.assertEqual(e.url, "https://x.itch.io/azimuth")
+        self.assertFalse(Entry("a/b").external)
+        self.assertEqual(Entry("ext/semlink").url, "https://github.com/ext/semlink")
+        back = catalog.Entry.from_dict(e.to_dict())
+        self.assertEqual(back.link, e.link)
+        self.assertIn("Xbox One", catalog.PLATFORMS)
+
+    def test_published_keeps_https_link_only(self):
+        doc = published.build([Entry("ext/a", name="A", link="https://x.itch.io/a"),
+                               Entry("ext/b", name="B", link="http://x/b")])
+        by = {e.key: e for e in published.parse(doc)}
+        self.assertEqual(by["ext/a"].link, "https://x.itch.io/a")
+        self.assertEqual(by["ext/b"].link, "")
+
+
 # ------------------------------------------------------------------ cofre
 class Secrets(unittest.TestCase):
     def setUp(self):

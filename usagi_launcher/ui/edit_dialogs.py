@@ -203,3 +203,112 @@ class ScanDialog(QDialog):
                 used.add(key)
                 out.append((f, key))
         return out
+
+
+class ExternalGameDialog(QDialog):
+    """Jogo que não está no GitHub: nome, página de download, plataformas, descrição e um print."""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Adicionar jogo de fora do GitHub")
+        self.setMinimumWidth(500)
+        self.cover: bytes | None = None
+        self.name = QLineEdit()
+        self.name.setPlaceholderText("Ex.: Azimuth")
+        self.link = QLineEdit()
+        self.link.setPlaceholderText("https://… (itch.io, site do projeto etc.)")
+        self.origin = QComboBox()
+        self.origin.setEditable(True)
+        self.origin.addItems(catalog.PLATFORMS)
+        self.dest = QComboBox()
+        self.dest.setEditable(True)
+        self.dest.addItems(catalog.TARGETS)
+        self.desc = QLineEdit()
+        self.desc.setPlaceholderText("Descrição curta (opcional)")
+        self.pic = QLabel("Sem imagem")
+        self.pic.setStyleSheet("color: #8b8b99;")
+        pick = QPushButton("Escolher imagem…")
+        paste = QPushButton("Colar print")
+        pick.clicked.connect(self._pick)
+        paste.clicked.connect(self._paste)
+        pic_row = QHBoxLayout()
+        pic_row.addWidget(self.pic, 1)
+        pic_row.addWidget(pick)
+        pic_row.addWidget(paste)
+
+        form = QFormLayout()
+        form.addRow("Nome", self.name)
+        form.addRow("Link da página", self.link)
+        form.addRow("Plataforma original", self.origin)
+        form.addRow("Roda em", self.dest)
+        form.addRow("Descrição", self.desc)
+        form.addRow("Capa / print", pic_row)
+        self.error = QLabel("")
+        self.error.setStyleSheet("color: #f2b84b;")
+        ok, cancel = QPushButton("Adicionar"), QPushButton("Cancelar")
+        ok.setObjectName("primary")
+        ok.clicked.connect(self._accept)
+        cancel.clicked.connect(self.reject)
+        btns = QHBoxLayout()
+        btns.addWidget(self.error, 1)
+        btns.addWidget(cancel)
+        btns.addWidget(ok)
+        lay = QVBoxLayout(self)
+        lay.addLayout(form)
+        lay.addLayout(btns)
+
+    def _set_image(self, data: bytes) -> None:
+        from ..covers import MAX_BYTES, sniff
+        if not sniff(data) or len(data) > MAX_BYTES:
+            self.error.setText("Imagem inválida (use PNG, JPG, WEBP ou GIF de até 8 MB).")
+            return
+        self.cover = data
+        self.error.setText("")
+        self.pic.setText(f"Imagem pronta ({len(data) // 1024} KB)")
+
+    def _pick(self) -> None:
+        from PySide6.QtWidgets import QFileDialog
+        f, _ = QFileDialog.getOpenFileName(self, "Escolher imagem", "",
+                                           "Imagens (*.png *.jpg *.jpeg *.webp *.gif)")
+        if f:
+            try:
+                self._set_image(open(f, "rb").read())
+            except OSError as e:
+                self.error.setText(str(e))
+
+    def _paste(self) -> None:
+        data = clipboard_png()
+        if data is None:
+            self.error.setText("Não há imagem na área de transferência. Tire o print (Win+Shift+S) e tente de novo.")
+        else:
+            self._set_image(data)
+
+    def _accept(self) -> None:
+        if not self.name.text().strip():
+            self.error.setText("Dê um nome ao jogo.")
+            return
+        link = self.link.text().strip()
+        if link and not link.lower().startswith("https://"):
+            self.error.setText("O link precisa começar com https://")
+            return
+        self.accept()
+
+    def values(self) -> dict:
+        return {"name": " ".join(self.name.text().split())[:80], "link": self.link.text().strip(),
+                "platform": self.origin.currentText().strip() or "Outros",
+                "target": self.dest.currentText().strip(),
+                "description": self.desc.text().strip()[:600]}
+
+
+def clipboard_png() -> bytes | None:
+    """Imagem que está na área de transferência (um print), como PNG; None se não houver."""
+    from PySide6.QtCore import QBuffer, QByteArray, QIODevice
+    from PySide6.QtGui import QGuiApplication
+    img = QGuiApplication.clipboard().image()
+    if img.isNull():
+        return None
+    ba = QByteArray()
+    buf = QBuffer(ba)
+    buf.open(QIODevice.OpenModeFlag.WriteOnly)
+    img.save(buf, "PNG")
+    return bytes(ba)

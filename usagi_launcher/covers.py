@@ -32,11 +32,11 @@ IGDB_IMG = "https://images.igdb.com/igdb/image/upload/t_cover_big/{}.jpg"
 IGDB_THUMB = "https://images.igdb.com/igdb/image/upload/t_cover_small/{}.jpg"
 # ids de plataforma da IGDB: a busca filtra por eles para não trazer o mesmo título de outro console
 IGDB_PLATFORMS = {"N64": 4, "PS1": 7, "PS2": 8, "PS3": 9, "PS4": 48, "PSP": 38, "Xbox": 11,
-                  "Xbox 360": 12, "Wii": 5, "GameCube": 21, "Switch": 130, "Dreamcast": 23,
+                  "Xbox 360": 12, "Xbox One": 49, "Wii": 5, "GameCube": 21, "Switch": 130, "Dreamcast": 23,
                   "SNES": 19, "NES": 18, "Game Boy": 33, "GBA": 24, "DS": 20}
 WIKI_PLATFORM = {"N64": "Nintendo 64", "PS1": "PlayStation", "PS2": "PlayStation 2",
                  "PS3": "PlayStation 3", "PS4": "PlayStation 4", "PSP": "PlayStation Portable",
-                 "Xbox": "Xbox", "Xbox 360": "Xbox 360", "Wii": "Wii", "GameCube": "GameCube",
+                 "Xbox": "Xbox", "Xbox 360": "Xbox 360", "Xbox One": "Xbox One", "Wii": "Wii", "GameCube": "GameCube",
                  "Switch": "Nintendo Switch", "Dreamcast": "Dreamcast", "SNES": "Super Nintendo",
                  "NES": "Nintendo Entertainment System", "GBA": "Game Boy Advance"}
 MAX_BYTES = 8 * 1024 * 1024

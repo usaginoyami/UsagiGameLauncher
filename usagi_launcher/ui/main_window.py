@@ -28,7 +28,8 @@ from ..library import Library
 from ..settings import Settings
 from . import theme
 from .cover_picker import CoverPickerDialog
-from .edit_dialogs import NamePickerDialog, PlatformDialog, ScanDialog
+from .edit_dialogs import (ExternalGameDialog, NamePickerDialog, PlatformDialog, ScanDialog,
+                           clipboard_png)
 from .covers_ui import CoverCache, CoverView, paint_cover
 from .tasks import Task, TaskRunner
 
@@ -168,6 +169,8 @@ class CardDelegate(QStyledItemDelegate):
             x += self._chip(p, x, y, "Atualizar", theme.AMBER, "#1a1200")
         elif row.installed:
             x += self._chip(p, x, y, "Instalado", theme.GREEN, "#04210f")
+        elif row.entry.external:
+            x += self._chip(p, x, y, "Fora do GitHub", "#33333f", theme.MUTED)
         elif row.loaded and row.release is None and not row.error:
             x += self._chip(p, x, y, "Sem release", "#33333f", theme.MUTED)
         elif row.entry.source == "discovered":
@@ -425,6 +428,8 @@ class MainWindow(QMainWindow):
         self.btn_add = QPushButton("Adicionar repositório")
         self.btn_locate = QPushButton("Localizar instalados")
         self.btn_settings = QPushButton("Configurações")
+        self.btn_external = QPushButton("Adicionar jogo de fora…")
+        self.btn_external.clicked.connect(self.add_external)
         self.btn_publish = QPushButton("Publicar catálogo…")
         self.btn_publish.clicked.connect(self.publish_catalog)
         self.btn_locate.clicked.connect(self.locate_installed)
@@ -436,11 +441,11 @@ class MainWindow(QMainWindow):
             self.btn_refresh.setText("Atualizar catálogo e releases")
             buttons = (self.btn_refresh, self.btn_locate, self.btn_settings)
         else:
-            buttons = (self.btn_refresh, self.btn_discover, self.btn_add, self.btn_locate,
-                       self.btn_publish, self.btn_settings)
+            buttons = (self.btn_refresh, self.btn_discover, self.btn_add, self.btn_external,
+                       self.btn_locate, self.btn_publish, self.btn_settings)
         for b in buttons:
             sl.addWidget(b)
-        for b in (self.btn_discover, self.btn_add, self.btn_publish):
+        for b in (self.btn_discover, self.btn_add, self.btn_external, self.btn_publish):
             b.setVisible(not self.client_mode)
         lay.addWidget(side)
 
@@ -753,7 +758,8 @@ class MainWindow(QMainWindow):
         self.d_cover.set_entry(e)
         self.d_title.setText(e.name)
         star_txt = f" · ★ {e.stars:,} no GitHub".replace(",", ".") if e.stars else ""
-        self.d_repo.setText(f"<a style='color:{theme.RED}' href='{e.url}'>{e.repo}</a>{star_txt}")
+        shown = (e.link or "Fora do GitHub") if e.external else e.repo
+        self.d_repo.setText(f"<a style='color:{theme.RED}' href='{e.url}'>{shown}</a>{star_txt}")
         self.d_desc.setText(e.description or "Sem descrição.")
         self.d_note.setText(e.notes)
         self.d_note.setVisible(bool(e.notes))
@@ -777,7 +783,11 @@ class MainWindow(QMainWindow):
 
         lines = []
         asset = None
-        if rel is not None:
+        if e.external:
+            lines.append(f"<span style='color:{theme.MUTED}'>Jogo de fora do GitHub: baixe pela página e depois use "
+                         "“Já tenho este jogo instalado…”. Não há atualização automática.</span>"
+                         + (f"<br><a style='color:{theme.RED}' href='{e.link}'>{e.link}</a>" if e.link else ""))
+        elif rel is not None:
             asset = installer.pick_asset(rel.assets, e.asset_hint)
             kind = "pré-release" if rel.prerelease else "estável"
             lines.append(f"<b>Última release:</b> {rel.tag} ({kind}) · {fmt_date(rel.published_at)}")
@@ -809,13 +819,14 @@ class MainWindow(QMainWindow):
         self.d_notes.setMarkdown(rel.body if rel and rel.body else "")
 
         busy = key in self.active
-        self.b_main.setText("Jogar" if row.installed else "Instalar")
-        self.b_main.setEnabled(not busy and (row.installed or asset is not None))
+        self.b_main.setText("Jogar" if row.installed else ("Abrir página do jogo" if e.external else "Instalar"))
+        self.b_main.setEnabled(not busy and (row.installed or asset is not None or (e.external and bool(e.link))))
         manual = bool(row.installed and row.rec.get("version") == "manual" and rel is not None)
         self.b_update.setText("Instalar a última release" if manual and not row.has_update else "Atualizar")
         self.b_update.setVisible(row.has_update or manual)
         self.b_update.setEnabled(not busy and asset is not None)
-        self.b_web.setEnabled(True)
+        self.b_web.setText("Página ↗" if e.external else "Releases ↗")
+        self.b_web.setEnabled(not e.external or bool(e.link))
         self.b_folder.setVisible(row.installed)
         self.b_have.setVisible(not row.installed)
         self.b_backup.setVisible(row.installed)
@@ -865,7 +876,7 @@ class MainWindow(QMainWindow):
 
     def fetch_stars(self, key: str, force: bool = False) -> None:
         row = self.rows.get(key)
-        if row is None or key in self.fetching_stars:
+        if row is None or key in self.fetching_stars or row.entry.external:
             return
         if not force and row.entry.stars and not self.stars.is_stale(key):
             return
@@ -887,6 +898,9 @@ class MainWindow(QMainWindow):
 
     def fetch_release(self, key: str, force: bool = False) -> None:
         row = self.rows.get(key)
+        if row is not None and row.entry.external:
+            row.loaded = True  # fora do GitHub: não há releases para consultar
+            return
         if row is None or key in self.fetching or (row.loaded and not force):
             return
         self.fetching.add(key)
@@ -994,6 +1008,8 @@ class MainWindow(QMainWindow):
             return
         if row.installed:
             self.play(key)
+        elif row.entry.external:
+            QDesktopServices.openUrl(QUrl(row.entry.url))
         else:
             self.start_install(key)
 
@@ -1520,6 +1536,9 @@ class MainWindow(QMainWindow):
     def open_releases(self) -> None:
         row = self.rows.get(self.current or "")
         if row:
+            if row.entry.external:
+                QDesktopServices.openUrl(QUrl(row.entry.url))
+                return
             QDesktopServices.openUrl(QUrl(row.release.html_url if row.release else row.entry.url + "/releases"))
 
     def toggle_favorite(self) -> None:
@@ -1615,6 +1634,41 @@ class MainWindow(QMainWindow):
 
         self.runner.run(lambda task: self.client.repo_info(repo), ok_cb, err_cb)
 
+    def add_external(self) -> None:
+        """Jogo fora do GitHub (ex.: itch.io): vira um card com link, plataformas, descrição e print."""
+        if self.client_mode:
+            return
+        dlg = ExternalGameDialog(self)
+        if dlg.exec() != QDialog.DialogCode.Accepted:
+            return
+        v = dlg.values()
+        repo = catalog.external_repo(v["name"], set(self.rows))
+        e = Entry(repo=repo, source="user", **v)
+        catalog.save_user([u for u in catalog.load_user() if u.key != e.key] + [e])
+        if dlg.cover:
+            try:
+                self.covers.store.set_custom_bytes(e.key, dlg.cover)
+            except (ValueError, OSError) as err:
+                QMessageBox.warning(self, "Capa inválida", str(err))
+        self.reload_entries()
+        self.apply_filters()
+        self.select(e.key)
+        self.statusBar().showMessage(f"{e.name} adicionado. Baixe pela página e use “Já tenho este jogo instalado…”.")
+
+    def paste_cover(self, key: str) -> None:
+        data = clipboard_png()
+        if data is None:
+            QMessageBox.information(self, "Colar print",
+                                    "Não há imagem na área de transferência. Tire o print (Win+Shift+S) e tente de novo.")
+            return
+        try:
+            self.covers.store.set_custom_bytes(key, data)
+        except (ValueError, OSError) as e:
+            QMessageBox.warning(self, "Imagem inválida", str(e))
+            return
+        self._cover_changed(key)
+        self.statusBar().showMessage("Print aplicado como capa.")
+
     def item_menu(self, pos) -> None:
         item = self.list.itemAt(pos)
         if item is None:
@@ -1628,7 +1682,8 @@ class MainWindow(QMainWindow):
             menu.addAction("Instalar", lambda: self.start_install(key))
         fav = self.settings.has("favorites", key)
         menu.addAction("Remover dos favoritos" if fav else "Favoritar", lambda: self._fav(key))
-        menu.addAction("Abrir no GitHub", lambda: QDesktopServices.openUrl(QUrl(row.entry.url)))
+        menu.addAction("Abrir página do jogo" if row.entry.external else "Abrir no GitHub",
+                       lambda: QDesktopServices.openUrl(QUrl(row.entry.url)))
         menu.addAction("Copiar link", lambda: QGuiApplication.clipboard().setText(row.entry.url))
         menu.addSeparator()
         if row.installed:
@@ -1649,6 +1704,7 @@ class MainWindow(QMainWindow):
                 menu.addAction("Restaurar nome original", lambda: self.rename_game(key, reset=True))
             menu.addAction("Escolher capa online…", lambda: self.pick_cover(key))
             menu.addAction("Definir capa de um arquivo…", lambda: self.set_cover(key))
+            menu.addAction("Colar print como capa", lambda: self.paste_cover(key))
         menu.addAction("Buscar capa de novo", lambda: self.refetch_cover(key))
         menu.addSeparator()
         if row.entry.source == "discovered" and not self.client_mode:
