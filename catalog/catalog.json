@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-29T19:08:45+00:00",
+  "updated": "2026-10-29T20:30:28+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -44,7 +44,7 @@
     {
       "repo": "petarov/alleycat.exe",
       "name": "Alley Cat",
-      "platform": "Outros",
+      "platform": "Dos",
       "target": "",
       "description": "x86_64 recompilation of Alley Cat - a video game by Bill Williams for Atari (1983) and IBM PC (1984)",
       "notes": "",
@@ -57,7 +57,7 @@
     {
       "repo": "spacefarergames/AloneInTheDarkReHaunted",
       "name": "Alone in the Dark",
-      "platform": "Outros",
+      "platform": "Windows",
       "target": "",
       "description": "A heavily enhanced port and dynamic recomp of Alone In The Dark 1, with Textured Models, HD-4K background replacements, QOL improvements, controller support and so much more.",
       "notes": "",
@@ -66,19 +66,6 @@
       "cover_title": "",
       "adult": false,
       "cover": "covers/spacefarergames_aloneinthedarkrehaunted.jpg"
-    },
-    {
-      "repo": "moechofe/AmigaRecomp",
-      "name": "Amiga Recomp",
-      "platform": "Outros",
-      "target": "",
-      "description": "A collection of Amiga games that runs on desktop with some quality-of-life improvements.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/moechofe_amigarecomp.jpg"
     },
     {
       "repo": "OpenPortroid/ArmyOfTwoRecompilation",
@@ -117,33 +104,7 @@
       "homepage": "",
       "cover_title": "",
       "adult": false,
-      "cover": "covers/pauloubirajara_asuras-wrath-recomp.png"
-    },
-    {
-      "repo": "Shagg88/Athelas",
-      "name": "Athelas",
-      "platform": "Xbox",
-      "target": "",
-      "description": "Play The Return of the King (PC and Xbox) and The Two Towers (Xbox) on a modern PC",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/shagg88_athelas.png"
-    },
-    {
-      "repo": "some-scurvy-dog/banjo-tooie-scurvy-dog-port",
-      "name": "banjo tooie scurvy dog port",
-      "platform": "N64",
-      "target": "",
-      "description": "Banjo-Tooie Scurvy Dog Port: a static PC recompilation of Banjo-Tooie. **Not affiliated with the Banjo: Recompiled team**",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/some-scurvy-dog_banjo-tooie-scurvy-dog-port.jpg"
+      "cover": "covers/pauloubirajara_asuras-wrath-recomp.jpg"
     },
     {
       "repo": "BanjoRecomp/BanjoRecomp",
@@ -159,10 +120,23 @@
       "cover": "covers/banjorecomp_banjorecomp.jpg"
     },
     {
+      "repo": "some-scurvy-dog/banjo-tooie-scurvy-dog-port",
+      "name": "Banjo-Tooie",
+      "platform": "N64",
+      "target": "",
+      "description": "Banjo-Tooie Scurvy Dog Port: a static PC recompilation of Banjo-Tooie. **Not affiliated with the Banjo: Recompiled team**",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "adult": false,
+      "cover": "covers/some-scurvy-dog_banjo-tooie-scurvy-dog-port.jpg"
+    },
+    {
       "repo": "K0NL/B2recomp",
       "name": "Bayonetta 2",
       "platform": "Switch",
-      "target": "PC",
+      "target": "",
       "description": "Recompilação estática não oficial de Bayonetta 2 (Switch) para Windows. Monta o jogo no seu PC a partir da sua cópia.",
       "notes": "Requer a sua própria cópia do jogo.",
       "asset_hint": "",
@@ -173,7 +147,7 @@
     },
     {
       "repo": "andrebrumdev/ben10-omniverse-recomp",
-      "name": "ben 10 omniverse recomp",
+      "name": "Ben 10: Omniverse",
       "platform": "PS3",
       "target": "",
       "description": "Ben 10 Omniverse (PS3, BLUS31017) — native macOS port by static recompilation. No game code or assets.",
@@ -212,7 +186,7 @@
     },
     {
       "repo": "novapowers0/BloodyRoar2Recomp",
-      "name": "Bloody Roar 2Recomp",
+      "name": "Bloody Roar 2",
       "platform": "PS1",
       "target": "",
       "description": "PSX recompilation of Bloody Roar II (SLES-01722 EU / SCUS-94424 USA). Anti-copyright: bring your own disc. Dual-region builds, from-scratch widescreen + curated mods.",
@@ -330,7 +304,7 @@
     {
       "repo": "sp00nznet/redalert2-recomp",
       "name": "Command & Conquer: Red Alert 2",
-      "platform": "Outros",
+      "platform": "Windows",
       "target": "",
       "description": "Static recompilation of Command & Conquer: Red Alert 2 / Yuri's Revenge (Westwood, 2000-01) to native C, with the remaster the engine never got: a D3D11 presenter, 720p to 4K, HD voxel units. Built on pcrecomp.",
       "notes": "",
@@ -367,21 +341,8 @@
       "cover": "covers/dahsidiabdallah_conkerbfdreloaded.jpg"
     },
     {
-      "repo": "Dhaiwat10/cricket07-browser",
-      "name": "Cricket 07",
-      "platform": "Outros",
-      "target": "",
-      "description": "EA Sports Cricket 07 (2006) running in the browser: every function statically recompiled from x86 to C, then WebAssembly, with Direct3D 8 rebuilt on WebGPU. Bring your own copy.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/dhaiwat10_cricket07-browser.jpg"
-    },
-    {
       "repo": "llesieur99/daxter-psp-decomp",
-      "name": "daxter",
+      "name": "Daxter",
       "platform": "PSP",
       "target": "",
       "description": "Matching decompilation of Daxter for PSP (Insomniac, 2006). Workspace, method and tooling.",
@@ -460,7 +421,7 @@
     {
       "repo": "negroISO/doax3-fortune-pc",
       "name": "Dead or Alive Xtreme 3: Fortune",
-      "platform": "Outros",
+      "platform": "PS4",
       "target": "",
       "description": "Experimental DOAX3 Fortune CUSA04555 1.19 Windows/Vulkan source port. Bring your own game data; optional NR, no frame generation.",
       "notes": "",
@@ -473,7 +434,7 @@
     {
       "repo": "negroISO/doax3-scarlet-pc",
       "name": "Dead or Alive Xtreme 3: Scarlet",
-      "platform": "Outros",
+      "platform": "PS4",
       "target": "",
       "description": "Experimental DOAX3 Scarlet CUSA14173 1.08 Windows/Vulkan source port. Bring your own game data; optional NR, no frame generation.",
       "notes": "",
@@ -533,7 +494,7 @@
       "homepage": "https://github.com/LittleBitUA/DPRecomp/releases/latest",
       "cover_title": "",
       "adult": false,
-      "cover": "covers/littlebitua_dprecomp.png"
+      "cover": "covers/littlebitua_dprecomp.jpg"
     },
     {
       "repo": "vyanhursky/DefJamFFNY-recomp",
@@ -550,9 +511,9 @@
     },
     {
       "repo": "datfooldive/DEFJAM-XBERecomp-Linux",
-      "name": "DEFJAM XBERecomp Linux",
+      "name": "Def Jam: Fight for NY",
       "platform": "Xbox",
-      "target": "",
+      "target": "Linux",
       "description": "An unofficial native Linux port of Def Jam: Fight for NY (Xbox, 2004) by static recompilation.",
       "notes": "",
       "asset_hint": "",
@@ -563,7 +524,7 @@
     },
     {
       "repo": "ArmDucks/DigimonWorld3-Recomp",
-      "name": "Digimon World 3 Recomp",
+      "name": "Digimon World 3",
       "platform": "PS1",
       "target": "",
       "description": "Static recompilation of Digimon World 3 (PS1) for Windows, Linux and macOS. Widescreen, HD backgrounds, modern settings and gamepad support. Requires your own copy of the game.",
@@ -640,19 +601,6 @@
       "cover": "covers/sonicdcer_dnzhrecomp.jpg"
     },
     {
-      "repo": "sp00nznet/epicpinball",
-      "name": "epicpinball",
-      "platform": "Outros",
-      "target": "",
-      "description": "Static recompilation of Epic Pinball (DOS, 1993) with pcrecomp",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/sp00nznet_epicpinball.gif"
-    },
-    {
       "repo": "samuelit0davila/fifa-street-pc-port",
       "name": "FIFA Street (2012)",
       "platform": "Xbox 360",
@@ -668,7 +616,7 @@
     {
       "repo": "Jorge262007/FFTARecomp",
       "name": "Final Fantasy Tactics",
-      "platform": "Outros",
+      "platform": "GBA",
       "target": "",
       "description": "Native Windows port of Final Fantasy Tactics Advance with widescreen, video/audio options and a one-click installer.",
       "notes": "",
@@ -864,7 +812,7 @@
       "repo": "arnaldolima1/gow-ghost-of-sparta-pc",
       "name": "God of War: Ghost of Sparta",
       "platform": "PSP",
-      "target": "",
+      "target": "macOS",
       "description": "Port nativo de God of War: Ghost of Sparta (PSP) por recompilação estática sobre o PortableKit. Vulkan, macOS primeiro.",
       "notes": "Requer a sua própria cópia do jogo.",
       "asset_hint": "",
@@ -916,7 +864,7 @@
       "repo": "DrummingBird1/gow-psp-recomp",
       "name": "GOW Chains of Olympus + Ghost of Sparta",
       "platform": "PSP",
-      "target": "PC",
+      "target": "",
       "description": "Unofficial native PC ports of God of War: Chains of Olympus and Ghost of Sparta (PSP) by static recompilation. Bring your own disc.",
       "notes": "",
       "asset_hint": "",
@@ -955,7 +903,7 @@
       "repo": "SubhanHabib/OpenGTPS1",
       "name": "Gran Turismo 2 (PS1, build macOS)",
       "platform": "PS1",
-      "target": "",
+      "target": "macOS",
       "description": "Build experimental para macOS do port OpenGTPS1 (Gran Turismo 2 dos EUA, recompilação estática).",
       "notes": "Requer a sua própria cópia do jogo. Build para macOS. Para Windows, veja GTTeancum/OpenGTPS1. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
       "asset_hint": "",
@@ -1027,7 +975,7 @@
       "homepage": "",
       "cover_title": "",
       "adult": false,
-      "cover": "covers/hayatog_gr2_pc.png"
+      "cover": "covers/hayatog_gr2_pc.jpg"
     },
     {
       "repo": "jillsandwich1998/reGH2",
@@ -1043,8 +991,21 @@
       "cover": "covers/jillsandwich1998_regh2.jpg"
     },
     {
+      "repo": "chrissotraidis/projectreach",
+      "name": "Halo: Combat Evolved",
+      "platform": "Xbox",
+      "target": "",
+      "description": "Halo: Combat Evolved on iPhone, iPad and Mac. The Xbox edition with online matches of up to 128 players and the original campaign, plus Halo Custom Edition with its community servers. Bring your own game and build it on your Mac.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "adult": false,
+      "cover": "covers/chrissotraidis_projectreach.jpg"
+    },
+    {
       "repo": "hunkstalker/hybrid-heaven-recomp",
-      "name": "hybrid heaven recomp",
+      "name": "Hybrid Heaven",
       "platform": "N64",
       "target": "",
       "description": "Unofficial AI native PC port of Hybrid Heaven (N64) via static recompilation, featuring a purist UI preserving the original design. Multi-language: EN, ES, CA, FR, DE, JP <- In progress",
@@ -1066,12 +1027,12 @@
       "homepage": "",
       "cover_title": "",
       "adult": false,
-      "cover": "covers/hayatog_iss_pc.png"
+      "cover": "covers/hayatog_iss_pc.jpg"
     },
     {
       "repo": "distilledorion-sketch/Initial-D-Arcade-Stage-3-Native-SH-4-Recompilation-WIP-",
       "name": "Initial D Arcade Stage 3 Native SH 4 Recompilation WIP",
-      "platform": "Outros",
+      "platform": "Arcade",
       "target": "",
       "description": "Native SH-4 AOT recompilation of Initial D Arcade Stage 3 (NAOMI 2) — BIOS-free Vulkan public early demo (WIP).",
       "notes": "",
@@ -1079,7 +1040,7 @@
       "homepage": "https://github.com/distilledorion-sketch/Initial-D-Arcade-Stage-3-Native-SH-4-Recompilation-WIP-/releases/tag/v2415-host-safety",
       "cover_title": "",
       "adult": false,
-      "cover": "covers/distilledorion-sketch_initial-d-arcade-stage-3-native-sh-4-recompilati.png"
+      "cover": "covers/distilledorion-sketch_initial-d-arcade-stage-3-native-sh-4-recompilati.jpg"
     },
     {
       "repo": "TGP482/007FRWL-XBERecomp",
@@ -1096,7 +1057,7 @@
     },
     {
       "repo": "goodshepherd23/JetMoto2-Recomp",
-      "name": "Jet Moto 2 Recomp",
+      "name": "Jet Moto 2",
       "platform": "PS1",
       "target": "",
       "description": "Jet Moto 2 Recompiled - native PC build of Jet Moto 2: Championship Edition (PS1, SCUS-94167) via RecompOne static recompilation. Bring your own disc.",
@@ -1124,7 +1085,7 @@
       "repo": "sp00nznet/luigismansion",
       "name": "Luigi's Mansion",
       "platform": "GameCube",
-      "target": "PC",
+      "target": "",
       "description": "Luigi's Mansion (GameCube): recompilação estática.",
       "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
       "asset_hint": "",
@@ -1150,7 +1111,7 @@
       "repo": "dougchansan/mk8-recomp",
       "name": "Mario Kart 8 Deluxe",
       "platform": "Switch",
-      "target": "PC",
+      "target": "",
       "description": "Mario Kart 8 Deluxe recompilado estaticamente (CPU AArch64 para x86-64) sobre o recompilador AOT do suyu.",
       "notes": "Requer a sua própria cópia do jogo. Experimental: o README descreve a Mushroom Cup jogável.",
       "asset_hint": "",
@@ -1158,19 +1119,6 @@
       "cover_title": "Mario Kart 8 Deluxe",
       "adult": false,
       "cover": "covers/dougchansan_mk8-recomp.jpg"
-    },
-    {
-      "repo": "dorPXP/driftdroid",
-      "name": "Mario Kart Wii",
-      "platform": "Wii",
-      "target": "Android",
-      "description": "A native Android port of Mario Kart Wii and Retro Rewind. Fast, easy.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/dorpxp_driftdroid.jpg"
     },
     {
       "repo": "FractalEngineer/Medal-Of-Honor-PSX-Recomp",
@@ -1241,7 +1189,7 @@
       "repo": "mstan/MetroidNESRecomp",
       "name": "Metroid (NES)",
       "platform": "NES",
-      "target": "PC",
+      "target": "",
       "description": "Metroid (NES) recompilado com nesrecomp, da comunidade R.A.I.D.",
       "notes": "Requer a sua própria cópia do jogo.",
       "asset_hint": "",
@@ -1254,7 +1202,7 @@
       "repo": "Zaxaerith/MetroidFusionRecomp",
       "name": "Metroid Fusion",
       "platform": "GBA",
-      "target": "PC",
+      "target": "",
       "description": "Recompilação de Metroid Fusion (GBA).",
       "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
       "asset_hint": "",
@@ -1267,7 +1215,7 @@
       "repo": "Odrannnn/MetroidPrimePort",
       "name": "Metroid Prime",
       "platform": "GameCube",
-      "target": "PC",
+      "target": "",
       "description": "Port nativo de Metroid Prime (GameCube) para Linux, Windows e Android, feito a partir da decompilação PrimeDecomp. Sem emulador.",
       "notes": "Requer a sua própria cópia do jogo.",
       "asset_hint": "",
@@ -1303,9 +1251,22 @@
       "cover": "covers/masterllgod_naruto-storm-generations-port-nativo.jpg"
     },
     {
+      "repo": "SpeedBreakerProject/speedbreaker",
+      "name": "Need for Speed: Most Wanted",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "Unofficial static recompilation of the Xbox 360 version of Need for Speed: Most Wanted (2005): a native port for Steam Deck, Steam Machine, Steam Frame, Linux and Mac (iPhone/iPad: sideload the experimental IPA or build it yourself). Bring your own disc: no game files included. Not affiliated with EA or Valve.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://projectugarte.com/speedbreaker/",
+      "cover_title": "",
+      "adult": false,
+      "cover": "covers/speedbreakerproject_speedbreaker.jpg"
+    },
+    {
       "repo": "daniiichan/Need-for-Speed-Underground-2-macOS",
       "name": "Need for Speed: Underground 2",
-      "platform": "Outros",
+      "platform": "Windows",
       "target": "macOS",
       "description": "Native macOS (Apple Silicon / Intel) port of Need for Speed: Underground 2 at 60 FPS using DXVK Native and MoltenVK",
       "notes": "",
@@ -1342,19 +1303,6 @@
       "cover": "covers/gizcesi_opentricky.jpg"
     },
     {
-      "repo": "poopoocacacacaca/p3fes-recompiled",
-      "name": "p 3fes recompiled",
-      "platform": "Outros",
-      "target": "",
-      "description": "AI-Powered Static Recompilation of Persona 3 FES (USA)",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/poopoocacacacaca_p3fes-recompiled.jpg"
-    },
-    {
       "repo": "LoreanXavier/pt-pc",
       "name": "P.T.",
       "platform": "PS4",
@@ -1366,19 +1314,6 @@
       "cover_title": "P.T. (video game)",
       "adult": false,
       "cover": "covers/loreanxavier_pt-pc.jpg"
-    },
-    {
-      "repo": "wheremyfoodat/Panda3DS",
-      "name": "Panda 3DS",
-      "platform": "Outros",
-      "target": "",
-      "description": "HLE 3DS emulator",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "https://panda3ds.com/",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/wheremyfoodat_panda3ds.png"
     },
     {
       "repo": "alexbeavs-ps1-ports/parasite-eve-recomp",
@@ -1407,6 +1342,19 @@
       "cover": "covers/caiuscodes_perfect-dark-xbla-pc-recomp.jpg"
     },
     {
+      "repo": "poopoocacacacaca/p3fes-recompiled",
+      "name": "Persona 3 FES",
+      "platform": "PS2",
+      "target": "",
+      "description": "AI-Powered Static Recompilation of Persona 3 FES (USA)",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "adult": false,
+      "cover": "covers/poopoocacacacaca_p3fes-recompiled.jpg"
+    },
+    {
       "repo": "TekRantGaming/king-kong-recompiled",
       "name": "Peter Jackson's King Kong",
       "platform": "Xbox 360",
@@ -1420,10 +1368,23 @@
       "cover": "covers/tekrantgaming_king-kong-recompiled.jpg"
     },
     {
+      "repo": "JackandBeans/Snap64Recomp",
+      "name": "Pokémon Snap",
+      "platform": "N64",
+      "target": "",
+      "description": "Native Windows, Linux and macOS port of Pokémon Snap (N64) by static recompilation. Plays like the cartridge by default; every enhancement is opt-in. Bring your own dump; no game data is included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://github.com/JackandBeans/Snap64Recomp/releases/latest",
+      "cover_title": "",
+      "adult": false,
+      "cover": "covers/jackandbeans_snap64recomp.jpg"
+    },
+    {
       "repo": "raulzrrs/letsgo-recomp",
       "name": "Pokémon: Let's Go, Eevee!",
       "platform": "Switch",
-      "target": "PC",
+      "target": "",
       "description": "Native Windows port of Pokémon: Let's Go, Eevee! (Switch v1.0.0) by static recompilation, built on LAS Recomp. No game files included.",
       "notes": "",
       "asset_hint": "",
@@ -1431,45 +1392,6 @@
       "cover_title": "",
       "adult": false,
       "cover": "covers/raulzrrs_letsgo-recomp.jpg"
-    },
-    {
-      "repo": "GenryTheFox0/Project-2099",
-      "name": "Project 2099",
-      "platform": "Xbox",
-      "target": "",
-      "description": "Unofficial Windows recompilation of Spider-Man: Edge of Time with PC controls, settings, localization, achievements and mod support.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "https://t.me/teamgenrythefox",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/genrythefox0_project-2099.jpg"
-    },
-    {
-      "repo": "chrissotraidis/projectreach",
-      "name": "projectreach",
-      "platform": "Xbox",
-      "target": "",
-      "description": "Halo: Combat Evolved on iPhone, iPad and Mac. The Xbox edition with online matches of up to 128 players and the original campaign, plus Halo Custom Edition with its community servers. Bring your own game and build it on your Mac.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/chrissotraidis_projectreach.jpg"
-    },
-    {
-      "repo": "alexbeavs-ps1-ports/psxrecomp-ports",
-      "name": "psxrecomp ports",
-      "platform": "PS1",
-      "target": "",
-      "description": "Unofficial noncommercial PlayStation recompilation releases",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "https://alexbeavs-ps1-ports.github.io/psxrecomp-ports/",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/alexbeavs-ps1-ports_psxrecomp-ports.png"
     },
     {
       "repo": "Rainchus/Quest64-Recomp",
@@ -1551,7 +1473,7 @@
     },
     {
       "repo": "NoulZ-One/Ring-Of-Judgment---Shadow-Hearts-Recomp",
-      "name": "Ring Of Judgment Shadow Hearts Recomp",
+      "name": "Ring Of Judgment Shadow Hearts",
       "platform": "PS2",
       "target": "",
       "description": "Independent Recompilation of Shadow Hearts for PC",
@@ -1564,8 +1486,8 @@
     },
     {
       "repo": "petarov/saboteur2",
-      "name": "saboteur 2",
-      "platform": "Outros",
+      "name": "Saboteur II",
+      "platform": "Dos",
       "target": "",
       "description": "A recompilation of Saboteur II: Avenging Angel (1987) from its original DOS executable to x86_64 platforms",
       "notes": "",
@@ -1577,9 +1499,9 @@
     },
     {
       "repo": "Lordingard/SacredStonesRecomp",
-      "name": "Sacred Stones Recomp",
+      "name": "Sacred Stones",
       "platform": "GBA",
-      "target": "PC",
+      "target": "",
       "description": "Playable Windows and Android ARM64 recompilation of Fire Emblem: The Sacred Stones (GBA).",
       "notes": "",
       "asset_hint": "",
@@ -1642,7 +1564,7 @@
     },
     {
       "repo": "cookingwithsimon/Skate1Recompiled",
-      "name": "Skate 1Recompiled",
+      "name": "Skate 1",
       "platform": "Xbox 360",
       "target": "",
       "description": "",
@@ -1655,7 +1577,7 @@
     },
     {
       "repo": "christianortel/skate2-recompile-pc",
-      "name": "skate 2 recompile pc",
+      "name": "Skate 2",
       "platform": "Xbox",
       "target": "",
       "description": "Community Windows PC port of Skate 2, built with ReXGlue. Controller support, adjustable rendering quality, and unlocked FPS. Original game files required.",
@@ -1668,7 +1590,7 @@
     },
     {
       "repo": "cookingwithsimon/Skate2Recompiled",
-      "name": "Skate 2Recompiled",
+      "name": "Skate 2",
       "platform": "Xbox 360",
       "target": "",
       "description": "",
@@ -1680,34 +1602,8 @@
       "cover": "covers/cookingwithsimon_skate2recompiled.jpg"
     },
     {
-      "repo": "Buku313/Skate3-Mobile",
-      "name": "Skate 3 Mobile",
-      "platform": "Outros",
-      "target": "",
-      "description": "Play Skate 3 natively on Android. Download one APK, select your own ISO, and skate. ARM64 recompilation with Vulkan rendering.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "https://buku313.github.io/Skate3-Mobile/",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/buku313_skate3-mobile.png"
-    },
-    {
-      "repo": "JackandBeans/Snap64Recomp",
-      "name": "Snap 64Recomp",
-      "platform": "N64",
-      "target": "",
-      "description": "Native Windows, Linux and macOS port of Pokémon Snap (N64) by static recompilation. Plays like the cartridge by default; every enhancement is opt-in. Bring your own dump; no game data is included.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "https://github.com/JackandBeans/Snap64Recomp/releases/latest",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/jackandbeans_snap64recomp.png"
-    },
-    {
       "repo": "cdlewis/snowboardkids2-recomp",
-      "name": "snowboardkids 2 recomp",
+      "name": "Snowboard Kids 2",
       "platform": "N64",
       "target": "",
       "description": "Snowboard Kids 2 for PC (Windows/Linux/MacOS)",
@@ -1721,7 +1617,7 @@
     {
       "repo": "sonicfreak1337/SARecomp",
       "name": "Sonic Adventure",
-      "platform": "Outros",
+      "platform": "Dreamcast",
       "target": "",
       "description": "A fully playable, work-in-progress native Sonic Adventure port for Windows, Linux and Steam Deck. Powered by KatanaRecomp.",
       "notes": "",
@@ -1759,8 +1655,8 @@
     },
     {
       "repo": "Arzaroth/SoulCaliburIII_Recomp",
-      "name": "Soul Calibur III Recomp",
-      "platform": "Outros",
+      "name": "Soul Calibur III",
+      "platform": "PS2",
       "target": "",
       "description": "Soulcalibur III (USA) static recompilation with PS2Recomp - configs, overrides, notes (no game data)",
       "notes": "",
@@ -1774,7 +1670,7 @@
       "repo": "danielgomesvieira2000/soulcalibur-recomp",
       "name": "Soulcalibur",
       "platform": "Dreamcast",
-      "target": "PC",
+      "target": "",
       "description": "Port nativo para PC de Soulcalibur (Dreamcast), feito com dreamcomp. Sem dados do jogo.",
       "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
       "asset_hint": "",
@@ -1810,22 +1706,22 @@
       "cover": "covers/cellenseres_sssv_recomp.jpg"
     },
     {
-      "repo": "SpeedBreakerProject/speedbreaker",
-      "name": "speedbreaker",
-      "platform": "Xbox 360",
+      "repo": "GenryTheFox0/Project-2099",
+      "name": "Spider-Man: Edge of Time",
+      "platform": "Xbox",
       "target": "",
-      "description": "Unofficial static recompilation of the Xbox 360 version of Need for Speed: Most Wanted (2005): a native port for Steam Deck, Steam Machine, Steam Frame, Linux and Mac (iPhone/iPad: sideload the experimental IPA or build it yourself). Bring your own disc: no game files included. Not affiliated with EA or Valve.",
+      "description": "Unofficial Windows recompilation of Spider-Man: Edge of Time with PC controls, settings, localization, achievements and mod support.",
       "notes": "",
       "asset_hint": "",
-      "homepage": "https://projectugarte.com/speedbreaker/",
+      "homepage": "https://t.me/teamgenrythefox",
       "cover_title": "",
       "adult": false,
-      "cover": "covers/speedbreakerproject_speedbreaker.jpg"
+      "cover": "covers/genrythefox0_project-2099.jpg"
     },
     {
       "repo": "omegakatana92/Street-Fighter-Alpha-Recomp-",
       "name": "Street Fighter Alpha Recomp",
-      "platform": "Outros",
+      "platform": "Arcade",
       "target": "",
       "description": "A native PC port of Street Fighter Alpha: Warriors' Dreams (CPS-2), recompiled from the arcade board's code with cps2recomp - no emulator. Bring your own sfa ROM set.",
       "notes": "",
@@ -1839,7 +1735,7 @@
       "repo": "chasem-dev/sms-pc-port",
       "name": "Super Mario Sunshine",
       "platform": "GameCube",
-      "target": "PC",
+      "target": "",
       "description": "Port nativo para PC de Super Mario Sunshine.",
       "notes": "Requer a sua própria cópia do jogo.",
       "asset_hint": "",
@@ -1850,8 +1746,8 @@
     },
     {
       "repo": "FishB0nes98/Tekken3Recompiled",
-      "name": "Tekken 3Recompiled",
-      "platform": "Outros",
+      "name": "Tekken 3",
+      "platform": "PS1",
       "target": "",
       "description": "Tekken 3 hybrid recompilation preview with Jun Kazama, widescreen, custom skins and local asset import tools.",
       "notes": "",
@@ -1916,7 +1812,7 @@
     {
       "repo": "kuraeow/ultratears",
       "name": "The Legend of Zelda: Tears of the Kingdom",
-      "platform": "Outros",
+      "platform": "Switch",
       "target": "",
       "description": "Unofficial native Windows port of Tears of the Kingdom 1.4.3 using static recompilation. Builds locally from the player's own extracted game dump; no game files included.",
       "notes": "",
@@ -1938,6 +1834,19 @@
       "cover_title": "The Mummy",
       "adult": false,
       "cover": "covers/alexbeavs-ps1-ports_the-mummy-recomp.jpg"
+    },
+    {
+      "repo": "Shagg88/Athelas",
+      "name": "The Return of the King e The Two Towers",
+      "platform": "Xbox",
+      "target": "",
+      "description": "Play The Return of the King (PC and Xbox) and The Two Towers (Xbox) on a modern PC",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "adult": false,
+      "cover": "covers/shagg88_athelas.png"
     },
     {
       "repo": "NeilSeligmann/tsfp-recomp",
@@ -1968,7 +1877,7 @@
     {
       "repo": "MaxLeiter/project-8-plus",
       "name": "Tony Hawk's Project 8",
-      "platform": "Outros",
+      "platform": "PS3",
       "target": "",
       "description": "A PC recomp of Tony Hawk's Project 8, with HD textures, 60+ fps and mods",
       "notes": "",
@@ -1994,8 +1903,8 @@
     {
       "repo": "WenderSky/dragons-crown-pro-ptbr",
       "name": "Tradução PT-BR — Dragon's Crown Pro",
-      "platform": "Outros",
-      "target": "",
+      "platform": "Tradução BR",
+      "target": "Tradução BR",
       "description": "Traducao PT-BR (amadora, pode conter erros) de Dragon's Crown Pro na versao recompilada para PC/Steam Deck (saulob/dragons-crown-pro-pc). Historia, missoes, habilidades, itens, menus e tutoriais - 12.272 textos. Uso nao-comercial.",
       "notes": "",
       "asset_hint": "",
@@ -2019,7 +1928,7 @@
     {
       "repo": "mr-finster/vf1-recomp",
       "name": "Virtua Fighter",
-      "platform": "Outros",
+      "platform": "Arcade",
       "target": "",
       "description": "Virtua Fighter (Sega Model 1, 1993) statically recompiled for Mac, Windows and Steam Deck: up to 6x, widescreen, smooth 120 fps. Bring your own vf.zip.",
       "notes": "",
@@ -2032,7 +1941,7 @@
     {
       "repo": "mr-finster/vf2-recomp",
       "name": "Virtua Fighter 2",
-      "platform": "Outros",
+      "platform": "Arcade",
       "target": "",
       "description": "Virtua Fighter 2 (Sega Model 2, 1994) for Mac, Windows and Steam Deck: the arcade's i960 program recompiled to native code, up to 6x, widescreen, smooth 120 fps. Bring your own vf2.zip.",
       "notes": "",
@@ -2044,8 +1953,8 @@
     },
     {
       "repo": "yanm1103/War_of_the_Monsters_recomp",
-      "name": "War of the Monsters recomp",
-      "platform": "Outros",
+      "name": "War of the Monsters",
+      "platform": "PS2",
       "target": "",
       "description": "PC port of War of the Monsters focused on QoL and new features",
       "notes": "",
@@ -2057,7 +1966,7 @@
     },
     {
       "repo": "mikeflare007/wwe2k14-recomp",
-      "name": "wwe 2k 14 recomp",
+      "name": "WWE 2K14",
       "platform": "Xbox 360",
       "target": "",
       "description": "WWE 2K14 Recomp: unofficial native PC port of WWE 2K14 (Xbox 360) for Windows, made by static recompilation. 60 FPS, up to 4K. Bring your own game. Based on WWE '13 Recomp and ReXGlue.",
@@ -2124,7 +2033,7 @@
       "repo": "YeOldPress/alttp-dx",
       "name": "Zelda: A Link to the Past",
       "platform": "SNES",
-      "target": "PC",
+      "target": "",
       "description": "Port para PC de The Legend of Zelda: A Link to the Past.",
       "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
       "asset_hint": "",
@@ -2134,23 +2043,10 @@
       "cover": "covers/yeoldpress_alttp-dx.jpg"
     },
     {
-      "repo": "DoutorRaposo/moonpearl",
-      "name": "Zelda: A Link to the Past (Android)",
-      "platform": "SNES",
-      "target": "Android",
-      "description": "Android port of snesrev/zelda3 (ALttP reimplementation): widescreen, rewind, shaders, MSU-1, save states, controller support. Bring your own ROM.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/doutorraposo_moonpearl.jpg"
-    },
-    {
       "repo": "Revivedx/SavageWindRecomp",
       "name": "Zelda: Breath of the Wild (Switch)",
       "platform": "Switch",
-      "target": "PC",
+      "target": "",
       "description": "Recompilação estática em andamento de Zelda: Breath of the Wild (Switch, v1.8.2) para Windows e Linux.",
       "notes": "Requer a sua própria cópia do jogo.",
       "asset_hint": "",
@@ -2163,7 +2059,7 @@
       "repo": "peiikai/LASRecomp",
       "name": "Zelda: Link's Awakening (Switch)",
       "platform": "Switch",
-      "target": "PC",
+      "target": "",
       "description": "Recompilação estática de Link's Awakening (Switch) para macOS, Windows e Linux.",
       "notes": "Requer a sua própria cópia do jogo.",
       "asset_hint": "",
@@ -2202,7 +2098,7 @@
       "repo": "HarbourMasters/Shipwright",
       "name": "Zelda: Ocarina of Time",
       "platform": "N64",
-      "target": "PC",
+      "target": "",
       "description": "",
       "notes": "",
       "asset_hint": "",
@@ -2215,7 +2111,7 @@
       "repo": "Kyra422/skybreak",
       "name": "Zelda: Skyward Sword",
       "platform": "Wii",
-      "target": "PC",
+      "target": "",
       "description": "Projeto experimental de port nativo para PC de Zelda: Skyward Sword (Wii). Sem arquivos do jogo.",
       "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
       "asset_hint": "",
@@ -2227,7 +2123,7 @@
     {
       "repo": "TwilitRealm/dusklight",
       "name": "Zelda: Twilight Princess HD",
-      "platform": "Outros",
+      "platform": "Wii U",
       "target": "",
       "description": "Dusklight brings a classic adventure to PC and mobile platforms with a variety of fixes and improvements.",
       "notes": "",
@@ -2251,22 +2147,9 @@
       "cover": "covers/centollos_switchwakerhd.jpg"
     },
     {
-      "repo": "Nycolazs/WindWakerHD-Android-Plus",
-      "name": "Zelda: Wind Waker HD (Android)",
-      "platform": "Wii",
-      "target": "Android",
-      "description": "The Legend of Zelda: The Wind Waker HD natively on Android (static recompilation, Vulkan). Built-in Brazilian Portuguese translation, HUD editor, .wua support, controller gyro, and more. Bring your own game.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "adult": false,
-      "cover": "covers/nycolazs_windwakerhd-android-plus.jpg"
-    },
-    {
       "repo": "ZeldaWWHDRecomp/ZeldaWWHDRecomp",
       "name": "Zelda: Wind Waker HD Recomp",
-      "platform": "Outros",
+      "platform": "Wii",
       "target": "",
       "description": "Zelda Wind Waker HD Recomp",
       "notes": "",
