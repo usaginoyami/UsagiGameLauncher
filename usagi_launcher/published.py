@@ -132,11 +132,11 @@ class RemoteCatalog:
         except (CatalogError, AttributeError):
             return [], ""
 
-    def refresh(self) -> tuple[list[catalog.Entry] | None, str]:
+    def refresh(self, force: bool = False) -> tuple[list[catalog.Entry] | None, str]:
         """(entradas, mensagem). entradas=None quando nada mudou ou deu erro."""
         stored = load_json(self.cache_path, {})
         headers = {}
-        if isinstance(stored, dict) and stored.get("etag"):
+        if not force and isinstance(stored, dict) and stored.get("etag"):
             headers["If-None-Match"] = stored["etag"]
         try:
             r = self.session.get(self.url, headers=headers, timeout=20)

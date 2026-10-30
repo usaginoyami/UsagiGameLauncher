@@ -51,7 +51,7 @@ O mesmo código gera dois programas:
 - **Publicar no GitHub** grava `catalog/catalog.json` e `catalog/covers/` em `usaginoyami/UsagiGameLauncher` (precisa de token com permissão de escrita em *Contents*, nas Configurações; só envia o que mudou).
 - **Salvar numa pasta…** só gera os arquivos para você copiar para o repositório e fazer o commit.
 
-O cliente baixa `catalog/catalog.json` pelo `raw.githubusercontent.com` (com ETag, então não gasta nada quando nada mudou), valida o arquivo (formato, `dono/repo`, limites de tamanho, capas só por https) e guarda cópia local. **Atualizar catálogo e releases** força a checagem. Os jogos continuam sendo baixados das releases dos próprios projetos, nunca de você.
+O cliente baixa `catalog/catalog.json` pelo `raw.githubusercontent.com` (com ETag, então não gasta nada quando nada mudou), valida o arquivo (formato, `dono/repo`, limites de tamanho, capas só por https) e guarda cópia local. **Atualizar catálogo e releases** força a checagem, e **Atualizar capas** baixa o catálogo de novo e troca as capas pelas que você publicou. Os jogos continuam sendo baixados das releases dos próprios projetos, nunca de você.
 
 **Gerar os dois .exe**: o workflow do GitHub Actions faz os dois e publica na Release `UsagiGameLauncher-Windows-x64.zip` (curador) e `UsagiGameLauncher-Client-Windows-x64.zip` (cliente). Cada edição se atualiza sozinha com o zip da própria edição. Na sua máquina: `build.bat` (curador) e `build-client.bat` (cliente). Para testar o cliente pelo código: `python main.py --client` (use `--data-dir` para não misturar dados).
 

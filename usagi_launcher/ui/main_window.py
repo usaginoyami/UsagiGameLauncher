@@ -428,6 +428,8 @@ class MainWindow(QMainWindow):
         self.btn_add = QPushButton("Adicionar repositório")
         self.btn_locate = QPushButton("Localizar instalados")
         self.btn_settings = QPushButton("Configurações")
+        self.btn_covers = QPushButton("Atualizar capas")
+        self.btn_covers.clicked.connect(self.refresh_covers)
         self.btn_external = QPushButton("Adicionar jogo de fora…")
         self.btn_external.clicked.connect(self.add_external)
         self.btn_publish = QPushButton("Publicar catálogo…")
@@ -439,7 +441,7 @@ class MainWindow(QMainWindow):
         self.btn_settings.clicked.connect(self.open_settings)
         if self.client_mode:
             self.btn_refresh.setText("Atualizar catálogo e releases")
-            buttons = (self.btn_refresh, self.btn_locate, self.btn_settings)
+            buttons = (self.btn_refresh, self.btn_covers, self.btn_locate, self.btn_settings)
         else:
             buttons = (self.btn_refresh, self.btn_discover, self.btn_add, self.btn_external,
                        self.btn_locate, self.btn_publish, self.btn_settings)
@@ -1408,6 +1410,36 @@ class MainWindow(QMainWindow):
                 self.statusBar().showMessage(msg)
 
         self.runner.run(work, ok, lambda e: None)
+
+    def refresh_covers(self) -> None:
+        """Baixa de novo o catálogo e troca as capas pelas que o curador publicou."""
+        self.btn_covers.setEnabled(False)
+        self.statusBar().showMessage("Atualizando capas…")
+
+        def work(task: Task):
+            msg = ""
+            if self.client_mode and self.remote is not None:
+                _entries, msg = self.remote.refresh(force=True)
+            return msg
+
+        def finish(msg: str) -> None:
+            store = self.covers.store
+            store.clear_failures()
+            if self.client_mode:
+                base, _ = self.remote.cached()
+                for e in base:
+                    if e.cover and not store._base(e.key).with_suffix(".custom").exists():
+                        store.clear(e.key)  # a capa publicada vale mais que a achada sozinha
+            self.reload_entries()
+            self.apply_filters(keep_scroll=True)
+            self.covers.reset_all()
+            self.list.viewport().update()
+            self.d_cover.update()
+            self.btn_covers.setEnabled(True)
+            self.statusBar().showMessage("Capas atualizadas. " + msg if msg else "Capas atualizadas.")
+
+        self.runner.run(work, finish, lambda e: (self.btn_covers.setEnabled(True),
+                                                 self.statusBar().showMessage(f"Falha: {e}")))
 
     def _curated_entries(self) -> list[Entry]:
         """O que você curou: catálogo do programa + os seus, sem os removidos, com seus nomes e plataformas."""

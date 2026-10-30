@@ -70,10 +70,17 @@ win.show()
 pump(app, 0.2)
 
 check(set(win.rows) == {"zed/onlyone"}, "cliente mostra só o catálogo publicado (e esconde o adulto)")
+check(win.btn_covers.isVisible(), "cliente tem o botão Atualizar capas")
 check(not win.btn_discover.isVisible() and not win.btn_add.isVisible() and not win.btn_publish.isVisible(),
       "cliente sem descobrir, adicionar repositório nem publicar")
 check(all(f[1] != 4 for f in win.filters), "cliente sem o filtro Descobertos")
 check("client" in win.windowTitle().lower(), "título indica a edição cliente")
+win.covers.store.set_custom_bytes("zed/onlyone", b"\x89PNG\r\n\x1a\n" + b"0" * 20)
+win.covers.store.clear("zed/onlyone")
+win.remote.refresh = lambda force=False: (None, "")
+win.refresh_covers()
+pump(app, 3, until=lambda: win.btn_covers.isEnabled())
+check(win.btn_covers.isEnabled(), "Atualizar capas termina e reabilita o botão")
 win.rename_game("zed/onlyone")  # não deve abrir diálogo
 win.add_repo()
 win.start_discover(manual=True)
