@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-30T00:51:51+00:00",
+  "updated": "2026-10-30T01:01:50+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -406,7 +406,7 @@
       "cover_title": "",
       "link": "",
       "adult": false,
-      "cover": "covers/parkerallan_doa2u-recomp.png"
+      "cover": "covers/parkerallan_doa2u-recomp.jpg"
     },
     {
       "repo": "parkerallan/doa3-recomp",
@@ -857,6 +857,20 @@
       "cover": "covers/yyozcan_tobiichi-port.jpg"
     },
     {
+      "repo": "DrummingBird1/gow-psp-recomp",
+      "name": "God of War (PSP) Chains of Olympus + Ghost of Sparta",
+      "platform": "PSP",
+      "target": "",
+      "description": "Unofficial native PC ports of God of War: Chains of Olympus and Ghost of Sparta (PSP) by static recompilation. Bring your own disc.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://github.com/DrummingBird1/gow-psp-recomp/releases/latest",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/drummingbird1_gow-psp-recomp.png"
+    },
+    {
       "repo": "andrebrumdev/gow2-recomp",
       "name": "God of War II HD (PS3)",
       "platform": "PS3",
@@ -953,20 +967,6 @@
       "link": "",
       "adult": false,
       "cover": "covers/kholdfuzion_goldenrecomp.jpg"
-    },
-    {
-      "repo": "DrummingBird1/gow-psp-recomp",
-      "name": "GOW Chains of Olympus + Ghost of Sparta",
-      "platform": "PSP",
-      "target": "",
-      "description": "Unofficial native PC ports of God of War: Chains of Olympus and Ghost of Sparta (PSP) by static recompilation. Bring your own disc.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "https://github.com/DrummingBird1/gow-psp-recomp/releases/latest",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/drummingbird1_gow-psp-recomp.png"
     },
     {
       "repo": "LorenzoAlfaro/GTStaticRecomp",
@@ -2302,7 +2302,7 @@
       "repo": "centollOS/SwitchWakerHD",
       "name": "Zelda: Wind Waker HD",
       "platform": "Wii U",
-      "target": "PC",
+      "target": "",
       "description": "Wind Waker HD (Wii U) static recompilation for Nintendo Switch, deko3d renderer. Requires your own game dump.",
       "notes": "",
       "asset_hint": "",
@@ -2324,7 +2324,7 @@
       "cover_title": "",
       "link": "",
       "adult": false,
-      "cover": "covers/zeldawwhdrecomp_zeldawwhdrecomp.png"
+      "cover": "covers/zeldawwhdrecomp_zeldawwhdrecomp.jpg"
     }
   ]
 }
