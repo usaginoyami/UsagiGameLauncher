@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-29T22:15:41+00:00",
+  "updated": "2026-10-30T00:51:51+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -630,7 +630,21 @@
       "cover_title": "",
       "link": "",
       "adult": false,
-      "cover": "covers/iexplosiverage_dbz-burst-limit-recompiled.png"
+      "cover": "covers/iexplosiverage_dbz-burst-limit-recompiled.jpg"
+    },
+    {
+      "repo": "BlackLineInteractive/Driveclub-Port",
+      "name": "Driveclub Port",
+      "platform": "PS4",
+      "target": "",
+      "description": "Driveclub PS4 PC Port",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/blacklineinteractive_driveclub-port.jpg"
     },
     {
       "repo": "sonicdcer/DNZHRecomp",
@@ -1219,6 +1233,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/dougchansan_mk8-recomp.jpg"
+    },
+    {
+      "repo": "chasem-dev/sms-pc-port",
+      "name": "Mario Sunshine, Super",
+      "platform": "GameCube",
+      "target": "",
+      "description": "Port nativo para PC de Super Mario Sunshine.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "Super Mario Sunshine",
+      "link": "",
+      "adult": false,
+      "cover": "covers/chasem-dev_sms-pc-port.jpg"
     },
     {
       "repo": "FractalEngineer/Medal-Of-Honor-PSX-Recomp",
@@ -1879,20 +1907,6 @@
       "cover": "covers/omegakatana92_street-fighter-alpha-recomp-.jpg"
     },
     {
-      "repo": "chasem-dev/sms-pc-port",
-      "name": "Super Mario Sunshine",
-      "platform": "GameCube",
-      "target": "",
-      "description": "Port nativo para PC de Super Mario Sunshine.",
-      "notes": "Requer a sua própria cópia do jogo.",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "Super Mario Sunshine",
-      "link": "",
-      "adult": false,
-      "cover": "covers/chasem-dev_sms-pc-port.jpg"
-    },
-    {
       "repo": "FishB0nes98/Tekken3Recompiled",
       "name": "Tekken 3",
       "platform": "PS1",
@@ -1933,48 +1947,6 @@
       "link": "",
       "adult": false,
       "cover": "covers/hayatog_tlg_pc.jpg"
-    },
-    {
-      "repo": "ryderclanky/BotW-Native",
-      "name": "The Legend of Zelda: Breath of the Wild",
-      "platform": "Wii U",
-      "target": "PC",
-      "description": "Breath of the Wild (Wii U, v1.5.0) statically recompiled to a native Windows program with a Vulkan renderer. ",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/ryderclanky_botw-native.jpg"
-    },
-    {
-      "repo": "Nycolazs/LASRecomp-Android-Plus",
-      "name": "The Legend of Zelda: Link's Awakening",
-      "platform": "Switch",
-      "target": "Android",
-      "description": "LAS Recomp for Android: Link's Awakening (Switch) statically recompiled to native ARM64 for Android phones - touch controls, 60 fps frame generation, set up from your own game on the phone",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/nycolazs_lasrecomp-android-plus.jpg"
-    },
-    {
-      "repo": "kuraeow/ultratears",
-      "name": "The Legend of Zelda: Tears of the Kingdom",
-      "platform": "Switch",
-      "target": "",
-      "description": "Unofficial native Windows port of Tears of the Kingdom 1.4.3 using static recompilation. Builds locally from the player's own extracted game dump; no game files included.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "https://github.com/kuraeow/ultratears/releases",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/kuraeow_ultratears.jpg"
     },
     {
       "repo": "alexbeavs-ps1-ports/the-mummy-recomp",
@@ -2059,19 +2031,6 @@
       "link": "",
       "adult": false,
       "cover": "covers/theokyr_project8recomp.jpg"
-    },
-    {
-      "repo": "WenderSky/dragons-crown-pro-ptbr",
-      "name": "Tradução PT-BR — Dragon's Crown Pro",
-      "platform": "Tradução BR",
-      "target": "Tradução BR",
-      "description": "Traducao PT-BR (amadora, pode conter erros) de Dragon's Crown Pro na versao recompilada para PC/Steam Deck (saulob/dragons-crown-pro-pc). Historia, missoes, habilidades, itens, menus e tutoriais - 12.272 textos. Uso nao-comercial.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false
     },
     {
       "repo": "mobius/psx-vagrantstory-recomp",
@@ -2214,6 +2173,20 @@
       "cover": "covers/yeoldpress_alttp-dx.jpg"
     },
     {
+      "repo": "ryderclanky/BotW-Native",
+      "name": "Zelda: Breath of the Wild",
+      "platform": "Wii U",
+      "target": "",
+      "description": "Breath of the Wild (Wii U, v1.5.0) statically recompiled to a native Windows program with a Vulkan renderer. ",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/ryderclanky_botw-native.jpg"
+    },
+    {
       "repo": "Revivedx/SavageWindRecomp",
       "name": "Zelda: Breath of the Wild (Switch)",
       "platform": "Switch",
@@ -2296,6 +2269,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/kyra422_skybreak.jpg"
+    },
+    {
+      "repo": "kuraeow/ultratears",
+      "name": "Zelda: Tears of the Kingdom",
+      "platform": "Switch",
+      "target": "",
+      "description": "Unofficial native Windows port of Tears of the Kingdom 1.4.3 using static recompilation. Builds locally from the player's own extracted game dump; no game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://github.com/kuraeow/ultratears/releases",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/kuraeow_ultratears.jpg"
     },
     {
       "repo": "TwilitRealm/dusklight",
