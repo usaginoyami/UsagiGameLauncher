@@ -279,6 +279,30 @@ g = {x["repo"]: x for x in doc2["games"]}["ext/azimuth"]
 check(g["link"].startswith("https://") and g["cover"].startswith("covers/"), "publicação leva o link e o print do jogo de fora")
 QMessageBox.exec = orig_box_exec
 
+# importar do GitHub: jogo novo, edição, remoção e capa vindas do "celular"
+remote_doc = published.build([
+    catalog.Entry("ext/azimuth", name="Azimuth (editado no celular)", platform="Xbox One", source="user"),
+    catalog.Entry("me/mygame", name="Meu Jogo Remoto", platform="PS2"),
+    catalog.Entry("novo/CelularGame", name="Do Celular", platform="N64"),
+], {"novo/celulargame": "covers/novo_celulargame.jpg"})
+rc_cls = published.RemoteCatalog
+published.RemoteCatalog = lambda *a, **k: type("R", (), {
+    "refresh": lambda self, force=False: (published.parse(remote_doc), "ok"),
+    "cached": lambda self: ([], "")})()
+win.cover_finder.download = lambda url: png("#22aa22")
+answers = iter([QMessageBox.StandardButton.Yes])
+mw.QMessageBox.question = staticmethod(lambda *a, **k: next(answers))
+win.import_from_github()
+pump(app, 10, until=lambda: "novo/celulargame" in win.rows)
+published.RemoteCatalog = rc_cls
+check("novo/celulargame" in win.rows, "importar trouxe o jogo novo do celular")
+check(win.rows["ext/azimuth"].entry.name == "Azimuth (editado no celular)", "importar aplicou a edição do celular")
+check(win.rows["me/mygame"].entry.name == "Meu Jogo Remoto", "valor publicado vale sobre o nome editado aqui")
+check("zelda64recomp/zelda64recomp" not in win.rows, "jogos removidos no celular somem aqui")
+check(win.covers.store.image_for("novo/celulargame")[1], "capa do celular baixada como capa escolhida")
+check(win.settings.get("published_covers").get("novo/celulargame", "").endswith("novo_celulargame.jpg"),
+      "capa importada registrada")
+
 win.close()
 edition.set_edition(None)
 print()

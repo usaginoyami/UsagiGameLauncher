@@ -121,6 +121,24 @@ class External(unittest.TestCase):
         self.assertEqual(by["ext/b"].link, "")
 
 
+class ImportPlan(unittest.TestCase):
+    def test_new_edited_removed_and_covers(self):
+        local = [Entry("a/one", name="One"), Entry("a/two", name="Two"), Entry("a/gone", name="Gone")]
+        remote = [Entry("a/one", name="One"), Entry("a/two", name="Dois", cover="https://x/c.jpg"),
+                  Entry("ext/new", name="Novo", link="https://x.itch.io/n")]
+        plan = published.import_plan(local, remote, {})
+        self.assertEqual({e.key for e in plan["upsert"]}, {"a/two", "ext/new"})
+        self.assertEqual(plan["remove"], ["a/gone"])
+        self.assertEqual(plan["covers"], [("a/two", "https://x/c.jpg")])
+        again = published.import_plan(remote, remote, {"a/two": "https://x/c.jpg"})
+        self.assertEqual((again["upsert"], again["remove"], again["covers"]), ([], [], []))
+
+    def test_link_change_counts(self):
+        a = Entry("ext/x", name="X", link="https://a/")
+        b = Entry("ext/x", name="X", link="https://b/")
+        self.assertEqual(len(published.import_plan([a], [b])["upsert"]), 1)
+
+
 # ------------------------------------------------------------------ cofre
 class Secrets(unittest.TestCase):
     def setUp(self):

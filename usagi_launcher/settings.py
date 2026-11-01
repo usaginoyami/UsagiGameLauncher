@@ -38,6 +38,7 @@ DEFAULTS: dict[str, Any] = {
     "custom_platforms": {},
     "favorites": [],
     "game_meta": {},
+    "published_covers": {},  # capas já importadas do catálogo publicado (chave -> link)
 }
 
 

@@ -432,6 +432,8 @@ class MainWindow(QMainWindow):
         self.btn_covers.clicked.connect(self.refresh_covers)
         self.btn_external = QPushButton("Adicionar jogo de fora…")
         self.btn_external.clicked.connect(self.add_external)
+        self.btn_import = QPushButton("Importar do GitHub")
+        self.btn_import.clicked.connect(self.import_from_github)
         self.btn_publish = QPushButton("Publicar catálogo…")
         self.btn_publish.clicked.connect(self.publish_catalog)
         self.btn_locate.clicked.connect(self.locate_installed)
@@ -444,10 +446,10 @@ class MainWindow(QMainWindow):
             buttons = (self.btn_refresh, self.btn_covers, self.btn_locate, self.btn_settings)
         else:
             buttons = (self.btn_refresh, self.btn_discover, self.btn_add, self.btn_external,
-                       self.btn_locate, self.btn_publish, self.btn_settings)
+                       self.btn_locate, self.btn_import, self.btn_publish, self.btn_settings)
         for b in buttons:
             sl.addWidget(b)
-        for b in (self.btn_discover, self.btn_add, self.btn_external, self.btn_publish):
+        for b in (self.btn_discover, self.btn_add, self.btn_external, self.btn_import, self.btn_publish):
             b.setVisible(not self.client_mode)
         lay.addWidget(side)
 
@@ -1440,6 +1442,82 @@ class MainWindow(QMainWindow):
 
         self.runner.run(work, finish, lambda e: (self.btn_covers.setEnabled(True),
                                                  self.statusBar().showMessage(f"Falha: {e}")))
+
+    def import_from_github(self) -> None:
+        """Traz para cá o que foi editado fora (ex.: pelo app do celular) e já está publicado."""
+        if self.client_mode:
+            return
+        rc = published.RemoteCatalog(paths.data_dir() / "remote_catalog.json")
+        known = dict(self.settings.get("published_covers") or {})
+        local = self._curated_entries()
+        self.btn_import.setEnabled(False)
+        self.statusBar().showMessage("Lendo o catálogo publicado…")
+
+        def work(task: Task):
+            remote, msg = rc.refresh(force=True)
+            if remote is None:
+                return None, {}, msg
+            plan = published.import_plan(local, remote, known)
+            blobs = {}
+            for key, url in plan["covers"]:
+                data = self.cover_finder.download(url)
+                if data:
+                    blobs[key] = (url, data)
+            return plan, blobs, msg
+
+        def done(res) -> None:
+            self.btn_import.setEnabled(True)
+            plan, blobs, msg = res
+            if plan is None:
+                self.statusBar().showMessage(msg)
+                return
+            n_up, n_rm, n_cv = len(plan["upsert"]), len(plan["remove"]), len(blobs)
+            if not (n_up or n_rm or n_cv):
+                self.statusBar().showMessage("Nada novo no GitHub: seu catálogo já está igual.")
+                return
+            names = ", ".join(e.name for e in plan["upsert"][:6]) + ("…" if n_up > 6 else "")
+            if QMessageBox.question(
+                    self, "Importar do GitHub",
+                    f"Encontrei no catálogo publicado:\n\n• {n_up} jogo(s) novos ou editados {('(' + names + ')') if n_up else ''}"
+                    f"\n• {n_rm} jogo(s) removidos lá\n• {n_cv} capa(s) nova(s)\n\nAplicar aqui? "
+                    "Os valores publicados passam a valer sobre seus nomes e plataformas editados.") \
+                    != QMessageBox.StandardButton.Yes:
+                return
+            user = {u.key: u for u in catalog.load_user()}
+            names_ov = dict(self.settings.get("custom_names") or {})
+            plat_ov = dict(self.settings.get("custom_platforms") or {})
+            hidden = [h for h in (self.settings.get("hidden") or [])]
+            for e in plan["upsert"]:
+                e.source, e.cover = "user", ""
+                user[e.key] = e
+                names_ov.pop(e.key, None)
+                plat_ov.pop(e.key, None)
+                hidden = [h for h in hidden if h != e.key]
+            for key in plan["remove"]:
+                if key in user:
+                    del user[key]
+                elif key not in hidden:
+                    hidden.append(key)
+            for key, (url, data) in blobs.items():
+                try:
+                    self.covers.store.set_custom_bytes(key, data)
+                    known[key] = url
+                    self._cover_changed(key)
+                except (ValueError, OSError):
+                    pass
+            catalog.save_user(list(user.values()))
+            self.settings.update({"custom_names": names_ov, "custom_platforms": plat_ov,
+                                  "hidden": hidden, "published_covers": known})
+            self.settings.save()
+            self.reload_entries()
+            self.apply_filters(keep_scroll=True)
+            self.statusBar().showMessage(f"Importado: {n_up} jogo(s), {n_rm} removido(s), {n_cv} capa(s).")
+
+        def err(e: Exception) -> None:
+            self.btn_import.setEnabled(True)
+            QMessageBox.warning(self, "Importar", str(e))
+
+        self.runner.run(work, done, err)
 
     def _curated_entries(self) -> list[Entry]:
         """O que você curou: catálogo do programa + os seus, sem os removidos, com seus nomes e plataformas."""

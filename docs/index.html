@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0c0c10">
+<title>Usagi Curador</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="bar">
+    <strong class="logo">USAGI <span>CURADOR</span></strong>
+    <button id="btnSync" class="ghost" title="Recarregar do GitHub">⟳</button>
+    <button id="btnSettings" class="ghost" title="Configurações">⚙</button>
+  </div>
+  <input id="search" type="search" placeholder="Buscar jogo, repositório ou plataforma…" autocomplete="off">
+  <div class="sub"><span id="count"></span><select id="platformFilter"></select></div>
+</header>
+<main id="list"></main>
+<div id="publishBar" hidden>
+  <span id="publishText"></span>
+  <button id="btnPublish" class="primary">Publicar</button>
+</div>
+<button id="fab" class="fab" aria-label="Adicionar jogo">＋</button>
+<div id="toast" role="status"></div>
+<div id="sheet" class="sheet" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>

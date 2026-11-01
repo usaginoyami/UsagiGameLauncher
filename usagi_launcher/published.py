@@ -196,3 +196,28 @@ def publish_to_github(token: str, files: dict[str, bytes], message: str,
             raise CatalogError(f"Falha ao publicar {path} (HTTP {w.status_code}).")
         changed += 1
     return changed
+
+
+# ------------------------------------------------- importar edições feitas no celular
+_COMPARE = _FIELDS[:-1] + ("adult",)  # tudo que o curador edita, menos o link (comparado à parte)
+
+
+def import_plan(local: list[catalog.Entry], remote: list[catalog.Entry],
+                known_covers: dict[str, str] | None = None) -> dict:
+    """Compara o catálogo publicado com o do curador (desktop).
+
+    Devolve {"upsert": [Entry], "remove": [chave], "covers": [(chave, url)]}:
+    jogos novos ou editados lá, jogos que sumiram de lá e capas novas para baixar."""
+    known_covers = known_covers or {}
+    mine = {e.key: e for e in local}
+    theirs = {e.key: e for e in remote}
+    upsert, covers = [], []
+    for key, r in theirs.items():
+        m = mine.get(key)
+        changed = m is None or any(getattr(m, f) != getattr(r, f) for f in _COMPARE + ("link",))
+        if changed:
+            upsert.append(r)
+        if r.cover and known_covers.get(key) != r.cover:
+            covers.append((key, r.cover))
+    remove = [k for k in mine if k not in theirs]
+    return {"upsert": upsert, "remove": remove, "covers": covers}

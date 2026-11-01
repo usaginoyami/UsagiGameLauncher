@@ -75,6 +75,16 @@ Adicione jogos em `%LOCALAPPDATA%\UsagiGameLauncher\catalog.user.json` (ou pelo 
 ] }
 ```
 
+## Curador no celular (app web instalável)
+
+A pasta `docs/` é um app web (PWA) para curar o catálogo do sofá, sem PC: lista com capas e busca, editar nome, plataforma, descrição, aviso e capa (print ou galeria), adicionar jogo do GitHub ou de fora (itch.io), remover e **Publicar** (um único commit com `catalog.json` e as capas novas).
+
+**Ativar uma vez**: no GitHub, repositório → Settings → Pages → Source: *Deploy from a branch* → `main` e pasta `/docs`. O endereço será `https://usaginoyami.github.io/UsagiGameLauncher/`. No celular, abra no Chrome e use **Adicionar à tela inicial**.
+
+**Token**: crie um token *fine-grained* só para este repositório com *Contents: Read and write* e cole em ⚙. Ele fica salvo apenas no navegador daquele aparelho; sem token o app só consulta. Ao publicar, o app junta as suas edições com o que estiver publicado naquele momento, então não apaga o que o PC publicou antes.
+
+**Sincronizar com o PC**: o app do PC é o mesmo catálogo, então traga as edições do celular antes de publicar de lá: botão **Importar do GitHub** (mostra o que mudou e pede confirmação). Jogos editados, novos e removidos no celular e as capas novas passam a valer no curador do PC. Publicar do PC sem importar antes sobrescreve o que foi feito no celular.
+
 ## Testes
 
 ```
@@ -83,6 +93,7 @@ python tests/test_covers.py      # 33 testes das fontes e do cache de capas
 python tests/test_extras.py      # 55 testes de segurança, filtro adulto, backups, autoatualização, estrelas, remoção, ordenação e busca de instalados
 python tests/test_edition.py     # 40 testes de edições, catálogo publicado, segredos, tempo de jogo, atalhos/Steam, versões e reparo
 python tests/smoke_ui.py pasta   # interface sem tela + instalação ponta a ponta + capturas
+python tests/pwa_check.py        # app do celular num navegador sem tela (precisa de playwright)
 python tests/smoke_edition.py    # interface sem tela das duas edições (cliente travado, publicar, status, tempo, versões)
 ```
 
