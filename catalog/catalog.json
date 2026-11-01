@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-10-30T01:01:50+00:00",
+  "updated": "2026-11-01T20:13:48+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -15,20 +15,6 @@
       "link": "",
       "adult": false,
       "cover": "covers/wndwsqrrl_3on3nhl-recomp.jpg"
-    },
-    {
-      "repo": "Harold0777/eagle_five_recomp",
-      "name": "Ace Combat 5: The Unsung War",
-      "platform": "PS2",
-      "target": "",
-      "description": "recompilation of Ace Combat 5: The Unsung War (USA) for Linux",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/harold0777_eagle_five_recomp.jpg"
     },
     {
       "repo": "CaiusCodes/Aegis-Wing-XBLA-PC-Recomp",
@@ -155,20 +141,6 @@
       "link": "",
       "adult": false,
       "cover": "covers/k0nl_b2recomp.jpg"
-    },
-    {
-      "repo": "andrebrumdev/ben10-omniverse-recomp",
-      "name": "Ben 10: Omniverse",
-      "platform": "PS3",
-      "target": "",
-      "description": "Ben 10 Omniverse (PS3, BLUS31017) — native macOS port by static recompilation. No game code or assets.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/andrebrumdev_ben10-omniverse-recomp.jpg"
     },
     {
       "repo": "TGP482/BLACK-XBERecomp",
@@ -549,20 +521,6 @@
       "cover": "covers/vyanhursky_defjamffny-recomp.jpg"
     },
     {
-      "repo": "datfooldive/DEFJAM-XBERecomp-Linux",
-      "name": "Def Jam: Fight for NY",
-      "platform": "Xbox",
-      "target": "Linux",
-      "description": "An unofficial native Linux port of Def Jam: Fight for NY (Xbox, 2004) by static recompilation.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/datfooldive_defjam-xberecomp-linux.jpg"
-    },
-    {
       "repo": "ArmDucks/DigimonWorld3-Recomp",
       "name": "Digimon World 3",
       "platform": "PS1",
@@ -748,7 +706,7 @@
       "repo": "ext/forza-horizon-2",
       "name": "Forza Horizon 2 (Xone)",
       "platform": "Xbox One",
-      "target": "Windows",
+      "target": "",
       "description": "Azimuth roda as versões Xbox One de cinco jogos Forza no Windows 10 e 11, e no Linux através do Proton. Ele traduz as chamadas WinRT do Xbox para Win32 e Xbox DirectX 11.X para o DirectX 12 para desktop e permite que cada jogo rode acima do que o console poderia: resoluções mais altas de até 8K, taxas de quadros mais altas, telas mais largas, gráficos mais nítidos.\n\nJogos suportados\nForza Horizon 2: 1.0.0.64, com expansão Storm Island: 1.0.0.36\nForza Horizon 2 apresenta Velozes e Furiosos: 1.0.0.6\nForza Horizonte 3: 1.0.125.0\nForza Motorsport 5: 1.0.0.20\nForza Motorsport 6: 1.0.0.44",
       "notes": "",
       "asset_hint": "",
@@ -913,20 +871,6 @@
       "cover": "covers/simeony2007_viberecomp-for-gow-coo.jpg"
     },
     {
-      "repo": "arnaldolima1/gow-ghost-of-sparta-pc",
-      "name": "God of War: Ghost of Sparta",
-      "platform": "PSP",
-      "target": "macOS",
-      "description": "Port nativo de God of War: Ghost of Sparta (PSP) por recompilação estática sobre o PortableKit. Vulkan, macOS primeiro.",
-      "notes": "Requer a sua própria cópia do jogo.",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "God of War: Ghost of Sparta",
-      "link": "",
-      "adult": false,
-      "cover": "covers/arnaldolima1_gow-ghost-of-sparta-pc.jpg"
-    },
-    {
       "repo": "CaiusCodes/GoldenEye-007-XBLA-PC-Recomp",
       "name": "Golden Eye 007",
       "platform": "Xbox 360",
@@ -997,22 +941,8 @@
       "cover": "covers/dubrovskiy-yevhen-stakelogic_gt-2-pc.jpg"
     },
     {
-      "repo": "SubhanHabib/OpenGTPS1",
-      "name": "Gran Turismo 2 (PS1, build macOS)",
-      "platform": "PS1",
-      "target": "macOS",
-      "description": "Build experimental para macOS do port OpenGTPS1 (Gran Turismo 2 dos EUA, recompilação estática).",
-      "notes": "Requer a sua própria cópia do jogo. Build para macOS. Para Windows, veja GTTeancum/OpenGTPS1. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "Gran Turismo 2",
-      "link": "",
-      "adult": false,
-      "cover": "covers/subhanhabib_opengtps1.jpg"
-    },
-    {
       "repo": "GTTeancum/OpenGTPS1",
-      "name": "Gran Turismo 2 (PS1, Windows)",
+      "name": "Gran Turismo 2 (PS1)",
       "platform": "PS1",
       "target": "",
       "description": "Port de Gran Turismo 2 (EUA, discos Simulation e Arcade) para Windows x64 por recompilação estática.",
@@ -1277,20 +1207,6 @@
       "cover": "covers/blacklabelhq_medievilrecomp.jpg"
     },
     {
-      "repo": "Leproide/MediEvilRecomp-ESP",
-      "name": "MediEvil",
-      "platform": "PS1",
-      "target": "",
-      "description": "Recompilación estática de MediEvil (PS1) versión PAL española SCES-01495 para PC: nativo en Windows/Linux/macOS, panorámico y renderizado mejorado. Basado en MediEvilRecomp (BlackLabelHQ) y en el port PAL italiano. Requiere tu propio disco original.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/leproide_medievilrecomp-esp.jpg"
-    },
-    {
       "repo": "MegaMan64Recomp/MegaMan64Recompiled",
       "name": "Mega Man 64",
       "platform": "N64",
@@ -1389,32 +1305,18 @@
       "cover": "covers/masterllgod_naruto-storm-generations-port-nativo.jpg"
     },
     {
-      "repo": "SpeedBreakerProject/speedbreaker",
-      "name": "Need for Speed: Most Wanted",
-      "platform": "Xbox 360",
-      "target": "Linux",
-      "description": "Unofficial static recompilation of the Xbox 360 version of Need for Speed: Most Wanted (2005): a native port for Steam Deck, Steam Machine, Steam Frame, Linux and Mac (iPhone/iPad: sideload the experimental IPA or build it yourself). Bring your own disc: no game files included. Not affiliated with EA or Valve.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "https://projectugarte.com/speedbreaker/",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/speedbreakerproject_speedbreaker.jpg"
-    },
-    {
-      "repo": "daniiichan/Need-for-Speed-Underground-2-macOS",
+      "repo": "TalhaMudo/NFSU2Recomp",
       "name": "Need for Speed: Underground 2",
-      "platform": "Windows",
+      "platform": "Outros",
       "target": "macOS",
-      "description": "Native macOS (Apple Silicon / Intel) port of Need for Speed: Underground 2 at 60 FPS using DXVK Native and MoltenVK",
+      "description": "Play Need for Speed: Underground 2 natively on Apple Silicon Macs (M1+). Static recompilation of the PC game (x86, Direct3D 9) to ARM64 + Metal: no Wine, CrossOver or emulator; 119 fps vs 10-15 fps under Wine. Bring your own copy; no game code or assets included.",
       "notes": "",
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
       "link": "",
       "adult": false,
-      "cover": "covers/daniiichan_need-for-speed-underground-2-macos.jpg"
+      "cover": "covers/talhamudo_nfsu2recomp.jpg"
     },
     {
       "repo": "gamboozino/ngbrecomp",
@@ -1501,6 +1403,20 @@
       "cover": "covers/poopoocacacacaca_p3fes-recompiled.jpg"
     },
     {
+      "repo": "ppkkkkk/p3fes-recompiled",
+      "name": "Persona 3 FES",
+      "platform": "Outros",
+      "target": "",
+      "description": "AI-Powered Static Recompilation of Persona 3 FES (USA)",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/ppkkkkk_p3fes-recompiled.jpg"
+    },
+    {
       "repo": "TekRantGaming/king-kong-recompiled",
       "name": "Peter Jackson's King Kong",
       "platform": "Xbox 360",
@@ -1541,6 +1457,34 @@
       "link": "",
       "adult": false,
       "cover": "covers/raulzrrs_letsgo-recomp.jpg"
+    },
+    {
+      "repo": "badcompany94-rcmp/project-tandem",
+      "name": "project tandem",
+      "platform": "GameCube",
+      "target": "",
+      "description": "Play Mario Kart: Double Dash!! online on Windows. Project Tandem is a native PC recompilation with 2-8 player solo/shared-kart multiplayer, widescreen, and mouse/keyboard controls. Requires your own compatible USA disc image.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/badcompany94-rcmp_project-tandem.png"
+    },
+    {
+      "repo": "Nazatric/ProtoDroid",
+      "name": "Proto Droid",
+      "platform": "Outros",
+      "target": "",
+      "description": "Native Port Of Prototype (2009) For Android Devices ",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/nazatric_protodroid.png"
     },
     {
       "repo": "Rainchus/Quest64-Recomp",
@@ -1628,7 +1572,7 @@
     },
     {
       "repo": "NoulZ-One/Ring-Of-Judgment---Shadow-Hearts-Recomp",
-      "name": "Ring Of Judgment Shadow Hearts",
+      "name": "Ring Of Judgment Shadow Hearts (PS2)",
       "platform": "PS2",
       "target": "",
       "description": "Independent Recompilation of Shadow Hearts for PC",
@@ -2034,7 +1978,7 @@
     },
     {
       "repo": "mobius/psx-vagrantstory-recomp",
-      "name": "Vagrant Story",
+      "name": "Vagrant Story (PS1)",
       "platform": "PS1",
       "target": "",
       "description": "Recompilação de Vagrant Story (PS1) para PC.",
@@ -2089,6 +2033,34 @@
       "cover": "covers/yanm1103_war_of_the_monsters_recomp.jpg"
     },
     {
+      "repo": "daniel-madrid-07/weeping-of-the-empire",
+      "name": "weeping of the empire",
+      "platform": "Switch",
+      "target": "",
+      "description": "Zelda: Tears of the Kingdom (TotK) 1.0.0 recompiled to native Windows and Vulkan. Frame cap up to 240, DLSS option, mouse and keyboard. Open source, mostly written by AI agents. You build it from your own dump; no game files included. Measured on one PC so far.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/daniel-madrid-07_weeping-of-the-empire.jpg"
+    },
+    {
+      "repo": "plinkr/Wild9Recomp",
+      "name": "Wild 9Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Native PC port of the classic PlayStation 1 title `Wild 9`, powered by static recompilation. Features true widescreen, high-resolution rendering, PGXP correction, intro skipping, higher framerate support, multiple languages, controls and gameplay changes and an extensible mod system",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/plinkr_wild9recomp.png"
+    },
+    {
       "repo": "mikeflare007/wwe2k14-recomp",
       "name": "WWE 2K14",
       "platform": "Xbox 360",
@@ -2132,7 +2104,7 @@
     },
     {
       "repo": "filippgl/xena-psx-decomp",
-      "name": "Xena: Warrior Princess",
+      "name": "Xena: Warrior Princess (PS1)",
       "platform": "PS1",
       "target": "",
       "description": "Xena: Warrior Princess (PS1, SLUS-00977) decompilation and native PC port. Bring your own disc.",
