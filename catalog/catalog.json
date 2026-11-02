@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-01T20:13:48+00:00",
+  "updated": "2026-11-02T03:27:38+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -787,20 +787,6 @@
       "cover": "covers/kiexster_god-of-war-recomp.jpg"
     },
     {
-      "repo": "Waffle565/God-Of-War-Native-Port",
-      "name": "God of War (PS2)",
-      "platform": "PS2",
-      "target": "",
-      "description": "Port nativo para PC de God of War (PS2, NTSC-U SCUS-97399): código recompilado para C++ e hardware do PS2 reimplementado.",
-      "notes": "Requer a sua própria cópia do jogo.",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "God of War (2005 video game)",
-      "link": "",
-      "adult": false,
-      "cover": "covers/waffle565_god-of-war-native-port.jpg"
-    },
-    {
       "repo": "YYOzcan/Tobiichi-Port",
       "name": "God of War (PS2, outro port)",
       "platform": "PS2",
@@ -813,6 +799,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/yyozcan_tobiichi-port.jpg"
+    },
+    {
+      "repo": "Waffle565/God-Of-War-Native-Port",
+      "name": "God of War (PS2)",
+      "platform": "PS2",
+      "target": "",
+      "description": "Port nativo para PC de God of War (PS2, NTSC-U SCUS-97399): código recompilado para C++ e hardware do PS2 reimplementado.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "God of War (2005 video game)",
+      "link": "",
+      "adult": false,
+      "cover": "covers/waffle565_god-of-war-native-port.jpg"
     },
     {
       "repo": "DrummingBird1/gow-psp-recomp",
@@ -955,20 +955,6 @@
       "cover": "covers/gtteancum_opengtps1.jpg"
     },
     {
-      "repo": "Kaezzey/gt4-staticrecomp",
-      "name": "Gran Turismo 4 (PS2)",
-      "platform": "PS2",
-      "target": "",
-      "description": "Recompilação estática de Gran Turismo 4 (PS2).",
-      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "Gran Turismo 4",
-      "link": "",
-      "adult": false,
-      "cover": "covers/kaezzey_gt4-staticrecomp.jpg"
-    },
-    {
       "repo": "moesuito/gt4-staticrecomp",
       "name": "Gran Turismo 4 (PS2, fork)",
       "platform": "PS2",
@@ -981,6 +967,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/moesuito_gt4-staticrecomp.jpg"
+    },
+    {
+      "repo": "Kaezzey/gt4-staticrecomp",
+      "name": "Gran Turismo 4 (PS2)",
+      "platform": "PS2",
+      "target": "",
+      "description": "Recompilação estática de Gran Turismo 4 (PS2).",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "Gran Turismo 4",
+      "link": "",
+      "adult": false,
+      "cover": "covers/kaezzey_gt4-staticrecomp.jpg"
     },
     {
       "repo": "sp00nznet/GT5P",
@@ -1613,20 +1613,6 @@
       "cover": "covers/lordingard_sacredstonesrecomp.jpg"
     },
     {
-      "repo": "LightVelox/sotc-vibe-pc",
-      "name": "Shadow of the Colossus (PS2)",
-      "platform": "PS2",
-      "target": "",
-      "description": "Port nativo não oficial de Shadow of the Colossus (PS2, PAL) para Windows via PS2Recomp.",
-      "notes": "Requer a sua própria cópia do jogo. Segundo o README, foi escrito inteiramente com programação assistida por IA.",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "Shadow of the Colossus",
-      "link": "",
-      "adult": false,
-      "cover": "covers/lightvelox_sotc-vibe-pc.jpg"
-    },
-    {
       "repo": "volstants/recomp-ShadowOfTheColossus-pc",
       "name": "Shadow of the Colossus (PS2, fork)",
       "platform": "PS2",
@@ -1639,6 +1625,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/volstants_recomp-shadowofthecolossus-pc.jpg"
+    },
+    {
+      "repo": "LightVelox/sotc-vibe-pc",
+      "name": "Shadow of the Colossus (PS2)",
+      "platform": "PS2",
+      "target": "",
+      "description": "Port nativo não oficial de Shadow of the Colossus (PS2, PAL) para Windows via PS2Recomp.",
+      "notes": "Requer a sua própria cópia do jogo. Segundo o README, foi escrito inteiramente com programação assistida por IA.",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "Shadow of the Colossus",
+      "link": "",
+      "adult": false,
+      "cover": "covers/lightvelox_sotc-vibe-pc.jpg"
     },
     {
       "repo": "sp00nznet/shadowofthecolossus",
@@ -2129,6 +2129,19 @@
       "link": "",
       "adult": false,
       "cover": "covers/unchiga_yugiohforbiddenmemoriesrecomp.jpg"
+    },
+    {
+      "repo": "Unchiga/Yu-Gi-Oh-Forbidden-Memories-Recompiled",
+      "name": "Yu Gi Oh Forbidden Memories Recompiled",
+      "platform": "Outros",
+      "target": "",
+      "description": "Native decompilation and recompilation of Yu-Gi-Oh! Forbidden Memories",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
     },
     {
       "repo": "YeOldPress/alttp-dx",
