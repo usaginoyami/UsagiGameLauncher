@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-02T03:27:38+00:00",
+  "updated": "2026-11-02T03:30:29+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1835,6 +1835,19 @@
       "link": "",
       "adult": false,
       "cover": "covers/genrythefox0_project-2099.jpg"
+    },
+    {
+      "repo": "sonicdcer/Starfox64Recomp",
+      "name": "Starfox64Recomp",
+      "platform": "Outros",
+      "target": "",
+      "description": "Starfox 64 for PC (Windows/Linux/MacOS)",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
     },
     {
       "repo": "omegakatana92/Street-Fighter-Alpha-Recomp-",
