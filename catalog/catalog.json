@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-02T16:02:41+00:00",
+  "updated": "2026-11-02T17:36:50+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -59,6 +59,20 @@
       "cover": "covers/spacefarergames_aloneinthedarkrehaunted.jpg"
     },
     {
+      "repo": "omegakatana92/Armored-Core-Recomp",
+      "name": "Armored Core Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "A fan made port or recomp of armored core  for the psx or ps1 provide your own rom or iso.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/omegakatana92_armored-core-recomp.jpg"
+    },
+    {
       "repo": "OpenPortroid/ArmyOfTwoRecompilation",
       "name": "Army of Two",
       "platform": "Xbox 360",
@@ -99,6 +113,33 @@
       "link": "",
       "adult": false,
       "cover": "covers/pauloubirajara_asuras-wrath-recomp.jpg"
+    },
+    {
+      "repo": "PotionDweller/Azure-Dreams-HD-Recompilation",
+      "name": "Azure Dreams HD Recompilation",
+      "platform": "PS1",
+      "target": "",
+      "description": "Native Windows PC port of Azure Dreams (PS1) via static recompilation with psxrecomp: HD rendering, 16:9 widescreen, fast loading. Bring your own disc.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
+    },
+    {
+      "repo": "CraneCD/Azure-Dreams-Recomp",
+      "name": "Azure Dreams Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Recomp for Azure Dreams for Ps1",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/cranecd_azure-dreams-recomp.jpg"
     },
     {
       "repo": "BanjoRecomp/BanjoRecomp",
@@ -255,6 +296,20 @@
       "cover": "covers/paulcombal_mw2-recompiled.jpg"
     },
     {
+      "repo": "Spicywonda/castlevania-chronicles-recomp",
+      "name": "castlevania chronicles recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Experimental Castlevania Chronicles PS1 recompilation with RecompOne. macOS development, Windows build tooling, original disc required.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/spicywonda_castlevania-chronicles-recomp.jpg"
+    },
+    {
       "repo": "BlackLabelHQ/SymphonyRecomp",
       "name": "Castlevania: Symphony of the Night",
       "platform": "PS1",
@@ -351,6 +406,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/claudio5702_cristalis.png"
+    },
+    {
+      "repo": "LorenzoAlfaro/CTRStaticRecomp",
+      "name": "CTRStatic Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Static recompilation of Crash Team Racing (PS1) for Windows: MIPS to C, HLE runtime, 4x HD renderer, widescreen",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/lorenzoalfaro_ctrstaticrecomp.jpg"
     },
     {
       "repo": "llesieur99/daxter-psp-decomp",
@@ -577,6 +646,20 @@
       "cover": "covers/theboy181_drmario64_recomp_plus.jpg"
     },
     {
+      "repo": "usaginoyami/Dragon-Ball-GT-Final-Bout-Recomp",
+      "name": "Dragon Ball GT Final Bout Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Static recompilation of Dragon Ball GT: Final Bout (PS1) for Windows and Linux. Translates MIPS code from your own disc into C, with GPU/GTE/SPU/MDEC/memory card emulated. Tool only; bring your own disc.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/usaginoyami_dragon-ball-gt-final-bout-recomp.jpg"
+    },
+    {
       "repo": "z3xox/BT3-Recomp",
       "name": "Dragon Ball Z: Budokai Tenkaichi 3",
       "platform": "PS2",
@@ -619,6 +702,20 @@
       "cover": "covers/blacklineinteractive_driveclub-port.jpg"
     },
     {
+      "repo": "MusicMonsterMod/duke-nukem-time-to-kill-recomp",
+      "name": "duke nukem time to kill recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Duke Nukem: Time to Kill (PS1) statically recompiled to run natively on PC. Faithful Vanilla mode, plus an opt-in Modernized mode with WASD and mouse aim. No game data included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/musicmonstermod_duke-nukem-time-to-kill-recomp.jpg"
+    },
+    {
       "repo": "sonicdcer/DNZHRecomp",
       "name": "Duke Nukem: Zero Hour",
       "platform": "N64",
@@ -631,6 +728,33 @@
       "link": "",
       "adult": false,
       "cover": "covers/sonicdcer_dnzhrecomp.jpg"
+    },
+    {
+      "repo": "gascarcella/dw2003recomp",
+      "name": "dw 2003recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "PC Port of Digimon World 2003 (PS1, EU) ",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
+    },
+    {
+      "repo": "goliathret/EdgeOfTimeRecomp",
+      "name": "Edge Of Time Recomp",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "An unofficial PC port of the Xbox 360 version of Spider-Man: Edge of Time created through the process of static recompilation.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/goliathret_edgeoftimerecomp.png"
     },
     {
       "repo": "samuelit0davila/fifa-street-pc-port",
@@ -743,6 +867,33 @@
       "link": "",
       "adult": false,
       "cover": "covers/alexbeav_fm4-recomp.png"
+    },
+    {
+      "repo": "Nero2611/FrontschweineRecomp",
+      "name": "Frontschweine Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Native PC port of Hogs of War / Frontschweine (PS1, SLES-02767) via static recompilation. Bring your own disc.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
+    },
+    {
+      "repo": "goodshepherd23/Galerians-Recompiled",
+      "name": "Galerians Recompiled",
+      "platform": "PS1",
+      "target": "",
+      "description": "Native PC build of Galerians (PS1, USA) via the PSXRecomp static recompiler. Bring your own discs.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/goodshepherd23_galerians-recompiled.jpg"
     },
     {
       "repo": "santiquiroz/gears-of-war-2-pc-port",
@@ -1025,6 +1176,20 @@
       "cover": "covers/hayatog_gr2_pc.jpg"
     },
     {
+      "repo": "benji-paname/regta-chinatown-wars-psp-recompilation",
+      "name": "GTA: Chinatown Wars (psp recompilation)",
+      "platform": "PSP",
+      "target": "",
+      "description": "Native C++20 PC recompilation of Grand Theft Auto: Chinatown Wars PSP Europe ULES-01347 v1.01 for Windows x64. Private playable milestone; optimization and campaign validation in progress. Rust implementation archived.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://benji-paname.github.io/regta-chinatown-wars-psp-recompilation/",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/benji-paname_regta-chinatown-wars-psp-recompilation.jpg"
+    },
+    {
       "repo": "jillsandwich1998/reGH2",
       "name": "Guitar Hero II",
       "platform": "Xbox 360",
@@ -1051,6 +1216,19 @@
       "link": "",
       "adult": false,
       "cover": "covers/chrissotraidis_projectreach.jpg"
+    },
+    {
+      "repo": "GabrielBigardi/HarvestMoonBTN-Recomp",
+      "name": "Harvest Moon BTN Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Native Windows/Linux port of Harvest Moon: Back to Nature (PS1) by static recompilation - bring your own copy, no game files included",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
     },
     {
       "repo": "hunkstalker/hybrid-heaven-recomp",
@@ -1179,6 +1357,20 @@
       "cover": "covers/dougchansan_mk8-recomp.jpg"
     },
     {
+      "repo": "badcompany94-rcmp/project-tandem",
+      "name": "Mario Kart: Double Dash (project tandem)",
+      "platform": "GameCube",
+      "target": "",
+      "description": "Play Mario Kart: Double Dash!! online on Windows. Project Tandem is a native PC recompilation with 2-8 player solo/shared-kart multiplayer, widescreen, and mouse/keyboard controls. Requires your own compatible USA disc image.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/badcompany94-rcmp_project-tandem.png"
+    },
+    {
       "repo": "chasem-dev/sms-pc-port",
       "name": "Mario Sunshine, Super",
       "platform": "GameCube",
@@ -1289,6 +1481,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/odrannnn_metroidprimeport.jpg"
+    },
+    {
+      "repo": "coccofresco/mgsone-recomp",
+      "name": "mgsone recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Midnight Ghost Stone: a native Metal Gear Solid PS1 recompilation with original-asset Vulkan presentation. Experimental alpha.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/coccofresco_mgsone-recomp.png"
     },
     {
       "repo": "klorfmorf/Goemon64Recomp",
@@ -1403,6 +1609,19 @@
       "cover": "covers/caiuscodes_perfect-dark-xbla-pc-recomp.jpg"
     },
     {
+      "repo": "jermspeaks/Persona2Recomp",
+      "name": "Persona 2Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "PS1 Recomp of Persona 2",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
+    },
+    {
       "repo": "poopoocacacacaca/p3fes-recompiled",
       "name": "Persona 3 FES",
       "platform": "PS2",
@@ -1473,24 +1692,10 @@
       "cover": "covers/raulzrrs_letsgo-recomp.jpg"
     },
     {
-      "repo": "badcompany94-rcmp/project-tandem",
-      "name": "project tandem",
-      "platform": "GameCube",
-      "target": "",
-      "description": "Play Mario Kart: Double Dash!! online on Windows. Project Tandem is a native PC recompilation with 2-8 player solo/shared-kart multiplayer, widescreen, and mouse/keyboard controls. Requires your own compatible USA disc image.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/badcompany94-rcmp_project-tandem.png"
-    },
-    {
       "repo": "Nazatric/ProtoDroid",
-      "name": "Proto Droid",
+      "name": "Prototype (Proto Droid)",
       "platform": "Outros",
-      "target": "",
+      "target": "Android",
       "description": "Native Port Of Prototype (2009) For Android Devices ",
       "notes": "",
       "asset_hint": "",
@@ -1527,19 +1732,6 @@
       "link": "",
       "adult": false,
       "cover": "covers/khasinski_rage-racer-pc.jpg"
-    },
-    {
-      "repo": "benji-paname/regta-chinatown-wars-pc-port",
-      "name": "regta chinatown wars pc port",
-      "platform": "PSP",
-      "target": "",
-      "description": "Native C++20 PC recompilation of Grand Theft Auto: Chinatown Wars PSP Europe ULES-01347 v1.01 for Windows x64. Private playable milestone; optimization and campaign validation in progress. Rust implementation archived.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "https://benji-paname.github.io/regta-chinatown-wars-pc-port/",
-      "cover_title": "",
-      "link": "",
-      "adult": false
     },
     {
       "repo": "alexbeavs-ps1-ports/resident-evil-3-recomp",
@@ -1598,6 +1790,19 @@
       "cover": "covers/ant0-blase_residentevil-codeveronicax-x360-rexglue.jpg"
     },
     {
+      "repo": "RobGreenUK/Ridge-Racer-Revolution-PS1-Recomp",
+      "name": "Ridge Racer Revolution PS 1 Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
+    },
+    {
       "repo": "NoulZ-One/Ring-Of-Judgment---Shadow-Hearts-Recomp",
       "name": "Ring Of Judgment Shadow Hearts (PS2)",
       "platform": "PS2",
@@ -1610,6 +1815,19 @@
       "link": "",
       "adult": false,
       "cover": "covers/noulz-one_ring-of-judgment---shadow-hearts-recomp.png"
+    },
+    {
+      "repo": "tolotratlt/rival-schools-nekketsu-seishun-nikki-2-recomp",
+      "name": "rival schools nekketsu seishun nikki 2 recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Native PC port of Shiritsu Justice Gakuen: Nekketsu Seishun Nikki 2 (Rival Schools 2, PS1)",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
     },
     {
       "repo": "petarov/saboteur2",
@@ -1640,6 +1858,20 @@
       "cover": "covers/lordingard_sacredstonesrecomp.jpg"
     },
     {
+      "repo": "volstants/recomp-ShadowOfTheColossus-pc",
+      "name": "Shadow of the Colossus (fork)",
+      "platform": "PS2",
+      "target": "",
+      "description": "Fork de LightVelox/sotc-vibe-pc.",
+      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "Shadow of the Colossus",
+      "link": "",
+      "adult": false,
+      "cover": "covers/volstants_recomp-shadowofthecolossus-pc.jpg"
+    },
+    {
       "repo": "LightVelox/sotc-vibe-pc",
       "name": "Shadow of the Colossus (PS2)",
       "platform": "PS2",
@@ -1652,20 +1884,6 @@
       "link": "",
       "adult": false,
       "cover": "covers/lightvelox_sotc-vibe-pc.jpg"
-    },
-    {
-      "repo": "volstants/recomp-ShadowOfTheColossus-pc",
-      "name": "Shadow of the Colossus (PS2, fork)",
-      "platform": "PS2",
-      "target": "",
-      "description": "Fork de LightVelox/sotc-vibe-pc.",
-      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "Shadow of the Colossus",
-      "link": "",
-      "adult": false,
-      "cover": "covers/volstants_recomp-shadowofthecolossus-pc.jpg"
     },
     {
       "repo": "sp00nznet/shadowofthecolossus",
@@ -1694,6 +1912,33 @@
       "link": "",
       "adult": false,
       "cover": "covers/ajncsystem_shadowofthecolossus-pc.jpg"
+    },
+    {
+      "repo": "DainDais/Shin-Megami-Tensei-Recompilation-Collection-",
+      "name": "Shin Megami Tensei Recompilation Collection",
+      "platform": "PS1",
+      "target": "",
+      "description": "An AI Translation and recompilation of the PS1 Shin Megami Tensei Games",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
+    },
+    {
+      "repo": "TekRantGaming/simpsons-wrestling-recompiled",
+      "name": "simpsons wrestling recompiled",
+      "platform": "PS1",
+      "target": "",
+      "description": "The Simpsons Wrestling (PS1, USA) recompiled for Windows and Linux with psxrecomp and the TRG Launcher: 16:9, HD, 60 FPS, skip intro, everything unlocked. Bring your own disc.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/tekrantgaming_simpsons-wrestling-recompiled.jpg"
     },
     {
       "repo": "cookingwithsimon/Skate1Recompiled",
@@ -1736,6 +1981,19 @@
       "link": "",
       "adult": false,
       "cover": "covers/cookingwithsimon_skate2recompiled.jpg"
+    },
+    {
+      "repo": "SirSymo/SM2-Recomp",
+      "name": "SM 2 Recomp",
+      "platform": "Xbox",
+      "target": "",
+      "description": "An experimental native recompilation of Spider-Man 2 for the original Xbox, bringing the classic open-world adventure to modern Windows through an evolving native implementation.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
     },
     {
       "repo": "cdlewis/snowboardkids2-recomp",
@@ -1794,6 +2052,33 @@
       "cover": "covers/hedge-dev_unleashedrecomp.jpg"
     },
     {
+      "repo": "javiandola/SoulBlade-Recompiled",
+      "name": "Soul Blade Recompiled",
+      "platform": "PS1",
+      "target": "",
+      "description": "Native Linux recompilation project for Soul Blade (PS1), featuring an x86-64 runtime, reproducible build tooling and AppImage packaging.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/javiandola_soulblade-recompiled.jpg"
+    },
+    {
+      "repo": "KuroRaiden/SoulCalibur-HD-Recomp-files",
+      "name": "Soul Calibur HD Recomp files",
+      "platform": "Outros",
+      "target": "",
+      "description": "contain code, addresses and timetables for SoulCalibur HD. Feel free to use. ",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
+    },
+    {
       "repo": "Arzaroth/SoulCaliburIII_Recomp",
       "name": "Soul Calibur III",
       "platform": "PS2",
@@ -1808,6 +2093,20 @@
       "cover": "covers/arzaroth_soulcaliburiii_recomp.jpg"
     },
     {
+      "repo": "TheBozos/SoulCaliburIII_Recomp",
+      "name": "Soul Calibur III Recomp",
+      "platform": "Outros",
+      "target": "",
+      "description": "Soulcalibur III (USA) static recompilation with PS2Recomp - configs, overrides, notes (no game data)",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/thebozos_soulcaliburiii_recomp.jpg"
+    },
+    {
       "repo": "danielgomesvieira2000/soulcalibur-recomp",
       "name": "Soulcalibur",
       "platform": "Dreamcast",
@@ -1820,6 +2119,19 @@
       "link": "",
       "adult": false,
       "cover": "covers/danielgomesvieira2000_soulcalibur-recomp.jpg"
+    },
+    {
+      "repo": "n0madic/Soulcalibur2HD-recomp",
+      "name": "Soulcalibur 2HD recomp",
+      "platform": "PS3",
+      "target": "",
+      "description": "Soulcalibur II HD native recompilation",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
     },
     {
       "repo": "FluffyQuack/rexglue-SoulCaliburIV",
@@ -1850,6 +2162,33 @@
       "cover": "covers/cellenseres_sssv_recomp.jpg"
     },
     {
+      "repo": "saltyboosack-blip/Spider-Man-2-PS2-Recomp",
+      "name": "Spider Man 2 PS 2 Recomp",
+      "platform": "PS2",
+      "target": "",
+      "description": "Open-source PS2 recompilation research checkpoint for Spider-Man 2 (USA), no rom included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
+    },
+    {
+      "repo": "b4ttycre4se/Spider-Man-3-Recomp",
+      "name": "Spider Man 3 Recomp",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "Unofficial Windows x64 recompilation of Spider-Man 3 (Xbox 360), built with ReXGlue and Direct3D 12. Playable 30/60 FPS build with FXAA, 2× MSAA, and 16× anisotropic filtering. First five missions tested successfully",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/b4ttycre4se_spider-man-3-recomp.jpg"
+    },
+    {
       "repo": "GenryTheFox0/Project-2099",
       "name": "Spider-Man: Edge of Time",
       "platform": "Xbox",
@@ -1862,6 +2201,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/genrythefox0_project-2099.jpg"
+    },
+    {
+      "repo": "GTTeancum/SpideyPS1recomp",
+      "name": "Spidey PS 1recomp",
+      "platform": "Outros",
+      "target": "",
+      "description": "Native recompilations of Neversoft's PlayStation Spider-Man games, built with RecompOne. Games are siloed; only the recompiler and runtime are shared.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/gtteancum_spideyps1recomp.png"
     },
     {
       "repo": "omegakatana92/Street-Fighter-Alpha-Recomp-",
@@ -1878,6 +2231,20 @@
       "cover": "covers/omegakatana92_street-fighter-alpha-recomp-.jpg"
     },
     {
+      "repo": "strider973/Street-Fighter-EX2-Plus-Recompiled",
+      "name": "Street Fighter EX 2 Plus Recompiled",
+      "platform": "PS1",
+      "target": "",
+      "description": "Static recompilation of Street Fighter EX2 Plus (PS1, SLUS-01105) on psxrecomp",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/strider973_street-fighter-ex2-plus-recompiled.jpg"
+    },
+    {
       "repo": "FishB0nes98/Tekken3Recompiled",
       "name": "Tekken 3",
       "platform": "PS1",
@@ -1890,6 +2257,33 @@
       "link": "",
       "adult": false,
       "cover": "covers/fishb0nes98_tekken3recompiled.jpg"
+    },
+    {
+      "repo": "MrPrinceYL/tekken3-recomp",
+      "name": "tekken 3 recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Static recompilation of Tekken 3 (PS1) to Rust + Bevy. Bring your own disc.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/mrprinceyl_tekken3-recomp.jpg"
+    },
+    {
+      "repo": "Heromachine/Tenchu-SA-Recomp",
+      "name": "Tenchu SA Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Static recompilation of Tenchu: Stealth Assassins (PS1) to C#. Ships the tool, not the game -- bring your own disc.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
     },
     {
       "repo": "invinceble55-wq/Estacado-The-Darkness-Recomp",
@@ -2004,6 +2398,33 @@
       "cover": "covers/theokyr_project8recomp.jpg"
     },
     {
+      "repo": "12feihu/Twisted-Metal-2-Recomp",
+      "name": "Twisted Metal 2 Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "A Recompilation of the PS1 version of Twisted Metal 2",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/12feihu_twisted-metal-2-recomp.jpg"
+    },
+    {
+      "repo": "12feihu/TwistedMetal2Recomp",
+      "name": "Twisted Metal 2Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "A recompilation of the PS1 version of Twisted Metal 2",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false
+    },
+    {
       "repo": "mobius/psx-vagrantstory-recomp",
       "name": "Vagrant Story (PS1)",
       "platform": "PS1",
@@ -2016,6 +2437,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/mobius_psx-vagrantstory-recomp.jpg"
+    },
+    {
+      "repo": "Ed1z19/ValkyrieRecomp",
+      "name": "Valkyrie Recomp",
+      "platform": "PS1",
+      "target": "",
+      "description": "Native PC recompilation of Valkyrie Profile (PS1) powered by PSXRecomp.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/ed1z19_valkyrierecomp.png"
     },
     {
       "repo": "mr-finster/vf1-recomp",
@@ -2060,20 +2495,6 @@
       "cover": "covers/yanm1103_war_of_the_monsters_recomp.jpg"
     },
     {
-      "repo": "daniel-madrid-07/weeping-of-the-empire",
-      "name": "weeping of the empire",
-      "platform": "Switch",
-      "target": "",
-      "description": "Zelda: Tears of the Kingdom (TotK) 1.0.0 recompiled to native Windows and Vulkan. Frame cap up to 240, DLSS option, mouse and keyboard. Open source, mostly written by AI agents. You build it from your own dump; no game files included. Measured on one PC so far.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/daniel-madrid-07_weeping-of-the-empire.jpg"
-    },
-    {
       "repo": "plinkr/Wild9Recomp",
       "name": "Wild 9Recomp",
       "platform": "PS1",
@@ -2086,6 +2507,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/plinkr_wild9recomp.png"
+    },
+    {
+      "repo": "thefixinhixon/woohoo-flight-school",
+      "name": "woohoo flight school",
+      "platform": "Outros",
+      "target": "",
+      "description": "Unofficial native PC port of Pilotwings Resort (3DS) by static recompilation. Bring your own game dump; no game data included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/thefixinhixon_woohoo-flight-school.jpg"
     },
     {
       "repo": "mikeflare007/wwe2k14-recomp",
@@ -2229,7 +2664,7 @@
     },
     {
       "repo": "Zelda64Recomp/Zelda64Recomp",
-      "name": "Zelda: Majora's Mask (Zelda 64: Recompiled)",
+      "name": "Zelda: Majora's Mask (Recompiled)",
       "platform": "N64",
       "target": "",
       "description": "Recompilação estática de The Legend of Zelda: Majora's Mask (e, em breve, Ocarina of Time) para Windows, Linux e Mac, com mods, gráficos modernos e taxas altas.",
@@ -2243,7 +2678,7 @@
     },
     {
       "repo": "HarbourMasters/Shipwright",
-      "name": "Zelda: Ocarina of Time",
+      "name": "Zelda: Ocarina of Time (Shipwright)",
       "platform": "N64",
       "target": "",
       "description": "",
@@ -2284,6 +2719,34 @@
       "cover": "covers/kuraeow_ultratears.jpg"
     },
     {
+      "repo": "valentderah/totk-pc-recomp",
+      "name": "Zelda: Tears of the Kingdom (pc recomp)",
+      "platform": "Outros",
+      "target": "",
+      "description": "Static recompilation of The Legend of Zelda: Tears of the Kingdom to native Windows and Linux x86-64, with a Vulkan renderer. Game files not included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/valentderah_totk-pc-recomp.jpg"
+    },
+    {
+      "repo": "daniel-madrid-07/weeping-of-the-empire",
+      "name": "Zelda: TOTK (weeping of the empire)",
+      "platform": "Switch",
+      "target": "",
+      "description": "Zelda: Tears of the Kingdom (TotK) 1.0.0 recompiled to native Windows and Vulkan. Frame cap up to 240, DLSS option, mouse and keyboard. Open source, mostly written by AI agents. You build it from your own dump; no game files included. Measured on one PC so far.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/daniel-madrid-07_weeping-of-the-empire.jpg"
+    },
+    {
       "repo": "TwilitRealm/dusklight",
       "name": "Zelda: Twilight Princess HD",
       "platform": "Wii U",
@@ -2298,22 +2761,8 @@
       "cover": "covers/twilitrealm_dusklight.jpg"
     },
     {
-      "repo": "centollOS/SwitchWakerHD",
-      "name": "Zelda: Wind Waker HD",
-      "platform": "Wii U",
-      "target": "",
-      "description": "Wind Waker HD (Wii U) static recompilation for Nintendo Switch, deko3d renderer. Requires your own game dump.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "https://github.com/centollOS/SwitchWakerHD/releases",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/centollos_switchwakerhd.jpg"
-    },
-    {
       "repo": "ZeldaWWHDRecomp/ZeldaWWHDRecomp",
-      "name": "Zelda: Wind Waker HD Recomp",
+      "name": "Zelda: Wind Waker HD (Wii)",
       "platform": "Wii",
       "target": "",
       "description": "Zelda Wind Waker HD Recomp",
@@ -2324,6 +2773,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/zeldawwhdrecomp_zeldawwhdrecomp.jpg"
+    },
+    {
+      "repo": "centollOS/SwitchWakerHD",
+      "name": "Zelda: Wind Waker HD (WiiU)",
+      "platform": "Wii U",
+      "target": "",
+      "description": "Wind Waker HD (Wii U) static recompilation for Nintendo Switch, deko3d renderer. Requires your own game dump.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://github.com/centollOS/SwitchWakerHD/releases",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/centollos_switchwakerhd.jpg"
     }
   ]
 }
