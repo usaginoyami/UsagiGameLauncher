@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-03T00:43:47+00:00",
+  "updated": "2026-11-03T13:43:53+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1203,6 +1203,21 @@
       "adult": false
     },
     {
+      "repo": "usaginoyami/Hot-Wheels-Turbo-Racing-Recomp",
+      "name": "Hot Wheels Turbo Racing Recomp",
+      "platform": "Outros",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-03T10:42:55",
+      "adult": false,
+      "cover": "covers/usaginoyami_hot-wheels-turbo-racing-recomp.jpg"
+    },
+    {
       "repo": "hunkstalker/hybrid-heaven-recomp",
       "name": "Hybrid Heaven",
       "platform": "N64",
@@ -1397,6 +1412,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/megaman64recomp_megaman64recompiled.jpg"
+    },
+    {
+      "repo": "Hero88go/melee-unlocked",
+      "name": "melee unlocked",
+      "platform": "Outros",
+      "target": "",
+      "description": "Super Smash Bros. Melee for Windows as a true Source Port: the game compiled natively from its decompiled C source, no emulation, with unlocked FPS and Slippi rollback online. A Static Recomp of the original code is included as a second engine. Beta. Bring your own NTSC 1.02 ISO.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/hero88go_melee-unlocked.jpg"
     },
     {
       "repo": "alexbeavs-ps1-ports/metal-gear-solid-recomp",
@@ -1772,7 +1801,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/robgreenuk_ridge-racer-revolution-ps1-recomp.jpg"
     },
     {
       "repo": "NoulZ-One/Ring-Of-Judgment---Shadow-Hearts-Recomp",
