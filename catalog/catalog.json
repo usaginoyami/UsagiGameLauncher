@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-03T13:47:19+00:00",
+  "updated": "2026-11-03T13:56:34+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -125,7 +125,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/potiondweller_azure-dreams-hd-recompilation.jpg"
     },
     {
       "repo": "CraneCD/Azure-Dreams-Recomp",
@@ -634,7 +635,7 @@
     {
       "repo": "Lucas-blip-png/dkb-pc-recomp",
       "name": "dkb pc recomp",
-      "platform": "Switch",
+      "platform": "Switch 2",
       "target": "",
       "description": "Static recompilation of Donkey Kong Bananza (Switch 2) to native Windows with Vulkan. The 3D tutorial renders; not playable yet. No game files included.",
       "notes": "",
@@ -755,7 +756,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/gascarcella_dw2003recomp.jpg"
     },
     {
       "repo": "goliathret/EdgeOfTimeRecomp",
@@ -769,7 +771,7 @@
       "cover_title": "",
       "link": "",
       "adult": false,
-      "cover": "covers/goliathret_edgeoftimerecomp.png"
+      "cover": "covers/goliathret_edgeoftimerecomp.jpg"
     },
     {
       "repo": "samuelit0davila/fifa-street-pc-port",
@@ -894,7 +896,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/nero2611_frontschweinerecomp.jpg"
     },
     {
       "repo": "goodshepherd23/Galerians-Recompiled",
@@ -1215,12 +1218,13 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/gabrielbigardi_harvestmoonbtn-recomp.jpg"
     },
     {
       "repo": "usaginoyami/Hot-Wheels-Turbo-Racing-Recomp",
       "name": "Hot Wheels Turbo Racing Recomp",
-      "platform": "Outros",
+      "platform": "PS1",
       "target": "",
       "description": "",
       "notes": "",
@@ -1510,7 +1514,7 @@
       "cover_title": "",
       "link": "",
       "adult": false,
-      "cover": "covers/coccofresco_mgsone-recomp.png"
+      "cover": "covers/coccofresco_mgsone-recomp.jpg"
     },
     {
       "repo": "klorfmorf/Goemon64Recomp",
@@ -1635,7 +1639,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/jermspeaks_persona2recomp.jpg"
     },
     {
       "repo": "poopoocacacacaca/p3fes-recompiled",
@@ -1682,7 +1687,7 @@
     {
       "repo": "drakolordx7/pokopia-recomp",
       "name": "pokopia recomp",
-      "platform": "Switch",
+      "platform": "Switch 2",
       "target": "",
       "description": "Pokémon Pokopia (Switch 2) recompiled to run natively on Windows.",
       "notes": "",
@@ -1956,7 +1961,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/daindais_shin-megami-tensei-recompilation-collection-.jpg"
     },
     {
       "repo": "TekRantGaming/simpsons-wrestling-recompiled",
@@ -2025,7 +2031,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/sirsymo_sm2-recomp.jpg"
     },
     {
       "repo": "cdlewis/snowboardkids2-recomp",
@@ -2108,7 +2115,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/kuroraiden_soulcalibur-hd-recomp-files.jpg"
     },
     {
       "repo": "Arzaroth/SoulCaliburIII_Recomp",
@@ -2163,7 +2171,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/n0madic_soulcalibur2hd-recomp.jpg"
     },
     {
       "repo": "FluffyQuack/rexglue-SoulCaliburIV",
@@ -2204,7 +2213,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/saltyboosack-blip_spider-man-2-ps2-recomp.jpg"
     },
     {
       "repo": "b4ttycre4se/Spider-Man-3-Recomp",
@@ -2329,7 +2339,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/heromachine_tenchu-sa-recomp.jpg"
     },
     {
       "repo": "invinceble55-wq/Estacado-The-Darkness-Recomp",
@@ -2468,7 +2479,8 @@
       "homepage": "",
       "cover_title": "",
       "link": "",
-      "adult": false
+      "adult": false,
+      "cover": "covers/12feihu_twistedmetal2recomp.jpg"
     },
     {
       "repo": "mobius/psx-vagrantstory-recomp",
