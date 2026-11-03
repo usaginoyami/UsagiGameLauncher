@@ -195,6 +195,7 @@ function openEditor(g, isNew = false) {
     if (newCover) { S.newCovers.set(key, newCover); draft.cover = coverFile(key); }
     else if (removeCover) { S.newCovers.delete(key); delete draft.cover; }
     const i = S.games.findIndex(x => keyOf(x) === key);
+    if (i < 0 && !draft.added_at) draft.added_at = new Date().toISOString().slice(0, 19);
     if (i >= 0) S.games[i] = draft; else S.games.push(draft);
     S.dirty.set(key, "upsert"); S.gone.delete(key);
     closeSheet(); render();

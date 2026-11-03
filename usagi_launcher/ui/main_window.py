@@ -36,10 +36,11 @@ from .tasks import Task, TaskRunner
 CARD_W, CARD_H = 212, 196
 COVER_H = 108
 
-F_ALL, F_LIB, F_UPD, F_FAV, F_DISC, F_PLAYING, F_WANT, F_DONE = range(8)
+F_ALL, F_LIB, F_UPD, F_FAV, F_DISC, F_PLAYING, F_WANT, F_DONE, F_NEW = range(9)
+NEW_DAYS = 30
 FILTERS = [("Todos", F_ALL), ("Biblioteca", F_LIB), ("Atualizações", F_UPD),
            ("Favoritos", F_FAV), ("Descobertos", F_DISC), ("Jogando", F_PLAYING),
-           ("Quero jogar", F_WANT), ("Terminados", F_DONE)]
+           ("Quero jogar", F_WANT), ("Terminados", F_DONE), ("Novidades", F_NEW)]
 STATUS_FILTER = {F_PLAYING: "playing", F_WANT: "want", F_DONE: "done"}
 STATUS_COLOR = {"playing": "#2d6cdf", "want": "#6b4fbb", "done": "#2f8f5b", "dropped": "#7a3b3b"}
 
@@ -70,6 +71,7 @@ class Row:
     orig_name: str = ""  # nome do catálogo, antes de qualquer renomeação do usuário
     orig_platform: str = ""
     orig_target: str = ""
+    added: str = ""  # quando entrou na lista (ISO); vazio = já existia
     status: str = ""  # Quero jogar / Jogando / Terminado / Abandonado
 
     @property
@@ -463,6 +465,15 @@ class MainWindow(QMainWindow):
         self.platform = QComboBox()
         self.platform.setMinimumWidth(190)
         self.platform.currentIndexChanged.connect(lambda _i: self.apply_filters())
+        self.btn_left = QPushButton("◧")
+        self.btn_left.setToolTip("Mostrar ou recolher o menu da esquerda (Ctrl+B)")
+        self.btn_right = QPushButton("◨")
+        self.btn_right.setToolTip("Mostrar ou recolher o painel de detalhes (Ctrl+J)")
+        for b in (self.btn_left, self.btn_right):
+            b.setFixedWidth(40)
+        self.btn_left.clicked.connect(lambda: self.toggle_panel("left"))
+        self.btn_right.clicked.connect(lambda: self.toggle_panel("right"))
+        top.addWidget(self.btn_left)
         top.addWidget(self.search, 1)
         top.addWidget(self.platform)
         self.sort = QComboBox()
@@ -473,6 +484,7 @@ class MainWindow(QMainWindow):
         self.sort.setCurrentIndex(max(self.sort.findData(saved), 0))
         self.sort.currentIndexChanged.connect(self._sort_changed)
         top.addWidget(self.sort)
+        top.addWidget(self.btn_right)
         self._resort_timer = QTimer(self)
         self._resort_timer.setSingleShot(True)
         self._resort_timer.setInterval(500)
@@ -626,6 +638,11 @@ class MainWindow(QMainWindow):
         dl.addWidget(self.b_clean)
         dl.addWidget(self.b_have)
         lay.addWidget(self.detail)
+        self.side_panel = side
+        self.side_panel.setVisible(not self.settings.get("hide_left"))
+        self.detail.setVisible(not self.settings.get("hide_right"))
+        for seq, side_name in (("Ctrl+B", "left"), ("Ctrl+J", "right")):
+            QShortcut(QKeySequence(seq), self, activated=lambda n=side_name: self.toggle_panel(n))
 
         self.statusBar().showMessage("Pronto.")
         self.select(None)
@@ -633,16 +650,22 @@ class MainWindow(QMainWindow):
     # ------------------------------------------------------------- dados
     def reload_entries(self) -> None:
         keep = {r["repo"].lower() for r in self.library.all()}
+        discovered = [] if self.client_mode else catalog.load_discovered()[0]
         if self.client_mode:  # só o que o curador publicou (ou o catálogo que veio no programa)
             base, _updated = self.remote.cached()
             entries = catalog.merge([], base or catalog.load_bundled(), [],
                                     set(self.settings.get("hidden")),
                                     show_adult=bool(self.settings.get("show_adult")), keep=keep)
         else:
-            discovered, _ts = catalog.load_discovered()
             entries = catalog.merge(catalog.load_user(), catalog.load_bundled(), discovered,
                                     set(self.settings.get("hidden")),
                                     show_adult=bool(self.settings.get("show_adult")), keep=keep)
+        everything = catalog.merge([] if self.client_mode else catalog.load_user(),
+                                   (self.remote.cached()[0] or catalog.load_bundled()) if self.client_mode
+                                   else catalog.load_bundled(),
+                                   [] if self.client_mode else discovered, show_adult=True)
+        self._track_first_seen([e.key for e in everything])
+        seen = self.settings.get("first_seen") or {}
         old = self.rows
         self.rows = {}
         for e in entries:
@@ -657,6 +680,7 @@ class MainWindow(QMainWindow):
         for k, r in self.rows.items():
             r.rec = self.library.get(r.entry.repo)
             r.status = tracking.status_of(self.settings, k)
+            r.added = r.entry.added_at or seen.get(k, "")
             r.orig_name, r.orig_platform, r.orig_target = r.entry.name, r.entry.platform, r.entry.target
             if names.get(k):
                 r.entry.name = str(names[k])
@@ -677,13 +701,40 @@ class MainWindow(QMainWindow):
         self.platform.setCurrentIndex(max(idx, 0))
         self.platform.blockSignals(False)
 
+    def _track_first_seen(self, keys: list[str]) -> None:
+        """Marca quando cada jogo apareceu. Na primeira abertura tudo conta como antigo."""
+        seen = dict(self.settings.get("first_seen") or {})
+        if not seen:
+            seen = {k: "" for k in keys}
+            changed = True
+        else:
+            now = datetime.now().isoformat(timespec="seconds")
+            new = [k for k in keys if k not in seen]
+            for k in new:
+                seen[k] = now
+            changed = bool(new)
+        if changed:
+            self.settings.set("first_seen", seen)
+            self.settings.save()
+
+    @staticmethod
+    def _is_new(row: "Row") -> bool:
+        try:
+            when = datetime.fromisoformat(row.added.replace("Z", "+00:00"))
+        except ValueError:
+            return False
+        if when.tzinfo is not None:
+            when = when.astimezone().replace(tzinfo=None)
+        return (datetime.now() - when).days < NEW_DAYS
+
     def _passes(self, row: Row, flt: int) -> bool:
         key = row.entry.key
         return (flt == F_ALL or (flt == F_LIB and row.installed)
                 or (flt == F_UPD and row.has_update)
                 or (flt == F_FAV and self.settings.has("favorites", key))
                 or (flt == F_DISC and row.entry.source == "discovered")
-                or (flt in STATUS_FILTER and row.status == STATUS_FILTER[flt]))
+                or (flt in STATUS_FILTER and row.status == STATUS_FILTER[flt])
+                or (flt == F_NEW and self._is_new(row)))
 
     def apply_filters(self, keep_scroll: bool = False) -> None:
         scroll = self.list.verticalScrollBar().value() if keep_scroll else 0
@@ -734,7 +785,8 @@ class MainWindow(QMainWindow):
                 F_DISC: "Nada descoberto ainda. Use “Descobrir no GitHub”.",
                 F_PLAYING: "Nenhum jogo marcado como Jogando. Abrir um jogo marca sozinho.",
                 F_WANT: "Marque jogos como “Quero jogar” no painel de detalhes.",
-                F_DONE: "Nenhum jogo terminado ainda."}.get(
+                F_DONE: "Nenhum jogo terminado ainda.",
+                F_NEW: f"Nenhum jogo novo nos últimos {NEW_DAYS} dias."}.get(
             flt, "Nenhum jogo encontrado com esses filtros.")
 
     def _update_counts(self) -> None:
@@ -1230,6 +1282,14 @@ class MainWindow(QMainWindow):
         self.render_detail()
 
     # ----------------------------------------- versões, reparo e atalhos
+    def toggle_panel(self, which: str) -> None:
+        """Recolhe ou mostra o menu da esquerda ou o painel de detalhes (a escolha fica salva)."""
+        panel, key = (self.side_panel, "hide_left") if which == "left" else (self.detail, "hide_right")
+        show = not panel.isVisible()
+        panel.setVisible(show)
+        self.settings.set(key, not show)
+        self.settings.save()
+
     def _more_menu(self) -> None:
         menu = QMenu(self)
         self._fill_game_menu(menu, self.current)
@@ -1769,6 +1829,7 @@ class MainWindow(QMainWindow):
             text = " ".join([info.get("name", ""), info.get("description") or "",
                              " ".join(info.get("topics") or [])])
             e = Entry(repo=info.get("full_name", repo), name=catalog.pretty_name(info.get("name", repo)),
+                      added_at=datetime.now().isoformat(timespec="seconds"),
                       platform=catalog.guess_platform(text), description=info.get("description") or "",
                       source="user", stars=int(info.get("stargazers_count") or 0),
                       pushed_at=info.get("pushed_at") or "")
@@ -1793,7 +1854,7 @@ class MainWindow(QMainWindow):
             return
         v = dlg.values()
         repo = catalog.external_repo(v["name"], set(self.rows))
-        e = Entry(repo=repo, source="user", **v)
+        e = Entry(repo=repo, source="user", added_at=datetime.now().isoformat(timespec="seconds"), **v)
         catalog.save_user([u for u in catalog.load_user() if u.key != e.key] + [e])
         if dlg.cover:
             try:
@@ -1984,6 +2045,7 @@ class MainWindow(QMainWindow):
         if self.client_mode:
             return
         row.entry.source = "user"
+        row.entry.added_at = row.entry.added_at or datetime.now().isoformat(timespec="seconds")
         user = [u for u in catalog.load_user() if u.key != row.entry.key] + [row.entry]
         catalog.save_user(user)
         self.reload_entries()

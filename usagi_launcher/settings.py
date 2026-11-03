@@ -38,6 +38,9 @@ DEFAULTS: dict[str, Any] = {
     "custom_platforms": {},
     "favorites": [],
     "game_meta": {},
+    "first_seen": {},  # quando cada jogo apareceu na lista (vazio = já existia na primeira abertura)
+    "hide_left": False,
+    "hide_right": False,
     "published_covers": {},  # capas já importadas do catálogo publicado (chave -> link)
 }
 

@@ -64,6 +64,7 @@ class Entry:
     created_at: str = ""  # só nos descobertos (usado na avaliação de risco)
     adult: bool = False  # conteúdo adulto/sugestivo: escondido, a menos que o usuário ligue
     link: str = ""  # jogos fora do GitHub: página onde baixar (ex.: itch.io)
+    added_at: str = ""  # quando entrou no catálogo (ISO), para o filtro de novidades
 
     def __post_init__(self) -> None:
         if not self.name:

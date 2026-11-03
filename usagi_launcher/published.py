@@ -27,7 +27,7 @@ CATALOG_URL = f"https://raw.githubusercontent.com/{REPO}/{BRANCH}/{DIR}/catalog.
 MAX_BYTES = 5 * 1024 * 1024
 MAX_GAMES = 3000
 _FIELDS = ("repo", "name", "platform", "target", "description", "notes", "asset_hint",
-           "homepage", "cover_title", "link")
+           "homepage", "cover_title", "link", "added_at")
 _SAFE_COVER = re.compile(r"^covers/[A-Za-z0-9._-]{1,80}\.(?:jpg|png|webp|gif)$")
 
 
@@ -46,6 +46,8 @@ def build(entries: list[catalog.Entry], covers: dict[str, str] | None = None) ->
     for e in entries:
         item = {f: getattr(e, f) for f in _FIELDS}
         item["adult"] = bool(e.adult)
+        if not item["added_at"]:
+            del item["added_at"]
         cover = covers.get(e.key) or (e.cover if e.cover.lower().startswith("https://") else "")
         if cover:
             item["cover"] = cover
@@ -74,6 +76,11 @@ def _clean_cover(value: object, base_url: str) -> str:
     url = urljoin(base_url, value) if _SAFE_COVER.match(value) else value
     parsed = urlparse(url)
     return url if parsed.scheme == "https" and parsed.netloc else ""
+
+
+def _clean_date(value: object) -> str:
+    text = str(value or "")[:32]
+    return text if re.match(r"^\d{4}-\d{2}-\d{2}", text) else ""
 
 
 def parse(raw: object, base_url: str = CATALOG_URL) -> list[catalog.Entry]:
@@ -107,6 +114,7 @@ def parse(raw: object, base_url: str = CATALOG_URL) -> list[catalog.Entry]:
             asset_hint=hint,
             homepage=str(g.get("homepage", ""))[:200] if str(g.get("homepage", "")).startswith("https://") else "",
             cover_title=str(g.get("cover_title", ""))[:80],
+            added_at=_clean_date(g.get("added_at")),
             link=str(g.get("link", ""))[:300] if str(g.get("link", "")).startswith("https://") else "",
             cover=_clean_cover(g.get("cover"), base_url),
             adult=bool(g.get("adult")),

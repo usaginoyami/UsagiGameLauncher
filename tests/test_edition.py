@@ -424,6 +424,27 @@ class Tracking(unittest.TestCase):
         self.assertEqual([r.entry.name for r in out], ["b", "d", "a", "c"])
 
 
+class Novidades(unittest.TestCase):
+    def test_sort_added_last_first(self):
+        class R:
+            def __init__(self, name, added=""):
+                self.entry = Entry("a/" + name, name=name)
+                self.added, self.rec, self.release, self.status = added, None, None, ""
+
+        rows = [R("a", "2026-10-01T10:00:00"), R("b"), R("c", "2026-11-02T09:00:00"), R("d", "2026-10-20T08:00:00")]
+        out = sorting.sort_rows(rows, "added_new", lambda k: False)
+        self.assertEqual([r.entry.name for r in out], ["c", "d", "a", "b"])
+        self.assertIn("added_new", sorting.MODE_KEYS)
+
+    def test_added_at_published_and_validated(self):
+        doc = published.build([Entry("a/x", name="X", added_at="2026-11-02T09:00:00"), Entry("a/y", name="Y")])
+        self.assertNotIn("added_at", [g for g in doc["games"] if g["repo"] == "a/y"][0])
+        by = {e.key: e for e in published.parse(doc)}
+        self.assertEqual(by["a/x"].added_at, "2026-11-02T09:00:00")
+        bad = {"schema": 1, "games": [{"repo": "a/z", "added_at": "ontem"}]}
+        self.assertEqual(published.parse(bad)[0].added_at, "")
+
+
 # ------------------------------------------------------------------ atalhos
 class Steam(unittest.TestCase):
     def test_roundtrip_and_no_duplicate(self):
