@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-03T13:56:34+00:00",
+  "updated": "2026-11-03T19:07:20+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1122,6 +1122,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/dubrovskiy-yevhen-stakelogic_gt-2-pc.jpg"
+    },
+    {
+      "repo": "gustavocanepa/gt4-decomp",
+      "name": "Gran Turismo 4 (Decomp)",
+      "platform": "PS2",
+      "target": "",
+      "description": "Matching decompilation of the Gran Turismo 4 (PS2) engine, AI-assisted. No game data included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-03T15:15:27",
+      "adult": false,
+      "cover": "covers/gustavocanepa_gt4-decomp.jpg"
     },
     {
       "repo": "moesuito/gt4-staticrecomp",
