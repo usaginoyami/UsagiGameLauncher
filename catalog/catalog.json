@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-02T17:36:50+00:00",
+  "updated": "2026-11-03T00:43:47+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1106,34 +1106,6 @@
       "cover": "covers/dubrovskiy-yevhen-stakelogic_gt-2-pc.jpg"
     },
     {
-      "repo": "GTTeancum/OpenGTPS1",
-      "name": "Gran Turismo 2 (PS1)",
-      "platform": "PS1",
-      "target": "",
-      "description": "Port de Gran Turismo 2 (EUA, discos Simulation e Arcade) para Windows x64 por recompilação estática.",
-      "notes": "Requer a sua própria cópia do jogo.",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "Gran Turismo 2",
-      "link": "",
-      "adult": false,
-      "cover": "covers/gtteancum_opengtps1.jpg"
-    },
-    {
-      "repo": "Kaezzey/gt4-staticrecomp",
-      "name": "Gran Turismo 4 (PS2)",
-      "platform": "PS2",
-      "target": "",
-      "description": "Recompilação estática de Gran Turismo 4 (PS2).",
-      "notes": "Requer a sua própria cópia do jogo. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "Gran Turismo 4",
-      "link": "",
-      "adult": false,
-      "cover": "covers/kaezzey_gt4-staticrecomp.jpg"
-    },
-    {
       "repo": "moesuito/gt4-staticrecomp",
       "name": "Gran Turismo 4 (PS2, fork)",
       "platform": "PS2",
@@ -1915,7 +1887,7 @@
     },
     {
       "repo": "DainDais/Shin-Megami-Tensei-Recompilation-Collection-",
-      "name": "Shin Megami Tensei Recompilation Collection",
+      "name": "Shin Megami Tensei (Recompilation Collection)",
       "platform": "PS1",
       "target": "",
       "description": "An AI Translation and recompilation of the PS1 Shin Megami Tensei Games",
@@ -2067,7 +2039,7 @@
     },
     {
       "repo": "KuroRaiden/SoulCalibur-HD-Recomp-files",
-      "name": "Soul Calibur HD Recomp files",
+      "name": "Soul Calibur HD (Recomp)",
       "platform": "Outros",
       "target": "",
       "description": "contain code, addresses and timetables for SoulCalibur HD. Feel free to use. ",
@@ -2243,6 +2215,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/strider973_street-fighter-ex2-plus-recompiled.jpg"
+    },
+    {
+      "repo": "ext/super-mario-odyssey",
+      "name": "Super Mario Odyssey",
+      "platform": "Switch",
+      "target": "Windows",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "https://gitlab.com/zzzarathustra-dev/power-moon-recomp",
+      "adult": false,
+      "cover": "covers/ext_super-mario-odyssey.jpg"
     },
     {
       "repo": "FishB0nes98/Tekken3Recompiled",
