@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-03T13:43:53+00:00",
+  "updated": "2026-11-03T13:47:19+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -630,6 +630,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/francessco121_dino-recomp.jpg"
+    },
+    {
+      "repo": "Lucas-blip-png/dkb-pc-recomp",
+      "name": "dkb pc recomp",
+      "platform": "Switch",
+      "target": "",
+      "description": "Static recompilation of Donkey Kong Bananza (Switch 2) to native Windows with Vulkan. The 3D tutorial renders; not playable yet. No game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-03T10:46:16",
+      "adult": false,
+      "cover": "covers/lucas-blip-png_dkb-pc-recomp.jpg"
     },
     {
       "repo": "theboy181/drmario64_recomp_plus",
@@ -1663,6 +1678,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/tekrantgaming_king-kong-recompiled.jpg"
+    },
+    {
+      "repo": "drakolordx7/pokopia-recomp",
+      "name": "pokopia recomp",
+      "platform": "Switch",
+      "target": "",
+      "description": "Pokémon Pokopia (Switch 2) recompiled to run natively on Windows.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-03T10:46:23",
+      "adult": false,
+      "cover": "covers/drakolordx7_pokopia-recomp.jpg"
     },
     {
       "repo": "JackandBeans/Snap64Recomp",
