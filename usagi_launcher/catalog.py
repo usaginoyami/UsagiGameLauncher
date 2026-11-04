@@ -5,7 +5,7 @@ import time
 from dataclasses import asdict, dataclass, field, fields
 from pathlib import Path
 
-from . import paths
+from . import gitlab_api, paths
 from .errors import RateLimitError
 from .jsonio import load_json, save_json
 
@@ -79,6 +79,10 @@ class Entry:
         return self.repo.split("/")[0]
 
     @property
+    def gitlab(self) -> bool:
+        return gitlab_api.is_gitlab(self.repo)
+
+    @property
     def external(self) -> bool:
         """Jogo que não está no GitHub: sem releases; o download é feito por você na página."""
         return self.repo.lower().startswith(EXTERNAL_PREFIX)
@@ -87,6 +91,8 @@ class Entry:
     def url(self) -> str:
         if self.external and self.link:
             return self.link
+        if self.gitlab:
+            return gitlab_api.web_url(self.repo)
         return f"https://github.com/{self.repo}"
 
     def to_dict(self) -> dict:
@@ -122,6 +128,8 @@ def parse_repo(text: str) -> str | None:
     text = (text or "").strip()
     if not text:
         return None
+    if "gitlab.com" in text.lower() or text.lower().startswith(gitlab_api.PREFIX):
+        return gitlab_api.parse(text)
     if "github.com" in text.lower():
         path = re.split(r"github\.com[/:]", text, maxsplit=1, flags=re.I)[-1]
     else:

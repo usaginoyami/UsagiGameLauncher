@@ -268,15 +268,20 @@ def readme_image_url(readme: str, repo: str) -> str | None:
             url = "https:" + url
         if not url.lower().startswith("http"):
             rel = re.sub(r"^\./", "", url).lstrip("/")
-            url = f"https://raw.githubusercontent.com/{repo}/HEAD/{rel}"
+            url = (f"https://gitlab.com/{repo[3:]}/-/raw/HEAD/{rel}" if repo.lower().startswith("gl:")
+                   else f"https://raw.githubusercontent.com/{repo}/HEAD/{rel}")
         return url
     return None
 
 
 def find_readme_image(session, repo: str) -> str | None:
+    if repo.lower().startswith("ext/"):
+        return None  # jogo de fora do GitHub: não há README para ler
     # raw.githubusercontent.com não conta no limite da API do GitHub
     for name in ("README.md", "readme.md", "Readme.md"):
-        r = session.get(f"https://raw.githubusercontent.com/{repo}/HEAD/{name}",
+        raw = (f"https://gitlab.com/{repo[3:]}/-/raw/HEAD/{name}" if repo.lower().startswith("gl:")
+               else f"https://raw.githubusercontent.com/{repo}/HEAD/{name}")
+        r = session.get(raw,
                         headers={"User-Agent": UA}, timeout=15)
         if r.ok:
             return readme_image_url(r.text[:300_000], repo)

@@ -165,6 +165,8 @@ class CardDelegate(QStyledItemDelegate):
         x += self._chip(p, x, y, row.entry.platform, "#33333f")
         if row.entry.target and row.entry.target.lower() != "windows":
             x += self._chip(p, x, y, "→ " + row.entry.target, "#2a3a55", "#a9c1ff")
+        if row.entry.gitlab:
+            x += self._chip(p, x, y, "GitLab", "#4a2b12", "#ffb37a")
         if key in self.w.active:
             x += self._chip(p, x, y, "Instalando…", theme.BLUE)
         elif row.has_update:
@@ -413,7 +415,7 @@ class MainWindow(QMainWindow):
         logo.setTextFormat(Qt.TextFormat.RichText)
         logo.setStyleSheet("font-size: 14pt; font-weight: 800;")
         sl.addWidget(logo)
-        sub = QLabel("Jogos recomp do GitHub" + (" · edição cliente" if edition.is_client() else ""))
+        sub = QLabel("Jogos recomp do GitHub e GitLab" + (" · edição cliente" if edition.is_client() else ""))
         sub.setStyleSheet(f"color:{theme.MUTED}; font-size: 8.5pt;")
         sl.addWidget(sub)
         sl.addSpacing(10)
@@ -813,8 +815,8 @@ class MainWindow(QMainWindow):
         e = row.entry
         self.d_cover.set_entry(e)
         self.d_title.setText(e.name)
-        star_txt = f" · ★ {e.stars:,} no GitHub".replace(",", ".") if e.stars else ""
-        shown = (e.link or "Fora do GitHub") if e.external else e.repo
+        star_txt = f" · ★ {e.stars:,} no {'GitLab' if e.gitlab else 'GitHub'}".replace(",", ".") if e.stars else ""
+        shown = (e.link or "Fora do GitHub") if e.external else (e.repo[3:] if e.gitlab else e.repo)
         self.d_repo.setText(f"<a style='color:{theme.RED}' href='{e.url}'>{shown}</a>{star_txt}")
         self.d_desc.setText(e.description or "Sem descrição.")
         self.d_note.setText(e.notes)
@@ -857,7 +859,7 @@ class MainWindow(QMainWindow):
         elif row.loaded:
             lines.append(f"<span style='color:{theme.MUTED}'>Este repositório ainda não publicou releases.</span>")
         elif key in self.fetching:
-            lines.append(f"<span style='color:{theme.MUTED}'>Consultando o GitHub…</span>")
+            lines.append(f"<span style='color:{theme.MUTED}'>Consultando a release…</span>")
         if row.installed:
             n = len(row.rec.get("versions", []))
             lines.append(f"<b>Pasta:</b> {row.rec.get('folder', '')}")
@@ -1813,13 +1815,13 @@ class MainWindow(QMainWindow):
         if self.client_mode:
             return
         text, ok = QInputDialog.getText(self, "Adicionar repositório",
-                                        "Cole o link do GitHub ou escreva dono/repositório:")
+                                        "Cole o link do GitHub ou do GitLab (ou escreva dono/repositório):")
         if not ok or not text.strip():
             return
         repo = catalog.parse_repo(text)
         if not repo:
             QMessageBox.warning(self, "Repositório inválido",
-                                "Use o formato dono/repositório ou um link github.com.")
+                                "Use o formato dono/repositório ou um link github.com ou gitlab.com.")
             return
         if repo.lower() in self.rows and self.rows[repo.lower()].entry.source != "discovered":
             self.statusBar().showMessage("Esse repositório já está na lista.")
@@ -1893,7 +1895,8 @@ class MainWindow(QMainWindow):
             menu.addAction("Instalar", lambda: self.start_install(key))
         fav = self.settings.has("favorites", key)
         menu.addAction("Remover dos favoritos" if fav else "Favoritar", lambda: self._fav(key))
-        menu.addAction("Abrir página do jogo" if row.entry.external else "Abrir no GitHub",
+        menu.addAction("Abrir página do jogo" if row.entry.external else
+                       ("Abrir no GitLab" if row.entry.gitlab else "Abrir no GitHub"),
                        lambda: QDesktopServices.openUrl(QUrl(row.entry.url)))
         menu.addAction("Copiar link", lambda: QGuiApplication.clipboard().setText(row.entry.url))
         menu.addSeparator()

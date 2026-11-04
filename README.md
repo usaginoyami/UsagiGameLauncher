@@ -1,6 +1,6 @@
 # Usagi GameLaucher
 
-Launcher para Windows que organiza e lista os **jogos recomp** (recompilações estáticas e ports) publicados no GitHub. Baixa a release mais recente, instala cada versão em pasta própria, avisa de atualizações e abre o jogo.
+Launcher para Windows que organiza e lista os **jogos recomp** (recompilações estáticas e ports) publicados no GitHub ou GitLab. Baixa a release mais recente, instala cada versão em pasta própria, avisa de atualizações e abre o jogo.
 
 Inspirado em [teasergames/ports-pc](https://github.com/teasergames/ports-pc) (biblioteca com cards, catálogo e instalação por release) e [SirDiabo/GithubLauncher](https://github.com/SirDiabo/GithubLauncher) (lista de repositórios e atualização via GitHub Releases).
 
@@ -14,7 +14,7 @@ Inspirado em [teasergames/ports-pc](https://github.com/teasergames/ports-pc) (bi
 
 - **Catálogo curado** (`data/catalog.json`) com ~80 recomps e ports (N64, Xbox, Xbox 360, PS1–PS4, PSP, GameCube, Wii, Switch, Dreamcast, SNES, NES, GBA), cada repositório conferido antes de entrar. Sem token do GitHub, o launcher só consulta releases dos jogos instalados, favoritos e do que você abrir (limite de 60 req/h); com token, atualiza tudo.
 - **Descoberta automática**: busca no GitHub pelos tópicos `recomp`, `recompiled`, `recompilation` e `static-recompilation`. Ferramentas (N64Recomp, XenonRecomp etc.), forks e repositórios arquivados são filtrados. Os achados aparecem em **Descobertos**; clique com o botão direito para adicionar ao seu catálogo ou ocultar.
-- **Adicionar repositório**: cole `dono/repo` ou o link do GitHub.
+- **Adicionar repositório**: cole `dono/repo` ou o link do GitHub. Links do **GitLab** (`https://gitlab.com/grupo/projeto`, com subgrupos) também funcionam: releases, estrelas, capa do README e instalação, guardados como `gl:grupo/projeto`. Só projetos públicos do gitlab.com. O token do GitHub nunca é enviado ao GitLab. As releases do GitLab não trazem SHA-256 nem tamanho, então esses dois avisos não aparecem. A descoberta automática continua só no GitHub.
 - **Instalar / Atualizar**: escolhe sozinho o pacote Windows da release (ignora Linux, macOS, ARM e source), confere o SHA-256 quando o GitHub publica, extrai com proteção contra zip-slip e detecta o executável. Cada versão vai para `NomeDoRepositório\vX.Y.Z`, então um update nunca sobrescreve a anterior. **Limpar versões antigas** apaga só quando você confirmar.
 - **Renomear**: clique direito no jogo → **Renomear…** (ou F2). O nome é só de exibição, fica salvo nas suas configurações e não muda o repositório, o catálogo nem a pasta do jogo. **Restaurar nome original** desfaz.
 - **Nome automático**: clique direito → **Procurar nome automático…** busca o título oficial na IGDB (com a chave) e na Wikipedia, com ano e plataformas, e você escolhe. Os jogos da plataforma do card aparecem primeiro, o que separa, por exemplo, o God of War de PS2 do de PS4.
@@ -92,7 +92,7 @@ A pasta `docs/` é um app web (PWA) para curar o catálogo do sofá, sem PC: lis
 python tests/test_core.py        # 32 testes de lógica
 python tests/test_covers.py      # 33 testes das fontes e do cache de capas
 python tests/test_extras.py      # 55 testes de segurança, filtro adulto, backups, autoatualização, estrelas, remoção, ordenação e busca de instalados
-python tests/test_edition.py     # 40 testes de edições, catálogo publicado, segredos, tempo de jogo, atalhos/Steam, versões e reparo
+python tests/test_edition.py     # 52 testes de edições, catálogo publicado, segredos, tempo de jogo, atalhos/Steam, versões e reparo
 python tests/smoke_ui.py pasta   # interface sem tela + instalação ponta a ponta + capturas
 python tests/pwa_check.py        # app do celular num navegador sem tela (precisa de playwright)
 python tests/smoke_edition.py    # interface sem tela das duas edições (cliente travado, publicar, status, tempo, versões)

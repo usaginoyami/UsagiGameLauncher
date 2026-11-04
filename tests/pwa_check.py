@@ -48,6 +48,9 @@ def route(r):
         if url.endswith(".jpg") or url.endswith(".png"):
             return r.fulfill(status=200, body=PNG, content_type="image/png")
         return r.fulfill(status=200, json=doc)
+    if "gitlab.com/api/v4/projects" in url:
+        calls.append(("GITLAB", url, dict(r.request.headers)))
+        return r.fulfill(json={"path": "azul-game", "path_with_namespace": "grp/azul-game", "description": "Xbox 360 recompilation", "topics": ["recomp"]})
     if "api.github.com" in url:
         body = r.request.post_data
         calls.append((m, url.split("api.github.com")[1], json.loads(body) if body else None))
@@ -78,7 +81,7 @@ with sync_playwright() as pw:
     page = ctx.new_page()
     errors = []
     page.on("pageerror", lambda e: errors.append(str(e)))
-    page.route("**/*", lambda r: route(r) if ("githubusercontent" in r.request.url or "api.github.com" in r.request.url) else r.continue_())
+    page.route("**/*", lambda r: route(r) if ("githubusercontent" in r.request.url or "api.github.com" in r.request.url or "gitlab.com" in r.request.url) else r.continue_())
     page.goto(f"http://127.0.0.1:{port}/")
     page.wait_for_selector(".game")
     n = len(doc["games"])
@@ -114,10 +117,22 @@ with sync_playwright() as pw:
     # adicionar do GitHub
     page.click("#fab")
     page.fill("input[placeholder^='dono/reposit']", "https://github.com/someone/CoolGame-Recomp")
-    page.click("text=Buscar no GitHub")
+    page.click("#sheet button:text-is('Buscar')")
     page.wait_for_selector("text=Novo jogo")
     check(page.input_value("input[maxlength='80']") == "Cool Game Recomp", "nome sugerido do repositório")
     check(page.locator("#sheet select").first.input_value() == "PS3", "plataforma adivinhada (PS3)")
+    page.click("text=Salvar >> nth=0")
+
+    # adicionar do GitLab (sem enviar o token do GitHub)
+    page.click("#fab")
+    page.fill("input[placeholder^='dono/reposit']", "https://gitlab.com/grp/azul-game/-/releases")
+    page.click("#sheet button:text-is('Buscar')")
+    page.wait_for_selector("text=Novo jogo")
+    check(page.input_value("input[maxlength='80']") == "azul game", "nome sugerido do projeto GitLab")
+    check(page.locator("#sheet select").first.input_value() == "Xbox 360", "plataforma adivinhada do GitLab")
+    gl_call = next(c for c in calls if c[0] == "GITLAB")
+    check("grp%2Fazul-game" in gl_call[1] and "authorization" not in {k.lower() for k in gl_call[2]},
+          "consulta ao GitLab sem o token do GitHub")
     page.click("text=Salvar >> nth=0")
 
     # remover um jogo
@@ -137,7 +152,8 @@ with sync_playwright() as pw:
     blob = [c for c in calls if c[1].endswith("/git/blobs")][0][2]
     pub = json.loads(base64.b64decode(blob["content"]).decode("utf-8"))
     names = {g["repo"]: g for g in pub["games"]}
-    check(pub["schema"] == 1 and len(pub["games"]) == n + 2 - 1, "catálogo publicado: +2 novos, -1 removido")
+    check(pub["schema"] == 1 and len(pub["games"]) == n + 3 - 1, "catálogo publicado: +3 novos, -1 removido")
+    check("gl:grp/azul-game" in names, "projeto do GitLab publicado como gl:")
     check("ext/azimuth" in names and names["ext/azimuth"]["cover"].startswith("covers/ext_azimuth")
           and names["ext/azimuth"]["link"].startswith("https://"), "jogo de fora com link e capa")
     check("Nome Editado no Celular" in [g["name"] for g in pub["games"]], "edição de nome publicada")

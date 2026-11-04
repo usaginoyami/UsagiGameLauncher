@@ -6,10 +6,11 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlparse
 
 import requests
 
+from . import gitlab_api
 from .errors import Cancelled, GitHubError, NotFoundError, RateLimitError
 from .jsonio import load_json, save_json
 
@@ -123,15 +124,17 @@ class GitHubClient:
             pass
 
     # ------------------------------------------------------------- requests
-    def get_json(self, path: str, params: dict | None = None) -> Any:
-        key = self._key(path, params)
+    def get_json(self, path: str, params: dict | None = None, base: str = API) -> Any:
+        key = self._key(path if base == API else base + path, params)
         with self._lock:
             entry = self._cache.get(key)
         headers = {}
+        if base != API:  # outro serviço: nunca manda o token do GitHub para lá
+            headers["Authorization"] = None
         if entry and entry.get("etag"):
             headers["If-None-Match"] = entry["etag"]
         try:
-            r = self.session.get(API + path, params=params, headers=headers, timeout=20)
+            r = self.session.get(base + path, params=params, headers=headers, timeout=20)
         except requests.RequestException as e:
             if entry:  # offline: usa o último resultado conhecido
                 return entry["data"]
@@ -167,14 +170,28 @@ class GitHubClient:
 
     # ------------------------------------------------------------ endpoints
     def repo_info(self, full_name: str) -> dict:
+        if gitlab_api.is_gitlab(full_name):
+            return gitlab_api.to_repo_info(
+                self.get_json(gitlab_api.project_path(full_name), base=gitlab_api.API))
         return self.get_json(f"/repos/{full_name}")
 
     def latest_release(self, full_name: str, allow_prerelease: bool = True) -> Release | None:
+        if gitlab_api.is_gitlab(full_name):
+            data = self.get_json(gitlab_api.project_path(full_name) + "/releases", {"per_page": 10},
+                                 base=gitlab_api.API)
+            return gitlab_api.pick_release(data, allow_prerelease)
         data = self.get_json(f"/repos/{full_name}/releases", {"per_page": 10})
         return pick_release(data, allow_prerelease)
 
     def release_by_tag(self, full_name: str, tag: str) -> Release | None:
         from urllib.parse import quote
+        if gitlab_api.is_gitlab(full_name):
+            try:
+                return gitlab_api.parse_release(self.get_json(
+                    gitlab_api.project_path(full_name) + "/releases/" + quote(tag, safe=""),
+                    base=gitlab_api.API))
+            except NotFoundError:
+                return None
         try:
             return parse_release(self.get_json(f"/repos/{full_name}/releases/tags/{quote(tag, safe='')}"))
         except NotFoundError:
@@ -196,8 +213,12 @@ class GitHubClient:
         dest.parent.mkdir(parents=True, exist_ok=True)
         part = dest.with_name(dest.name + ".part")
         try:
-            with self.session.get(url, stream=True, timeout=30,
-                                  headers={"Accept": "*/*"}) as r:
+            headers = {"Accept": "*/*"}
+            host = (urlparse(url).hostname or "").lower()
+            if not (host == "github.com" or host.endswith(".github.com")
+                    or host.endswith(".githubusercontent.com")):
+                headers["Authorization"] = None  # o token do GitHub só vai para o GitHub
+            with self.session.get(url, stream=True, timeout=30, headers=headers) as r:
                 if r.status_code == 404:
                     raise NotFoundError("Arquivo da release não encontrado.")
                 if not r.ok:

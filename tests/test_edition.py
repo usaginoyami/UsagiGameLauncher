@@ -139,6 +139,107 @@ class ImportPlan(unittest.TestCase):
         self.assertEqual(len(published.import_plan([a], [b])["upsert"]), 1)
 
 
+# ------------------------------------------------------------------ GitLab
+class GitLab(unittest.TestCase):
+    def test_parse_links(self):
+        from usagi_launcher import catalog
+        self.assertEqual(catalog.parse_repo("https://gitlab.com/group/sub/proj"), "gl:group/sub/proj")
+        self.assertEqual(catalog.parse_repo("https://gitlab.com/g/p/-/releases"), "gl:g/p")
+        self.assertEqual(catalog.parse_repo("https://gitlab.com/g/p.git"), "gl:g/p")
+        self.assertEqual(catalog.parse_repo("gl:g/p"), "gl:g/p")
+        self.assertIsNone(catalog.parse_repo("https://gitlab.com/onlyone"))
+        self.assertIsNone(catalog.parse_repo("https://gitlab.com/g/../etc"))
+        self.assertEqual(catalog.parse_repo("o/r"), "o/r")
+        self.assertEqual(catalog.parse_repo("https://github.com/o/r"), "o/r")
+
+    def test_entry_helpers(self):
+        e = Entry("gl:group/sub/proj")
+        self.assertTrue(e.gitlab)
+        self.assertFalse(e.external)
+        self.assertEqual(e.url, "https://gitlab.com/group/sub/proj")
+        self.assertEqual(e.name, "proj")
+        self.assertFalse(Entry("o/r").gitlab)
+
+    def test_release_conversion(self):
+        from usagi_launcher import gitlab_api
+        rels = [
+            {"tag_name": "v2-rc", "upcoming_release": True, "released_at": "2026-10-02T00:00:00Z"},
+            {"tag_name": "v1.0", "name": "Um", "description": "notas", "released_at": "2026-09-01T00:00:00Z",
+             "_links": {"self": "https://gitlab.com/g/p/-/releases/v1.0"},
+             "assets": {"links": [
+                 {"name": "Game-Windows.zip", "url": "https://gitlab.com/g/p/-/package/x",
+                  "direct_asset_url": "https://gitlab.com/g/p/-/releases/v1.0/downloads/Game-Windows.zip"},
+                 {"name": "inseguro", "url": "http://x/y.zip"}], "sources": [{"format": "zip", "url": "u"}]}},
+        ]
+        stable = gitlab_api.pick_release(rels, True)
+        self.assertEqual(stable.tag, "v1.0")
+        self.assertEqual([a.name for a in stable.assets], ["Game-Windows.zip"])
+        self.assertTrue(stable.assets[0].url.endswith("downloads/Game-Windows.zip"))
+        self.assertFalse(stable.prerelease)
+        only_pre = gitlab_api.pick_release(rels[:1], True)
+        self.assertTrue(only_pre.prerelease)
+        self.assertIsNone(gitlab_api.pick_release(rels[:1], False))
+
+    def test_repo_info_shape(self):
+        from usagi_launcher import gitlab_api
+        info = gitlab_api.to_repo_info({"path_with_namespace": "g/p", "path": "p", "star_count": 7,
+                                        "description": None, "topics": ["recomp"]})
+        self.assertEqual((info["full_name"], info["stargazers_count"], info["description"]), ("gl:g/p", 7, ""))
+
+    def test_client_routes_and_never_leaks_github_token(self):
+        import requests
+        from usagi_launcher.github_api import GitHubClient
+
+        seen = []
+
+        class Rec(requests.adapters.BaseAdapter):
+            def send(self, request, **kw):
+                seen.append((request.url, request.headers.get("Authorization")))
+                r = requests.Response()
+                r.status_code = 200
+                r._content = b"[]" if "releases" in request.url else b'{"path_with_namespace":"g/p","star_count":3}'
+                r.headers["Content-Type"] = "application/json"
+                r.url = request.url
+                return r
+
+            def close(self):
+                pass
+
+        s = requests.Session()
+        s.mount("https://", Rec())
+        c = GitHubClient("ghp_SEGREDO", session=s)
+        self.assertEqual(c.repo_info("gl:g/p")["stargazers_count"], 3)
+        self.assertIsNone(c.latest_release("gl:g/p"))
+        c.repo_info("o/r")
+        gl = [a for u, a in seen if "gitlab.com" in u]
+        self.assertTrue(gl and all(a is None for a in gl), "token do GitHub não vai ao GitLab")
+        self.assertTrue(any("projects/g%2Fp/releases" in u for u, _ in seen))
+        gh = [a for u, a in seen if "api.github.com" in u]
+        self.assertEqual(gh, ["Bearer ghp_SEGREDO"])
+
+    def test_download_sends_token_only_to_github_hosts(self):
+        from usagi_launcher.github_api import GitHubClient
+        c = GitHubClient("ghp_SEGREDO")
+        tmp = Path(tempfile.mkdtemp())
+        c.session.get = lambda url, **kw: (_ for _ in ()).throw(RuntimeError(kw["headers"]))
+        for url, with_token in (("https://gitlab.com/x.zip", False), ("https://evil.example/x.zip", False),
+                                ("https://github.com/o/r/releases/download/v1/x.zip", True),
+                                ("https://objects.githubusercontent.com/x", True)):
+            with self.assertRaises(RuntimeError) as cm:
+                c.download(url, tmp / "f.zip")
+            headers = cm.exception.args[0]
+            self.assertEqual("Authorization" in headers, not with_token, url)
+
+    def test_published_accepts_gitlab_entries(self):
+        doc = published.build([Entry("gl:g/sub/p", name="P")])
+        self.assertEqual(published.parse(doc)[0].repo, "gl:g/sub/p")
+
+    def test_readme_image_urls_for_gitlab(self):
+        from usagi_launcher import covers
+        url = covers.readme_image_url("![x](docs/shot.png)", "gl:g/p")
+        self.assertEqual(url, "https://gitlab.com/g/p/-/raw/HEAD/docs/shot.png")
+
+
 # ------------------------------------------------------------------ cofre
 class Secrets(unittest.TestCase):
     def setUp(self):

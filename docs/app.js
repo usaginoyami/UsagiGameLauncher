@@ -135,7 +135,8 @@ function card(g) {
   if (src) thumb.style.backgroundImage = `url("${src.replace(/"/g, "%22")}")`;
   return el("button", { class: "game", onclick: () => openEditor(g) }, thumb,
     el("div", { class: "info" }, el("div", { class: "name" }, g.name || g.repo),
-      el("div", { class: "repo" }, isExt(g) ? (g.link || "Fora do GitHub") : g.repo),
+      el("div", { class: "repo" }, isExt(g) ? (g.link || "Fora do GitHub") : g.repo.replace(/^gl:/i, "")),
+      el("div", { class: "repo", hidden: !/^gl:/i.test(g.repo) }, "GitLab"),
       el("div", { class: "chips" }, el("span", { class: "chip" }, g.platform || "Outros"),
         g.target && g.target !== "Windows" ? el("span", { class: "chip" }, "→ " + g.target) : null,
         isExt(g) ? el("span", { class: "chip ext" }, "Fora do GitHub") : null,
@@ -225,10 +226,37 @@ function openEditor(g, isNew = false) {
 function guessPlatform(text) { for (const [p, re] of GUESS) if (re.test(text)) return p; return "Outros"; }
 const pretty = s => s.replace(/[_-]/g, " ").replace(/([a-z])([A-Z])/g, "$1 $2").replace(/\s+/g, " ").trim();
 
+function parseGitlab(text) {
+  const t = text.trim();
+  if (!/^gl:|gitlab\.com/i.test(t)) return null;
+  let path = /^gl:/i.test(t) ? t.slice(3) : t.split(/gitlab\.com[/:]/i)[1] || "";
+  path = path.split(/[?#]/)[0].split("/-/")[0];
+  const parts = path.split("/").filter(Boolean);
+  if (parts.length && /\.git$/i.test(parts[parts.length - 1])) parts[parts.length - 1] = parts[parts.length - 1].slice(0, -4);
+  if (parts.length < 2 || !parts.every(p => /^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(p))) return "invalid";
+  return parts.join("/");
+}
+
 function openAdd() {
-  const repo = el("input", { placeholder: "dono/repositório ou link do GitHub", autocapitalize: "none", autocorrect: "off" });
-  const go = el("button", { class: "primary" }, "Buscar no GitHub");
+  const repo = el("input", { placeholder: "dono/repositório ou link do GitHub ou GitLab", autocapitalize: "none", autocorrect: "off" });
+  const go = el("button", { class: "primary" }, "Buscar");
   go.addEventListener("click", async () => {
+    const gl = parseGitlab(repo.value);
+    if (gl) {
+      if (gl === "invalid") { toast("Link do GitLab inválido."); return; }
+      const id = "gl:" + gl;
+      if (S.games.some(g => keyOf(g) === id.toLowerCase())) { toast("Esse projeto já está no catálogo."); return; }
+      go.disabled = true; go.textContent = "Buscando…";
+      try {
+        // sem o token do GitHub: ele só vai para o GitHub
+        const r = await fetch("https://gitlab.com/api/v4/projects/" + encodeURIComponent(gl));
+        if (!r.ok) throw new Error("Não achei esse projeto no GitLab (precisa ser público).");
+        const info = await r.json();
+        const text = `${info.path} ${info.description || ""} ${(info.topics || []).join(" ")}`;
+        openEditor({ repo: id, name: pretty(info.path || gl.split("/").pop()), platform: guessPlatform(text), target: "", description: info.description || "", notes: "", asset_hint: "", homepage: "", cover_title: "", link: "", adult: false }, true);
+      } catch (e) { toast(e.message); go.disabled = false; go.textContent = "Buscar"; }
+      return;
+    }
     const m = repo.value.trim().match(/(?:github\.com\/)?([\w.-]+)\/([\w.-]+?)(?:\.git|\/.*)?$/);
     if (!m) { toast("Use o formato dono/repositório."); return; }
     const full = `${m[1]}/${m[2]}`;
@@ -238,7 +266,7 @@ function openAdd() {
       const info = await gh(`/repos/${full}`);
       const text = `${info.name} ${info.description || ""} ${(info.topics || []).join(" ")}`;
       openEditor({ repo: info.full_name, name: pretty(info.name), platform: guessPlatform(text), target: "", description: info.description || "", notes: "", asset_hint: "", homepage: "", cover_title: "", link: "", adult: false }, true);
-    } catch (e) { toast(e.message); go.disabled = false; go.textContent = "Buscar no GitHub"; }
+    } catch (e) { toast(e.message); go.disabled = false; go.textContent = "Buscar"; }
   });
   const name = el("input", { placeholder: "Nome do jogo" });
   const ext = el("button", {}, "Continuar");
@@ -249,7 +277,7 @@ function openAdd() {
     openEditor({ repo: id, name: n, platform: "Outros", target: "", description: "", notes: "", asset_hint: "", homepage: "", cover_title: "", link: "", adult: false }, true);
   });
   showSheet(el("div", { class: "top" }, el("button", { class: "ghost", onclick: closeSheet }, "✕"), el("h2", {}, "Adicionar jogo")),
-    el("h3", {}, "Do GitHub"), field("Repositório", repo), go,
+    el("h3", {}, "Do GitHub ou GitLab"), field("Repositório", repo), go,
     el("h3", {}, "De fora do GitHub (itch.io, site…)"), field("Nome", name), ext);
 }
 
