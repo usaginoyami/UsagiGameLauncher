@@ -1,22 +1,7 @@
 {
   "schema": 1,
-  "updated": "2026-11-04T14:35:36+00:00",
+  "updated": "2026-11-04T15:10:29+00:00",
   "games": [
-    {
-      "repo": "TGP482/007Nightfire-XBERecomp",
-      "name": "007Nightfire XBERecomp",
-      "platform": "Xbox",
-      "target": "",
-      "description": "An unofficial original Xbox version PC port of 007: Nightfire via static recompilation.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "discord.gg/8dAn4ZSsap",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-04T11:35:19",
-      "adult": false,
-      "cover": "covers/tgp482_007nightfire-xberecomp.png"
-    },
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
       "name": "3 on 3 NHL Arcade",
@@ -852,7 +837,7 @@
       "description": "Forza Horizon (Xbox 360) natively on PC, rebuilt around the modern Horizon experience: shared online free roam, leaderboards and rivals, 120/144 fps, and a self-hostable online server.",
       "notes": "",
       "asset_hint": "",
-      "homepage": "http://forza.dyotson.dev/",
+      "homepage": "",
       "cover_title": "",
       "link": "",
       "adult": false,
@@ -1182,19 +1167,19 @@
       "cover": "covers/sp00nznet_gt5p.jpg"
     },
     {
-      "repo": "ext/gran-turismo-7",
-      "name": "Gran turismo 7",
+      "repo": "gl:rygt-team/rygt7",
+      "name": "Gran Turismo 7",
       "platform": "PS4",
-      "target": "Windows",
+      "target": "",
       "description": "",
       "notes": "",
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
-      "link": "https://gitlab.com/rygt-team/rygt7",
-      "added_at": "2026-11-04T11:30:19",
+      "link": "",
+      "added_at": "2026-11-04T12:06:31",
       "adult": false,
-      "cover": "covers/ext_gran-turismo-7.jpg"
+      "cover": "covers/gl_rygt-team_rygt7.jpg"
     },
     {
       "repo": "HayatoG/gr2_pc",
@@ -1331,11 +1316,26 @@
       "description": "An unofficial original Xbox version PC port of 007: From Russia With Love via static recompilation.",
       "notes": "",
       "asset_hint": "",
-      "homepage": "discord.gg/8dAn4ZSsap",
+      "homepage": "",
       "cover_title": "",
       "link": "",
       "adult": false,
       "cover": "covers/tgp482_007frwl-xberecomp.jpg"
+    },
+    {
+      "repo": "TGP482/007Nightfire-XBERecomp",
+      "name": "James Bond 007: Nightfire",
+      "platform": "Xbox",
+      "target": "",
+      "description": "An unofficial original Xbox version PC port of 007: Nightfire via static recompilation.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-04T11:35:19",
+      "adult": false,
+      "cover": "covers/tgp482_007nightfire-xberecomp.jpg"
     },
     {
       "repo": "goodshepherd23/JetMoto2-Recomp",
@@ -2529,7 +2529,7 @@
     },
     {
       "repo": "ClydeyEXE/uc2-recomp",
-      "name": "uc 2 recomp",
+      "name": "Unreal Championship 2",
       "platform": "Xbox",
       "target": "",
       "description": "Static recompilation of Unreal Championship 2 (Xbox) to native Windows.",
@@ -2539,7 +2539,8 @@
       "cover_title": "",
       "link": "",
       "added_at": "2026-11-04T11:35:24",
-      "adult": false
+      "adult": false,
+      "cover": "covers/clydeyexe_uc2-recomp.jpg"
     },
     {
       "repo": "mobius/psx-vagrantstory-recomp",
