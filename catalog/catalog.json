@@ -1,7 +1,22 @@
 {
   "schema": 1,
-  "updated": "2026-11-03T19:07:20+00:00",
+  "updated": "2026-11-04T14:35:36+00:00",
   "games": [
+    {
+      "repo": "TGP482/007Nightfire-XBERecomp",
+      "name": "007Nightfire XBERecomp",
+      "platform": "Xbox",
+      "target": "",
+      "description": "An unofficial original Xbox version PC port of 007: Nightfire via static recompilation.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "discord.gg/8dAn4ZSsap",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-04T11:35:19",
+      "adult": false,
+      "cover": "covers/tgp482_007nightfire-xberecomp.png"
+    },
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
       "name": "3 on 3 NHL Arcade",
@@ -1165,6 +1180,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/sp00nznet_gt5p.jpg"
+    },
+    {
+      "repo": "ext/gran-turismo-7",
+      "name": "Gran turismo 7",
+      "platform": "PS4",
+      "target": "Windows",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "https://gitlab.com/rygt-team/rygt7",
+      "added_at": "2026-11-04T11:30:19",
+      "adult": false,
+      "cover": "covers/ext_gran-turismo-7.jpg"
     },
     {
       "repo": "HayatoG/gr2_pc",
@@ -2498,6 +2528,20 @@
       "cover": "covers/12feihu_twistedmetal2recomp.jpg"
     },
     {
+      "repo": "ClydeyEXE/uc2-recomp",
+      "name": "uc 2 recomp",
+      "platform": "Xbox",
+      "target": "",
+      "description": "Static recompilation of Unreal Championship 2 (Xbox) to native Windows.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-04T11:35:24",
+      "adult": false
+    },
+    {
       "repo": "mobius/psx-vagrantstory-recomp",
       "name": "Vagrant Story (PS1)",
       "platform": "PS1",
@@ -2664,6 +2708,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/unchiga_yugiohforbiddenmemoriesrecomp.jpg"
+    },
+    {
+      "repo": "snesrev/zelda3",
+      "name": "zelda 3",
+      "platform": "Outros",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-03T21:57:16",
+      "adult": false
     },
     {
       "repo": "YeOldPress/alttp-dx",
