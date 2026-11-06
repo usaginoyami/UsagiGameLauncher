@@ -19,7 +19,7 @@ from PySide6.QtWidgets import (QAbstractItemView, QApplication, QSystemTrayIcon,
                                QMessageBox, QProgressBar, QPushButton, QSpinBox, QStyle,
                                QStyledItemDelegate, QTextBrowser, QVBoxLayout, QWidget)
 
-from .. import (APP_NAME, __version__, backup, catalog, covers, edition, installer, launcher, paths,
+from .. import (APP_NAME, RECOMP_SITE_URL, __version__, backup, catalog, covers, edition, installer, launcher, paths,
                 published, safety, scanner, selfupdate, shortcuts, sorting, stars, tracking)
 from ..catalog import Entry
 from ..errors import Cancelled, GitHubError, RateLimitError
@@ -441,16 +441,19 @@ class MainWindow(QMainWindow):
         self.btn_publish = QPushButton("Publicar catálogo…")
         self.btn_publish.clicked.connect(self.publish_catalog)
         self.btn_locate.clicked.connect(self.locate_installed)
+        self.btn_site = QPushButton("Jogos recompilados no site")
+        self.btn_site.setToolTip("Abre a lista de jogos recompilados no site do UsagiNoYami")
+        self.btn_site.clicked.connect(lambda: QDesktopServices.openUrl(QUrl(RECOMP_SITE_URL)))
         self.btn_refresh.clicked.connect(self._refresh_clicked)
         self.btn_discover.clicked.connect(lambda: self.start_discover(manual=True))
         self.btn_add.clicked.connect(self.add_repo)
         self.btn_settings.clicked.connect(self.open_settings)
         if self.client_mode:
             self.btn_refresh.setText("Atualizar catálogo e releases")
-            buttons = (self.btn_refresh, self.btn_covers, self.btn_locate, self.btn_settings)
+            buttons = (self.btn_refresh, self.btn_covers, self.btn_locate, self.btn_site, self.btn_settings)
         else:
             buttons = (self.btn_refresh, self.btn_discover, self.btn_add, self.btn_external,
-                       self.btn_locate, self.btn_import, self.btn_publish, self.btn_settings)
+                       self.btn_locate, self.btn_import, self.btn_publish, self.btn_site, self.btn_settings)
         for b in buttons:
             sl.addWidget(b)
         for b in (self.btn_discover, self.btn_add, self.btn_external, self.btn_import, self.btn_publish):

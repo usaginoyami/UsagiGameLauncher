@@ -71,6 +71,7 @@ pump(app, 0.2)
 
 check(set(win.rows) == {"zed/onlyone"}, "cliente mostra só o catálogo publicado (e esconde o adulto)")
 check(win.btn_covers.isVisible(), "cliente tem o botão Atualizar capas")
+check(win.btn_site.isVisible() and win.btn_site.text() == "Jogos recompilados no site", "cliente tem o botão do site")
 check(not win.btn_discover.isVisible() and not win.btn_add.isVisible() and not win.btn_publish.isVisible(),
       "cliente sem descobrir, adicionar repositório nem publicar")
 check(all(f[1] != 4 for f in win.filters), "cliente sem o filtro Descobertos")
