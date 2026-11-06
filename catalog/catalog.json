@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-04T15:37:44+00:00",
+  "updated": "2026-11-06T22:58:03+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -197,6 +197,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/tgp482_black-xberecomp.jpg"
+    },
+    {
+      "repo": "theitsnschool/bloodborne-windows-native-loader",
+      "name": "Bloodborne",
+      "platform": "Outros",
+      "target": "",
+      "description": "Bloodborne PC Windows Port: Native x86-64 Loader with Vulkan Rendering for Modders",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-05T15:52:33",
+      "adult": false,
+      "cover": "covers/theitsnschool_bloodborne-windows-native-loader.jpg"
     },
     {
       "repo": "Supermedo/bloodborne_pc",
@@ -605,6 +620,21 @@
       "cover": "covers/vyanhursky_defjamffny-recomp.jpg"
     },
     {
+      "repo": "timboat/demons-souls-recomp",
+      "name": "Demon's Souls",
+      "platform": "PS3",
+      "target": "",
+      "description": "Native Windows port of Demon's Souls (PS3, BLUS-30443) via ps3recomp static recompilation. Bring your own disc image; no game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-05T15:52:29",
+      "adult": false,
+      "cover": "covers/timboat_demons-souls-recomp.jpg"
+    },
+    {
       "repo": "ArmDucks/DigimonWorld3-Recomp",
       "name": "Digimon World 3",
       "platform": "PS1",
@@ -634,7 +664,7 @@
     },
     {
       "repo": "Lucas-blip-png/dkb-pc-recomp",
-      "name": "dkb pc recomp",
+      "name": "Donkey Kong Bananza",
       "platform": "Switch 2",
       "target": "",
       "description": "Static recompilation of Donkey Kong Bananza (Switch 2) to native Windows with Vulkan. The 3D tutorial renders; not playable yet. No game files included.",
@@ -1548,6 +1578,21 @@
       "cover": "covers/odrannnn_metroidprimeport.jpg"
     },
     {
+      "repo": "bonllavier/Corruption_3-PC",
+      "name": "Metroid Prime 3: Corruption",
+      "platform": "Wii",
+      "target": "",
+      "description": "Native Windows port of Metroid Prime 3: Corruption (Wii, USA) built with static recompilation, no emulator. Play with keyboard and mouse or a gamepad, with PC visual upgrades and RetroAchievements (casual mode). Requires your own disc.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-06T19:49:46",
+      "adult": false,
+      "cover": "covers/bonllavier_corruption_3-pc.jpg"
+    },
+    {
       "repo": "coccofresco/mgsone-recomp",
       "name": "mgsone recomp",
       "platform": "PS1",
@@ -1787,6 +1832,20 @@
       "cover": "covers/nazatric_protodroid.png"
     },
     {
+      "repo": "exoteric33/ps2-native-recomp",
+      "name": "ps 2 native recomp",
+      "platform": "PS2",
+      "target": "Ferramentas",
+      "description": "Turns a PS2 disc image into a native PC program by static recompilation; builds on ps2-web-recomp (MIT). Work in progress. Bring your own disc.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-06T19:51:00",
+      "adult": false
+    },
+    {
       "repo": "Rainchus/Quest64-Recomp",
       "name": "Quest 64",
       "platform": "N64",
@@ -1938,6 +1997,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/lordingard_sacredstonesrecomp.jpg"
+    },
+    {
+      "repo": "bipinkrish/sf2recomp",
+      "name": "Shadow Fight 2",
+      "platform": "Switch",
+      "target": "",
+      "description": "Static recompilation of Shadow Fight 2 (Switch) to native Linux, Windows, macOS and Andorid",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-05T15:51:58",
+      "adult": false,
+      "cover": "covers/bipinkrish_sf2recomp.jpg"
     },
     {
       "repo": "volstants/recomp-ShadowOfTheColossus-pc",
@@ -2120,6 +2194,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/yuutatsubasa_free-riders-recompiled.jpg"
+    },
+    {
+      "repo": "sonicnext-dev/MarathonRecomp",
+      "name": "Sonic the Hedgehog",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "An unofficial PC port of the Xbox 360 version of Sonic the Hedgehog (2006) created through the process of static recompilation",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-05T15:52:26",
+      "adult": false,
+      "cover": "covers/sonicnext-dev_marathonrecomp.jpg"
     },
     {
       "repo": "hedge-dev/UnleashedRecomp",
@@ -2344,6 +2433,20 @@
       "link": "https://gitlab.com/zzzarathustra-dev/power-moon-recomp",
       "adult": false,
       "cover": "covers/ext_super-mario-odyssey.jpg"
+    },
+    {
+      "repo": "drakolordx7/switch2-recomp",
+      "name": "switch 2 recomp",
+      "platform": "Switch",
+      "target": "Ferramentas",
+      "description": "Nintendo Switch 2 games recompiled to run natively on PC. Pokémon Pokopia is playable now.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-05T15:52:21",
+      "adult": false
     },
     {
       "repo": "FishB0nes98/Tekken3Recompiled",
@@ -2713,7 +2816,7 @@
     {
       "repo": "snesrev/zelda3",
       "name": "zelda 3",
-      "platform": "Outros",
+      "platform": "SNES",
       "target": "",
       "description": "",
       "notes": "",
