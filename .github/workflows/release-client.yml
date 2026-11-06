@@ -1,0 +1,78 @@
+name: Release do Client
+
+# Independente do workflow do curador (release.yml): gera só o UsagiGameClient
+# e anexa o zip na release da mesma tag (cria a release se ainda não existir).
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag da release (ex.: v1.2.0). Vazio = só gera o artefato, sem publicar."
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-client-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - run: |
+          python tests/test_core.py
+          python tests/test_edition.py
+
+  build-client:
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Dependências
+        run: pip install -r requirements.txt pyinstaller
+      - name: Gerar o .exe do client
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path client-data/data | Out-Null
+          Copy-Item data/catalog.json client-data/data/catalog.json
+          Set-Content -Path client-data/data/edition.txt -Value "client" -NoNewline
+          pyinstaller --noconfirm --clean --windowed --name UsagiGameClient `
+            --distpath dist-client --workpath build-client `
+            --add-data "client-data/data;data" main.py
+      - name: Compactar
+        shell: pwsh
+        run: Compress-Archive -Path dist-client/UsagiGameClient -DestinationPath UsagiGameLauncher-Client-Windows-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: UsagiGameLauncher-Client-Windows-x64
+          path: UsagiGameLauncher-Client-Windows-x64.zip
+
+      - name: Definir tag
+        id: tag
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            echo "name=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publicar na Release
+        if: steps.tag.outputs.name != ''
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.name }}
+          files: UsagiGameLauncher-Client-Windows-x64.zip
+          generate_release_notes: true
