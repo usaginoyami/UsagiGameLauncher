@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-07T04:06:26+00:00",
+  "updated": "2026-11-07T04:49:58+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -46,9 +46,9 @@
     },
     {
       "repo": "spacefarergames/AloneInTheDarkReHaunted",
-      "name": "Alone in the Dark",
+      "name": "Alone in the Dark (remaster)",
       "platform": "Windows",
-      "target": "",
+      "target": "Remaster",
       "description": "A heavily enhanced port and dynamic recomp of Alone In The Dark 1, with Textured Models, HD-4K background replacements, QOL improvements, controller support and so much more.",
       "notes": "",
       "asset_hint": "",
@@ -369,9 +369,9 @@
     },
     {
       "repo": "sp00nznet/redalert2-recomp",
-      "name": "Command & Conquer: Red Alert 2",
+      "name": "Command & Conquer: Red Alert 2 (remaster)",
       "platform": "Windows",
-      "target": "",
+      "target": "Remaster",
       "description": "Static recompilation of Command & Conquer: Red Alert 2 / Yuri's Revenge (Westwood, 2000-01) to native C, with the remaster the engine never got: a D3D11 presenter, 720p to 4K, HD voxel units. Built on pcrecomp.",
       "notes": "",
       "asset_hint": "",
@@ -410,6 +410,20 @@
       "cover": "covers/dahsidiabdallah_conkerbfdreloaded.jpg"
     },
     {
+      "repo": "LorenzoAlfaro/CTRStaticRecomp",
+      "name": "Crash Team Racing",
+      "platform": "PS1",
+      "target": "",
+      "description": "Static recompilation of Crash Team Racing (PS1) for Windows: MIPS to C, HLE runtime, 4x HD renderer, widescreen",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/lorenzoalfaro_ctrstaticrecomp.jpg"
+    },
+    {
       "repo": "Claudio5702/Cristalis",
       "name": "Cristalis",
       "platform": "Xbox 360",
@@ -422,20 +436,6 @@
       "link": "",
       "adult": false,
       "cover": "covers/claudio5702_cristalis.png"
-    },
-    {
-      "repo": "LorenzoAlfaro/CTRStaticRecomp",
-      "name": "CTRStatic Recomp",
-      "platform": "PS1",
-      "target": "",
-      "description": "Static recompilation of Crash Team Racing (PS1) for Windows: MIPS to C, HLE runtime, 4x HD renderer, widescreen",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/lorenzoalfaro_ctrstaticrecomp.jpg"
     },
     {
       "repo": "llesieur99/daxter-psp-decomp",
@@ -1536,6 +1536,21 @@
       "cover": "covers/mstan_metroidnesrecomp.jpg"
     },
     {
+      "repo": "yozander2009-stack/Metroid-Dread-Recomp",
+      "name": "Metroid Dread",
+      "platform": "Switch",
+      "target": "",
+      "description": "Metroid Dread recomp ",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:46:54",
+      "adult": false,
+      "cover": "covers/yozander2009-stack_metroid-dread-recomp.jpg"
+    },
+    {
       "repo": "Zaxaerith/MetroidFusionRecomp",
       "name": "Metroid Fusion",
       "platform": "GBA",
@@ -1788,6 +1803,51 @@
       "added_at": "2026-11-03T10:46:23",
       "adult": false,
       "cover": "covers/drakolordx7_pokopia-recomp.jpg"
+    },
+    {
+      "repo": "Veemyu/strahlender-xnu",
+      "name": "Pokémon Brilliant Diamond",
+      "platform": "Switch",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:42:13",
+      "adult": false,
+      "cover": "covers/veemyu_strahlender-xnu.jpg"
+    },
+    {
+      "repo": "shatter9652/uDPR",
+      "name": "Pokémon Brilliant Diamond and Shining Pearl",
+      "platform": "Switch",
+      "target": "",
+      "description": "Pokémon Brilliant Diamond and Shining Pearl as a Unity project rebuilt from your own dump",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:45:32",
+      "adult": false,
+      "cover": "covers/shatter9652_udpr.jpg"
+    },
+    {
+      "repo": "Hexveil404/PokeZ-ARecomp",
+      "name": "Pokémon Legends: Z-A",
+      "platform": "Outros",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:38:28",
+      "adult": false,
+      "cover": "covers/hexveil404_pokez-arecomp.jpg"
     },
     {
       "repo": "JackandBeans/Snap64Recomp",
@@ -2408,6 +2468,21 @@
       "cover": "covers/strider973_street-fighter-ex2-plus-recompiled.jpg"
     },
     {
+      "repo": "smm2recomp/smm2recomp",
+      "name": "Super Mario Maker 2",
+      "platform": "Switch",
+      "target": "",
+      "description": "Super Mario Maker 2 Recomp",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:48:39",
+      "adult": false,
+      "cover": "covers/smm2recomp_smm2recomp.jpg"
+    },
+    {
       "repo": "ext/super-mario-odyssey",
       "name": "Super Mario Odyssey",
       "platform": "Switch",
@@ -2434,6 +2509,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/hero88go_melee-unlocked.jpg"
+    },
+    {
+      "repo": "OpenSmash-Ultimate/ssbu-recomp",
+      "name": "Super Smash Bros. Ultimate",
+      "platform": "Switch",
+      "target": "",
+      "description": "Static recompilation of Super Smash Bros. Ultimate 13.0.4 to a native Windows program: tools and runtime only, bring your own dump",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:44:27",
+      "adult": false,
+      "cover": "covers/opensmash-ultimate_ssbu-recomp.jpg"
     },
     {
       "repo": "drakolordx7/switch2-recomp",
@@ -2535,6 +2625,21 @@
       "cover": "covers/snesrev_zelda3.jpg"
     },
     {
+      "repo": "Nycolazs/EoWRecomp",
+      "name": "The Legend of Zelda: Echoes of Wisdom",
+      "platform": "Switch",
+      "target": "",
+      "description": "Static recompilation of The Legend of Zelda: Echoes of Wisdom (Switch) to native PC - work in progress, no game files included",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:40:32",
+      "adult": false,
+      "cover": "covers/nycolazs_eowrecomp.jpg"
+    },
+    {
       "repo": "sostenesfreitas/ocarina-recomp",
       "name": "The Legend of Zelda: Ocarina of Time",
       "platform": "Switch 2",
@@ -2548,6 +2653,21 @@
       "added_at": "2026-11-07T00:35:32",
       "adult": false,
       "cover": "covers/sostenesfreitas_ocarina-recomp.jpg"
+    },
+    {
+      "repo": "Apolinario-coder/SkyRecomp",
+      "name": "The Legend of Zelda: Skyward Sword",
+      "platform": "Switch",
+      "target": "",
+      "description": "Static recompilation of The Legend of Zelda: Skyward Sword for PC",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:43:12",
+      "adult": false,
+      "cover": "covers/apolinario-coder_skyrecomp.jpg"
     },
     {
       "repo": "alexbeavs-ps1-ports/the-mummy-recomp",
@@ -2604,6 +2724,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/tgp482_scda-xberecomp.jpg"
+    },
+    {
+      "repo": "josiahg2502-glitch/TomodachiLife-recomp",
+      "name": "Tomodachi Life recomp",
+      "platform": "Switch",
+      "target": "",
+      "description": "Static recompilation of Tomodachi Life: Living the Dream to a native Windows program: tools and runtime only, bring your own dump",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:41:18",
+      "adult": false,
+      "cover": "covers/josiahg2502-glitch_tomodachilife-recomp.jpg"
     },
     {
       "repo": "MaxLeiter/project-8-plus",
