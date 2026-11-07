@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-07T22:50:53+00:00",
+  "updated": "2026-11-07T22:58:03+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -409,6 +409,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/psxrestore_condemned2recomp.jpg"
+    },
+    {
+      "repo": "rzrbld/ReConflict",
+      "name": "Conflict: Desert Storm",
+      "platform": "Windows",
+      "target": "PortMaster",
+      "description": "Community ARM64 port for Conflict: Desert Storm using static recompilation, SDL2 and OpenGL ES. Players supply their own game.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T19:57:45",
+      "adult": false,
+      "cover": "covers/rzrbld_reconflict.jpg"
     },
     {
       "repo": "DahSidiAbdallah/ConkerBFDReloaded",
@@ -1816,6 +1831,21 @@
       "cover": "covers/masterllgod_naruto-storm-generations-port-nativo.jpg"
     },
     {
+      "repo": "rzrbld/ReNFS5",
+      "name": "Need for Speed: Porsche Unleashed",
+      "platform": "PS1",
+      "target": "Portmaster",
+      "description": "ReNFS5: Recomp Unleashed — ARM64 Linux port of Need for Speed: Porsche Unleashed (2000), using static recompilation, SDL2 and OpenGL ES. Players supply their own game files.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T19:57:49",
+      "adult": false,
+      "cover": "covers/rzrbld_renfs5.jpg"
+    },
+    {
       "repo": "TalhaMudo/NFSU2Recomp",
       "name": "Need for Speed: Underground 2",
       "platform": "Windows",
@@ -1842,6 +1872,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/gamboozino_ngbrecomp.jpg"
+    },
+    {
+      "repo": "gamboozino/ng2recomp",
+      "name": "Ninja Gaiden II",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "Ninja Gaiden II (Xbox 360, 2008) statically recompiled into native Linux and Windows builds, drawn by its own Vulkan renderer. A steady 60 fps, up to 8x render scale, widescreen and ultrawide, keyboard and mouse, mods, Steam Deck ready. Bring your own copy of the game.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T19:57:52",
+      "adult": false,
+      "cover": "covers/gamboozino_ng2recomp.jpg"
     },
     {
       "repo": "GiZcesi/OpenTricky",
@@ -2768,6 +2813,21 @@
       "cover": "covers/ext_super-mario-odyssey.jpg"
     },
     {
+      "repo": "dyzz/srw64-recomp",
+      "name": "Super Robot Wars 64",
+      "platform": "N64",
+      "target": "",
+      "description": "Unofficial native recompilation of Super Robot Wars 64 for Windows, macOS, Linux/Steam Deck, Android and Switch: Japanese, English, Simplified and Traditional Chinese, Korean, widescreen, optional HD art, mods and bug fixes. Requires your own ROM.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://srw64.dreamquest.club/",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T19:57:57",
+      "adult": false,
+      "cover": "covers/dyzz_srw64-recomp.webp"
+    },
+    {
       "repo": "Hero88go/melee-unlocked",
       "name": "Super Smash Bros. Melee",
       "platform": "GameCube",
@@ -2968,6 +3028,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/shagg88_athelas.png"
+    },
+    {
+      "repo": "rzrbld/The-ReThing",
+      "name": "The Thing",
+      "platform": "PS2",
+      "target": "portmaster",
+      "description": "The ReThing — ARM64 Linux port of The Thing (2002), using static recompilation, SDL2 and OpenGL ES. Users supply their own game files.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T19:58:00",
+      "adult": false,
+      "cover": "covers/rzrbld_the-rething.jpg"
     },
     {
       "repo": "NeilSeligmann/tsfp-recomp",
