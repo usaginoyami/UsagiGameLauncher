@@ -5,6 +5,17 @@ const RAW = `https://raw.githubusercontent.com/${REPO}/${BRANCH}/${DIR}/`;
 const API = "https://api.github.com";
 const PLATFORMS = ["N64","Xbox 360","Xbox One","Xbox","PS4","PS3","PS2","PS1","PSP","GameCube","Wii","Switch","Dreamcast","SNES","NES","Game Boy","GBA","DS","Outros"];
 const TARGETS = ["Windows","Linux","macOS","Android","Switch","Portátil ARM64","Navegador"];
+// "Portado para" aceita várias plataformas: no catálogo vira texto "Windows, Switch"; vazio = só Windows.
+const KNOWN_TARGETS = new Map(TARGETS.map(t => [t.toLowerCase(), t]));
+const splitTargets = v => {
+  const out = [];
+  for (const raw of Array.isArray(v) ? v : String(v || "").split(/[,;]/)) {
+    const t = String(raw).trim().replace(/\s+/g, " ").slice(0, 30), name = KNOWN_TARGETS.get(t.toLowerCase()) || t;
+    if (name && !out.some(o => o.toLowerCase() === name.toLowerCase())) out.push(name);
+  }
+  return out.slice(0, 8);
+};
+const joinTargets = v => { const t = splitTargets(v); return t.length === 1 && t[0] === "Windows" ? "" : t.join(", "); };
 const GUESS = [["N64",/\bn64\b|nintendo ?64/i],["Xbox 360",/xbox ?360|xenon/i],["Xbox One",/xbox ?one/i],["PS4",/\bps4\b|playstation ?4/i],
   ["PS3",/\bps3\b|playstation ?3/i],["PSP",/\bpsp\b/i],["Dreamcast",/dreamcast/i],["SNES",/\bsnes\b|super nintendo/i],["NES",/\bnes\b|famicom/i],
   ["PS2",/\bps2\b|playstation ?2/i],["PS1",/\bps1\b|\bpsx\b|playstation ?1/i],["GameCube",/game ?cube|\bgcn\b/i],["Wii",/\bwii\b/i],
@@ -138,7 +149,7 @@ function card(g) {
       el("div", { class: "repo" }, isExt(g) ? (g.link || "Fora do GitHub") : g.repo.replace(/^gl:/i, "")),
       el("div", { class: "repo", hidden: !/^gl:/i.test(g.repo) }, "GitLab"),
       el("div", { class: "chips" }, el("span", { class: "chip" }, g.platform || "Outros"),
-        g.target && g.target !== "Windows" ? el("span", { class: "chip" }, "→ " + g.target) : null,
+        joinTargets(g.target) ? el("span", { class: "chip" }, "→ " + splitTargets(g.target).join(", ")) : null,
         isExt(g) ? el("span", { class: "chip ext" }, "Fora do GitHub") : null,
         g.adult ? el("span", { class: "chip adult" }, "Adulto") : null,
         S.dirty.has(k) ? el("span", { class: "chip dirty" }, "Alterado") : null)));
@@ -147,6 +158,17 @@ function card(g) {
 // ------------------------------------------------------------------ editor
 function field(label, input, hint) { return el("div", { class: "field" }, el("label", {}, label), input, hint ? el("div", { class: "hint" }, hint) : null); }
 const select = (opts, value) => { const s = el("select"); for (const o of opts) s.append(el("option", { value: o }, o)); if (value && !opts.includes(value)) s.append(el("option", { value }, value)); s.value = value || opts[0]; return s; };
+
+// Caixas de marcar para "Portado para" (uma ou mais plataformas) + campo para as que não estão na lista.
+function targetPicker(value) {
+  const have = splitTargets(value); if (!have.length) have.push("Windows");
+  const boxes = TARGETS.map(t => el("label", { class: "tcheck" }, el("input", { type: "checkbox", checked: have.includes(t) }), t));
+  const extra = el("input", { placeholder: "Outras (separe por vírgula)", value: have.filter(h => !KNOWN_TARGETS.has(h.toLowerCase())).join(", ") });
+  return {
+    node: el("div", {}, el("div", { class: "tgrid" }, boxes), extra),
+    get: () => joinTargets([...boxes.filter(b => b.firstChild.checked).map(b => b.textContent), ...splitTargets(extra.value)]),
+  };
+}
 
 function closeSheet() { $("#sheet").hidden = true; $("#sheet").replaceChildren(); document.body.style.overflow = ""; }
 function showSheet(...kids) { const s = $("#sheet"); s.replaceChildren(...kids); s.hidden = false; s.scrollTop = 0; document.body.style.overflow = "hidden"; }
@@ -171,7 +193,7 @@ function openEditor(g, isNew = false) {
   const f = {
     name: el("input", { value: g.name || "", maxlength: 80 }),
     platform: select(PLATFORMS, g.platform || "Outros"),
-    target: select(TARGETS, g.target || "Windows"),
+    target: targetPicker(g.target),
     description: el("textarea", { maxlength: 600 }, g.description || ""),
     notes: el("textarea", { maxlength: 400 }, g.notes || ""),
     link: el("input", { type: "url", value: g.link || "", placeholder: "https://…" }),
@@ -191,7 +213,7 @@ function openEditor(g, isNew = false) {
     const name = f.name.value.trim();
     if (!name) { toast("Dê um nome ao jogo."); return; }
     if (f.link.value.trim() && !/^https:\/\//i.test(f.link.value.trim())) { toast("O link precisa começar com https://"); return; }
-    Object.assign(draft, { name, platform: f.platform.value, target: f.target.value === "Windows" ? "" : f.target.value,
+    Object.assign(draft, { name, platform: f.platform.value, target: f.target.get(),
       description: f.description.value.trim(), notes: f.notes.value.trim(), link: f.link.value.trim(), adult: f.adult.checked });
     if (newCover) { S.newCovers.set(key, newCover); draft.cover = coverFile(key); }
     else if (removeCover) { S.newCovers.delete(key); delete draft.cover; }
@@ -210,7 +232,8 @@ function openEditor(g, isNew = false) {
   showSheet(
     el("div", { class: "top" }, el("button", { class: "ghost", onclick: closeSheet }, "✕"), el("h2", {}, isNew ? "Novo jogo" : "Editar jogo"), el("button", { class: "primary", onclick: save }, "Salvar")),
     isExt(g) ? el("p", { class: "hint" }, "Jogo de fora do GitHub: o link é a página para baixar.") : el("p", { class: "hint" }, g.repo),
-    field("Nome", f.name), el("div", { class: "row" }, field("Plataforma original", f.platform), field("Roda em", f.target)),
+    field("Nome", f.name), field("Plataforma original", f.platform),
+    field("Portado para", f.target.node, "Marque todas as plataformas onde o port roda. Sem nenhuma marcada, vale Windows."),
     field("Descrição", f.description), field("Aviso (opcional)", f.notes, "Aparece em laranja no painel do jogo."),
     field("Link da página", f.link, isExt(g) ? "Obrigatório para o app abrir a página." : "Opcional."),
     el("div", { class: "field check" }, f.adult, el("label", {}, "Conteúdo adulto ou sugestivo (fica escondido por padrão)")),

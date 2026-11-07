@@ -4,6 +4,8 @@ Formato (catalog/catalog.json no repositório):
     {"schema": 1, "updated": "...", "games": [{"repo", "name", "platform", "target", "description",
      "notes", "asset_hint", "homepage", "cover_title", "adult", "cover": "covers/x.jpg"}]}
 `cover` é um caminho relativo (ao catalog.json) ou um link https.
+`target` (portado para) é texto com uma ou mais plataformas separadas por vírgula ("Windows, Switch");
+vazio quer dizer só Windows. Quem lê também aceita uma lista JSON.
 """
 from __future__ import annotations
 
@@ -78,6 +80,15 @@ def _clean_cover(value: object, base_url: str) -> str:
     return url if parsed.scheme == "https" and parsed.netloc else ""
 
 
+def _clean_target(value: object) -> str:
+    """Aceita "Switch", "Windows, Android" ou uma lista; grava sempre como texto separado por vírgula."""
+    if isinstance(value, list):
+        return catalog.join_targets(value[:catalog.MAX_TARGETS])
+    if isinstance(value, str):
+        return catalog.join_targets(value[:300])
+    return ""
+
+
 def _clean_date(value: object) -> str:
     text = str(value or "")[:32]
     return text if re.match(r"^\d{4}-\d{2}-\d{2}", text) else ""
@@ -108,7 +119,7 @@ def parse(raw: object, base_url: str = CATALOG_URL) -> list[catalog.Entry]:
             repo=repo,
             name=str(g.get("name", ""))[:80],
             platform=str(g.get("platform") or "Outros")[:30],
-            target=str(g.get("target", ""))[:30],
+            target=_clean_target(g.get("target", "")),
             description=str(g.get("description", ""))[:600],
             notes=str(g.get("notes", ""))[:400],
             asset_hint=hint,

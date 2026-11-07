@@ -17,6 +17,33 @@ PLATFORMS = [
 EXTERNAL_PREFIX = "ext/"
 DEFAULT_TARGET = "Windows"
 TARGETS = ["Windows", "Linux", "macOS", "Android", "Switch", "Portátil ARM64", "Navegador"]
+MAX_TARGETS = 8
+_WINDOWS_ALIASES = ("windows", "pc", "windows/linux")
+
+
+def split_targets(value: object) -> list[str]:
+    """"Switch, Android" (ou uma lista) → ["Switch", "Android"], sem repetir e com a grafia padrão."""
+    parts = [str(v) for v in value] if isinstance(value, (list, tuple)) else re.split(r"[,;]", str(value or ""))
+    known = {t.lower(): t for t in TARGETS}
+    out: list[str] = []
+    for part in parts:
+        name = " ".join(part.split())[:30]
+        name = known.get(name.lower(), name)
+        if name and name.lower() not in {o.lower() for o in out}:
+            out.append(name)
+    return out[:MAX_TARGETS]
+
+
+def join_targets(value: object) -> str:
+    """Forma gravada no catálogo: "A, B". Vazio quer dizer só Windows (o padrão)."""
+    names = split_targets(value)
+    if len(names) == 1 and names[0].lower() == DEFAULT_TARGET.lower():
+        return ""
+    return ", ".join(names)
+
+
+def is_windows_target(name: str) -> bool:
+    return name.strip().lower() in _WINDOWS_ALIASES
 
 _PLATFORM_PATTERNS: list[tuple[str, str]] = [
     ("N64", r"\bn64\b|nintendo ?64"),
@@ -60,7 +87,7 @@ class Entry:
     homepage: str = ""
     cover_title: str = ""  # nome do jogo original, usado para achar a capa
     cover: str = ""  # link ou arquivo local de uma capa própria
-    target: str = ""  # para onde o jogo foi portado; vazio = Windows (PC)
+    target: str = ""  # para onde o jogo foi portado: uma ou mais, "Windows, Switch"; vazio = só Windows
     created_at: str = ""  # só nos descobertos (usado na avaliação de risco)
     adult: bool = False  # conteúdo adulto/sugestivo: escondido, a menos que o usuário ligue
     link: str = ""  # jogos fora do GitHub: página onde baixar (ex.: itch.io)
@@ -69,6 +96,16 @@ class Entry:
     def __post_init__(self) -> None:
         if not self.name:
             self.name = pretty_name(self.repo.split("/")[-1])
+        self.target = join_targets(self.target)
+
+    @property
+    def targets(self) -> list[str]:
+        """Todas as plataformas para onde o jogo foi portado (Windows quando nada foi definido)."""
+        return split_targets(self.target) or [DEFAULT_TARGET]
+
+    @property
+    def runs_on_windows(self) -> bool:
+        return any(is_windows_target(t) for t in self.targets)
 
     @property
     def key(self) -> str:

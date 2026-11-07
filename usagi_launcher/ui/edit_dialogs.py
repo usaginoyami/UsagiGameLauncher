@@ -2,32 +2,70 @@
 from __future__ import annotations
 
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import (QComboBox, QDialog, QFormLayout, QHBoxLayout, QLabel, QLineEdit,
-                               QListWidget, QListWidgetItem, QPushButton, QVBoxLayout)
+from PySide6.QtWidgets import (QCheckBox, QComboBox, QDialog, QFormLayout, QGridLayout, QHBoxLayout,
+                               QLabel, QLineEdit, QListWidget, QListWidgetItem, QPushButton,
+                               QVBoxLayout, QWidget)
 
 from .. import catalog
 from ..covers import clean_title
 from .tasks import TaskRunner
 
 
+class TargetPicker(QWidget):
+    """Plataformas para onde o jogo foi portado: marque quantas quiser; outras vão no campo de texto."""
+
+    def __init__(self, targets: object = None, parent=None):
+        super().__init__(parent)
+        self.boxes: dict[str, QCheckBox] = {}
+        grid = QGridLayout()
+        grid.setContentsMargins(0, 0, 0, 0)
+        for i, name in enumerate(catalog.TARGETS):
+            box = QCheckBox(name)
+            self.boxes[name] = box
+            grid.addWidget(box, i // 3, i % 3)
+        self.extra = QLineEdit()
+        self.extra.setPlaceholderText("Outras plataformas (separe por vírgula)")
+        lay = QVBoxLayout(self)
+        lay.setContentsMargins(0, 0, 0, 0)
+        lay.addLayout(grid)
+        lay.addWidget(self.extra)
+        self.set_targets(targets)
+
+    def set_targets(self, targets: object) -> None:
+        wanted = catalog.split_targets(targets) or [catalog.DEFAULT_TARGET]
+        extra = []
+        for name in wanted:
+            if name in self.boxes:
+                self.boxes[name].setChecked(True)
+            else:
+                extra.append(name)
+        for name, box in self.boxes.items():
+            if name not in wanted:
+                box.setChecked(False)
+        self.extra.setText(", ".join(extra))
+
+    def value(self) -> str:
+        """Texto gravado no catálogo ("Windows, Switch"); vazio = só Windows."""
+        picked = [name for name, box in self.boxes.items() if box.isChecked()]
+        return catalog.join_targets(picked + catalog.split_targets(self.extra.text()))
+
+
 class PlatformDialog(QDialog):
-    """Origem (console do jogo original) e destino (para onde o port foi feito)."""
+    """Origem (console do jogo original) e destinos (para onde o port foi feito; pode ser mais de um)."""
 
     def __init__(self, platform: str, target: str, parent=None):
         super().__init__(parent)
         self.setWindowTitle("Editar plataformas")
-        self.setMinimumWidth(440)
+        self.setMinimumWidth(460)
         self.origin = QComboBox()
         self.origin.setEditable(True)
         self.origin.addItems(catalog.PLATFORMS)
         self.origin.setCurrentText(platform)
-        self.dest = QComboBox()
-        self.dest.setEditable(True)
-        self.dest.addItems(catalog.TARGETS)
-        self.dest.setCurrentText(target or catalog.DEFAULT_TARGET)
+        self.dest = TargetPicker(target)
 
         hint = QLabel("Origem: o console do jogo original que foi recompilado.\n"
-                      "Destino: onde o port roda (a maioria é Windows). Você pode digitar outro valor.")
+                      "Portado para: marque todas as plataformas onde o port roda (a maioria é só "
+                      "Windows). Para uma que não está na lista, digite no campo abaixo.")
         hint.setWordWrap(True)
         form = QFormLayout()
         form.addRow("Recompilado de", self.origin)
@@ -46,8 +84,8 @@ class PlatformDialog(QDialog):
         lay.addLayout(row)
 
     def values(self) -> tuple[str, str]:
-        return (" ".join(self.origin.currentText().split()) or "Outros",
-                " ".join(self.dest.currentText().split()) or catalog.DEFAULT_TARGET)
+        """(origem, destinos); destinos vem como "A, B", ou "" quando é só Windows."""
+        return " ".join(self.origin.currentText().split()) or "Outros", self.dest.value()
 
 
 class NamePickerDialog(QDialog):
@@ -220,9 +258,7 @@ class ExternalGameDialog(QDialog):
         self.origin = QComboBox()
         self.origin.setEditable(True)
         self.origin.addItems(catalog.PLATFORMS)
-        self.dest = QComboBox()
-        self.dest.setEditable(True)
-        self.dest.addItems(catalog.TARGETS)
+        self.dest = TargetPicker()
         self.desc = QLineEdit()
         self.desc.setPlaceholderText("Descrição curta (opcional)")
         self.pic = QLabel("Sem imagem")
@@ -240,7 +276,7 @@ class ExternalGameDialog(QDialog):
         form.addRow("Nome", self.name)
         form.addRow("Link da página", self.link)
         form.addRow("Plataforma original", self.origin)
-        form.addRow("Roda em", self.dest)
+        form.addRow("Portado para", self.dest)
         form.addRow("Descrição", self.desc)
         form.addRow("Capa / print", pic_row)
         self.error = QLabel("")
@@ -296,7 +332,7 @@ class ExternalGameDialog(QDialog):
     def values(self) -> dict:
         return {"name": " ".join(self.name.text().split())[:80], "link": self.link.text().strip(),
                 "platform": self.origin.currentText().strip() or "Outros",
-                "target": self.dest.currentText().strip(),
+                "target": self.dest.value(),
                 "description": self.desc.text().strip()[:600]}
 
 

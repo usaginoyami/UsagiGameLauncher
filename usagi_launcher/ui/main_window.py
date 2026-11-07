@@ -163,8 +163,8 @@ class CardDelegate(QStyledItemDelegate):
             f.setBold(False)
             p.setFont(f)
         x += self._chip(p, x, y, row.entry.platform, "#33333f")
-        if row.entry.target and row.entry.target.lower() != "windows":
-            x += self._chip(p, x, y, "→ " + row.entry.target, "#2a3a55", "#a9c1ff")
+        if row.entry.target:  # vazio = só Windows, sem selo
+            x += self._chip(p, x, y, "→ " + ", ".join(row.entry.targets), "#2a3a55", "#a9c1ff")
         if row.entry.gitlab:
             x += self._chip(p, x, y, "GitLab", "#4a2b12", "#ffb37a")
         if key in self.w.active:
@@ -692,7 +692,7 @@ class MainWindow(QMainWindow):
             ov = (self.settings.get("custom_platforms") or {}).get(k)
             if isinstance(ov, dict):
                 r.entry.platform = ov.get("platform") or r.entry.platform
-                r.entry.target = ov.get("target", r.entry.target)
+                r.entry.target = catalog.join_targets(ov.get("target", r.entry.target))
             if not r.entry.stars:
                 r.entry.stars = self.stars.get(k) or 0
         plats = sorted({r.entry.platform for r in self.rows.values()},
@@ -753,7 +753,7 @@ class MainWindow(QMainWindow):
                 continue
             if plat and not plat.startswith("Todas") and e.platform != plat:
                 continue
-            if text and text not in f"{e.name} {e.repo} {e.platform} {e.description}".lower():
+            if text and text not in f"{e.name} {e.repo} {e.platform} {e.target} {e.description}".lower():
                 continue
             shown.append(row)
         shown = sorting.sort_rows(shown, self.sort.currentData() or "default",
@@ -834,7 +834,7 @@ class MainWindow(QMainWindow):
         if row is None:
             return
         key, e, rel = row.entry.key, row.entry, row.release
-        route = e.platform if not e.target else f"{e.platform} → {e.target}"
+        route = e.platform if not e.target else f"{e.platform} → {', '.join(e.targets)}"
         chips = [f"<span style='color:{theme.MUTED}'>{route}</span>"]
         if row.installed:
             chips.append(f"<span style='color:{theme.GREEN}'>Instalado {row.rec.get('version', '')}</span>")
@@ -1085,8 +1085,8 @@ class MainWindow(QMainWindow):
                                     "Abra a página de releases para baixar manualmente.")
             return
         rel, name, repo = row.release, row.entry.name, row.entry.repo
-        target = (row.entry.target or "").strip()
-        if target and target.lower() not in ("windows", "pc", "windows/linux") and not row.installed:
+        if not row.entry.runs_on_windows and not row.installed:
+            target = ", ".join(row.entry.targets)
             if QMessageBox.question(
                     self, "Alvo diferente de Windows",
                     f"“{name}” foi portado para {target}, não para Windows. O pacote pode não rodar neste "
@@ -1596,7 +1596,7 @@ class MainWindow(QMainWindow):
             ov = over.get(e.key)
             if isinstance(ov, dict):
                 e.platform = ov.get("platform") or e.platform
-                e.target = ov.get("target", e.target)
+                e.target = catalog.join_targets(ov.get("target", e.target))
         return entries
 
     def publish_catalog(self) -> None:
@@ -2252,8 +2252,7 @@ class MainWindow(QMainWindow):
         if dlg.exec() != QDialog.DialogCode.Accepted:
             return
         platform, target = dlg.values()
-        if target.lower() == "windows":
-            target = ""
+        target = catalog.join_targets(target)  # "Windows" sozinho = padrão = vazio
         over = dict(self.settings.get("custom_platforms") or {})
         if platform == row.orig_platform and target == row.orig_target:
             over.pop(key, None)  # igual ao original: não guarda nada
@@ -2266,7 +2265,7 @@ class MainWindow(QMainWindow):
         self.apply_filters_keep_selection()
         if key == self.current:
             self.render_detail()
-        self.statusBar().showMessage(f"{row.entry.name}: {platform} → {target or 'Windows'}")
+        self.statusBar().showMessage(f"{row.entry.name}: {platform} → {', '.join(row.entry.targets)}")
 
     def remove_game(self, key: str | None) -> None:
         """Tira da lista. O que está instalado precisa ser desinstalado antes."""

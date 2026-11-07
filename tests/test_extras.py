@@ -94,6 +94,29 @@ class Adult(unittest.TestCase):
         self.assertEqual(t.get("antoxa2584x/burnout3-sw"), "Switch")
         self.assertEqual(t.get("Simeony2007/VibeRecomp-for-GoW-CoO"), "Portátil ARM64")
 
+    def test_multiple_targets(self):
+        from usagi_launcher import published
+        # texto separado por vírgula, sem repetir, com a grafia padrão; Windows sozinho = vazio
+        self.assertEqual(catalog.split_targets("windows, switch ; Android, WINDOWS"),
+                         ["Windows", "Switch", "Android"])
+        self.assertEqual(catalog.split_targets(["Linux", "linux", " Wii U "]), ["Linux", "Wii U"])
+        self.assertEqual(catalog.join_targets("Windows"), "")
+        self.assertEqual(catalog.join_targets(["Windows", "Android"]), "Windows, Android")
+        e = Entry("a/b", target="switch,  Windows")
+        self.assertEqual((e.target, e.targets), ("Switch, Windows", ["Switch", "Windows"]))
+        self.assertTrue(e.runs_on_windows)
+        self.assertEqual(Entry("a/b").targets, ["Windows"])
+        self.assertTrue(Entry("a/b").runs_on_windows)
+        self.assertFalse(Entry("a/b", target="Switch, Android").runs_on_windows)
+        # o catálogo publicado guarda texto; quem lê também aceita lista e valores antigos de um só destino
+        doc = published.build([Entry("a/multi", target="Windows, Android"), Entry("a/old", target="Switch")])
+        by = {g["repo"]: g["target"] for g in doc["games"]}
+        self.assertEqual(by, {"a/multi": "Windows, Android", "a/old": "Switch"})
+        doc["games"][0]["target"] = ["Linux", "Windows", "Linux"]
+        got = {x.repo: x.target for x in published.parse(doc)}
+        self.assertEqual(got["a/old"], "Switch")
+        self.assertEqual(sorted(got.values()), ["Linux, Windows", "Switch"])
+
     def test_bundled_catalog_flags(self):
         flagged = {e.repo for e in catalog.load_bundled() if e.adult}
         self.assertIn("NoRain211/doaxvb-re", flagged)

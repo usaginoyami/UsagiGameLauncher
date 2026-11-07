@@ -35,6 +35,8 @@ main{padding:12px 14px 160px;display:grid;gap:10px;grid-template-columns:minmax(
 .field{margin-bottom:12px}.field label{display:block;color:var(--muted);font-size:13px;margin-bottom:4px}
 .row{display:flex;gap:10px}.row>*{flex:1}
 .check{display:flex;gap:10px;align-items:center}.check input{width:24px;height:24px;min-height:0}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-bottom:8px}
+.tcheck{display:flex!important;gap:8px;align-items:center;margin:0!important;color:var(--text)!important;font-size:14px!important}.tcheck input{width:22px;height:22px;min-height:0;flex:none}
 .cover-edit{display:flex;gap:12px;align-items:center}
 .cover-edit .thumb{flex:0 0 96px;height:128px}
 .hint{color:var(--muted);font-size:12px}
