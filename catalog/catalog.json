@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-07T03:47:19+00:00",
+  "updated": "2026-11-07T04:06:26+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -201,7 +201,7 @@
     {
       "repo": "theitsnschool/bloodborne-windows-native-loader",
       "name": "Bloodborne",
-      "platform": "Outros",
+      "platform": "PS4",
       "target": "",
       "description": "Bloodborne PC Windows Port: Native x86-64 Loader with Vulkan Rendering for Modders",
       "notes": "",
@@ -356,7 +356,7 @@
     {
       "repo": "CMR2Decomp/CMR2Decomp",
       "name": "Colin McRae Rally 2.0",
-      "platform": "Outros",
+      "platform": "PS1",
       "target": "",
       "description": " A decompilation of Colin McRae Rally 2.0 (PC) (2000) ",
       "notes": "",
@@ -1508,20 +1508,6 @@
       "cover": "covers/megaman64recomp_megaman64recompiled.jpg"
     },
     {
-      "repo": "Hero88go/melee-unlocked",
-      "name": "melee unlocked",
-      "platform": "Outros",
-      "target": "",
-      "description": "Super Smash Bros. Melee for Windows as a true Source Port: the game compiled natively from its decompiled C source, no emulation, with unlocked FPS and Slippi rollback online. A Static Recomp of the original code is included as a second engine. Beta. Bring your own NTSC 1.02 ISO.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/hero88go_melee-unlocked.jpg"
-    },
-    {
       "repo": "alexbeavs-ps1-ports/metal-gear-solid-recomp",
       "name": "Metal Gear Solid",
       "platform": "PS1",
@@ -1637,7 +1623,7 @@
     {
       "repo": "TalhaMudo/NFSU2Recomp",
       "name": "Need for Speed: Underground 2",
-      "platform": "Outros",
+      "platform": "Windows",
       "target": "macOS",
       "description": "Play Need for Speed: Underground 2 natively on Apple Silicon Macs (M1+). Static recompilation of the PC game (x86, Direct3D 9) to ARM64 + Metal: no Wine, CrossOver or emulator; 119 fps vs 10-15 fps under Wine. Bring your own copy; no game code or assets included.",
       "notes": "",
@@ -1749,7 +1735,7 @@
     {
       "repo": "ppkkkkk/p3fes-recompiled",
       "name": "Persona 3 FES",
-      "platform": "Outros",
+      "platform": "PS2",
       "target": "",
       "description": "AI-Powered Static Recompilation of Persona 3 FES (USA)",
       "notes": "",
@@ -1834,7 +1820,7 @@
     {
       "repo": "Nazatric/ProtoDroid",
       "name": "Prototype (Proto Droid)",
-      "platform": "Outros",
+      "platform": "Windows",
       "target": "Android",
       "description": "Native Port Of Prototype (2009) For Android Devices ",
       "notes": "",
@@ -2254,20 +2240,6 @@
       "cover": "covers/javiandola_soulblade-recompiled.jpg"
     },
     {
-      "repo": "KuroRaiden/SoulCalibur-HD-Recomp-files",
-      "name": "Soul Calibur HD (Recomp)",
-      "platform": "Outros",
-      "target": "",
-      "description": "contain code, addresses and timetables for SoulCalibur HD. Feel free to use. ",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/kuroraiden_soulcalibur-hd-recomp-files.jpg"
-    },
-    {
       "repo": "Arzaroth/SoulCaliburIII_Recomp",
       "name": "Soul Calibur III",
       "platform": "PS2",
@@ -2284,7 +2256,7 @@
     {
       "repo": "TheBozos/SoulCaliburIII_Recomp",
       "name": "Soul Calibur III Recomp",
-      "platform": "Outros",
+      "platform": "PS2",
       "target": "",
       "description": "Soulcalibur III (USA) static recompilation with PS2Recomp - configs, overrides, notes (no game data)",
       "notes": "",
@@ -2450,6 +2422,20 @@
       "cover": "covers/ext_super-mario-odyssey.jpg"
     },
     {
+      "repo": "Hero88go/melee-unlocked",
+      "name": "Super Smash Bros. Melee",
+      "platform": "GameCube",
+      "target": "",
+      "description": "Super Smash Bros. Melee for Windows as a true Source Port: the game compiled natively from its decompiled C source, no emulation, with unlocked FPS and Slippi rollback online. A Static Recomp of the original code is included as a second engine. Beta. Bring your own NTSC 1.02 ISO.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/hero88go_melee-unlocked.jpg"
+    },
+    {
       "repo": "drakolordx7/switch2-recomp",
       "name": "switch 2 recomp",
       "platform": "Switch",
@@ -2551,8 +2537,8 @@
     {
       "repo": "sostenesfreitas/ocarina-recomp",
       "name": "The Legend of Zelda: Ocarina of Time",
-      "platform": "Outros",
-      "target": "Switch 2",
+      "platform": "Switch 2",
+      "target": "",
       "description": "Ocarina of Time running natively on Windows, no emulator. Built on your PC from your own copy. No game files included.",
       "notes": "",
       "asset_hint": "",
@@ -2973,7 +2959,7 @@
     {
       "repo": "valentderah/totk-pc-recomp",
       "name": "Zelda: Tears of the Kingdom (pc recomp)",
-      "platform": "Outros",
+      "platform": "Switch",
       "target": "",
       "description": "Static recompilation of The Legend of Zelda: Tears of the Kingdom to native Windows and Linux x86-64, with a Vulkan renderer. Game files not included.",
       "notes": "",
