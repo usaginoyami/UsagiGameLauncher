@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-07T16:52:09+00:00",
+  "updated": "2026-11-07T22:27:42+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -2910,6 +2910,21 @@
       "added_at": "2026-11-07T00:35:32",
       "adult": false,
       "cover": "covers/sostenesfreitas_ocarina-recomp.jpg"
+    },
+    {
+      "repo": "NotRexed/Hookshot",
+      "name": "The Legend Of Zelda: Ocarina Of Time",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "A Native Recompilation Of The Legend Of Zelda: Ocarina Of Time Nintendo Switch 2 Remake",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T19:25:55",
+      "adult": false,
+      "cover": "covers/notrexed_hookshot.jpg"
     },
     {
       "repo": "Apolinario-coder/SkyRecomp",
