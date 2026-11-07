@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-07T23:01:35+00:00",
+  "updated": "2026-11-07T23:07:21+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -414,7 +414,7 @@
       "repo": "rzrbld/ReConflict",
       "name": "Conflict: Desert Storm",
       "platform": "Windows",
-      "target": "PortMaster",
+      "target": "portmaster",
       "description": "Community ARM64 port for Conflict: Desert Storm using static recompilation, SDL2 and OpenGL ES. Players supply their own game.",
       "notes": "",
       "asset_hint": "",
@@ -1208,7 +1208,7 @@
       "repo": "Simeony2007/VibeRecomp-for-GoW-CoO",
       "name": "God of War: Chains of Olympus (ARM64)",
       "platform": "PSP",
-      "target": "Portátil ARM64",
+      "target": "portmaster",
       "description": "Recompilador estático de God of War: Chains of Olympus para dispositivos ARM64, com foco no R36S.",
       "notes": "Requer a sua própria cópia do jogo. Alvo: consoles portáteis ARM64 (R36S). Não é um pacote para Windows. Projeto pequeno ou de conta pouco conhecida: confira o repositório antes de executar qualquer arquivo baixado.",
       "asset_hint": "",
@@ -1834,7 +1834,7 @@
       "repo": "rzrbld/ReNFS5",
       "name": "Need for Speed: Porsche Unleashed",
       "platform": "PS1",
-      "target": "Portmaster",
+      "target": "portmaster",
       "description": "ReNFS5: Recomp Unleashed — ARM64 Linux port of Need for Speed: Porsche Unleashed (2000), using static recompilation, SDL2 and OpenGL ES. Players supply their own game files.",
       "notes": "",
       "asset_hint": "",
