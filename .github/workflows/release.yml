@@ -1,12 +1,13 @@
-name: Build e Release (curador)
+name: Build do curador (privado)
 
+# O curador é só seu: este workflow gera o .exe como artefato (visível só a quem tem acesso
+# ao repositório) e NUNCA publica na Release. Rode manualmente em Actions > Run workflow.
+# A Release pública leva apenas o cliente (release-client.yml).
 on:
-  push:
-    tags: ["v*"]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   test:
@@ -45,9 +46,4 @@ jobs:
         with:
           name: UsagiGameLauncher-Windows-x64
           path: UsagiGameLauncher-Windows-x64.zip
-      - name: Publicar Release
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v2
-        with:
-          files: UsagiGameLauncher-Windows-x64.zip
-          generate_release_notes: true
+          retention-days: 30

@@ -55,7 +55,7 @@ O mesmo código gera dois programas:
 
 O cliente baixa `catalog/catalog.json` pelo `raw.githubusercontent.com` (com ETag, então não gasta nada quando nada mudou), valida o arquivo (formato, `dono/repo`, limites de tamanho, capas só por https) e guarda cópia local. **Atualizar catálogo e releases** força a checagem, e **Atualizar capas** baixa o catálogo de novo e troca as capas pelas que você publicou. Os jogos continuam sendo baixados das releases dos próprios projetos, nunca de você.
 
-**Gerar os dois .exe**: o workflow do GitHub Actions faz os dois e publica na Release `UsagiGameLauncher-Windows-x64.zip` (curador) e `UsagiGameLauncher-Client-Windows-x64.zip` (cliente). Cada edição se atualiza sozinha com o zip da própria edição. Na sua máquina: `build.bat` (curador) e `build-client.bat` (cliente). Para testar o cliente pelo código: `python main.py --client` (use `--data-dir` para não misturar dados).
+**Gerar os .exe**: a Release pública leva só o cliente (`UsagiGameLauncher-Client-Windows-x64.zip`, workflow “Release do Client”). O curador é só seu e nunca vai para a Release: o workflow “Build do curador (privado)” roda só manualmente e deixa o zip como artefato do Actions (visível apenas a quem tem acesso ao repositório). Na sua máquina: `build.bat` (curador) e `build-client.bat` (cliente). Para testar o cliente pelo código: `python main.py --client` (use `--data-dir` para não misturar dados).
 
 ## Configurações
 
