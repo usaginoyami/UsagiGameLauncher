@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-07T03:38:08+00:00",
+  "updated": "2026-11-07T03:47:19+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1775,6 +1775,20 @@
       "cover": "covers/tekrantgaming_king-kong-recompiled.jpg"
     },
     {
+      "repo": "thefixinhixon/woohoo-flight-school",
+      "name": "Pilotwings Resort",
+      "platform": "3DS",
+      "target": "",
+      "description": "Unofficial native PC port of Pilotwings Resort (3DS) by static recompilation. Bring your own game dump; no game data included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/thefixinhixon_woohoo-flight-school.jpg"
+    },
+    {
       "repo": "drakolordx7/pokopia-recomp",
       "name": "pokopia recomp",
       "platform": "Switch 2",
@@ -1958,19 +1972,6 @@
       "cover": "covers/noulz-one_ring-of-judgment---shadow-hearts-recomp.png"
     },
     {
-      "repo": "tolotratlt/rival-schools-nekketsu-seishun-nikki-2-recomp",
-      "name": "rival schools nekketsu seishun nikki 2 recomp",
-      "platform": "PS1",
-      "target": "",
-      "description": "Native PC port of Shiritsu Justice Gakuen: Nekketsu Seishun Nikki 2 (Rival Schools 2, PS1)",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false
-    },
-    {
       "repo": "petarov/saboteur2",
       "name": "Saboteur II",
       "platform": "Dos",
@@ -2082,6 +2083,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/daindais_shin-megami-tensei-recompilation-collection-.jpg"
+    },
+    {
+      "repo": "tolotratlt/rival-schools-nekketsu-seishun-nikki-2-recomp",
+      "name": "Shiritsu Justice Gakuen: Nekketsu Seishun Nikki 2",
+      "platform": "PS1",
+      "target": "",
+      "description": "Native PC port of Shiritsu Justice Gakuen: Nekketsu Seishun Nikki 2 (Rival Schools 2, PS1)",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/tolotratlt_rival-schools-nekketsu-seishun-nikki-2-recomp.jpg"
     },
     {
       "repo": "TekRantGaming/simpsons-wrestling-recompiled",
@@ -2381,7 +2396,7 @@
     {
       "repo": "GTTeancum/SpideyPS1recomp",
       "name": "Spidey PS 1recomp",
-      "platform": "Outros",
+      "platform": "PS1",
       "target": "",
       "description": "Native recompilations of Neversoft's PlayStation Spider-Man games, built with RecompOne. Games are siloed; only the recompiler and runtime are shared.",
       "notes": "",
@@ -2408,7 +2423,7 @@
     },
     {
       "repo": "strider973/Street-Fighter-EX2-Plus-Recompiled",
-      "name": "Street Fighter EX 2 Plus Recompiled",
+      "name": "Street Fighter EX2 Plus",
       "platform": "PS1",
       "target": "",
       "description": "Static recompilation of Street Fighter EX2 Plus (PS1, SLUS-01105) on psxrecomp",
@@ -2517,6 +2532,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/hayatog_tlg_pc.jpg"
+    },
+    {
+      "repo": "snesrev/zelda3",
+      "name": "The Legend of Zelda: A Link to the Past",
+      "platform": "SNES",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-03T21:57:16",
+      "adult": false,
+      "cover": "covers/snesrev_zelda3.jpg"
     },
     {
       "repo": "sostenesfreitas/ocarina-recomp",
@@ -2676,7 +2706,7 @@
     },
     {
       "repo": "Ed1z19/ValkyrieRecomp",
-      "name": "Valkyrie Recomp",
+      "name": "Valkyrie Profile",
       "platform": "PS1",
       "target": "",
       "description": "Native PC recompilation of Valkyrie Profile (PS1) powered by PSXRecomp.",
@@ -2732,7 +2762,7 @@
     },
     {
       "repo": "plinkr/Wild9Recomp",
-      "name": "Wild 9Recomp",
+      "name": "Wild 9",
       "platform": "PS1",
       "target": "",
       "description": "Native PC port of the classic PlayStation 1 title `Wild 9`, powered by static recompilation. Features true widescreen, high-resolution rendering, PGXP correction, intro skipping, higher framerate support, multiple languages, controls and gameplay changes and an extensible mod system",
@@ -2743,20 +2773,6 @@
       "link": "",
       "adult": false,
       "cover": "covers/plinkr_wild9recomp.png"
-    },
-    {
-      "repo": "thefixinhixon/woohoo-flight-school",
-      "name": "woohoo flight school",
-      "platform": "Outros",
-      "target": "",
-      "description": "Unofficial native PC port of Pilotwings Resort (3DS) by static recompilation. Bring your own game dump; no game data included.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/thefixinhixon_woohoo-flight-school.jpg"
     },
     {
       "repo": "mikeflare007/wwe2k14-recomp",
@@ -2827,20 +2843,6 @@
       "link": "",
       "adult": false,
       "cover": "covers/unchiga_yugiohforbiddenmemoriesrecomp.jpg"
-    },
-    {
-      "repo": "snesrev/zelda3",
-      "name": "zelda 3",
-      "platform": "SNES",
-      "target": "",
-      "description": "",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-03T21:57:16",
-      "adult": false
     },
     {
       "repo": "YeOldPress/alttp-dx",
