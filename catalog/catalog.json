@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-07T04:49:58+00:00",
+  "updated": "2026-11-07T04:56:38+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1850,6 +1850,21 @@
       "cover": "covers/hexveil404_pokez-arecomp.jpg"
     },
     {
+      "repo": "drakolordx7/switch2-recomp",
+      "name": "Pokémon Pokopia",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "Nintendo Switch 2 games recompiled to run natively on PC. Pokémon Pokopia is playable now.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-05T15:52:21",
+      "adult": false,
+      "cover": "covers/drakolordx7_switch2-recomp.jpg"
+    },
+    {
       "repo": "JackandBeans/Snap64Recomp",
       "name": "Pokémon Snap",
       "platform": "N64",
@@ -2524,20 +2539,6 @@
       "added_at": "2026-11-07T01:44:27",
       "adult": false,
       "cover": "covers/opensmash-ultimate_ssbu-recomp.jpg"
-    },
-    {
-      "repo": "drakolordx7/switch2-recomp",
-      "name": "switch 2 recomp",
-      "platform": "Switch",
-      "target": "Ferramentas",
-      "description": "Nintendo Switch 2 games recompiled to run natively on PC. Pokémon Pokopia is playable now.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-05T15:52:21",
-      "adult": false
     },
     {
       "repo": "FishB0nes98/Tekken3Recompiled",
