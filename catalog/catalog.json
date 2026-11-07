@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-07T05:10:17+00:00",
+  "updated": "2026-11-07T16:40:49+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -242,6 +242,21 @@
       "cover": "covers/novapowers0_bloodyroar2recomp.jpg"
     },
     {
+      "repo": "DCRecomp/BlueStingerRecomp",
+      "name": "Blue Stinger Recomp",
+      "platform": "Dreamcast",
+      "target": "",
+      "description": "Open-source static recompilation of Blue Stinger (Dreamcast, SH-4) into native Windows x64 C++20, focused on game preservation, hardware replacement, and modding.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T12:53:22",
+      "adult": false,
+      "cover": "covers/dcrecomp_bluestingerrecomp.jpg"
+    },
+    {
       "repo": "RevoSucks/BM64Recomp",
       "name": "Bomberman 64",
       "platform": "N64",
@@ -438,6 +453,21 @@
       "cover": "covers/claudio5702_cristalis.png"
     },
     {
+      "repo": "nekomancer01/DarkSoulsPS2",
+      "name": "Dark Souls PS 2",
+      "platform": "Windows",
+      "target": "PS2",
+      "description": "Homebrew PS2 port of Dark Souls Remastered: C/VU1 engine plus exporters that read your own copy of the game (no game data included)",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:03:31",
+      "adult": false,
+      "cover": "covers/nekomancer01_darksoulsps2.png"
+    },
+    {
       "repo": "llesieur99/daxter-psp-decomp",
       "name": "Daxter",
       "platform": "PSP",
@@ -450,6 +480,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/llesieur99_daxter-psp-decomp.jpg"
+    },
+    {
+      "repo": "novapowers0/DBZ-Budokai-3-HD-Collection",
+      "name": "DBZ Budokai 3 HD Collection",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "Recompilacion estatica (ReXGlue) de Dragon Ball Z: Budokai 3 HD Collection (Xbox 360) para Windows con launcher, sistema de mods y herramientas. No incluye datos del juego.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:31:41",
+      "adult": false,
+      "cover": "covers/novapowers0_dbz-budokai-3-hd-collection.png"
     },
     {
       "repo": "3dge7161/Jiggle-or-Physics",
@@ -635,6 +680,21 @@
       "cover": "covers/timboat_demons-souls-recomp.jpg"
     },
     {
+      "repo": "JonathanDC64/Soulbrandt",
+      "name": "Demon's Souls",
+      "platform": "PS3",
+      "target": "",
+      "description": "Soulbrandt: Demon's Souls, running natively on PC",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:22:32",
+      "adult": false,
+      "cover": "covers/jonathandc64_soulbrandt.jpg"
+    },
+    {
       "repo": "ArmDucks/DigimonWorld3-Recomp",
       "name": "Digimon World 3",
       "platform": "PS1",
@@ -732,6 +792,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/iexplosiverage_dbz-burst-limit-recompiled.jpg"
+    },
+    {
+      "repo": "soyjxck/dod3-recomp",
+      "name": "Drakengard 3",
+      "platform": "PS3",
+      "target": "",
+      "description": "Drakengard 3 (PS3) static recompilation using ps3recomp",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:21:52",
+      "adult": false,
+      "cover": "covers/soyjxck_dod3-recomp.png"
     },
     {
       "repo": "BlackLineInteractive/Driveclub-Port",
@@ -874,6 +949,20 @@
       "cover": "covers/dyotson_forzahorizon1-reimagined.jpg"
     },
     {
+      "repo": "Gabrick75/fh2-recompiled",
+      "name": "Forza Horizon 2",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "An unofficial static recompilation of Forza Horizon 2 (Xbox 360) for Android",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:32:05",
+      "adult": false
+    },
+    {
       "repo": "fabioap-cpu/Forza-Horizon-2-Recomp",
       "name": "Forza Horizon 2",
       "platform": "Xbox 360",
@@ -900,6 +989,36 @@
       "link": "https://almost-there-games.itch.io/azimuth",
       "adult": false,
       "cover": "covers/ext_forza-horizon-2.jpg"
+    },
+    {
+      "repo": "0herculabs/hl360-Forza2",
+      "name": "Forza Motorsport 2",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "Forza Motorsport 2 native on PC",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:38:36",
+      "adult": false,
+      "cover": "covers/0herculabs_hl360-forza2.jpg"
+    },
+    {
+      "repo": "0herculabs/hl360-forza3",
+      "name": "Forza Motorsport 3",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "Forza Motorsport 3 native on PC",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:39:16",
+      "adult": false,
+      "cover": "covers/0herculabs_hl360-forza3.png"
     },
     {
       "repo": "Alexbeav/fm4-recomp",
@@ -1126,6 +1245,21 @@
       "cover": "covers/kholdfuzion_goldenrecomp.jpg"
     },
     {
+      "repo": "ysrdevs/goldeneye-metal",
+      "name": "goldeneye metal",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "GoldenEye Metal is an experimental, source-only static recompilation project focused on a native Apple Silicon and Metal rendering path. This repository contains the runtime, toolchain, Metal backend, and game integration in one tree.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:37:49",
+      "adult": false,
+      "cover": "covers/ysrdevs_goldeneye-metal.jpg"
+    },
+    {
       "repo": "LorenzoAlfaro/GTStaticRecomp",
       "name": "Gran Turismo (PS1)",
       "platform": "PS1",
@@ -1311,6 +1445,21 @@
       "cover": "covers/hunkstalker_hybrid-heaven-recomp.jpg"
     },
     {
+      "repo": "whompay/inFAMOUSreborn",
+      "name": "Infamous",
+      "platform": "PS3",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:23:24",
+      "adult": false,
+      "cover": "covers/whompay_infamousreborn.jpg"
+    },
+    {
       "repo": "HayatoG/iss_pc",
       "name": "Infamous: Second Son",
       "platform": "PS4",
@@ -1366,6 +1515,21 @@
       "added_at": "2026-11-04T11:35:19",
       "adult": false,
       "cover": "covers/tgp482_007nightfire-xberecomp.jpg"
+    },
+    {
+      "repo": "riseio/TWIPE_00Sheven",
+      "name": "James Bond 007: The World Is Not Enough",
+      "platform": "N64",
+      "target": "",
+      "description": "A static recompilation project of the N64 game The World Is Not Enough",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T12:59:24",
+      "adult": false,
+      "cover": "covers/riseio_twipe_00sheven.jpg"
     },
     {
       "repo": "goodshepherd23/JetMoto2-Recomp",
@@ -1721,6 +1885,36 @@
       "cover": "covers/alexbeavs-ps1-ports_parasite-eve-recomp.jpg"
     },
     {
+      "repo": "faligame/Parasite-Eve-2-HD-Remaster",
+      "name": "Parasite Eve 2 HD Remaster",
+      "platform": "PS1",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:09:01",
+      "adult": false,
+      "cover": "covers/faligame_parasite-eve-2-hd-remaster.jpg"
+    },
+    {
+      "repo": "khasinski/parasite-eve-pc",
+      "name": "parasite eve pc",
+      "platform": "PS1",
+      "target": "",
+      "description": "Native PC port of Parasite Eve (PS1), built on the matching decompilation and PsyZ",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:15:50",
+      "adult": false,
+      "cover": "covers/khasinski_parasite-eve-pc.jpg"
+    },
+    {
       "repo": "CaiusCodes/Perfect-Dark-XBLA-PC-Recomp",
       "name": "Perfect Dark",
       "platform": "Xbox 360",
@@ -1733,6 +1927,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/caiuscodes_perfect-dark-xbla-pc-recomp.jpg"
+    },
+    {
+      "repo": "izzy2lost/perfect_dark",
+      "name": "perfect dark",
+      "platform": "N64",
+      "target": "Android",
+      "description": "Android Port!! work in progress port of n64decomp/perfect_dark to modern platforms",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:00:46",
+      "adult": false,
+      "cover": "covers/izzy2lost_perfect_dark.jpg"
     },
     {
       "repo": "jermspeaks/Persona2Recomp",
@@ -1922,20 +2131,6 @@
       "cover": "covers/nazatric_protodroid.png"
     },
     {
-      "repo": "exoteric33/ps2-native-recomp",
-      "name": "ps 2 native recomp",
-      "platform": "PS2",
-      "target": "Ferramentas",
-      "description": "Turns a PS2 disc image into a native PC program by static recompilation; builds on ps2-web-recomp (MIT). Work in progress. Bring your own disc.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-06T19:51:00",
-      "adult": false
-    },
-    {
       "repo": "Rainchus/Quest64-Recomp",
       "name": "Quest 64",
       "platform": "N64",
@@ -1962,6 +2157,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/khasinski_rage-racer-pc.jpg"
+    },
+    {
+      "repo": "gl:AndyALRLabs/ReCasted",
+      "name": "Ratchet & Clank",
+      "platform": "PS4",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:25:58",
+      "adult": false,
+      "cover": "covers/gl_andyalrlabs_recasted.jpg"
     },
     {
       "repo": "alexbeavs-ps1-ports/resident-evil-3-recomp",
@@ -2173,6 +2383,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/tolotratlt_rival-schools-nekketsu-seishun-nikki-2-recomp.jpg"
+    },
+    {
+      "repo": "Matt122Shenk/silent-hill-pc-enhanced",
+      "name": "silent hill pc enhanced",
+      "platform": "PS1",
+      "target": "",
+      "description": "Silent Hill PC Enhanced — unofficial fork of the Silent Hill Native PC Port with Horde Mode, immersion, new HUDs and more. No game data included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:14:45",
+      "adult": false,
+      "cover": "covers/matt122shenk_silent-hill-pc-enhanced.jpg"
     },
     {
       "repo": "TekRantGaming/simpsons-wrestling-recompiled",
@@ -2496,6 +2721,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/strider973_street-fighter-ex2-plus-recompiled.jpg"
+    },
+    {
+      "repo": "n64hub/super-mario-64-recomp",
+      "name": "super mario 64 recomp",
+      "platform": "N64",
+      "target": "",
+      "description": "AI-written static recompilation of Super Mario 64 (N64, USA) for PC and the web. Bring your own ROM.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T12:55:33",
+      "adult": false,
+      "cover": "covers/n64hub_super-mario-64-recomp.jpg"
     },
     {
       "repo": "smm2recomp/smm2recomp",
@@ -2828,6 +3068,21 @@
       "cover": "covers/clydeyexe_uc2-recomp.jpg"
     },
     {
+      "repo": "JEschete/VS-NativePort",
+      "name": "Vagrant Story",
+      "platform": "PS1",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:15:23",
+      "adult": false,
+      "cover": "covers/jeschete_vs-nativeport.jpg"
+    },
+    {
       "repo": "mobius/psx-vagrantstory-recomp",
       "name": "Vagrant Story (PS1)",
       "platform": "PS1",
@@ -2968,6 +3223,21 @@
       "cover": "covers/filippgl_xena-psx-decomp.jpg"
     },
     {
+      "repo": "Blizz127/xenogears-decomp-port",
+      "name": "xenogears",
+      "platform": "PS1",
+      "target": "",
+      "description": "Xenogears Decomp and Port",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:14:18",
+      "adult": false,
+      "cover": "covers/blizz127_xenogears-decomp-port.jpg"
+    },
+    {
       "repo": "Unchiga/YuGiOhForbiddenMemoriesRecomp",
       "name": "Yu Gi Oh Forbidden Memories Recomp",
       "platform": "PS1",
@@ -2980,6 +3250,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/unchiga_yugiohforbiddenmemoriesrecomp.jpg"
+    },
+    {
+      "repo": "Unchiga/Yu-Gi-Oh-Forbidden-Memories-Recompiled",
+      "name": "Yu Gi Oh Forbidden Memories Recompiled",
+      "platform": "PS1",
+      "target": "",
+      "description": "Native decompilation and recompilation of Yu-Gi-Oh! Forbidden Memories",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T13:08:30",
+      "adult": false,
+      "cover": "covers/unchiga_yu-gi-oh-forbidden-memories-recompiled.jpg"
     },
     {
       "repo": "YeOldPress/alttp-dx",
