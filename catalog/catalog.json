@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-07T16:40:49+00:00",
+  "updated": "2026-11-07T16:49:39+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -806,7 +806,7 @@
       "link": "",
       "added_at": "2026-11-07T13:21:52",
       "adult": false,
-      "cover": "covers/soyjxck_dod3-recomp.png"
+      "cover": "covers/soyjxck_dod3-recomp.jpg"
     },
     {
       "repo": "BlackLineInteractive/Driveclub-Port",
@@ -960,7 +960,8 @@
       "cover_title": "",
       "link": "",
       "added_at": "2026-11-07T13:32:05",
-      "adult": false
+      "adult": false,
+      "cover": "covers/gabrick75_fh2-recompiled.jpg"
     },
     {
       "repo": "fabioap-cpu/Forza-Horizon-2-Recomp",
@@ -1018,7 +1019,7 @@
       "link": "",
       "added_at": "2026-11-07T13:39:16",
       "adult": false,
-      "cover": "covers/0herculabs_hl360-forza3.png"
+      "cover": "covers/0herculabs_hl360-forza3.jpg"
     },
     {
       "repo": "Alexbeav/fm4-recomp",
@@ -2061,7 +2062,7 @@
     {
       "repo": "Hexveil404/PokeZ-ARecomp",
       "name": "Pokémon Legends: Z-A",
-      "platform": "Outros",
+      "platform": "Switch",
       "target": "",
       "description": "",
       "notes": "",
