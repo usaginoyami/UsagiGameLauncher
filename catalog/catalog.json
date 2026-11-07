@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-06T22:58:03+00:00",
+  "updated": "2026-11-07T03:38:08+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -2517,6 +2517,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/hayatog_tlg_pc.jpg"
+    },
+    {
+      "repo": "sostenesfreitas/ocarina-recomp",
+      "name": "The Legend of Zelda: Ocarina of Time",
+      "platform": "Outros",
+      "target": "Switch 2",
+      "description": "Ocarina of Time running natively on Windows, no emulator. Built on your PC from your own copy. No game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T00:35:32",
+      "adult": false,
+      "cover": "covers/sostenesfreitas_ocarina-recomp.jpg"
     },
     {
       "repo": "alexbeavs-ps1-ports/the-mummy-recomp",
