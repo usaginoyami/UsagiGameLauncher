@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-07T04:56:38+00:00",
+  "updated": "2026-11-07T05:00:42+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1592,6 +1592,21 @@
       "added_at": "2026-11-06T19:49:46",
       "adult": false,
       "cover": "covers/bonllavier_corruption_3-pc.jpg"
+    },
+    {
+      "repo": "gminustwo/msr2ds",
+      "name": "Metroid: Samus Returns",
+      "platform": "3DS",
+      "target": "",
+      "description": "Metroid: Samus Returns without an emulator: the game's code recompiled from your own dump into native code, for Windows, Linux / Steam Deck and Android. Bring your own dump.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:59:39",
+      "adult": false,
+      "cover": "covers/gminustwo_msr2ds.jpg"
     },
     {
       "repo": "coccofresco/mgsone-recomp",
