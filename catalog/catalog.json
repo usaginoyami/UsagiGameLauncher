@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-08T01:43:06+00:00",
+  "updated": "2026-11-08T20:11:15+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -367,6 +367,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/rainchus_chameleontwist1-jp-recomp.jpg"
+    },
+    {
+      "repo": "saulob/el-chavo-kart-recompiled",
+      "name": "Chaves Kart recompiled",
+      "platform": "Xbox 360",
+      "target": "Windows, Linux",
+      "description": "Chaves Kart (El Chavo Kart) for Xbox 360, statically recompiled as a native PC port for Windows and Linux, with online multiplayer, modern graphics options and Steam Deck support",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-08T17:11:07",
+      "adult": false,
+      "cover": "covers/saulob_el-chavo-kart-recompiled.jpg"
     },
     {
       "repo": "CMR2Decomp/CMR2Decomp",
@@ -1562,6 +1577,21 @@
       "cover": "covers/goodshepherd23_jetmoto2-recomp.jpg"
     },
     {
+      "repo": "undecuple/project-pyrrhus",
+      "name": "Killzone 2",
+      "platform": "PS3",
+      "target": "",
+      "description": "Killzone 2 // Unofficial PC Port (static recompilation). Work in progress, partly playable. Builds on your PC from your own game.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://undecuple.github.io/project-pyrrhus/",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-08T17:11:05",
+      "adult": false,
+      "cover": "covers/undecuple_project-pyrrhus.png"
+    },
+    {
       "repo": "drakolordx7/KillzoneRecomp",
       "name": "Killzone Recomp",
       "platform": "PS2",
@@ -2135,6 +2165,21 @@
       "cover": "covers/drakolordx7_switch2-recomp.jpg"
     },
     {
+      "repo": "featureJosh/Recompia",
+      "name": "Pokémon Pokopia",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "Pokémon Pokopia (Switch 2) recompiled to run natively on Windows. With multiplayer support",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://discord.gg/gN5g4MtWHr",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-08T17:10:59",
+      "adult": false,
+      "cover": "covers/featurejosh_recompia.png"
+    },
+    {
       "repo": "JackandBeans/Snap64Recomp",
       "name": "Pokémon Snap",
       "platform": "N64",
@@ -2218,6 +2263,21 @@
       "added_at": "2026-11-07T13:25:58",
       "adult": false,
       "cover": "covers/gl_andyalrlabs_recasted.jpg"
+    },
+    {
+      "repo": "rzrbld/ReRED_Faction_Duo",
+      "name": "Red Faction II",
+      "platform": "Windows",
+      "target": "Linux",
+      "description": "ReRed Faction II — ARM64 Linux port of Red Faction II (2003), using static recompilation, SDL2 and OpenGL ES. Players supply their own game (GOG.com).",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-08T17:11:03",
+      "adult": false,
+      "cover": "covers/rzrbld_rered_faction_duo.jpg"
     },
     {
       "repo": "alexbeavs-ps1-ports/resident-evil-3-recomp",
