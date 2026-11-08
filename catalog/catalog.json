@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-08T01:38:45+00:00",
+  "updated": "2026-11-08T01:43:06+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -2815,7 +2815,7 @@
     {
       "repo": "chasem-dev/sms-android",
       "name": "Super Mario Sunshine",
-      "platform": "Outros",
+      "platform": "GameCube",
       "target": "Android",
       "description": "Super Mario Sunshine PC port launcher for ARM64 Android handhelds",
       "notes": "",
