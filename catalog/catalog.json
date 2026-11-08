@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-08T20:11:15+00:00",
+  "updated": "2026-11-08T22:59:18+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -3359,6 +3359,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/filippgl_xena-psx-decomp.jpg"
+    },
+    {
+      "repo": "Glitxhhh/XenobladeChroniclesRecompiled",
+      "name": "Xenoblade Chronicles Recompiled",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "Recompilations & PC Ports of the Xenoblade Chronicles Series",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-08T19:59:13",
+      "adult": false,
+      "cover": "covers/glitxhhh_xenobladechroniclesrecompiled.jpg"
     },
     {
       "repo": "Blizz127/xenogears-decomp-port",
