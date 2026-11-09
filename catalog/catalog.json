@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-09T16:42:19+00:00",
+  "updated": "2026-11-09T16:51:13+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -3437,36 +3437,6 @@
       "cover": "covers/hayatog_tlg_pc.jpg"
     },
     {
-      "repo": "snesrev/zelda3",
-      "name": "The Legend of Zelda: A Link to the Past",
-      "platform": "SNES",
-      "target": "",
-      "description": "",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-03T21:57:16",
-      "adult": false,
-      "cover": "covers/snesrev_zelda3.jpg"
-    },
-    {
-      "repo": "Waterdish/zelda3-android",
-      "name": "The Legend of Zelda: A Link to the Past",
-      "platform": "SNES",
-      "target": "Android",
-      "description": "A port of Zelda3 to Android",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-09T10:56:58",
-      "adult": false,
-      "cover": "covers/waterdish_zelda3-android.jpg"
-    },
-    {
       "repo": "Nycolazs/EoWRecomp",
       "name": "The Legend of Zelda: Echoes of Wisdom",
       "platform": "Switch",
@@ -3930,6 +3900,36 @@
       "cover": "covers/unchiga_yu-gi-oh-forbidden-memories-recompiled.jpg"
     },
     {
+      "repo": "snesrev/zelda3",
+      "name": "Zelda: A Link to the Past",
+      "platform": "SNES",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-03T21:57:16",
+      "adult": false,
+      "cover": "covers/snesrev_zelda3.jpg"
+    },
+    {
+      "repo": "Waterdish/zelda3-android",
+      "name": "Zelda: A Link to the Past",
+      "platform": "SNES",
+      "target": "Android",
+      "description": "A port of Zelda3 to Android",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T10:56:58",
+      "adult": false,
+      "cover": "covers/waterdish_zelda3-android.jpg"
+    },
+    {
       "repo": "YeOldPress/alttp-dx",
       "name": "Zelda: A Link to the Past",
       "platform": "SNES",
@@ -3987,7 +3987,7 @@
     },
     {
       "repo": "2ship2harkinian/2ship2harkinian",
-      "name": "Zelda: Majora's Mask (2 Ship 2 Harkinian)",
+      "name": "Zelda: Majora's Mask (Decomp)",
       "platform": "N64",
       "target": "Windows, Linux, macOS",
       "description": "Port nativo de The Legend of Zelda: Majora's Mask.",
@@ -4015,7 +4015,7 @@
     },
     {
       "repo": "HarbourMasters/Shipwright",
-      "name": "Zelda: Ocarina of Time (Shipwright)",
+      "name": "Zelda: Ocarina of Time (Decomp)",
       "platform": "N64",
       "target": "",
       "description": "",
