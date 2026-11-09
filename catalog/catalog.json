@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-09T16:51:13+00:00",
+  "updated": "2026-11-09T16:53:37+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -3437,66 +3437,6 @@
       "cover": "covers/hayatog_tlg_pc.jpg"
     },
     {
-      "repo": "Nycolazs/EoWRecomp",
-      "name": "The Legend of Zelda: Echoes of Wisdom",
-      "platform": "Switch",
-      "target": "macOS, Android",
-      "description": "Static recompilation of The Legend of Zelda: Echoes of Wisdom (Switch) to native PC - work in progress, no game files included",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-07T01:40:32",
-      "adult": false,
-      "cover": "covers/nycolazs_eowrecomp.jpg"
-    },
-    {
-      "repo": "sostenesfreitas/ocarina-recomp",
-      "name": "The Legend of Zelda: Ocarina of Time",
-      "platform": "Switch 2",
-      "target": "",
-      "description": "Ocarina of Time running natively on Windows, no emulator. Built on your PC from your own copy. No game files included.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-07T00:35:32",
-      "adult": false,
-      "cover": "covers/sostenesfreitas_ocarina-recomp.jpg"
-    },
-    {
-      "repo": "NotRexed/Hookshot",
-      "name": "The Legend Of Zelda: Ocarina Of Time",
-      "platform": "Switch 2",
-      "target": "",
-      "description": "A Native Recompilation Of The Legend Of Zelda: Ocarina Of Time Nintendo Switch 2 Remake",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-07T19:25:55",
-      "adult": false,
-      "cover": "covers/notrexed_hookshot.jpg"
-    },
-    {
-      "repo": "Apolinario-coder/SkyRecomp",
-      "name": "The Legend of Zelda: Skyward Sword",
-      "platform": "Switch",
-      "target": "Windows, Linux, macOS",
-      "description": "Static recompilation of The Legend of Zelda: Skyward Sword for PC",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-07T01:43:12",
-      "adult": false,
-      "cover": "covers/apolinario-coder_skyrecomp.jpg"
-    },
-    {
       "repo": "alexbeavs-ps1-ports/the-mummy-recomp",
       "name": "The Mummy",
       "platform": "PS1",
@@ -3972,6 +3912,21 @@
       "cover": "covers/revivedx_savagewindrecomp.jpg"
     },
     {
+      "repo": "Nycolazs/EoWRecomp",
+      "name": "Zelda: Echoes of Wisdom",
+      "platform": "Switch",
+      "target": "macOS, Android",
+      "description": "Static recompilation of The Legend of Zelda: Echoes of Wisdom (Switch) to native PC - work in progress, no game files included",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:40:32",
+      "adult": false,
+      "cover": "covers/nycolazs_eowrecomp.jpg"
+    },
+    {
       "repo": "peiikai/LASRecomp",
       "name": "Zelda: Link's Awakening (Switch)",
       "platform": "Switch",
@@ -4014,6 +3969,36 @@
       "cover": "covers/zelda64recomp_zelda64recomp.jpg"
     },
     {
+      "repo": "sostenesfreitas/ocarina-recomp",
+      "name": "Zelda: Ocarina of Time",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "Ocarina of Time running natively on Windows, no emulator. Built on your PC from your own copy. No game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T00:35:32",
+      "adult": false,
+      "cover": "covers/sostenesfreitas_ocarina-recomp.jpg"
+    },
+    {
+      "repo": "NotRexed/Hookshot",
+      "name": "Zelda: Ocarina Of Time",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "A Native Recompilation Of The Legend Of Zelda: Ocarina Of Time Nintendo Switch 2 Remake",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T19:25:55",
+      "adult": false,
+      "cover": "covers/notrexed_hookshot.jpg"
+    },
+    {
       "repo": "HarbourMasters/Shipwright",
       "name": "Zelda: Ocarina of Time (Decomp)",
       "platform": "N64",
@@ -4026,6 +4011,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/harbourmasters_shipwright.jpg"
+    },
+    {
+      "repo": "Apolinario-coder/SkyRecomp",
+      "name": "Zelda: Skyward Sword",
+      "platform": "Switch",
+      "target": "Windows, Linux, macOS",
+      "description": "Static recompilation of The Legend of Zelda: Skyward Sword for PC",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:43:12",
+      "adult": false,
+      "cover": "covers/apolinario-coder_skyrecomp.jpg"
     },
     {
       "repo": "Kyra422/skybreak",
