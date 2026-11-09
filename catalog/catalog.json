@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-08T23:54:59+00:00",
+  "updated": "2026-11-09T03:00:11+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -197,6 +197,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/tgp482_black-xberecomp.jpg"
+    },
+    {
+      "repo": "xPXavierx/bleach-soul-resurreccion-recomp",
+      "name": "Bleach: Soul Resurrección",
+      "platform": "PS3",
+      "target": "",
+      "description": "A static recompilation of Bleach: Soul Resurrección (PS3, BLUS30769) for Windows.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://github.com/xPXavierx/bleach-soul-resurreccion-recomp#README",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-08T23:53:20",
+      "adult": false,
+      "cover": "covers/xpxavierx_bleach-soul-resurreccion-recomp.jpg"
     },
     {
       "repo": "theitsnschool/bloodborne-windows-native-loader",
@@ -937,6 +952,21 @@
       "cover": "covers/jorge262007_fftarecomp.jpg"
     },
     {
+      "repo": "Goldoire/fefw-recomp",
+      "name": "Fire Emblem: Fortune's Weave",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "Native Windows PC port of Fire Emblem: Fortune's Weave by static recompilation. Bring your own dump; no game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-08T23:52:44",
+      "adult": false,
+      "cover": "covers/goldoire_fefw-recomp.jpg"
+    },
+    {
       "repo": "arcanite24/pinyon-shift",
       "name": "Forza Horizon (Xbox 360)",
       "platform": "Xbox 360",
@@ -1620,6 +1650,21 @@
       "cover": "covers/sp00nznet_luigismansion.jpg"
     },
     {
+      "repo": "rzrbld/TheFamilia",
+      "name": "Mafia: The City of Lost Heaven",
+      "platform": "Outros",
+      "target": "",
+      "description": "The Familia — ARM64 Linux port of Mafia: The City of Lost Heaven (2002), using static recompilation, SDL2 and OpenGL ES. Players supply their own game files.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T00:00:05",
+      "adult": false,
+      "cover": "covers/rzrbld_thefamilia.png"
+    },
+    {
       "repo": "sonicdcer/MarioKart64Recomp",
       "name": "Mario Kart 64",
       "platform": "N64",
@@ -2178,6 +2223,21 @@
       "added_at": "2026-11-08T17:10:59",
       "adult": false,
       "cover": "covers/featurejosh_recompia.png"
+    },
+    {
+      "repo": "Dittobyte/Recompia",
+      "name": "Pokémon Pokopia",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "Pokémon Pokopia (Switch 2) recompiled to run natively on Windows. With multiplayer support",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://discord.gg/gN5g4MtWHr",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-08T23:54:06",
+      "adult": false,
+      "cover": "covers/dittobyte_recompia.png"
     },
     {
       "repo": "JackandBeans/Snap64Recomp",
