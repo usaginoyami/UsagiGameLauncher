@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-09T03:00:11+00:00",
+  "updated": "2026-11-09T03:02:22+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1652,8 +1652,8 @@
     {
       "repo": "rzrbld/TheFamilia",
       "name": "Mafia: The City of Lost Heaven",
-      "platform": "Outros",
-      "target": "",
+      "platform": "Windows",
+      "target": "Portátil ARM64",
       "description": "The Familia — ARM64 Linux port of Mafia: The City of Lost Heaven (2002), using static recompilation, SDL2 and OpenGL ES. Players supply their own game files.",
       "notes": "",
       "asset_hint": "",
