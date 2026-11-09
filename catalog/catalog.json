@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-09T03:06:06+00:00",
+  "updated": "2026-11-09T03:20:39+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -525,6 +525,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/llesieur99_daxter-psp-decomp.jpg"
+    },
+    {
+      "repo": "Thorhax/Daytona-NX-Modern",
+      "name": "Daytona USA",
+      "platform": "Arcade",
+      "target": "Switch",
+      "description": "Native Nintendo Switch port of Daytona USA Arcade Recomp",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T00:13:28",
+      "adult": false,
+      "cover": "covers/thorhax_daytona-nx-modern.jpg"
     },
     {
       "repo": "novapowers0/DBZ-Budokai-3-HD-Collection",
@@ -2268,6 +2283,21 @@
       "cover": "covers/raulzrrs_letsgo-recomp.jpg"
     },
     {
+      "repo": "jacquesdupontd/port0r",
+      "name": "port 0r",
+      "platform": "Arcade",
+      "target": "VR",
+      "description": "Arcade classics in true stereoscopic 3D, free on Meta Quest 3: Time Crisis, Virtua Cop and Sega Rally. Sega Rally also on Nintendo Switch, Android, Steam Deck & Linux and Mac. Videos, live numbers and leaderboards on port0r.com.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T00:12:37",
+      "adult": false,
+      "cover": "covers/jacquesdupontd_port0r.png"
+    },
+    {
       "repo": "Nazatric/ProtoDroid",
       "name": "Prototype (Proto Droid)",
       "platform": "Windows",
@@ -2693,6 +2723,21 @@
       "cover": "covers/sonicnext-dev_marathonrecomp.jpg"
     },
     {
+      "repo": "cheviman/segasonic-decomp",
+      "name": "Sonic The Hedgehog",
+      "platform": "Arcade",
+      "target": "",
+      "description": "SegaSonic The Hedgehog (Sega System 32, 1993) decompiled into readable, platform-agnostic C and ported natively, without emulation. Bring your own ROM: no game data included. Not affiliated with SEGA.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T00:13:00",
+      "adult": false,
+      "cover": "covers/cheviman_segasonic-decomp.png"
+    },
+    {
       "repo": "hedge-dev/UnleashedRecomp",
       "name": "Sonic Unleashed (Xbox 360)",
       "platform": "Xbox 360",
@@ -2859,6 +2904,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/gtteancum_spideyps1recomp.png"
+    },
+    {
+      "repo": "tmcleroy/sfa2-recomp",
+      "name": "Street Fighter Alpha 2",
+      "platform": "Arcade",
+      "target": "",
+      "description": "Moved to tmcleroy/cps2recomp (CPS-2 Recomp). Unofficial native PC port of Street Fighter Alpha 2 (CPS-2 arcade) via static recompilation, with a training mode.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T00:12:19",
+      "adult": false,
+      "cover": "covers/tmcleroy_sfa2-recomp.png"
     },
     {
       "repo": "omegakatana92/Street-Fighter-Alpha-Recomp-",
@@ -3309,6 +3369,21 @@
       "cover": "covers/ed1z19_valkyrierecomp.png"
     },
     {
+      "repo": "tmcleroy/vampire-savior-recomp",
+      "name": "Vampire Savior",
+      "platform": "Arcade",
+      "target": "",
+      "description": "Moved to tmcleroy/cps2recomp (CPS-2 Recomp). Unofficial native PC port of Vampire Savior (CPS-2 arcade) via static recompilation, with a training mode.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T00:11:51",
+      "adult": false,
+      "cover": "covers/tmcleroy_vampire-savior-recomp.png"
+    },
+    {
       "repo": "mr-finster/vf1-recomp",
       "name": "Virtua Fighter",
       "platform": "Arcade",
@@ -3335,6 +3410,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/mr-finster_vf2-recomp.jpg"
+    },
+    {
+      "repo": "mr-finster/vf3-recomp",
+      "name": "Virtual Fighter 3",
+      "platform": "Arcade",
+      "target": "",
+      "description": "Virtua Fighter 3 (Sega Model 3, 1996) for Mac, Windows and Steam Deck: the arcade's PowerPC program recompiled to native code, up to 6x, widescreen, smooth 120 fps. Bring your own vf3.zip.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T00:11:33",
+      "adult": false,
+      "cover": "covers/mr-finster_vf3-recomp.png"
     },
     {
       "repo": "yanm1103/War_of_the_Monsters_recomp",
