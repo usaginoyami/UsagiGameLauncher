@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-09T13:36:50+00:00",
+  "updated": "2026-11-09T14:17:19+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -199,6 +199,21 @@
       "cover": "covers/tgp482_black-xberecomp.jpg"
     },
     {
+      "repo": "omegakatana92/Blazing-Star-Recomp",
+      "name": "Blazing Star Recomp",
+      "platform": "Neo Geo",
+      "target": "",
+      "description": "This is the recomp of the 1998 shoot em up Blazing Star for the neo geo MVS arcade board and please provide your own rom and bios",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:16:00",
+      "adult": false,
+      "cover": "covers/omegakatana92_blazing-star-recomp.jpg"
+    },
+    {
       "repo": "xPXavierx/bleach-soul-resurreccion-recomp",
       "name": "Bleach: Soul Resurrección",
       "platform": "PS3",
@@ -354,6 +369,36 @@
       "link": "",
       "adult": false,
       "cover": "covers/spicywonda_castlevania-chronicles-recomp.jpg"
+    },
+    {
+      "repo": "Neguchads/Castlevania-COD-Recomp",
+      "name": "Castlevania: Curse of Darkness",
+      "platform": "Xbox",
+      "target": "",
+      "description": "Experimental Windows port of Castlevania: Curse of Darkness (Xbox) by static recompilation. Bring your own copy. | Port experimental para Windows de Castlevania: Curse of Darkness (Xbox) por recompilação estática. Use a sua cópia.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T10:55:14",
+      "adult": false,
+      "cover": "covers/neguchads_castlevania-cod-recomp.jpg"
+    },
+    {
+      "repo": "Wrexxial/HarmonyRecomp",
+      "name": "Castlevania: Harmony of Despair",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T10:53:08",
+      "adult": false,
+      "cover": "covers/wrexxial_harmonyrecomp.jpg"
     },
     {
       "repo": "BlackLabelHQ/SymphonyRecomp",
@@ -854,6 +899,21 @@
       "cover": "covers/iexplosiverage_dbz-burst-limit-recompiled.jpg"
     },
     {
+      "repo": "GoldieLeGenie/DQIV-Recompiled",
+      "name": "Dragon Quest IV: Chapters of the Chosen",
+      "platform": "NDS",
+      "target": "",
+      "description": "native PC version of dragon quest IV DS ",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:07:17",
+      "adult": false,
+      "cover": "covers/goldielegenie_dqiv-recompiled.png"
+    },
+    {
       "repo": "soyjxck/dod3-recomp",
       "name": "Drakengard 3",
       "platform": "PS3",
@@ -881,6 +941,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/blacklineinteractive_driveclub-port.jpg"
+    },
+    {
+      "repo": "icculus/duke3d",
+      "name": "Duke Nukem 3D",
+      "platform": "DOs",
+      "target": "Windows, Linux, macOS",
+      "description": "The icculus.org port of Duke Nukem 3D.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:03:54",
+      "adult": false,
+      "cover": "covers/icculus_duke3d.jpg"
     },
     {
       "repo": "MusicMonsterMod/duke-nukem-time-to-kill-recomp",
@@ -1277,6 +1352,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/simeony2007_viberecomp-for-gow-coo.jpg"
+    },
+    {
+      "repo": "OverkillLabs3/SoS-PS5",
+      "name": "God of War: Sons of Sparta",
+      "platform": "PS5",
+      "target": "",
+      "description": "God of War Sons of Sparta Native on Windows",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:05:04",
+      "adult": false,
+      "cover": "covers/overkilllabs3_sos-ps5.jpg"
     },
     {
       "repo": "CaiusCodes/GoldenEye-007-XBLA-PC-Recomp",
@@ -1764,6 +1854,21 @@
       "cover": "covers/blacklabelhq_medievilrecomp.jpg"
     },
     {
+      "repo": "bc160201983/medievil_2019_pc_port",
+      "name": "medievil 2019 pc port",
+      "platform": "PS4",
+      "target": "",
+      "description": "MediEvil (PS4, CUSA11227) native PC port on the gow3_pc runtime: PKG install, up to 4K, launcher. No game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T10:58:00",
+      "adult": false,
+      "cover": "covers/bc160201983_medievil_2019_pc_port.jpg"
+    },
+    {
       "repo": "MegaMan64Recomp/MegaMan64Recompiled",
       "name": "Mega Man 64",
       "platform": "N64",
@@ -1790,6 +1895,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/alexbeavs-ps1-ports_metal-gear-solid-recomp.jpg"
+    },
+    {
+      "repo": "AlmazProud/metal-slug-5-recomp",
+      "name": "metal slug 5 recomp",
+      "platform": "Neo Geo",
+      "target": "",
+      "description": "Native Windows port of Metal Slug 5 (Neo Geo) by static recompilation. Bring your own copy (MAME set).",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:15:23",
+      "adult": false,
+      "cover": "covers/almazproud_metal-slug-5-recomp.jpg"
     },
     {
       "repo": "mstan/MetroidNESRecomp",
@@ -1977,6 +2097,21 @@
       "added_at": "2026-11-07T19:57:52",
       "adult": false,
       "cover": "covers/gamboozino_ng2recomp.jpg"
+    },
+    {
+      "repo": "KamiTK2/openNG2",
+      "name": "Ninja Gaiden II",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "Native PC port of Ninja Gaiden II (Xbox 360) via ReXGlue static recompilation. No game data: bring your own copy.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T10:54:22",
+      "adult": false,
+      "cover": "covers/kamitk2_openng2.jpg"
     },
     {
       "repo": "GiZcesi/OpenTricky",
@@ -2195,6 +2330,21 @@
       "cover": "covers/shatter9652_udpr.jpg"
     },
     {
+      "repo": "mamesj/pokemon-fulldex",
+      "name": "Pokémon Fulldex",
+      "platform": "NDS",
+      "target": "Windows, Linux, macOS, Android, Switch",
+      "description": "Fulldex: all your favourite Pokémon games in one launcher, in widescreen at 60 fps on PC, Mac, Steam Deck, Android, iPhone and Switch. DS: Black 2, White 2, Black, White, HeartGold, SoulSilver, Platinum, Diamond, Pearl. GBA: Emerald, Ruby, Sapphire, FireRed, LeafGreen, Ultra Violet. 3DS coming soon. RetroAchievements. Bring your own ROMs.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:08:41",
+      "adult": false,
+      "cover": "covers/mamesj_pokemon-fulldex.jpg"
+    },
+    {
       "repo": "Hexveil404/PokeZ-ARecomp",
       "name": "Pokémon Legends: Z-A",
       "platform": "Switch",
@@ -2269,6 +2419,36 @@
       "cover": "covers/jackandbeans_snap64recomp.jpg"
     },
     {
+      "repo": "ClickingMaster/ssrecomp",
+      "name": "Pokémon SoulSilver",
+      "platform": "NDS",
+      "target": "Windows, Linux, macOS",
+      "description": "A recomp of Pokemon Soul Silver for single screen devices. macOS support thanks to DarthMDev.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:06:16",
+      "adult": false,
+      "cover": "covers/clickingmaster_ssrecomp.png"
+    },
+    {
+      "repo": "ClickingMaster/pokeheartgold-single-screen",
+      "name": "Pokémon SoulSilver",
+      "platform": "NDS",
+      "target": "Android",
+      "description": "Single-screen decompilation build of Pokemon HeartGold/SoulSilver (pokeheartgold), the source for the ssrecomp single-screen recomp.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:11:15",
+      "adult": false,
+      "cover": "covers/clickingmaster_pokeheartgold-single-screen.png"
+    },
+    {
       "repo": "raulzrrs/letsgo-recomp",
       "name": "Pokémon: Let's Go, Eevee!",
       "platform": "Switch",
@@ -2310,6 +2490,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/nazatric_protodroid.png"
+    },
+    {
+      "repo": "GMH-Code/Qwasm",
+      "name": "Quake",
+      "platform": "DOs",
+      "target": "Navegador",
+      "description": "Play the Quake engine in your browser!  True to the original.  Supports WebGL, software-rendered mode, mods, and mission packs.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:02:13",
+      "adult": false,
+      "cover": "covers/gmh-code_qwasm.jpg"
     },
     {
       "repo": "Rainchus/Quest64-Recomp",
@@ -2424,6 +2619,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/ant0-blase_residentevil-codeveronicax-x360-rexglue.jpg"
+    },
+    {
+      "repo": "RaccoonRecomp/ResidentEvilOutbreakRecompiled",
+      "name": "Resident Evil Outbreak Recompiled",
+      "platform": "PS2",
+      "target": "",
+      "description": "Unofficial native Windows PC port (static recompilation) of Resident Evil Outbreak File #1 (USA). Bring your own legal copy.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T10:58:26",
+      "adult": false,
+      "cover": "covers/raccoonrecomp_residenteviloutbreakrecompiled.jpg"
     },
     {
       "repo": "RobGreenUK/Ridge-Racer-Revolution-PS1-Recomp",
@@ -2964,6 +3174,36 @@
       "cover": "covers/n64hub_super-mario-64-recomp.jpg"
     },
     {
+      "repo": "TanookiStudios/SuperMarioAllStarsRecomp",
+      "name": "Super Mario All Stars Recomp",
+      "platform": "SNES",
+      "target": "Windows, Linux, macOS, Android",
+      "description": "Super Mario All-Stars (SNES), native for Mac, Windows and Linux. Bring your own ROM.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T10:56:20",
+      "adult": false,
+      "cover": "covers/tanookistudios_supermarioallstarsrecomp.jpg"
+    },
+    {
+      "repo": "Adoregabriel2005/mushroomrecompiled",
+      "name": "Super Mario Bros. 3",
+      "platform": "NES",
+      "target": "",
+      "description": "Mushroom Recompiled for Windows: launcher, controls, and save states. Experimental build; ROM not included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:12:11",
+      "adult": false,
+      "cover": "covers/adoregabriel2005_mushroomrecompiled.jpg"
+    },
+    {
       "repo": "smm2recomp/smm2recomp",
       "name": "Super Mario Maker 2",
       "platform": "Switch",
@@ -3052,6 +3292,21 @@
       "cover": "covers/opensmash-ultimate_ssbu-recomp.jpg"
     },
     {
+      "repo": "SgtBilko76/SuperTuxKart-VR",
+      "name": "Super Tux Kart VR",
+      "platform": "Windows",
+      "target": "Android",
+      "description": "SuperTuxKart VR port for Meta Quest and Pico: the free open-source kart racer running standalone in VR",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T10:59:07",
+      "adult": false,
+      "cover": "covers/sgtbilko76_supertuxkart-vr.webp"
+    },
+    {
       "repo": "FishB0nes98/Tekken3Recompiled",
       "name": "Tekken 3",
       "platform": "PS1",
@@ -3094,6 +3349,21 @@
       "cover": "covers/heromachine_tenchu-sa-recomp.jpg"
     },
     {
+      "repo": "Llamapixels/TenchuZRecomp",
+      "name": "Tenchu Z",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "Tenchu Z - HoloCatt Recomp Project: work-in-progress static recompilation of Tenchu Z (Xbox 360) for Windows. Bring your own disc image: no game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T10:51:47",
+      "adult": false,
+      "cover": "covers/llamapixels_tenchuzrecomp.jpg"
+    },
+    {
       "repo": "invinceble55-wq/Estacado-The-Darkness-Recomp",
       "name": "The Darkness",
       "platform": "Xbox 360",
@@ -3106,6 +3376,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/invinceble55-wq_estacado-the-darkness-recomp.jpg"
+    },
+    {
+      "repo": "omegakatana92/The-King-of-Fighters-2000-Recomp",
+      "name": "The King of Fighters 2000 Recomp",
+      "platform": "Neo Geo",
+      "target": "Windows, Linux",
+      "description": "Native static recompilation of The King of Fighters 2000 (Neo Geo). Source only; you supply your own ROMs and BIOS.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:16:44",
+      "adult": false,
+      "cover": "covers/omegakatana92_the-king-of-fighters-2000-recomp.jpg"
     },
     {
       "repo": "HayatoG/tlg_pc",
@@ -3135,6 +3420,21 @@
       "added_at": "2026-11-03T21:57:16",
       "adult": false,
       "cover": "covers/snesrev_zelda3.jpg"
+    },
+    {
+      "repo": "Waterdish/zelda3-android",
+      "name": "The Legend of Zelda: A Link to the Past",
+      "platform": "SNES",
+      "target": "Android",
+      "description": "A port of Zelda3 to Android",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T10:56:58",
+      "adult": false,
+      "cover": "covers/waterdish_zelda3-android.jpg"
     },
     {
       "repo": "Nycolazs/EoWRecomp",
@@ -3453,6 +3753,36 @@
       "link": "",
       "adult": false,
       "cover": "covers/plinkr_wild9recomp.png"
+    },
+    {
+      "repo": "ECWolfEngine/ECWolf",
+      "name": "Wolfenstein 3D",
+      "platform": "DOs",
+      "target": "Windows, Linux, macOS",
+      "description": "Advanced port of Wolfenstein 3D based off of Wolf4SDL. Intends to back port some of the moding features of ZDoom to Wolfenstein 3D.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:00:03",
+      "adult": false,
+      "cover": "covers/ecwolfengine_ecwolf.jpg"
+    },
+    {
+      "repo": "fabiangreffrath/wolf4sdl",
+      "name": "Wolfenstein 3D",
+      "platform": "DOs",
+      "target": "",
+      "description": "SDL-Port of Wolfenstein 3-D and Spear of Destiny",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T11:01:17",
+      "adult": false,
+      "cover": "covers/fabiangreffrath_wolf4sdl.jpg"
     },
     {
       "repo": "mikeflare007/wwe2k14-recomp",
