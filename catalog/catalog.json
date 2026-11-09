@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-09T14:17:19+00:00",
+  "updated": "2026-11-09T16:42:19+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1310,6 +1310,36 @@
       "link": "",
       "adult": false,
       "cover": "covers/drummingbird1_gow-psp-recomp.png"
+    },
+    {
+      "repo": "arnaldolima1/gow-ascension-pc",
+      "name": "God of War Ascension",
+      "platform": "PS3",
+      "target": "",
+      "description": "God of War: Ascension (PS3), an experiment in static recompilation to run natively on PC, on ps3recomp. No game data included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-09T13:37:38",
+      "adult": false,
+      "cover": "covers/arnaldolima1_gow-ascension-pc.jpg"
+    },
+    {
+      "repo": "ext/god-of-war-ascension",
+      "name": "God of War Ascension",
+      "platform": "PS3",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "https://discord.gg/Y6Knkax4b",
+      "added_at": "2026-11-09T13:40:52",
+      "adult": false,
+      "cover": "covers/ext_god-of-war-ascension.jpg"
     },
     {
       "repo": "andrebrumdev/gow2-recomp",
