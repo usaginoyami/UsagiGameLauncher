@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-09T16:53:37+00:00",
+  "updated": "2026-11-10T14:13:45+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1757,6 +1757,21 @@
       "cover": "covers/undecuple_project-pyrrhus.png"
     },
     {
+      "repo": "undecuple/project-helghast",
+      "name": "Killzone 3",
+      "platform": "PS3",
+      "target": "Windows, Linux",
+      "description": "Killzone 3 // Unofficial PC Port (static recompilation). Work in progress, partly playable. Builds on your PC from your own game.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://undecuple.github.io/project-helghast/",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-10T11:10:27",
+      "adult": false,
+      "cover": "covers/undecuple_project-helghast.png"
+    },
+    {
       "repo": "drakolordx7/KillzoneRecomp",
       "name": "Killzone Recomp",
       "platform": "PS2",
@@ -1769,6 +1784,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/drakolordx7_killzonerecomp.jpg"
+    },
+    {
+      "repo": "NeverCookFirst/DimensionsRecomp",
+      "name": "LEGO Dimensions",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "Proof that a toys-to-life game can be recompiled. A native PC build of LEGO Dimensions, made by statically recompiling the Xbox 360 release: unlocked FPS, mod's, DLC's, SDL_GameControllerDB, multilingual support and a real or emulated Toy Pad. Public demo build.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://discord.com/invite/PuXpBMFE4P",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-10T11:13:33",
+      "adult": false,
+      "cover": "covers/nevercookfirst_dimensionsrecomp.png"
     },
     {
       "repo": "sp00nznet/luigismansion",
@@ -2156,6 +2186,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/gizcesi_opentricky.jpg"
+    },
+    {
+      "repo": "Guuzzeji/otogi-xunchain",
+      "name": "Otogi: Myth of Demons",
+      "platform": "Xbox",
+      "target": "",
+      "description": "Otogi: Myth of Demons natively recompiled for Windows PC. Static recompilation of the original Xbox game (no emulator) with widescreen, high frame rates and up to 4x resolution. Bring your own disc.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-10T11:11:35",
+      "adult": false,
+      "cover": "covers/guuzzeji_otogi-xunchain.jpg"
     },
     {
       "repo": "LoreanXavier/pt-pc",
