@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-10T16:26:35+00:00",
+  "updated": "2026-11-10T22:21:39+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -384,6 +384,21 @@
       "added_at": "2026-11-09T10:55:14",
       "adult": false,
       "cover": "covers/neguchads_castlevania-cod-recomp.jpg"
+    },
+    {
+      "repo": "fasipe/Castlevania-COD-QOL",
+      "name": "Castlevania: Curse of Darkness",
+      "platform": "PS2",
+      "target": "",
+      "description": "Unofficial native PC port of Castlevania: Curse of Darkness (PS2) by static recompilation: up to 4x resolution, widescreen, texture filtering, minimap, sprint and more. Requires your own copy of the game.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-10T19:08:00",
+      "adult": false,
+      "cover": "covers/fasipe_castlevania-cod-qol.jpg"
     },
     {
       "repo": "Wrexxial/HarmonyRecomp",
@@ -1858,6 +1873,36 @@
       "cover": "covers/dougchansan_mk8-recomp.jpg"
     },
     {
+      "repo": "Vnnc1/MK8-online",
+      "name": "Mario Kart 8 Deluxe (MK8-online)",
+      "platform": "Switch",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-10T19:12:10",
+      "adult": false,
+      "cover": "covers/vnnc1_mk8-online.jpg"
+    },
+    {
+      "repo": "STS78721/MKW-THWOMP",
+      "name": "Mario Kart World",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "Static recompilation of Mario Kart World (Switch 2) to native Windows with Vulkan. The Intro renders , graphical issues still ; not playable yet. No game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-10T19:19:06",
+      "adult": false,
+      "cover": "covers/sts78721_mkw-thwomp.jpg"
+    },
+    {
       "repo": "badcompany94-rcmp/project-tandem",
       "name": "Mario Kart: Double Dash (project tandem)",
       "platform": "GameCube",
@@ -2172,6 +2217,21 @@
       "added_at": "2026-11-09T10:54:22",
       "adult": false,
       "cover": "covers/kamitk2_openng2.jpg"
+    },
+    {
+      "repo": "YaibaKamikaze/IzunaRecomp",
+      "name": "Ninja Gaiden II",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-10T19:09:59",
+      "adult": false,
+      "cover": "covers/yaibakamikaze_izunarecomp.jpg"
     },
     {
       "repo": "GiZcesi/OpenTricky",
@@ -2737,6 +2797,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/noulz-one_ring-of-judgment---shadow-hearts-recomp.png"
+    },
+    {
+      "repo": "thegh0sts/bourne-conspiracy-x360-recomp",
+      "name": "Robert Ludlum's The Bourne Conspiracy",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "A Windows compatible recomp of The Robert Ludlam's The Bourne Conspiracy (X360)",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-10T19:15:34",
+      "adult": false,
+      "cover": "covers/thegh0sts_bourne-conspiracy-x360-recomp.jpg"
     },
     {
       "repo": "petarov/saboteur2",
