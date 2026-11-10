@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-10T14:51:33+00:00",
+  "updated": "2026-11-10T16:26:35+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -2462,7 +2462,7 @@
       "link": "",
       "added_at": "2026-11-08T17:10:59",
       "adult": false,
-      "cover": "covers/featurejosh_recompia.png"
+      "cover": "covers/featurejosh_recompia.jpg"
     },
     {
       "repo": "Dittobyte/Recompia",
@@ -2477,7 +2477,7 @@
       "link": "",
       "added_at": "2026-11-08T23:54:06",
       "adult": false,
-      "cover": "covers/dittobyte_recompia.png"
+      "cover": "covers/dittobyte_recompia.jpg"
     },
     {
       "repo": "JackandBeans/Snap64Recomp",
