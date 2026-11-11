@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-11T14:56:47+00:00",
+  "updated": "2026-11-11T16:26:02+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -2688,7 +2688,7 @@
       "repo": "Nazatric/Re-Port",
       "name": "Re Port (Android Game Ports)",
       "platform": "Outros",
-      "target": "",
+      "target": "Android",
       "description": "Android Game Ports Put Into A Beautiful App",
       "notes": "",
       "asset_hint": "",
