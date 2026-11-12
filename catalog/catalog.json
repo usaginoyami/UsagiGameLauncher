@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-12T16:32:02+00:00",
+  "updated": "2026-11-12T17:43:36+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -3385,7 +3385,7 @@
     },
     {
       "repo": "ext/super-mario-odyssey",
-      "name": "Super Mario Odyssey",
+      "name": "Super Mario Odyssey (RIP)",
       "platform": "Switch",
       "target": "Windows, Linux, macOS",
       "description": "",
@@ -4034,7 +4034,7 @@
     },
     {
       "repo": "Revivedx/SavageWindRecomp",
-      "name": "Zelda: Breath of the Wild (Switch)",
+      "name": "Zelda: Breath of the Wild",
       "platform": "Switch",
       "target": "Windows, Linux",
       "description": "Recompilação estática em andamento de Zelda: Breath of the Wild (Switch, v1.8.2) para Windows e Linux.",
@@ -4063,7 +4063,7 @@
     },
     {
       "repo": "peiikai/LASRecomp",
-      "name": "Zelda: Link's Awakening (Switch)",
+      "name": "Zelda: Link's Awakening",
       "platform": "Switch",
       "target": "Windows, Linux, macOS",
       "description": "Recompilação estática de Link's Awakening (Switch) para macOS, Windows e Linux.",
@@ -4192,7 +4192,7 @@
     },
     {
       "repo": "valentderah/totk-pc-recomp",
-      "name": "Zelda: Tears of the Kingdom (pc recomp)",
+      "name": "Zelda: Tears of the Kingdom (Recomp)",
       "platform": "Switch",
       "target": "",
       "description": "Static recompilation of The Legend of Zelda: Tears of the Kingdom to native Windows and Linux x86-64, with a Vulkan renderer. Game files not included.",
