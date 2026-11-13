@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-12T17:43:36+00:00",
+  "updated": "2026-11-13T15:18:51+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -4119,8 +4119,22 @@
       "cover": "covers/sostenesfreitas_ocarina-recomp.jpg"
     },
     {
+      "repo": "HarbourMasters/Shipwright",
+      "name": "Zelda: Ocarina of Time (Decomp)",
+      "platform": "N64",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/harbourmasters_shipwright.jpg"
+    },
+    {
       "repo": "NotRexed/Hookshot",
-      "name": "Zelda: Ocarina Of Time",
+      "name": "Zelda: Ocarina Of Time (Hookshot) (RIP)",
       "platform": "Switch 2",
       "target": "",
       "description": "A Native Recompilation Of The Legend Of Zelda: Ocarina Of Time Nintendo Switch 2 Remake",
@@ -4134,18 +4148,19 @@
       "cover": "covers/notrexed_hookshot.jpg"
     },
     {
-      "repo": "HarbourMasters/Shipwright",
-      "name": "Zelda: Ocarina of Time (Decomp)",
-      "platform": "N64",
-      "target": "",
+      "repo": "ext/zelda-ocarina-of-time-longshot",
+      "name": "Zelda: Ocarina of Time (Longshot)",
+      "platform": "Switch 2",
+      "target": "Windows, Linux",
       "description": "",
       "notes": "",
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
-      "link": "",
+      "link": "https://git.magicbean.dev/MagicBeanDev/Longshot",
+      "added_at": "2026-11-13T12:17:36",
       "adult": false,
-      "cover": "covers/harbourmasters_shipwright.jpg"
+      "cover": "covers/ext_zelda-ocarina-of-time-longshot.jpg"
     },
     {
       "repo": "Apolinario-coder/SkyRecomp",
