@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-13T15:18:51+00:00",
+  "updated": "2026-11-13T16:18:45+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -2421,7 +2421,7 @@
     },
     {
       "repo": "drakolordx7/pokopia-recomp",
-      "name": "pokopia recomp",
+      "name": "pokopia recomp (RIP)",
       "platform": "Switch 2",
       "target": "",
       "description": "Pokémon Pokopia (Switch 2) recompiled to run natively on Windows.",
@@ -2495,21 +2495,6 @@
       "cover": "covers/hexveil404_pokez-arecomp.jpg"
     },
     {
-      "repo": "drakolordx7/switch2-recomp",
-      "name": "Pokémon Pokopia",
-      "platform": "Switch 2",
-      "target": "",
-      "description": "Nintendo Switch 2 games recompiled to run natively on PC. Pokémon Pokopia is playable now.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-05T15:52:21",
-      "adult": false,
-      "cover": "covers/drakolordx7_switch2-recomp.jpg"
-    },
-    {
       "repo": "featureJosh/Recompia",
       "name": "Pokémon Pokopia",
       "platform": "Switch 2",
@@ -2538,6 +2523,21 @@
       "added_at": "2026-11-08T23:54:06",
       "adult": false,
       "cover": "covers/dittobyte_recompia.jpg"
+    },
+    {
+      "repo": "drakolordx7/switch2-recomp",
+      "name": "Pokémon Pokopia (RIP)",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "Nintendo Switch 2 games recompiled to run natively on PC. Pokémon Pokopia is playable now.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-05T15:52:21",
+      "adult": false,
+      "cover": "covers/drakolordx7_switch2-recomp.jpg"
     },
     {
       "repo": "JackandBeans/Snap64Recomp",
@@ -4163,21 +4163,6 @@
       "cover": "covers/ext_zelda-ocarina-of-time-longshot.jpg"
     },
     {
-      "repo": "Apolinario-coder/SkyRecomp",
-      "name": "Zelda: Skyward Sword",
-      "platform": "Switch",
-      "target": "Windows, Linux, macOS",
-      "description": "Static recompilation of The Legend of Zelda: Skyward Sword for PC",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-07T01:43:12",
-      "adult": false,
-      "cover": "covers/apolinario-coder_skyrecomp.jpg"
-    },
-    {
       "repo": "Kyra422/skybreak",
       "name": "Zelda: Skyward Sword",
       "platform": "Wii",
@@ -4190,6 +4175,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/kyra422_skybreak.jpg"
+    },
+    {
+      "repo": "Apolinario-coder/SkyRecomp",
+      "name": "Zelda: Skyward Sword (RIP)",
+      "platform": "Switch",
+      "target": "Windows, Linux, macOS",
+      "description": "Static recompilation of The Legend of Zelda: Skyward Sword for PC",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T01:43:12",
+      "adult": false,
+      "cover": "covers/apolinario-coder_skyrecomp.jpg"
     },
     {
       "repo": "kuraeow/ultratears",
