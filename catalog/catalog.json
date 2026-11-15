@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-15T23:08:05+00:00",
+  "updated": "2026-11-15T23:15:40+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -2279,21 +2279,6 @@
       "cover": "covers/yaibakamikaze_izunarecomp.jpg"
     },
     {
-      "repo": "tangerineturtle1/NX2navi",
-      "name": "NX 2navi",
-      "platform": "Outros",
-      "target": "",
-      "description": "",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-15T20:07:38",
-      "adult": false,
-      "cover": "covers/tangerineturtle1_nx2navi.png"
-    },
-    {
       "repo": "GiZcesi/OpenTricky",
       "name": "Open Tricky",
       "platform": "Xbox",
@@ -4281,6 +4266,21 @@
       "added_at": "2026-11-13T12:17:36",
       "adult": false,
       "cover": "covers/ext_zelda-ocarina-of-time-longshot.jpg"
+    },
+    {
+      "repo": "tangerineturtle1/NX2navi",
+      "name": "Zelda: Ocarina of Time (NX2navi)",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-15T20:07:38",
+      "adult": false,
+      "cover": "covers/tangerineturtle1_nx2navi.jpg"
     },
     {
       "repo": "Kyra422/skybreak",
