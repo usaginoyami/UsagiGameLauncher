@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-15T20:28:51+00:00",
+  "updated": "2026-11-15T23:08:05+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -2277,6 +2277,21 @@
       "added_at": "2026-11-10T19:09:59",
       "adult": false,
       "cover": "covers/yaibakamikaze_izunarecomp.jpg"
+    },
+    {
+      "repo": "tangerineturtle1/NX2navi",
+      "name": "NX 2navi",
+      "platform": "Outros",
+      "target": "",
+      "description": "",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-15T20:07:38",
+      "adult": false,
+      "cover": "covers/tangerineturtle1_nx2navi.png"
     },
     {
       "repo": "GiZcesi/OpenTricky",
