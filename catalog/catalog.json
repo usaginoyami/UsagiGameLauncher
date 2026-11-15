@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-13T16:18:45+00:00",
+  "updated": "2026-11-15T20:28:51+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1671,6 +1671,21 @@
       "cover": "covers/whompay_infamousreborn.jpg"
     },
     {
+      "repo": "SamiEnazi/infamous2-port",
+      "name": "infamous 2 port",
+      "platform": "PS3",
+      "target": "Windows, Linux",
+      "description": "inFAMOUS 2 (PS3) as a native PC program for Windows and Linux: Setup recompiles YOUR copy on your PC (static recompilation, Vulkan). No game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-15T17:27:55",
+      "adult": false,
+      "cover": "covers/samienazi_infamous2-port.png"
+    },
+    {
       "repo": "HayatoG/iss_pc",
       "name": "Infamous: Second Son",
       "platform": "PS4",
@@ -2118,6 +2133,21 @@
       "cover": "covers/coccofresco_mgsone-recomp.jpg"
     },
     {
+      "repo": "TeamGDB/Yakumo",
+      "name": "Monster Hunter Portable 3rd HD Ver",
+      "platform": "PSP",
+      "target": "",
+      "description": "Static recompilation of a PSP game into a native executable. Vulkan and SDL3. Bring your own copy of the game.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://teamgdb.github.io/Yakumo/",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-15T17:28:01",
+      "adult": false,
+      "cover": "covers/teamgdb_yakumo.jpg"
+    },
+    {
       "repo": "klorfmorf/Goemon64Recomp",
       "name": "Mystical Ninja Starring Goemon (Goemon 64)",
       "platform": "N64",
@@ -2144,6 +2174,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/masterllgod_naruto-storm-generations-port-nativo.jpg"
+    },
+    {
+      "repo": "SpeedBreakerProject/speedbreaker",
+      "name": "Need for Speed: Most Wanted",
+      "platform": "Xbox 360",
+      "target": "Linux, macOS",
+      "description": "Unofficial static recompilation of the Xbox 360 version of Need for Speed: Most Wanted (2005): a native port for Steam Deck, Steam Machine, Steam Frame, Linux and Mac (iPhone/iPad: sideload the experimental IPA or build it yourself). Bring your own disc: no game files included. Not affiliated with EA or Valve.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://projectugarte.com/speedbreaker/",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-15T17:28:12",
+      "adult": false,
+      "cover": "covers/speedbreakerproject_speedbreaker.jpg"
     },
     {
       "repo": "rzrbld/ReNFS5",
@@ -2942,6 +2987,21 @@
       "cover": "covers/daindais_shin-megami-tensei-recompilation-collection-.jpg"
     },
     {
+      "repo": "mattkuhnQAAI/sfiii-native",
+      "name": "Shining Force III Recomp",
+      "platform": "Sega Saturn",
+      "target": "Windows, Linux",
+      "description": "Shining Force III Recomp (Shining Force 3 Recomp): native PC static recompilation of Sega Saturn Scenarios 1–3. v0.8.0 official widescreen release for Windows and Linux, translated-disc profiles, controller/save support, and optional local artwork. Bring your own discs.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-15T17:27:48",
+      "adult": false,
+      "cover": "covers/mattkuhnqaai_sfiii-native.jpg"
+    },
+    {
       "repo": "tolotratlt/rival-schools-nekketsu-seishun-nikki-2-recomp",
       "name": "Shiritsu Justice Gakuen: Nekketsu Seishun Nikki 2",
       "platform": "PS1",
@@ -3025,6 +3085,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/cookingwithsimon_skate2recompiled.jpg"
+    },
+    {
+      "repo": "Buku313/Skate3-Mobile",
+      "name": "Skate 3 Mobile",
+      "platform": "Outros",
+      "target": "Android",
+      "description": "Play Skate 3 natively on Android. Download one APK, select your own ISO, and skate. ARM64 recompilation with Vulkan rendering.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://buku313.github.io/Skate3-Mobile/",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-15T17:27:38",
+      "adult": false,
+      "cover": "covers/buku313_skate3-mobile.png"
     },
     {
       "repo": "SirSymo/SM2-Recomp",
@@ -3382,6 +3457,21 @@
       "added_at": "2026-11-07T01:48:39",
       "adult": false,
       "cover": "covers/smm2recomp_smm2recomp.jpg"
+    },
+    {
+      "repo": "Simon3Sarkis/super-odyssey-pc-recomp",
+      "name": "Super Mario Odyssey",
+      "platform": "Switch",
+      "target": "",
+      "description": "A native Windows PC port of Super Mario Odyssey by static recompilation. Bring your own game: no game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-15T17:27:32",
+      "adult": false,
+      "cover": "covers/simon3sarkis_super-odyssey-pc-recomp.jpg"
     },
     {
       "repo": "ext/super-mario-odyssey",
@@ -3785,6 +3875,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/mr-finster_vf2-recomp.jpg"
+    },
+    {
+      "repo": "matiaszanolli/sega-vr-disasm",
+      "name": "Virtua Racing",
+      "platform": "Outros",
+      "target": "",
+      "description": "Complete static recompilation of Virtua Racing for the Sega 32X (optimization in progress)",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-15T17:27:44",
+      "adult": false,
+      "cover": "covers/matiaszanolli_sega-vr-disasm.jpg"
     },
     {
       "repo": "mr-finster/vf3-recomp",
