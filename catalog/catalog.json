@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-16T14:49:35+00:00",
+  "updated": "2026-11-16T14:59:58+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -4314,21 +4314,6 @@
       "cover": "covers/zelda64recomp_zelda64recomp.jpg"
     },
     {
-      "repo": "sostenesfreitas/ocarina-recomp",
-      "name": "Zelda: Ocarina of Time",
-      "platform": "Switch 2",
-      "target": "",
-      "description": "Ocarina of Time running natively on Windows, no emulator. Built on your PC from your own copy. No game files included.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-07T00:35:32",
-      "adult": false,
-      "cover": "covers/sostenesfreitas_ocarina-recomp.jpg"
-    },
-    {
       "repo": "HarbourMasters/Shipwright",
       "name": "Zelda: Ocarina of Time (Decomp)",
       "platform": "N64",
@@ -4386,6 +4371,21 @@
       "added_at": "2026-11-15T20:07:38",
       "adult": false,
       "cover": "covers/tangerineturtle1_nx2navi.jpg"
+    },
+    {
+      "repo": "sostenesfreitas/ocarina-recomp",
+      "name": "Zelda: Ocarina of Time (Recomp)",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "Ocarina of Time running natively on Windows, no emulator. Built on your PC from your own copy. No game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T00:35:32",
+      "adult": false,
+      "cover": "covers/sostenesfreitas_ocarina-recomp.jpg"
     },
     {
       "repo": "Kyra422/skybreak",
