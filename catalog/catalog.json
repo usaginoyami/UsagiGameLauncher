@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-15T23:35:52+00:00",
+  "updated": "2026-11-16T14:49:35+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -528,6 +528,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/dahsidiabdallah_conkerbfdreloaded.jpg"
+    },
+    {
+      "repo": "giacomozama/live-and-recompiled",
+      "name": "Conker: Live & Reloaded",
+      "platform": "Xbox",
+      "target": "Windows, Linux",
+      "description": "An unofficial native PC port of the OG Xbox Conker: Live & Reloaded.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-16T11:46:41",
+      "adult": false,
+      "cover": "covers/giacomozama_live-and-recompiled.png"
     },
     {
       "repo": "LorenzoAlfaro/CTRStaticRecomp",
@@ -1257,6 +1272,21 @@
       "cover": "covers/flippage_gears-of-war-3-recomp.jpg"
     },
     {
+      "repo": "Shagg88/COGBox",
+      "name": "Gears of War series (COGBox)",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "This is an open source, all-in-one, static recompilation project that I built from the ground up for the Xbox 360 Gears of War series. All 4 games have been personally recompiled for use with a fully native renderer by me.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-16T11:41:43",
+      "adult": false,
+      "cover": "covers/shagg88_cogbox.jpg"
+    },
+    {
       "repo": "alexbeavs-ps1-ports/ghost-in-the-shell-recomp",
       "name": "Ghost in the Shell",
       "platform": "PS1",
@@ -1569,6 +1599,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/hayatog_gr2_pc.jpg"
+    },
+    {
+      "repo": "Awis13/liberty-pro-max",
+      "name": "GTA IV",
+      "platform": "Outros",
+      "target": "macOS",
+      "description": "GTA IV (PC 1.0.8.0) statically recompiled to run natively on Apple silicon Macs and iPads (Apple TV experimental): Metal renderer, the episodes, ~100 fixes, saves through iCloud. Build it from your own copy with the Builder app; no game data included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-16T11:39:16",
+      "adult": false,
+      "cover": "covers/awis13_liberty-pro-max.jpg"
     },
     {
       "repo": "benji-paname/regta-chinatown-wars-psp-recompilation",
@@ -1901,6 +1946,21 @@
       "added_at": "2026-11-10T19:12:10",
       "adult": false,
       "cover": "covers/vnnc1_mk8-online.jpg"
+    },
+    {
+      "repo": "dorPXP/driftdroid",
+      "name": "Mario Kart Wii (driftdroid)",
+      "platform": "Wii",
+      "target": "Windows, Linux, Android",
+      "description": "A feature rich Android Port of Mario Kart Wii and Retro Rewind, fast and cool.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-16T11:44:55",
+      "adult": false,
+      "cover": "covers/dorpxp_driftdroid.png"
     },
     {
       "repo": "STS78721/MKW-THWOMP",
@@ -2831,6 +2891,21 @@
       "cover": "covers/raccoonrecomp_residenteviloutbreakrecompiled.jpg"
     },
     {
+      "repo": "Shagg88/Athelas",
+      "name": "Return of the King + Two Towers (Athelas)",
+      "platform": "Xbox",
+      "target": "Windows, Linux, macOS",
+      "description": "Play The Return of the King (PC and Xbox) and The Two Towers (Xbox) on a modern PC",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-16T11:33:44",
+      "adult": false,
+      "cover": "covers/shagg88_athelas.png"
+    },
+    {
       "repo": "RobGreenUK/Ridge-Racer-Revolution-PS1-Recomp",
       "name": "Ridge Racer Revolution PS 1 Recomp",
       "platform": "PS1",
@@ -3576,6 +3651,21 @@
       "cover": "covers/fishb0nes98_tekken3recompiled.jpg"
     },
     {
+      "repo": "omarma/tekken3-expanded",
+      "name": "Tekken 3 + Tag Tournament",
+      "platform": "PS1",
+      "target": "Windows, Linux, macOS, Android",
+      "description": "Tekken 3 with Tekken Tag Tournament and beyond: the 18 TTT characters playable in every mode, TTT movesets and models for Tekken 3's cast, TTT and arcade stages with their music, TTT endings, and the first Tekken 5 DR content. Windows, macOS, Linux, Android. Built from your own discs and ROMs.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-16T11:43:14",
+      "adult": false,
+      "cover": "covers/omarma_tekken3-expanded.png"
+    },
+    {
       "repo": "MrPrinceYL/tekken3-recomp",
       "name": "tekken 3 recomp",
       "platform": "PS1",
@@ -4124,6 +4214,21 @@
       "cover": "covers/yeoldpress_alttp-dx.jpg"
     },
     {
+      "repo": "DoutorRaposo/moonpearl",
+      "name": "Zelda: A Link to the Past (moonpearl)",
+      "platform": "Outros",
+      "target": "Android",
+      "description": "Android port of snesrev/zelda3 (ALttP reimplementation): widescreen, rewind, shaders, MSU-1, save states, controller support. Bring your own ROM.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-16T11:41:30",
+      "adult": false,
+      "cover": "covers/doutorraposo_moonpearl.png"
+    },
+    {
       "repo": "ryderclanky/BotW-Native",
       "name": "Zelda: Breath of the Wild",
       "platform": "Wii U",
@@ -4238,19 +4343,19 @@
       "cover": "covers/harbourmasters_shipwright.jpg"
     },
     {
-      "repo": "NotRexed/Hookshot",
-      "name": "Zelda: Ocarina Of Time (Hookshot) (RIP)",
+      "repo": "ext/zelda-ocarina-of-time-hookshot",
+      "name": "Zelda: Ocarina of Time (Hookshot)",
       "platform": "Switch 2",
-      "target": "",
-      "description": "A Native Recompilation Of The Legend Of Zelda: Ocarina Of Time Nintendo Switch 2 Remake",
+      "target": "Windows, Linux",
+      "description": "",
       "notes": "",
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-07T19:25:55",
+      "link": "https://hookshot.pro/",
+      "added_at": "2026-11-16T11:28:05",
       "adult": false,
-      "cover": "covers/notrexed_hookshot.jpg"
+      "cover": "covers/ext_zelda-ocarina-of-time-hookshot.jpg"
     },
     {
       "repo": "ext/zelda-ocarina-of-time-longshot",
