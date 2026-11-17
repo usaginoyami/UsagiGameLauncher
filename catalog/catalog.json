@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-16T15:14:10+00:00",
+  "updated": "2026-11-17T14:01:21+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1385,6 +1385,21 @@
       "added_at": "2026-11-09T13:40:52",
       "adult": false,
       "cover": "covers/ext_god-of-war-ascension.jpg"
+    },
+    {
+      "repo": "rigaz29/Ascension-R",
+      "name": "God of War Ascension (Ascension R)",
+      "platform": "PS3",
+      "target": "",
+      "description": "God of War: Ascension PC port: an unofficial, native Windows port of the PS3 game by static recompilation, no emulator. No game files included: you build it from your own copy.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://rigaz29.github.io/Ascension-R/",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-17T11:01:01",
+      "adult": false,
+      "cover": "covers/rigaz29_ascension-r.jpg"
     },
     {
       "repo": "andrebrumdev/gow2-recomp",
