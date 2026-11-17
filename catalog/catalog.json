@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-17T14:13:27+00:00",
+  "updated": "2026-11-17T17:05:57+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -4388,7 +4388,7 @@
       "cover": "covers/harbourmasters_shipwright.jpg"
     },
     {
-      "repo": "ext/zelda-ocarina-of-time-hookshot",
+      "repo": "ext/zelda-ocarina-of-time-hookshot-2",
       "name": "Zelda: Ocarina of Time (Hookshot)",
       "platform": "Switch 2",
       "target": "Windows, Linux",
@@ -4397,10 +4397,10 @@
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
-      "link": "https://hookshot.pro/",
-      "added_at": "2026-11-16T11:28:05",
+      "link": "https://git.notrexed.dev/Hookshot/Hookshot",
+      "added_at": "2026-11-17T14:03:08",
       "adult": false,
-      "cover": "covers/ext_zelda-ocarina-of-time-hookshot.jpg"
+      "cover": "covers/ext_zelda-ocarina-of-time-hookshot-2.jpg"
     },
     {
       "repo": "ext/zelda-ocarina-of-time-longshot",
