@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-17T14:01:21+00:00",
+  "updated": "2026-11-17T14:13:27+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -355,6 +355,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/paulcombal_mw2-recompiled.jpg"
+    },
+    {
+      "repo": "rexelflip2-sudo/Call-of-Juarez-Xbox-360-Recomp",
+      "name": "Call of Juarez (Xbox 360 Recomp)",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "A Recomp for Call of Juarez Xbox 360 (2007)",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-17T11:11:14",
+      "adult": false,
+      "cover": "covers/rexelflip2-sudo_call-of-juarez-xbox-360-recomp.jpg"
     },
     {
       "repo": "Spicywonda/castlevania-chronicles-recomp",
@@ -2251,6 +2266,21 @@
       "cover": "covers/masterllgod_naruto-storm-generations-port-nativo.jpg"
     },
     {
+      "repo": "daniiichan/Need-for-Speed-Underground-2-macOS",
+      "name": "Need for Speed Underground 2 (mac OS)",
+      "platform": "Outros",
+      "target": "macOS",
+      "description": "Native macOS (Apple Silicon / Intel) port of Need for Speed: Underground 2 at 60 FPS using DXVK Native and MoltenVK",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-17T11:12:16",
+      "adult": false,
+      "cover": "covers/daniiichan_need-for-speed-underground-2-macos.jpg"
+    },
+    {
       "repo": "SpeedBreakerProject/speedbreaker",
       "name": "Need for Speed: Most Wanted",
       "platform": "Xbox 360",
@@ -4010,6 +4040,21 @@
       "added_at": "2026-11-09T00:11:33",
       "adult": false,
       "cover": "covers/mr-finster_vf3-recomp.png"
+    },
+    {
+      "repo": "rzrbld/vurus",
+      "name": "vurus",
+      "platform": "Outros",
+      "target": "",
+      "description": "unofficial port of Vyruz: Destruction of the Untel Empire",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-17T11:10:10",
+      "adult": false,
+      "cover": "covers/rzrbld_vurus.png"
     },
     {
       "repo": "yanm1103/War_of_the_Monsters_recomp",
