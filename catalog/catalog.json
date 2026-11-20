@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-17T17:05:57+00:00",
+  "updated": "2026-11-20T02:58:46+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -29,6 +29,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/caiuscodes_aegis-wing-xbla-pc-recomp.jpg"
+    },
+    {
+      "repo": "saulob/alienation-pc",
+      "name": "alienation pc",
+      "platform": "PS4",
+      "target": "",
+      "description": "Alienation PS4 running natively on Windows and Linux/Steam Deck with Vulkan, 4K, True Ultrawide, high-refresh presentation, local and online co-op for up to 4 players",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-19T23:53:59",
+      "adult": false,
+      "cover": "covers/saulob_alienation-pc.png"
     },
     {
       "repo": "petarov/alleycat.exe",
@@ -1935,6 +1950,21 @@
       "cover": "covers/rzrbld_thefamilia.png"
     },
     {
+      "repo": "OpenGP-dev/OpenGP",
+      "name": "Mario Kart (Open GP)",
+      "platform": "GameCube",
+      "target": "",
+      "description": "A native PC port of Mario Kart Arcade GP and GP 2 by static recompilation. Builds the games from your own disc images.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://opengp.officiallysp.net",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-19T23:57:05",
+      "adult": false,
+      "cover": "covers/opengp-dev_opengp.jpg"
+    },
+    {
       "repo": "sonicdcer/MarioKart64Recomp",
       "name": "Mario Kart 64",
       "platform": "N64",
@@ -3278,6 +3308,21 @@
       "cover": "covers/yuutatsubasa_free-riders-recompiled.jpg"
     },
     {
+      "repo": "teclilla18/sonic-riders-recomp",
+      "name": "sonic riders recomp",
+      "platform": "GameCube",
+      "target": "",
+      "description": "Native port of Sonic Riders (GameCube) for Windows, Linux / Steam Deck, Nintendo Switch, Switch 2 (experimental alpha), Android and iPhone / iPad. Built from your own disc image; no game data included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-19T23:53:57",
+      "adult": false,
+      "cover": "covers/teclilla18_sonic-riders-recomp.jpg"
+    },
+    {
       "repo": "sonicnext-dev/MarathonRecomp",
       "name": "Sonic the Hedgehog",
       "platform": "Xbox 360",
@@ -4363,7 +4408,7 @@
       "repo": "Zelda64Recomp/Zelda64Recomp",
       "name": "Zelda: Majora's Mask (Recompiled)",
       "platform": "N64",
-      "target": "",
+      "target": "Windows, Linux, macOS",
       "description": "Recompilação estática de The Legend of Zelda: Majora's Mask (e, em breve, Ocarina of Time) para Windows, Linux e Mac, com mods, gráficos modernos e taxas altas.",
       "notes": "Requer a sua própria ROM do jogo.",
       "asset_hint": "",
@@ -4377,7 +4422,7 @@
       "repo": "HarbourMasters/Shipwright",
       "name": "Zelda: Ocarina of Time (Decomp)",
       "platform": "N64",
-      "target": "",
+      "target": "Windows, Linux, macOS",
       "description": "",
       "notes": "",
       "asset_hint": "",
