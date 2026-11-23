@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-20T02:58:46+00:00",
+  "updated": "2026-11-23T17:19:15+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1646,6 +1646,21 @@
       "cover": "covers/hayatog_gr2_pc.jpg"
     },
     {
+      "repo": "ItsNotRexed/Leonida",
+      "name": "GTA 6 (Leonida)",
+      "platform": "Xbox",
+      "target": "",
+      "description": "Leonida Is A Native PC Recompilation Of The Xbox Version Of Grand Theft Auto 6",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-23T14:11:03",
+      "adult": false,
+      "cover": "covers/itsnotrexed_leonida.png"
+    },
+    {
       "repo": "Awis13/liberty-pro-max",
       "name": "GTA IV",
       "platform": "Outros",
@@ -2600,6 +2615,21 @@
       "cover": "covers/thefixinhixon_woohoo-flight-school.jpg"
     },
     {
+      "repo": "oenderg/Reflourished-Darwin",
+      "name": "Plants vs Zombies 2 (Reflourished Darwin)",
+      "platform": "Outros",
+      "target": "Windows, macOS",
+      "description": "PvZ2: Reflourished native port for iPhone, iPad, Mac and Windows",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://pvz.oender.dev/",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-23T14:17:29",
+      "adult": false,
+      "cover": "covers/oenderg_reflourished-darwin.png"
+    },
+    {
       "repo": "drakolordx7/pokopia-recomp",
       "name": "pokopia recomp (RIP)",
       "platform": "Switch 2",
@@ -2907,6 +2937,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/alexbeavs-ps1-ports_resident-evil-3-recomp.jpg"
+    },
+    {
+      "repo": "PotatoRecomp/RE4Wii-Android",
+      "name": "Resident Evil 4 (Wii Android)",
+      "platform": "Wii",
+      "target": "Android",
+      "description": "Unofficial Android port of Resident Evil 4 Wii edition (RB4E08): PowerPC statically recompiled to C++, no emulator on the phone. Port made by xu@shiinobu.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-23T14:17:25",
+      "adult": false,
+      "cover": "covers/potatorecomp_re4wii-android.png"
     },
     {
       "repo": "aikatore/recvx-enhanced-port",
@@ -3519,6 +3564,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/gtteancum_spideyps1recomp.png"
+    },
+    {
+      "repo": "marinohardin/AwayTeamEF",
+      "name": "Star Trek: Voyager (Away Team EF)",
+      "platform": "Outros",
+      "target": "",
+      "description": "Star Trek: Voyager - Elite Force, AwayTeam Edition: Single player, Co-Op Campaign, and Holomatch multiplayer in one app on Mac/Windows/Linux, with native feel and modern networking. Unofficial; fork of VoyagerSP-Android. Requires the retail game data.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://marinoh.com/",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-23T14:17:21",
+      "adult": false,
+      "cover": "covers/marinohardin_awayteamef.jpg"
     },
     {
       "repo": "tmcleroy/sfa2-recomp",
@@ -4200,6 +4260,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/gtteancum_xmen-mutant-academy-2-pc.jpg"
+    },
+    {
+      "repo": "R0Y00/Xbox2Windows",
+      "name": "Xbox 2Windows",
+      "platform": "Xbox",
+      "target": "",
+      "description": "Static recompilation research for Xbox Series X|S software on x64 Windows, with source-built CPU and GPU tests. Full-game startup is unverified.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-23T14:17:14",
+      "adult": false,
+      "cover": "covers/r0y00_xbox2windows.png"
     },
     {
       "repo": "filippgl/xena-psx-decomp",
