@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-23T17:19:15+00:00",
+  "updated": "2026-11-23T22:45:57+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1648,7 +1648,7 @@
     {
       "repo": "ItsNotRexed/Leonida",
       "name": "GTA 6 (Leonida)",
-      "platform": "Xbox",
+      "platform": "Xbox Series S/X",
       "target": "",
       "description": "Leonida Is A Native PC Recompilation Of The Xbox Version Of Grand Theft Auto 6",
       "notes": "",
