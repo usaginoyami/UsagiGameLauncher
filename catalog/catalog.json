@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-23T22:45:57+00:00",
+  "updated": "2026-11-24T03:14:00+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1647,7 +1647,7 @@
     },
     {
       "repo": "ItsNotRexed/Leonida",
-      "name": "GTA 6 (Leonida)",
+      "name": "GTA 6 (Leonida)(rip)",
       "platform": "Xbox Series S/X",
       "target": "",
       "description": "Leonida Is A Native PC Recompilation Of The Xbox Version Of Grand Theft Auto 6",
@@ -1659,6 +1659,36 @@
       "added_at": "2026-11-23T14:11:03",
       "adult": false,
       "cover": "covers/itsnotrexed_leonida.png"
+    },
+    {
+      "repo": "Marvisak/VIctory",
+      "name": "GTA 6 (VIctory)",
+      "platform": "Outros",
+      "target": "",
+      "description": "An attempt at running GTA VI on PC",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-24T00:11:06",
+      "adult": false,
+      "cover": "covers/marvisak_victory.jpg"
+    },
+    {
+      "repo": "ivall/xcl",
+      "name": "GTA 6 (xcl)",
+      "platform": "Xbox",
+      "target": "",
+      "description": "Xbox Series compatibility layer for Windows - runs console game code natively, reimplements the console system libraries and recompiles RDNA2 shaders to DXIL",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-24T00:12:40",
+      "adult": false,
+      "cover": "covers/ivall_xcl.jpg"
     },
     {
       "repo": "Awis13/liberty-pro-max",
