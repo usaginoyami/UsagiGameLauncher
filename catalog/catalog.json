@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-25T15:05:02+00:00",
+  "updated": "2026-11-25T19:25:07+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -48,7 +48,7 @@
     {
       "repo": "petarov/alleycat.exe",
       "name": "Alley Cat",
-      "platform": "Dos",
+      "platform": "DOs",
       "target": "Windows, Linux, macOS",
       "description": "x86_64 recompilation of Alley Cat - a video game by Bill Williams for Atari (1983) and IBM PC (1984)",
       "notes": "",
@@ -1678,7 +1678,7 @@
     {
       "repo": "Marvisak/VIctory",
       "name": "GTA 6 (VIctory)",
-      "platform": "Outros",
+      "platform": "Xbox Series S/X",
       "target": "",
       "description": "An attempt at running GTA VI on PC",
       "notes": "",
@@ -1693,7 +1693,7 @@
     {
       "repo": "ivall/xcl",
       "name": "GTA 6 (xcl)",
-      "platform": "Xbox",
+      "platform": "Xbox Series S/X",
       "target": "",
       "description": "Xbox Series compatibility layer for Windows - runs console game code natively, reimplements the console system libraries and recompiles RDNA2 shaders to DXIL",
       "notes": "",
@@ -1983,7 +1983,7 @@
     {
       "repo": "ProjectLeonidaL/leonida",
       "name": "leonida",
-      "platform": "Xbox",
+      "platform": "Xbox Series S/X",
       "target": "",
       "description": "Continuation of Project Leonida, aiming to bring GTA VI from Xbox to PC through static recompilation.",
       "notes": "",
@@ -3131,7 +3131,7 @@
     {
       "repo": "petarov/saboteur2",
       "name": "Saboteur II",
-      "platform": "Dos",
+      "platform": "DOs",
       "target": "Windows, Linux, macOS",
       "description": "A recompilation of Saboteur II: Avenging Angel (1987) from its original DOS executable to x86_64 platforms",
       "notes": "",
