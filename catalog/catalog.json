@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-24T15:01:02+00:00",
+  "updated": "2026-11-25T15:05:02+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -1074,6 +1074,21 @@
       "cover": "covers/goliathret_edgeoftimerecomp.jpg"
     },
     {
+      "repo": "TGP482/FCIP-XEXRecomp",
+      "name": "Far Cry Instincts: Predator (FCIP XEXRecomp)",
+      "platform": "Xbox 360",
+      "target": "",
+      "description": "An unofficial PC port of Far Cry Instincts: Predator via static recompilation.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "https://discord.com/invite/8dAn4ZSsap",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-25T12:03:55",
+      "adult": false,
+      "cover": "covers/tgp482_fcip-xexrecomp.png"
+    },
+    {
       "repo": "samuelit0davila/fifa-street-pc-port",
       "name": "FIFA Street (2012)",
       "platform": "Xbox 360",
@@ -1964,6 +1979,21 @@
       "added_at": "2026-11-10T11:13:33",
       "adult": false,
       "cover": "covers/nevercookfirst_dimensionsrecomp.png"
+    },
+    {
+      "repo": "ProjectLeonidaL/leonida",
+      "name": "leonida",
+      "platform": "Xbox",
+      "target": "",
+      "description": "Continuation of Project Leonida, aiming to bring GTA VI from Xbox to PC through static recompilation.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-25T12:02:53",
+      "adult": false,
+      "cover": "covers/projectleonidal_leonida.png"
     },
     {
       "repo": "sp00nznet/luigismansion",
