@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-27T19:30:25+00:00",
+  "updated": "2026-11-27T19:31:28+00:00",
   "games": [
     {
       "repo": "ext/007-nightfire-remastered",
@@ -3802,20 +3802,6 @@
       "adult": false,
       "cover": "covers/ext_super-mario-odyssey-2.jpg",
       "added_at": "2026-11-27T19:30:19"
-    },
-    {
-      "repo": "ext/super-mario-odyssey",
-      "name": "Super Mario Odyssey (RIP)",
-      "platform": "Switch",
-      "target": "Windows, Linux, macOS",
-      "description": "",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "https://gitlab.com/zzzarathustra-dev/power-moon-recomp",
-      "adult": false,
-      "cover": "covers/ext_super-mario-odyssey.jpg"
     },
     {
       "repo": "chasem-dev/sms-android",
