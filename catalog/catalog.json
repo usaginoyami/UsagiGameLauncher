@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-27T19:31:28+00:00",
+  "updated": "2026-11-27T19:39:24+00:00",
   "games": [
     {
       "repo": "ext/007-nightfire-remastered",
@@ -1691,21 +1691,6 @@
       "cover": "covers/projectleonidal_leonida.jpg"
     },
     {
-      "repo": "ItsNotRexed/Leonida",
-      "name": "GTA 6 (Leonida)(rip)",
-      "platform": "Xbox Series S/X",
-      "target": "",
-      "description": "Leonida Is A Native PC Recompilation Of The Xbox Version Of Grand Theft Auto 6",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-23T14:11:03",
-      "adult": false,
-      "cover": "covers/itsnotrexed_leonida.png"
-    },
-    {
       "repo": "ext/gta-6-victory-nvidia",
       "name": "GTA 6 (VIctory-NVIDIA)",
       "platform": "Outros",
@@ -2808,21 +2793,6 @@
       "added_at": "2026-11-08T23:54:06",
       "adult": false,
       "cover": "covers/dittobyte_recompia.jpg"
-    },
-    {
-      "repo": "drakolordx7/switch2-recomp",
-      "name": "Pokémon Pokopia (RIP)",
-      "platform": "Switch 2",
-      "target": "",
-      "description": "Nintendo Switch 2 games recompiled to run natively on PC. Pokémon Pokopia is playable now.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-05T15:52:21",
-      "adult": false,
-      "cover": "covers/drakolordx7_switch2-recomp.jpg"
     },
     {
       "repo": "JackandBeans/Snap64Recomp",
