@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-27T19:39:24+00:00",
+  "updated": "2026-11-27T19:41:14+00:00",
   "games": [
     {
       "repo": "ext/007-nightfire-remastered",
@@ -2854,7 +2854,7 @@
     },
     {
       "repo": "drakolordx7/pokopia-recomp",
-      "name": "pokopia recomp (RIP)",
+      "name": "Pokopia recomp",
       "platform": "Switch 2",
       "target": "",
       "description": "Pokémon Pokopia (Switch 2) recompiled to run natively on Windows.",
