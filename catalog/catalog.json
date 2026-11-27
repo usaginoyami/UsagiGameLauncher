@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-27T20:00:01+00:00",
+  "updated": "2026-11-27T20:01:30+00:00",
   "games": [
     {
       "repo": "CaiusCodes/GoldenEye-007-XBLA-PC-Recomp",
@@ -150,7 +150,7 @@
       "repo": "spacefarergames/AloneInTheDarkReHaunted",
       "name": "Alone in the Dark (remaster)",
       "platform": "Windows",
-      "target": "Remaster",
+      "target": "",
       "description": "A heavily enhanced port and dynamic recomp of Alone In The Dark 1, with Textured Models, HD-4K background replacements, QOL improvements, controller support and so much more.",
       "notes": "",
       "asset_hint": "",
