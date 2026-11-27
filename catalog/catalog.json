@@ -1,7 +1,22 @@
 {
   "schema": 1,
-  "updated": "2026-11-27T19:20:25+00:00",
+  "updated": "2026-11-27T19:28:04+00:00",
   "games": [
+    {
+      "repo": "ext/007-nightfire-remastered",
+      "name": "007-NightFire-Remastered",
+      "platform": "Outros",
+      "target": "",
+      "description": "007 Remastered: 007: NightFire and 007: Agent Under Fire running natively on PC, with Vulkan, ray tracing, co-op and LAN play",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/ext_007-nightfire-remastered.jpg",
+      "added_at": "2026-11-27T19:27:58"
+    },
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
       "name": "3 on 3 NHL Arcade",
