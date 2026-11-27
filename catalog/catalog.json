@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-25T19:25:07+00:00",
+  "updated": "2026-11-27T18:58:46+00:00",
   "games": [
     {
       "repo": "Wndwsqrrl/3on3NHL-recomp",
@@ -546,20 +546,6 @@
       "cover": "covers/rzrbld_reconflict.jpg"
     },
     {
-      "repo": "DahSidiAbdallah/ConkerBFDReloaded",
-      "name": "Conker's Bad Fur Day",
-      "platform": "N64",
-      "target": "Windows, Linux",
-      "description": "Conker's Bad Fur Day running natively on PC: an N64 recompilation with a Classic mode true to the N64 and a Modern mode (widescreen, smooth frame rate, free camera).",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/dahsidiabdallah_conkerbfdreloaded.jpg"
-    },
-    {
       "repo": "giacomozama/live-and-recompiled",
       "name": "Conker: Live & Reloaded",
       "platform": "Xbox",
@@ -573,6 +559,20 @@
       "added_at": "2026-11-16T11:46:41",
       "adult": false,
       "cover": "covers/giacomozama_live-and-recompiled.png"
+    },
+    {
+      "repo": "DahSidiAbdallah/ConkerBFDReloaded",
+      "name": "Conker's Bad Fur Day",
+      "platform": "N64",
+      "target": "Windows, Linux",
+      "description": "Conker's Bad Fur Day running natively on PC: an N64 recompilation with a Classic mode true to the N64 and a Modern mode (widescreen, smooth frame rate, free camera).",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/dahsidiabdallah_conkerbfdreloaded.jpg"
     },
     {
       "repo": "LorenzoAlfaro/CTRStaticRecomp",
@@ -1360,20 +1360,6 @@
       "cover": "covers/kiexster_god-of-war-recomp.jpg"
     },
     {
-      "repo": "Waffle565/God-Of-War-Native-Port",
-      "name": "God of War (PS2)",
-      "platform": "PS2",
-      "target": "",
-      "description": "Port nativo para PC de God of War (PS2, NTSC-U SCUS-97399): código recompilado para C++ e hardware do PS2 reimplementado.",
-      "notes": "Requer a sua própria cópia do jogo.",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "God of War (2005 video game)",
-      "link": "",
-      "adult": false,
-      "cover": "covers/waffle565_god-of-war-native-port.jpg"
-    },
-    {
       "repo": "YYOzcan/Tobiichi-Port",
       "name": "God of War (PS2, outro port)",
       "platform": "PS2",
@@ -1386,6 +1372,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/yyozcan_tobiichi-port.jpg"
+    },
+    {
+      "repo": "Waffle565/God-Of-War-Native-Port",
+      "name": "God of War (PS2)",
+      "platform": "PS2",
+      "target": "",
+      "description": "Port nativo para PC de God of War (PS2, NTSC-U SCUS-97399): código recompilado para C++ e hardware do PS2 reimplementado.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "God of War (2005 video game)",
+      "link": "",
+      "adult": false,
+      "cover": "covers/waffle565_god-of-war-native-port.jpg"
     },
     {
       "repo": "DrummingBird1/gow-psp-recomp",
@@ -1674,6 +1674,21 @@
       "added_at": "2026-11-23T14:11:03",
       "adult": false,
       "cover": "covers/itsnotrexed_leonida.png"
+    },
+    {
+      "repo": "ext/gta-6-victory-nvidia",
+      "name": "GTA 6 (VIctory-NVIDIA)",
+      "platform": "Outros",
+      "target": "",
+      "description": "VIctory (Xbox Series compatibility layer) tuned for NVIDIA RTX cards: Series X at 2560x1440 with DLSS, about 26-30 fps on an RTX 5070, DLSS frame generation 2x-6x, an F1 settings menu and F3 stats panel, open water without dark blocks. Built on many repos combined into one. No game files or NVIDIA files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "https://github.com/trustno1-coder/VIctory-NVIDIA",
+      "adult": false,
+      "cover": "covers/ext_gta-6-victory-nvidia.jpg",
+      "added_at": "2026-11-27T18:58:44"
     },
     {
       "repo": "Marvisak/VIctory",
@@ -2690,21 +2705,6 @@
       "cover": "covers/oenderg_reflourished-darwin.png"
     },
     {
-      "repo": "drakolordx7/pokopia-recomp",
-      "name": "pokopia recomp (RIP)",
-      "platform": "Switch 2",
-      "target": "",
-      "description": "Pokémon Pokopia (Switch 2) recompiled to run natively on Windows.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-03T10:46:23",
-      "adult": false,
-      "cover": "covers/drakolordx7_pokopia-recomp.jpg"
-    },
-    {
       "repo": "Veemyu/strahlender-xnu",
       "name": "Pokémon Brilliant Diamond",
       "platform": "Switch",
@@ -2866,6 +2866,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/raulzrrs_letsgo-recomp.jpg"
+    },
+    {
+      "repo": "drakolordx7/pokopia-recomp",
+      "name": "pokopia recomp (RIP)",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "Pokémon Pokopia (Switch 2) recompiled to run natively on Windows.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-03T10:46:23",
+      "adult": false,
+      "cover": "covers/drakolordx7_pokopia-recomp.jpg"
     },
     {
       "repo": "jacquesdupontd/port0r",
