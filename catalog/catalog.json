@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-27T19:28:04+00:00",
+  "updated": "2026-11-27T19:30:25+00:00",
   "games": [
     {
       "repo": "ext/007-nightfire-remastered",
@@ -3787,6 +3787,21 @@
       "added_at": "2026-11-15T17:27:32",
       "adult": false,
       "cover": "covers/simon3sarkis_super-odyssey-pc-recomp.jpg"
+    },
+    {
+      "repo": "ext/super-mario-odyssey-2",
+      "name": "Super Mario Odyssey",
+      "platform": "Outros",
+      "target": "",
+      "description": "A native PC port of Super Mario Odyssey 1.0.0 by static recompilation. Bring your own game: no game files included.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/ext_super-mario-odyssey-2.jpg",
+      "added_at": "2026-11-27T19:30:19"
     },
     {
       "repo": "ext/super-mario-odyssey",
