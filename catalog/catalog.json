@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-27T20:14:00+00:00",
+  "updated": "2026-11-27T20:15:35+00:00",
   "games": [
     {
       "repo": "CaiusCodes/GoldenEye-007-XBLA-PC-Recomp",
@@ -633,20 +633,6 @@
       "cover": "covers/rzrbld_reconflict.jpg"
     },
     {
-      "repo": "DahSidiAbdallah/ConkerBFDReloaded",
-      "name": "Conker's Bad Fur Day",
-      "platform": "N64",
-      "target": "Windows, Linux",
-      "description": "Conker's Bad Fur Day running natively on PC: an N64 recompilation with a Classic mode true to the N64 and a Modern mode (widescreen, smooth frame rate, free camera).",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "adult": false,
-      "cover": "covers/dahsidiabdallah_conkerbfdreloaded.jpg"
-    },
-    {
       "repo": "giacomozama/live-and-recompiled",
       "name": "Conker: Live & Reloaded",
       "platform": "Xbox",
@@ -660,6 +646,20 @@
       "added_at": "2026-11-16T11:46:41",
       "adult": false,
       "cover": "covers/giacomozama_live-and-recompiled.png"
+    },
+    {
+      "repo": "DahSidiAbdallah/ConkerBFDReloaded",
+      "name": "Conker's Bad Fur Day",
+      "platform": "N64",
+      "target": "Windows, Linux",
+      "description": "Conker's Bad Fur Day running natively on PC: an N64 recompilation with a Classic mode true to the N64 and a Modern mode (widescreen, smooth frame rate, free camera).",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "adult": false,
+      "cover": "covers/dahsidiabdallah_conkerbfdreloaded.jpg"
     },
     {
       "repo": "LorenzoAlfaro/CTRStaticRecomp",
@@ -1447,20 +1447,6 @@
       "cover": "covers/kiexster_god-of-war-recomp.jpg"
     },
     {
-      "repo": "Waffle565/God-Of-War-Native-Port",
-      "name": "God of War (PS2)",
-      "platform": "PS2",
-      "target": "",
-      "description": "Port nativo para PC de God of War (PS2, NTSC-U SCUS-97399): código recompilado para C++ e hardware do PS2 reimplementado.",
-      "notes": "Requer a sua própria cópia do jogo.",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "God of War (2005 video game)",
-      "link": "",
-      "adult": false,
-      "cover": "covers/waffle565_god-of-war-native-port.jpg"
-    },
-    {
       "repo": "YYOzcan/Tobiichi-Port",
       "name": "God of War (PS2, outro port)",
       "platform": "PS2",
@@ -1473,6 +1459,20 @@
       "link": "",
       "adult": false,
       "cover": "covers/yyozcan_tobiichi-port.jpg"
+    },
+    {
+      "repo": "Waffle565/God-Of-War-Native-Port",
+      "name": "God of War (PS2)",
+      "platform": "PS2",
+      "target": "",
+      "description": "Port nativo para PC de God of War (PS2, NTSC-U SCUS-97399): código recompilado para C++ e hardware do PS2 reimplementado.",
+      "notes": "Requer a sua própria cópia do jogo.",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "God of War (2005 video game)",
+      "link": "",
+      "adult": false,
+      "cover": "covers/waffle565_god-of-war-native-port.jpg"
     },
     {
       "repo": "DrummingBird1/gow-psp-recomp",
@@ -1735,21 +1735,6 @@
       "cover": "covers/projectleonidal_leonida.jpg"
     },
     {
-      "repo": "Marvisak/VIctory",
-      "name": "GTA 6 (VIctory)",
-      "platform": "Xbox Series S/X",
-      "target": "",
-      "description": "An attempt at running GTA VI on PC",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-24T00:11:06",
-      "adult": false,
-      "cover": "covers/marvisak_victory.jpg"
-    },
-    {
       "repo": "ext/gta-6-victory-nvidia",
       "name": "GTA 6 (VIctory-NVIDIA)",
       "platform": "Outros",
@@ -1763,6 +1748,21 @@
       "added_at": "2026-11-27T18:58:44",
       "adult": false,
       "cover": "covers/ext_gta-6-victory-nvidia.jpg"
+    },
+    {
+      "repo": "Marvisak/VIctory",
+      "name": "GTA 6 (VIctory)",
+      "platform": "Xbox Series S/X",
+      "target": "",
+      "description": "An attempt at running GTA VI on PC",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-24T00:11:06",
+      "adult": false,
+      "cover": "covers/marvisak_victory.jpg"
     },
     {
       "repo": "ivall/xcl",
@@ -2720,21 +2720,6 @@
       "cover": "covers/oenderg_reflourished-darwin.png"
     },
     {
-      "repo": "drakolordx7/pokopia-recomp",
-      "name": "Pokopia recomp",
-      "platform": "Switch 2",
-      "target": "",
-      "description": "Pokémon Pokopia (Switch 2) recompiled to run natively on Windows.",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-03T10:46:23",
-      "adult": false,
-      "cover": "covers/drakolordx7_pokopia-recomp.jpg"
-    },
-    {
       "repo": "Veemyu/strahlender-xnu",
       "name": "Pokémon Brilliant Diamond",
       "platform": "Switch",
@@ -2881,6 +2866,21 @@
       "link": "",
       "adult": false,
       "cover": "covers/raulzrrs_letsgo-recomp.jpg"
+    },
+    {
+      "repo": "drakolordx7/pokopia-recomp",
+      "name": "Pokopia recomp",
+      "platform": "Switch 2",
+      "target": "",
+      "description": "Pokémon Pokopia (Switch 2) recompiled to run natively on Windows.",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-03T10:46:23",
+      "adult": false,
+      "cover": "covers/drakolordx7_pokopia-recomp.jpg"
     },
     {
       "repo": "jacquesdupontd/port0r",
@@ -4603,7 +4603,7 @@
       "name": "Zelda: Ocarina of Time (Longshot)",
       "platform": "Switch 2",
       "target": "Windows, Linux",
-      "description": "",
+      "description": "Longshot is a static recompilation tool. It translates a supported console game's code to LLVM IR and compiles it into a native Windows or Linux program, with the graphics rebuilt on Vulkan and the console's system software reimplemented. All of this happens on your PC, from your own copy of the game.\n\nLongshot is a continuation of Hookshot. The top maintainers have moved to this project.",
       "notes": "",
       "asset_hint": "",
       "homepage": "",
