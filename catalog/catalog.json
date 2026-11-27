@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-27T20:04:32+00:00",
+  "updated": "2026-11-27T20:06:22+00:00",
   "games": [
     {
       "repo": "CaiusCodes/GoldenEye-007-XBLA-PC-Recomp",
@@ -3836,7 +3836,7 @@
       "repo": "SgtBilko76/SuperTuxKart-VR",
       "name": "Super Tux Kart VR",
       "platform": "Windows",
-      "target": "Android",
+      "target": "Android, VR",
       "description": "SuperTuxKart VR port for Meta Quest and Pico: the free open-source kart racer running standalone in VR",
       "notes": "",
       "asset_hint": "",
