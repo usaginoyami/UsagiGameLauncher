@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-27T19:50:39+00:00",
+  "updated": "2026-11-27T20:00:01+00:00",
   "games": [
     {
       "repo": "CaiusCodes/GoldenEye-007-XBLA-PC-Recomp",
@@ -2156,6 +2156,21 @@
       "cover": "covers/chasem-dev_sms-pc-port.jpg"
     },
     {
+      "repo": "chasem-dev/sms-android",
+      "name": "Mario Sunshine, Super",
+      "platform": "GameCube",
+      "target": "Android",
+      "description": "Super Mario Sunshine PC port launcher for ARM64 Android handhelds",
+      "notes": "",
+      "asset_hint": "",
+      "homepage": "",
+      "cover_title": "",
+      "link": "",
+      "added_at": "2026-11-07T21:55:46",
+      "adult": false,
+      "cover": "covers/chasem-dev_sms-android.jpg"
+    },
+    {
       "repo": "FractalEngineer/Medal-Of-Honor-PSX-Recomp",
       "name": "Medal of Honor",
       "platform": "PS1",
@@ -3772,21 +3787,6 @@
       "adult": false,
       "cover": "covers/ext_super-mario-odyssey-2.jpg",
       "added_at": "2026-11-27T19:30:19"
-    },
-    {
-      "repo": "chasem-dev/sms-android",
-      "name": "Super Mario Sunshine",
-      "platform": "GameCube",
-      "target": "Android",
-      "description": "Super Mario Sunshine PC port launcher for ARM64 Android handhelds",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-07T21:55:46",
-      "adult": false,
-      "cover": "covers/chasem-dev_sms-android.jpg"
     },
     {
       "repo": "dyzz/srw64-recomp",
