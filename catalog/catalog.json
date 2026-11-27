@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated": "2026-11-27T20:15:35+00:00",
+  "updated": "2026-11-27T20:19:45+00:00",
   "games": [
     {
       "repo": "CaiusCodes/GoldenEye-007-XBLA-PC-Recomp",
@@ -4411,21 +4411,6 @@
       "cover": "covers/unchiga_yu-gi-oh-forbidden-memories-recompiled.jpg"
     },
     {
-      "repo": "ItsNotRexed/Hookshot",
-      "name": "Zelda Ocarina (Hookshot)",
-      "platform": "Switch",
-      "target": "",
-      "description": "Hookshot Is A Native PC Recompilation Of The Switch 2 Ocarina Of Time Remake",
-      "notes": "",
-      "asset_hint": "",
-      "homepage": "",
-      "cover_title": "",
-      "link": "",
-      "added_at": "2026-11-27T17:13:06",
-      "adult": false,
-      "cover": "covers/itsnotrexed_hookshot.png"
-    },
-    {
       "repo": "snesrev/zelda3",
       "name": "Zelda: A Link to the Past",
       "platform": "SNES",
@@ -4584,19 +4569,19 @@
       "cover": "covers/harbourmasters_shipwright.jpg"
     },
     {
-      "repo": "ext/zelda-ocarina-of-time-hookshot-2",
+      "repo": "ItsNotRexed/Hookshot",
       "name": "Zelda: Ocarina of Time (Hookshot)",
-      "platform": "Switch 2",
-      "target": "Windows, Linux",
-      "description": "",
+      "platform": "Switch",
+      "target": "",
+      "description": "Hookshot Is A Native PC Recompilation Of The Switch 2 Ocarina Of Time Remake",
       "notes": "",
       "asset_hint": "",
       "homepage": "",
       "cover_title": "",
-      "link": "https://git.notrexed.dev/Hookshot/Hookshot",
-      "added_at": "2026-11-17T14:03:08",
+      "link": "",
+      "added_at": "2026-11-27T17:13:06",
       "adult": false,
-      "cover": "covers/ext_zelda-ocarina-of-time-hookshot-2.jpg"
+      "cover": "covers/itsnotrexed_hookshot.png"
     },
     {
       "repo": "ext/zelda-ocarina-of-time-longshot",
